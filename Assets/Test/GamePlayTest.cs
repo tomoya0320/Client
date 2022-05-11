@@ -4,14 +4,10 @@ using BehaviorTree.Battle;
 using UnityEngine;
 
 public class GamePlayTest : MonoBehaviour {
-  public BehaviorGraph BehaviorGraph;
+  public BattleData BattleData;
 
   private void Start() {
-    BehaviorGraph?.Init(BattleManager.Enter(null));
-    BehaviorGraph?.Run();
-  }
+    BattleManager.Enter(BattleData);
 
-  private void OnApplicationQuit() {
-    BehaviorGraph?.BattleManager?.Exit(true);
   }
 }
