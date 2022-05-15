@@ -3,7 +3,7 @@ using XNode;
 
 namespace BehaviorTree.Battle {
   public abstract class ActionNode : BehaviorNode {
-		[Input(connectionType = ConnectionType.Override)]
-		public BehaviorPort In;
+    [Input(connectionType = ConnectionType.Override)]
+    public BehaviorPort In;
   }
 }

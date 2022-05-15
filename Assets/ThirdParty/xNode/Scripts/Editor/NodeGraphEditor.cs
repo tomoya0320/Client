@@ -79,6 +79,9 @@ namespace XNodeEditor {
                 // Add node entry to context menu
                 if (disallowed) menu.AddItem(new GUIContent(path), false, null);
                 else menu.AddItem(new GUIContent(path), false, () => {
+                    if (!CheckAddNode(type)) {
+                      return;
+                    }
                     XNode.Node node = CreateNode(type, pos);
                     NodeEditorWindow.current.AutoConnect(node);
                 });
@@ -89,6 +92,8 @@ namespace XNodeEditor {
             menu.AddItem(new GUIContent("Preferences"), false, () => NodeEditorReflection.OpenPreferences());
             menu.AddCustomContextMenuItems(target);
         }
+
+        protected virtual bool CheckAddNode(Type type) => true;
 
         /// <summary> Returned gradient is used to color noodles </summary>
         /// <param name="output"> The output this noodle comes from. Never null. </param>

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 458069781}
   - component: {fileID: 458069782}
   m_Layer: 0
-  m_Name: GamePlayTest
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &458069782
 MonoBehaviour:
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 458069780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d212461698b7d4499d9d9455442b2fc, type: 3}
+  m_Script: {fileID: 11500000, guid: ff438a923d501334faf9e5921891a234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BehaviorGraph: {fileID: 11400000, guid: 554518a6acaca684d80f57ecce45132b, type: 2}
@@ -258,7 +258,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &963194225
 GameObject:

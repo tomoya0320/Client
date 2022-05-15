@@ -1,11 +1,11 @@
 using Battle;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace BehaviorTree.Battle {
   [CreateNodeMenu("节点/控制/选择")]
   public class Selector : ControllerNode {
-    public override async Task<bool> Run(BattleManager battleManager, Context context) {
+    public override async UniTask<bool> Run(BattleManager battleManager, Context context) {
       var connections = GetOutputPort(nameof(Out)).GetConnections();
       foreach (var connection in connections) {
         BehaviorNode behaviorNode = connection.node as BehaviorNode;

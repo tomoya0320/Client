@@ -1,8 +1,8 @@
 ﻿using Battle;
 using System;
-using System.Threading.Tasks;
 using XNode;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace BehaviorTree.Battle {
   [Serializable]
@@ -17,24 +17,11 @@ namespace BehaviorTree.Battle {
 			behavior = graph as BehaviorGraph;
 		}
 
-    public override void OnCreateConnection(NodePort from, NodePort to) {
-      if (to.node is BehaviorNode behaviorNode) {
-        behaviorNode.Index = from.GetConnectionIndex(to);
-      }
-    }
+    public abstract UniTask<bool> Run(BattleManager battleManager, Context context);
 
-    public override void OnRemoveConnection(NodePort port) {
-      if (port.IsInput) {
-        Index = -1;
-      } else if (port.IsOutput) {
-        foreach (var nodePort in port.GetConnections()) {
-          if (nodePort.node is BehaviorNode behaviorNode) {
-            behaviorNode.Index = port.GetConnectionIndex(nodePort);
-          }
-        }
-      }
+    public void UpdateIndexInEditor() {
+      var inputPort = GetInputPort("In");
+      Index = inputPort?.Connection?.GetConnectionIndex(inputPort) ?? -1;
     }
-
-    public virtual async Task<bool> Run(BattleManager battleManager, Context context) => await Task.FromResult(true);
-	}
+  }
 }

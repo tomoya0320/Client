@@ -7,7 +7,6 @@ using XNodeEditor;
 namespace BehaviorTree.Battle {
   [CustomNodeEditor(typeof(BehaviorNode))]
   public class BehaviorNodeEditor : NodeEditor {
-
     public override void OnHeaderGUI() {
       base.OnHeaderGUI();
 
