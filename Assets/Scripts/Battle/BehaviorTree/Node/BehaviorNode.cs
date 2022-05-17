@@ -6,15 +6,27 @@ using Cysharp.Threading.Tasks;
 
 namespace BehaviorTree.Battle {
   [Serializable]
-	public sealed class BehaviorPort { }
+	public struct BehaviorNodePort { }
 
-	public abstract class BehaviorNode : Node {
+  [Serializable]
+  public struct BehaviorNodeParamKey {
+    public SourceType Type;
+    public string Key;
+  }
+
+  [Serializable]
+  public struct BehaviorNodeParam<T> {
+    public BehaviorNodeParamKey ParamKey;
+    public T Value;
+  }
+
+  public abstract class BehaviorNode : Node {
     [HideInInspector]
     public int Index = -1;
-    protected BehaviorGraph behavior;
+    protected BehaviorGraph Behavior;
 
 		protected override void Init() {
-			behavior = graph as BehaviorGraph;
+			Behavior = graph as BehaviorGraph;
 		}
 
     public abstract UniTask<bool> Run(BattleManager battleManager, Context context);

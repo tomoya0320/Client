@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 namespace Battle {
@@ -9,26 +10,41 @@ namespace Battle {
     Settle,
     Exit,
   }
+
   public class BattleManager {
     private BattleData BattleData;
-    private BattleState BattleState = BattleState.None;
+    private BattleState BattleState;
+    public UnitManager UnitManager { get; private set; }
+    private BuffManager BuffManager;
+    private BehaviorManager BehaviorManager;
+    public Blackboard Blackboard { get; private set; }
+    public ObjectPool ObjectPool { get; private set; }
     public static BattleManager Instance { get; private set; }
 
-    public static void Enter(BattleData battleData) {
+    public static bool Enter(BattleData battleData) {
       if(Instance != null) {
         Debug.LogError("上一场战斗未结束!");
-        return;
+        return false;
       }
 
       // 战斗数据初始化
-      Instance = new BattleManager {
-        BattleData = battleData,
-      };
+      Instance = new BattleManager(battleData);
 
-      Instance.Run().Forget();
+      Instance.Run();
+      return true;
     }
 
-    public async UniTaskVoid Run() {
+    private BattleManager(BattleData battleData) {
+      BattleState = BattleState.None;
+      BattleData = battleData;
+      UnitManager = new UnitManager(this);
+      BuffManager = new BuffManager(this);
+      BehaviorManager = new BehaviorManager(this);
+      Blackboard = new Blackboard();
+      ObjectPool = new ObjectPool();
+    }
+
+    public async void Run() {
       do {
         switch (BattleState) {
           case BattleState.None:
@@ -39,9 +55,9 @@ namespace Battle {
             BattleState = BattleState.Running;
             break;
           case BattleState.Running:
-            await BeforeUpdate();
-            await Update();
-            await LateUpdate();
+            await BeforeTurn();
+            await OnTurn();
+            await LateTurn();
             break;
           case BattleState.Settle:
             await Settle();
@@ -72,25 +88,33 @@ namespace Battle {
       // Test
       await UniTask.Delay(1000);
       Instance = null;
+      BattleData = null;
+      UnitManager = null;
+      BuffManager = null;
+      BehaviorManager = null;
+      Blackboard = null;
+      ObjectPool = null;
+
+      GC.Collect();
       Debug.Log("退出战斗");
     }
 
-    private async UniTask BeforeUpdate() {
+    private async UniTask BeforeTurn() {
       // Test
       await UniTask.Delay(1000);
-      Debug.Log("BeforeUpdate");
+      Debug.Log("BeforeTurn");
     }
 
-    private async UniTask Update() {
+    private async UniTask OnTurn() {
       // Test
       await UniTask.Delay(1000);
-      Debug.Log("Update");
+      Debug.Log("OnTurn");
     }
 
-    private async UniTask LateUpdate() {
+    private async UniTask LateTurn() {
       // Test
       await UniTask.Delay(1000);
-      Debug.Log("LateUpdate");
+      Debug.Log("LateTurn");
     }
   }
 }

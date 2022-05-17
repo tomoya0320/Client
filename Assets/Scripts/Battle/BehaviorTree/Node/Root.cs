@@ -6,7 +6,7 @@ namespace BehaviorTree.Battle {
   [CreateNodeMenu("节点/根节点/默认")]
   public class Root : BehaviorNode {
     [Output(connectionType = ConnectionType.Override)]
-    public BehaviorPort Out;
+    public BehaviorNodePort Out;
 
     public override async UniTask<bool> Run(BattleManager battleManager, Context context) {
       var connection = GetOutputPort(nameof(Out)).Connection;

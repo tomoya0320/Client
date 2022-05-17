@@ -6,8 +6,8 @@ using XNode;
 namespace BehaviorTree.Battle {
 	public abstract class ControllerNode : BehaviorNode {
 		[Input(connectionType = ConnectionType.Override)]
-		public BehaviorPort In;
+		public BehaviorNodePort In;
 		[Output]
-		public BehaviorPort Out;
+		public BehaviorNodePort Out;
   }
 }

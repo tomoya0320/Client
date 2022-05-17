@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-7362722826636955336
+--- !u!114 &-4406011754199303395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd81c5593680cc418ea99c7e5923692, type: 3}
-  m_Name: Damage
+  m_Script: {fileID: 11500000, guid: f4859661fa486da4ebbd3d98196dbd01, type: 3}
+  m_Name: Set Float
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -184, y: 232}
+  position: {x: -216, y: -120}
   ports:
     keys:
     - In
     values:
     - _fieldName: In
-      _node: {fileID: -7362722826636955336}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _node: {fileID: -4406011754199303395}
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 9055105036251962087}
@@ -31,7 +31,14 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Index: 0
-  DamgeValue: 0
+  Source:
+    ParamKey:
+      Type: 0
+      Key: 
+    Value: 4.58
+  TargetValue:
+    Type: 1
+    Key: damage
 --- !u!114 &-4152933803423289052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,7 +52,7 @@ MonoBehaviour:
   m_Name: Parallel
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -184, y: 24}
+  position: {x: -200, y: 216}
   ports:
     keys:
     - In
@@ -53,8 +60,8 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 9055105036251962087}
@@ -65,8 +72,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: -609178027055297194}
@@ -75,7 +82,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  Index: 2
+  Index: 1
 --- !u!114 &-609178027055297194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,15 +96,15 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 120, y: 8}
+  position: {x: 136, y: 232}
   ports:
     keys:
     - In
     values:
     - _fieldName: In
       _node: {fileID: -609178027055297194}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: -4152933803423289052}
@@ -107,7 +114,14 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Index: 0
-  DamgeValue: 1
+  DamageValue:
+    ParamKey:
+      Type: 1
+      Key: damage
+    Value: 0
+  TargetUnit:
+    Type: 1
+    Key: enemy
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,9 +138,8 @@ MonoBehaviour:
   - {fileID: 9055105036251962087}
   - {fileID: -4152933803423289052}
   - {fileID: -609178027055297194}
-  - {fileID: -7362722826636955336}
   - {fileID: 979383404904150242}
-  - {fileID: 2537422549522126439}
+  - {fileID: -4406011754199303395}
   BehaviorId: "\u6D4B\u8BD5\u7528\u884C\u4E3A\u6811"
 --- !u!114 &979383404904150242
 MonoBehaviour:
@@ -141,15 +154,15 @@ MonoBehaviour:
   m_Name: Root
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -840, y: 152}
+  position: {x: -840, y: 136}
   ports:
     keys:
     - Out
     values:
     - _fieldName: Out
       _node: {fileID: 979383404904150242}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: 9055105036251962087}
@@ -159,38 +172,6 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Index: -1
---- !u!114 &2537422549522126439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd81c5593680cc418ea99c7e5923692, type: 3}
-  m_Name: Damage
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -216, y: 408}
-  ports:
-    keys:
-    - In
-    values:
-    - _fieldName: In
-      _node: {fileID: 2537422549522126439}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Out
-        node: {fileID: 9055105036251962087}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  Index: 1
-  DamgeValue: 0
 --- !u!114 &9055105036251962087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +185,7 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -552, y: 232}
+  position: {x: -568, y: 136}
   ports:
     keys:
     - In
@@ -212,8 +193,8 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 979383404904150242}
@@ -224,14 +205,11 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorPort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
-        node: {fileID: -7362722826636955336}
-        reroutePoints: []
-      - fieldName: In
-        node: {fileID: 2537422549522126439}
+        node: {fileID: -4406011754199303395}
         reroutePoints: []
       - fieldName: In
         node: {fileID: -4152933803423289052}
