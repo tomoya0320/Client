@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Set Float
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -216, y: -120}
+  position: {x: -88, y: -152}
   ports:
     keys:
     - In
     values:
     - _fieldName: In
       _node: {fileID: -4406011754199303395}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 9055105036251962087}
@@ -32,11 +32,12 @@ MonoBehaviour:
       _dynamic: 0
   Index: 0
   Source:
+    IsDict: 0
     ParamKey:
       Type: 0
       Key: 
     Value: 4.58
-  TargetValue:
+  TargetKey:
     Type: 1
     Key: damage
 --- !u!114 &-4152933803423289052
@@ -60,8 +61,8 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 9055105036251962087}
@@ -72,8 +73,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: -609178027055297194}
@@ -103,8 +104,8 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -609178027055297194}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: -4152933803423289052}
@@ -115,6 +116,7 @@ MonoBehaviour:
       _dynamic: 0
   Index: 0
   DamageValue:
+    IsDict: 1
     ParamKey:
       Type: 1
       Key: damage
@@ -161,8 +163,8 @@ MonoBehaviour:
     values:
     - _fieldName: Out
       _node: {fileID: 979383404904150242}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: 9055105036251962087}
@@ -193,8 +195,8 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
         node: {fileID: 979383404904150242}
@@ -205,8 +207,8 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.BehaviorNodePort, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: -4406011754199303395}

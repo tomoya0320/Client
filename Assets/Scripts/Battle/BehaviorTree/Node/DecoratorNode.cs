@@ -4,8 +4,8 @@ using UnityEngine;
 namespace BehaviorTree.Battle {
 	public abstract class DecoratorNode : BehaviorNode {
     [Input(connectionType = ConnectionType.Override)]
-    public BehaviorNodePort In;
+    public NodePort In;
     [Output(connectionType = ConnectionType.Override)]
-    public BehaviorNodePort Out;
+    public NodePort Out;
   }
 }

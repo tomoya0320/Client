@@ -3,21 +3,25 @@ using System;
 using XNode;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 namespace BehaviorTree.Battle {
   [Serializable]
-	public struct BehaviorNodePort { }
+	public struct NodePort { }
 
   [Serializable]
-  public struct BehaviorNodeParamKey {
+  public struct NodeParamKey {
     public SourceType Type;
     public string Key;
   }
 
   [Serializable]
-  public struct BehaviorNodeParam<T> {
-    public BehaviorNodeParamKey ParamKey;
-    public T Value;
+  public struct NodeParam {
+    public bool IsDict;
+    [ShowIf("IsDict"), HideLabel]
+    public NodeParamKey ParamKey;
+    [HideIf("IsDict")]
+    public float Value;
   }
 
   public abstract class BehaviorNode : Node {

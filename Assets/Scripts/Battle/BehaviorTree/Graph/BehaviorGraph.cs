@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 
 namespace BehaviorTree.Battle {
   public enum SourceType {
-    None,
     Behavior,
     Unit,
     Player,
@@ -57,39 +56,23 @@ namespace BehaviorTree.Battle {
       return 0f;
     }
 
-    public int GetInt(BehaviorNodeParam<int> nodeParam) {
-      if(nodeParam.ParamKey.Type == SourceType.None || string.IsNullOrEmpty(nodeParam.ParamKey.Key)) {
-        return nodeParam.Value;
-      }
-      return (int)GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key);
+    public int GetInt(NodeParam nodeParam) => (int)GetFloat(nodeParam);
+
+
+    public void SetInt(NodeParamKey nodeParamKey, int i) => SetFloat(nodeParamKey, i);
+
+    public float GetFloat(NodeParam nodeParam) {
+      return nodeParam.IsDict ? GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key) : nodeParam.Value;
     }
 
-    public void SetInt(BehaviorNodeParamKey nodeParamKey, int i) => SetFloat(nodeParamKey, i);
-
-    public float GetFloat(BehaviorNodeParam<float> nodeParam) {
-      if (nodeParam.ParamKey.Type == SourceType.None || string.IsNullOrEmpty(nodeParam.ParamKey.Key)) {
-        return nodeParam.Value;
-      }
-      return GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key);
-    }
-
-    public void SetFloat(BehaviorNodeParamKey nodeParamKey, float f) {
-      if (nodeParamKey.Type == SourceType.None || string.IsNullOrEmpty(nodeParamKey.Key)) {
-        Debug.LogError($"BehaviorGraph.SetFloat error, nodeParam is illegal!");
-        return;
-      }
+    public void SetFloat(NodeParamKey nodeParamKey, float f) {
       Blackboard blackboard = GetBlackboard(nodeParamKey.Type);
       if (blackboard != null) {
         blackboard[nodeParamKey.Key] = f;
       }
     }
 
-    public Unit GetUnit(BehaviorNodeParamKey nodeParam) {
-      if (nodeParam.Type == SourceType.None || string.IsNullOrEmpty(nodeParam.Key)) {
-        Debug.LogError($"BehaviorGraph.GetUnit error, nodeParam is illegal!");
-        return null;
-      }
-
+    public Unit GetUnit(NodeParamKey nodeParam) {
       Blackboard blackboard = GetBlackboard(nodeParam.Type);
 
       if (blackboard == null) {
