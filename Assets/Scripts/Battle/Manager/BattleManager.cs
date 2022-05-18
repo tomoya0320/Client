@@ -16,6 +16,7 @@ namespace Battle {
     private BattleState BattleState;
     public UnitManager UnitManager { get; private set; }
     public BuffManager BuffManager { get; private set; }
+    public MagicManager MagicManager { get; private set; }
     public BehaviorManager BehaviorManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public ObjectPool ObjectPool { get; private set; }
@@ -30,7 +31,7 @@ namespace Battle {
       // 战斗数据初始化
       Instance = new BattleManager(battleData);
 
-      Instance.Run();
+      Instance.Update();
       return true;
     }
 
@@ -39,12 +40,13 @@ namespace Battle {
       BattleData = battleData;
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
+      MagicManager = new MagicManager(this);
       BehaviorManager = new BehaviorManager(this);
       Blackboard = new Blackboard();
       ObjectPool = new ObjectPool();
     }
 
-    public async void Run() {
+    public async void Update() {
       do {
         switch (BattleState) {
           case BattleState.None:
@@ -55,9 +57,7 @@ namespace Battle {
             BattleState = BattleState.Running;
             break;
           case BattleState.Running:
-            await BeforeTurn();
-            await OnTurn();
-            await LateTurn();
+            await Run();
             break;
           case BattleState.Settle:
             await Settle();
@@ -91,6 +91,8 @@ namespace Battle {
       BattleData = null;
       UnitManager = null;
       BuffManager = null;
+      MagicManager = null;
+      BehaviorManager.CleanUp();
       BehaviorManager = null;
       Blackboard = null;
       ObjectPool = null;
@@ -99,22 +101,16 @@ namespace Battle {
       Debug.Log("退出战斗");
     }
 
-    private async UniTask BeforeTurn() {
-      // Test
-      await UniTask.Delay(1000);
-      Debug.Log("BeforeTurn");
-    }
+    private async UniTask Run() {
+      // 执行回合开始前的行为树
+      await BehaviorManager.Run(BehaviorTime.ON_BEFORE_TURN);
 
-    private async UniTask OnTurn() {
-      // Test
+      // 回合中的逻辑
+      Debug.Log("回合中...");
       await UniTask.Delay(1000);
-      Debug.Log("OnTurn");
-    }
 
-    private async UniTask LateTurn() {
-      // Test
-      await UniTask.Delay(1000);
-      Debug.Log("LateTurn");
+      // 执行回合结束后的行为树
+      await BehaviorManager.Run(BehaviorTime.ON_LATE_TURN);
     }
   }
 }

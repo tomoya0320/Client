@@ -1,4 +1,4 @@
-using BehaviorTree.Battle;
+using Battle.BehaviorFuncs;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -6,7 +6,7 @@ namespace Battle {
   public class Behavior : IPoolObject {
     public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
-    public Unit TargetUnit { get; private set; }
+    public Unit Unit { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
@@ -15,7 +15,7 @@ namespace Battle {
       BattleManager = battleManager;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
-      TargetUnit = targetUnit;
+      Unit = targetUnit;
       BehaviorGraph = behaviorGraph;
       Blackboard = BattleManager.ObjectPool.Get<Blackboard>();
     }
@@ -29,10 +29,10 @@ namespace Battle {
           blackboard = Blackboard;
           break;
         case DictType.Unit:
-          blackboard = TargetUnit?.Blackboard;
+          blackboard = Unit?.Blackboard;
           break;
         case DictType.Player:
-          blackboard = TargetUnit?.Player?.Blackboard;
+          blackboard = Unit?.Player?.Blackboard;
           break;
         case DictType.Battle:
           blackboard = BattleManager.Blackboard;
@@ -95,7 +95,7 @@ namespace Battle {
       Blackboard = null;
       BattleManager = null;
       SourceUnit = null;
-      TargetUnit = null;
+      Unit = null;
       BehaviorGraph = null;
     }
   }

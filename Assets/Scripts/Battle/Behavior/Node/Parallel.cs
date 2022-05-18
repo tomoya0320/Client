@@ -1,8 +1,7 @@
-using Battle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace BehaviorTree.Battle {
+namespace Battle.BehaviorFuncs {
   [CreateNodeMenu("节点/控制/平行")]
   public class Parallel : ControllerNode {
     public override async UniTask<bool> Run(Behavior behavior, Context context) {

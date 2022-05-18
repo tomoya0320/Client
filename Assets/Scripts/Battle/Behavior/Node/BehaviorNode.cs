@@ -1,11 +1,10 @@
-using Battle;
 using System;
 using XNode;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
-namespace BehaviorTree.Battle {
+namespace Battle.BehaviorFuncs {
   [Serializable]
 	public struct NodePort { }
 

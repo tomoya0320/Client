@@ -1,13 +1,16 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Battle {
+namespace Battle.MagicFuncs {
   public struct MagicArgs {
     public bool IsEnd;
     public Unit Source;
     public Unit Target;
   }
 
-  public abstract class MagicAction : ScriptableObject {
+  public abstract class MagicFuncBase : ScriptableObject {
+    [ReadOnly]
+    public string MagicId;
     public abstract bool IgnoreOnEnd { get; }
 
     public abstract void Run(BattleManager battleManager, Context context, MagicArgs args);

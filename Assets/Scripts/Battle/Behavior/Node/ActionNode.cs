@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using XNode;
 
-namespace BehaviorTree.Battle {
+namespace Battle.BehaviorFuncs {
   public abstract class ActionNode : BehaviorNode {
     [Input(connectionType = ConnectionType.Override)]
     public NodePort In;

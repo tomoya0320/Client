@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace Battle {
   public abstract class Context : IPoolObject {
     public abstract void Release();
   }
 
-  public class BuffContext : Context {
-    public int BuffRuntimeId;
-    public int BehaviorRuntimeId;
+  public class BehaviorContext : Context {
+    public Behavior Behavior;
 
     public override void Release() {
-      BuffRuntimeId = 0;
-      BehaviorRuntimeId = 0;
+      Behavior = null;
+    }
+  }
+
+  public class BuffContext : Context {
+    public Buff Buff;
+    public Behavior Behavior;
+
+    public override void Release() {
+      Buff = null;
+      Behavior = null;
     }
   }
 }

@@ -1,8 +1,9 @@
+using Battle.BehaviorFuncs;
 using System;
 using UnityEditor;
 using XNodeEditor;
 
-namespace BehaviorTree.Battle {
+namespace Battle {
   [CustomNodeGraphEditor(typeof(BehaviorGraph))]
   public class BehaviorGraphEditor : NodeGraphEditor {
     public override void OnGUI() {
@@ -14,7 +15,7 @@ namespace BehaviorTree.Battle {
     /// In this example we are sorting out all node types that are not in the XNode.Examples namespace.
     /// </summary>
     public override string GetNodeMenuName(Type type) {
-      if (type.Namespace == "BehaviorTree.Battle") {
+      if (type.Namespace.StartsWith("Battle")) {
         return base.GetNodeMenuName(type);
       } else return null;
     }
@@ -23,7 +24,7 @@ namespace BehaviorTree.Battle {
       if (typeof(Root).IsAssignableFrom(type)) {
         var root = target.nodes.Find(node => node is Root);
         if (root) {
-          EditorUtility.DisplayDialog("提示", $"已添加根节点{root.GetType().Name},请勿重复添加!", "确定");
+          EditorUtility.DisplayDialog("鎻愮ず", $"宸叉坊鍔犳牴鑺傜偣{root.GetType().Name},璇峰嬁閲嶅娣诲姞!", "纭畾");
           return false;
         }
       }

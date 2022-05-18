@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Set Float
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -136, y: -104}
+  position: {x: -152, y: -168}
   ports:
     keys:
     - In
     values:
     - _fieldName: In
       _node: {fileID: -4406011754199303395}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: Parallel
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -200, y: 216}
+  position: {x: -184, y: 280}
   ports:
     keys:
     - In
@@ -61,7 +61,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -73,17 +73,95 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: -609178027055297194}
         reroutePoints: []
+      - fieldName: In
+        node: {fileID: -3325480824349868527}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+  Index: 2
+--- !u!114 &-3325480824349868527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82d4d7562e3efa4497740e6a58e74f8, type: 3}
+  m_Name: Do Magic
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 200, y: 264}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: -3325480824349868527}
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -4152933803423289052}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
   Index: 1
+  MagicId: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD5"
+  TargetUnit:
+    Type: 0
+    Key: enemy
+--- !u!114 &-2804531047577945544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4859661fa486da4ebbd3d98196dbd01, type: 3}
+  m_Name: Set Float
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -184, y: 40}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: -2804531047577945544}
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: 9055105036251962087}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  Index: 1
+  Source:
+    IsDict: 0
+    ParamKey:
+      Type: 0
+      Key: 
+    Value: 7.25
+  TargetKey:
+    Type: 0
+    Key: magic_damage
 --- !u!114 &-609178027055297194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,14 +175,14 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 152, y: 232}
+  position: {x: 200, y: -24}
   ports:
     keys:
     - In
     values:
     - _fieldName: In
       _node: {fileID: -609178027055297194}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -142,6 +220,8 @@ MonoBehaviour:
   - {fileID: -609178027055297194}
   - {fileID: 979383404904150242}
   - {fileID: -4406011754199303395}
+  - {fileID: -3325480824349868527}
+  - {fileID: -2804531047577945544}
   BehaviorId: "\u6D4B\u8BD5\u7528\u884C\u4E3A\u6811"
   BehaviorTime: 0
 --- !u!114 &979383404904150242
@@ -164,7 +244,7 @@ MonoBehaviour:
     values:
     - _fieldName: Out
       _node: {fileID: 979383404904150242}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
@@ -188,7 +268,7 @@ MonoBehaviour:
   m_Name: Sequence
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -568, y: 136}
+  position: {x: -552, y: 136}
   ports:
     keys:
     - In
@@ -196,7 +276,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -208,11 +288,14 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: BehaviorTree.Battle.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
         node: {fileID: -4406011754199303395}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: -2804531047577945544}
         reroutePoints: []
       - fieldName: In
         node: {fileID: -4152933803423289052}

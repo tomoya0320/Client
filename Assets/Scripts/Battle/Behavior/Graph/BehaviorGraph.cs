@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using XNode;
-using Battle;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
+using Battle.BehaviorFuncs;
 
-namespace BehaviorTree.Battle {
+namespace Battle {
   public enum DictType {
     [InspectorName("行为树")]
     Behavior,

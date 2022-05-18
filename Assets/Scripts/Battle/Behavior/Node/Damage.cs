@@ -1,9 +1,8 @@
-﻿using Battle;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace BehaviorTree.Battle {
+namespace Battle.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/伤害")]
   public class Damage : ActionNode {
     [LabelText("攻击力")]

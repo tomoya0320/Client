@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using XNodeEditor;
 
-namespace BehaviorTree.Battle {
+namespace Battle.BehaviorFuncs {
   [CustomNodeEditor(typeof(BehaviorNode))]
   public class BehaviorNodeEditor : NodeEditor {
     public override void OnHeaderGUI() {
