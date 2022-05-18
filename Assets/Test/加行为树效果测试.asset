@@ -12,8 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6422cbc394c748e49ab7853f40f209a5, type: 3}
   m_Name: "\u52A0\u884C\u4E3A\u6811\u6548\u679C\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
-  BehaviorGraphRef:
-    m_AssetGUID: 554518a6acaca684d80f57ecce45132b
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_EditorAssetChanged: 0
+  BehaviorGraph: {fileID: 11400000, guid: 554518a6acaca684d80f57ecce45132b, type: 2}
