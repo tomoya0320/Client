@@ -16,6 +16,7 @@ namespace BehaviorTree.Battle {
   public class BehaviorGraph : NodeGraph {
     [ReadOnly]
     public string BehaviorId;
+    public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
     public Unit TargetUnit { get; private set; }
     public BattleManager BattleManager { get; private set; }
@@ -88,8 +89,9 @@ namespace BehaviorTree.Battle {
       return null;
     }
 
-    public void Init(BattleManager battleManager, Unit sourceUnit, Unit targetUnit) {
+    public void Init(BattleManager battleManager, int runtimeId, Unit sourceUnit, Unit targetUnit) {
       BattleManager = battleManager;
+      RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       TargetUnit = targetUnit;
       Blackboard = BattleManager.ObjectPool.Get<Blackboard>();

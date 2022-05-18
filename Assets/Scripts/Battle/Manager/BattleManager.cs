@@ -15,8 +15,8 @@ namespace Battle {
     private BattleData BattleData;
     private BattleState BattleState;
     public UnitManager UnitManager { get; private set; }
-    private BuffManager BuffManager;
-    private BehaviorManager BehaviorManager;
+    public BuffManager BuffManager { get; private set; }
+    public BehaviorManager BehaviorManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public ObjectPool ObjectPool { get; private set; }
     public static BattleManager Instance { get; private set; }
