@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Battle {
@@ -8,7 +7,7 @@ namespace Battle {
     public Unit Target;
   }
 
-  public abstract class EffectAction : ScriptableObject {
+  public abstract class MagicAction : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
     public abstract void Run(BattleManager battleManager, Context context, EffectArgs args);

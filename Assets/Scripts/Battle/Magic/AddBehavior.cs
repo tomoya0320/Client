@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Battle {
   [CreateAssetMenu(menuName = "效果/加行为树")]
-  public class AddBehavior : EffectAction {
+  public class AddBehavior : MagicAction {
     public override bool IgnoreOnEnd => false;
     public AssetReferenceT<BehaviorGraph> BehaviorGraphRef;
 
