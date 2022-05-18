@@ -33,7 +33,7 @@ namespace BehaviorTree.Battle {
 			Behavior = graph as BehaviorGraph;
 		}
 
-    public abstract UniTask<bool> Run(BattleManager battleManager, Context context);
+    public abstract UniTask<bool> Run(Behavior behavior, Context context);
 
     public void UpdateIndexInEditor() {
       var inputPort = GetInputPort("In");

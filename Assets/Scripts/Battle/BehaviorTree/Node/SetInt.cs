@@ -7,8 +7,8 @@ namespace BehaviorTree.Battle {
     public NodeParam Source;
     public NodeParamKey TargetKey;
 
-    public override UniTask<bool> Run(BattleManager battleManager, Context context) {
-      Behavior.SetInt(TargetKey, Behavior.GetInt(Source));
+    public override UniTask<bool> Run(Behavior behavior, Context context) {
+      behavior.SetInt(TargetKey, behavior.GetInt(Source));
       return UniTask.FromResult(true);
     }
   }

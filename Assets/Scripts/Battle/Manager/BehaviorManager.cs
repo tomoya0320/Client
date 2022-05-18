@@ -9,7 +9,7 @@ namespace Battle {
   public class BehaviorManager : BattleBase {
     private int IncId;
     private List<int> TempRuntimeIdList = new List<int>();
-    private Dictionary<int, BehaviorGraph> Behaviors = new Dictionary<int, BehaviorGraph>();
+    private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
     private Dictionary<BehaviorTime, List<int>> BehaviorTimes = new Dictionary<BehaviorTime, List<int>>();
 
     public BehaviorManager(BattleManager battleManager) : base(battleManager) {
@@ -36,10 +36,10 @@ namespace Battle {
       }
 
       int runtimeId = ++IncId;
-      BehaviorGraph runtimeBehavior = behaviorGraph.Copy() as BehaviorGraph;
-      runtimeBehavior.Init(BattleManager, runtimeId, source, target);
-      Behaviors.Add(runtimeId, runtimeBehavior);
-      BehaviorTimes[runtimeBehavior.BehaviorTime].Add(runtimeId);
+      Behavior behavior = BattleManager.ObjectPool.Get<Behavior>();
+      behavior.Init(BattleManager, runtimeId, source, target, behaviorGraph);
+      Behaviors.Add(runtimeId, behavior);
+      BehaviorTimes[behaviorGraph.BehaviorTime].Add(runtimeId);
       return runtimeId;
     }
 
@@ -48,16 +48,10 @@ namespace Battle {
         Debug.LogError($"BehaviorManager.RemoveBehavior error, behavior is not exists. runtimeId:{runtimeId}");
         return false;
       }
-
-      return Behaviors.Remove(runtimeId) && BehaviorTimes[behavior.BehaviorTime].Remove(runtimeId);
-    }
-
-    public void Release() {
-      foreach (var behavior in Behaviors.Values) {
-        Object.Destroy(behavior);
-      }
-      Behaviors.Clear();
-      BehaviorTimes.Clear();
+      Behaviors.Remove(runtimeId);
+      BehaviorTimes[behavior.BehaviorGraph.BehaviorTime].Remove(runtimeId);
+      BattleManager.ObjectPool.Release(behavior);
+      return true;
     }
   }
 }

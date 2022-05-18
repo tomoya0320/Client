@@ -7,8 +7,8 @@ namespace BehaviorTree.Battle {
     public NodeParam Source;
     public NodeParamKey TargetKey;
 
-    public override UniTask<bool> Run(BattleManager battleManager, Context context) {
-      Behavior.SetFloat(TargetKey, Behavior.GetFloat(Source));
+    public override UniTask<bool> Run(Behavior behavior, Context context) {
+      behavior.SetFloat(TargetKey, behavior.GetFloat(Source));
       return UniTask.FromResult(true);
     }
   }

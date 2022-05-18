@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BehaviorTree.Battle {
   [CreateNodeMenu("节点/控制/选择")]
   public class Selector : ControllerNode {
-    public override async UniTask<bool> Run(BattleManager battleManager, Context context) {
+    public override async UniTask<bool> Run(Behavior behavior, Context context) {
       var connections = GetOutputPort(nameof(Out)).GetConnections();
       foreach (var connection in connections) {
         BehaviorNode behaviorNode = connection.node as BehaviorNode;
@@ -13,7 +13,7 @@ namespace BehaviorTree.Battle {
           Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
           continue;
         }
-        bool result = await behaviorNode.Run(battleManager, context);
+        bool result = await behaviorNode.Run(behavior, context);
         if (result) {
           return true;
         }

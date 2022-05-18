@@ -8,14 +8,14 @@ namespace BehaviorTree.Battle {
     public NodeParam DamageValue;
     public NodeParamKey TargetUnit;
 
-    public override async UniTask<bool> Run(BattleManager battleManager, Context context) {
+    public override async UniTask<bool> Run(Behavior behavior, Context context) {
       // Test
       await UniTask.Delay(1000);
-      Unit targetUnit = Behavior.GetUnit(TargetUnit);
+      Unit targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
         return false;
       }
-      Debug.Log($"对{targetUnit}造成伤害:{Behavior.GetFloat(DamageValue)}");
+      Debug.Log($"对{targetUnit}造成伤害:{behavior.GetFloat(DamageValue)}");
 
       return true;
     }

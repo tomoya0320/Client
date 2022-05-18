@@ -91,9 +91,7 @@ namespace Battle {
       BattleData = null;
       UnitManager = null;
       BuffManager = null;
-      BehaviorManager.Release();
       BehaviorManager = null;
-      Blackboard.Release();
       Blackboard = null;
       ObjectPool = null;
 
