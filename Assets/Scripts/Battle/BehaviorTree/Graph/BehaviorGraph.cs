@@ -2,9 +2,10 @@
 using XNode;
 using Battle;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 namespace BehaviorTree.Battle {
-  public enum SourceType {
+  public enum DictType {
     Behavior,
     Unit,
     Player,
@@ -13,26 +14,26 @@ namespace BehaviorTree.Battle {
 
   [CreateAssetMenu(menuName = "行为树/战斗")]
   public class BehaviorGraph : NodeGraph {
-    [HideInInspector]
+    [ReadOnly]
     public string BehaviorId;
     public Unit SourceUnit { get; private set; }
     public Unit TargetUnit { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
 
-    private Blackboard GetBlackboard(SourceType type) {
+    private Blackboard GetBlackboard(DictType type) {
       Blackboard blackboard;
       switch (type) {
-        case SourceType.Behavior:
+        case DictType.Behavior:
           blackboard = Blackboard;
           break;
-        case SourceType.Unit:
+        case DictType.Unit:
           blackboard = TargetUnit?.Blackboard;
           break;
-        case SourceType.Player:
+        case DictType.Player:
           blackboard = TargetUnit?.Player?.Blackboard;
           break;
-        case SourceType.Battle:
+        case DictType.Battle:
           blackboard = BattleManager.Blackboard;
           break;
         default:
@@ -45,7 +46,7 @@ namespace BehaviorTree.Battle {
       return blackboard;
     }
 
-    private float GetBlackboardValue(SourceType type, string key) {
+    private float GetBlackboardValue(DictType type, string key) {
       Blackboard blackboard = GetBlackboard(type);
       if (blackboard != null) {
         if (blackboard.TryGetValue(key, out float f)) {

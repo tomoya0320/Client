@@ -11,7 +11,7 @@ namespace BehaviorTree.Battle {
 
   [Serializable]
   public struct NodeParamKey {
-    public SourceType Type;
+    public DictType Type;
     public string Key;
   }
 
