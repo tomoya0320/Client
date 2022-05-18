@@ -1,13 +1,12 @@
 using System;
 using UnityEditor;
-using UnityEngine;
 using XNodeEditor;
 
 namespace BehaviorTree.Battle {
   [CustomNodeGraphEditor(typeof(BehaviorGraph))]
   public class BehaviorGraphEditor : NodeGraphEditor {
-    public override void OnOpen() {
-      window.titleContent = new GUIContent("ÐÐÎªÊ÷±à¼­Æ÷");
+    public override void OnGUI() {
+      window.titleContent.text = (target as BehaviorGraph).BehaviorId;
     }
 
     /// <summary> 
@@ -18,12 +17,6 @@ namespace BehaviorTree.Battle {
       if (type.Namespace == "BehaviorTree.Battle") {
         return base.GetNodeMenuName(type);
       } else return null;
-    }
-
-    public override void OnGUI() {
-      var behaviorGraph = target as BehaviorGraph;
-      GUI.color = Color.green;
-      GUILayout.Label($"Id:{behaviorGraph.BehaviorId}");
     }
 
     protected override bool CheckAddNode(Type type) {

@@ -16,6 +16,7 @@ namespace BehaviorTree.Battle {
   public class BehaviorGraph : NodeGraph {
     [ReadOnly]
     public string BehaviorId;
+    public BehaviorTime BehaviorTime;
     public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
     public Unit TargetUnit { get; private set; }

@@ -38,7 +38,7 @@ MonoBehaviour:
       Key: 
     Value: 4.58
   TargetKey:
-    Type: 1
+    Type: 0
     Key: damage
 --- !u!114 &-4152933803423289052
 MonoBehaviour:
@@ -118,11 +118,11 @@ MonoBehaviour:
   DamageValue:
     IsDict: 1
     ParamKey:
-      Type: 1
+      Type: 0
       Key: damage
     Value: 0
   TargetUnit:
-    Type: 1
+    Type: 0
     Key: enemy
 --- !u!114 &11400000
 MonoBehaviour:
@@ -143,6 +143,7 @@ MonoBehaviour:
   - {fileID: 979383404904150242}
   - {fileID: -4406011754199303395}
   BehaviorId: "\u6D4B\u8BD5\u7528\u884C\u4E3A\u6811"
+  BehaviorTime: 0
 --- !u!114 &979383404904150242
 MonoBehaviour:
   m_ObjectHideFlags: 0
