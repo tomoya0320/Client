@@ -1,16 +1,14 @@
 using BehaviorTree.Battle;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Battle {
-  public enum BehaviorTime {
-    ON_BEFORE_TURN,
-    ON_LATE_TURN,
-  }
-
   public class BehaviorManager : BattleBase {
     private int IncId;
+    private List<int> TempRuntimeIdList = new List<int>();
     private Dictionary<int, BehaviorGraph> Behaviors = new Dictionary<int, BehaviorGraph>();
     private Dictionary<BehaviorTime, List<int>> BehaviorTimes = new Dictionary<BehaviorTime, List<int>>();
 
@@ -18,6 +16,17 @@ namespace Battle {
       foreach (BehaviorTime behaviorTime in Enum.GetValues(typeof(BehaviorTime))) {
         BehaviorTimes.Add(behaviorTime, new List<int>());
       }
+    }
+
+    public async UniTask Run(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
+      TempRuntimeIdList.AddRange(BehaviorTimes[behaviorTime]);
+      foreach (int runtimeId in TempRuntimeIdList) {
+        var behavior = Behaviors[runtimeId];
+        if (unit == null || unit == behavior.TargetUnit) {
+          await behavior.Run(context);
+        }
+      }
+      TempRuntimeIdList.Clear();
     }
 
     public int AddBehavior(BehaviorGraph behaviorGraph, Unit source, Unit target) {
@@ -41,6 +50,14 @@ namespace Battle {
       }
 
       return Behaviors.Remove(runtimeId) && BehaviorTimes[behavior.BehaviorTime].Remove(runtimeId);
+    }
+
+    public void Release() {
+      foreach (var behavior in Behaviors.Values) {
+        Object.Destroy(behavior);
+      }
+      Behaviors.Clear();
+      BehaviorTimes.Clear();
     }
   }
 }
