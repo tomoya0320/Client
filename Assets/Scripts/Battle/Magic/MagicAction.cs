@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Battle {
-  public struct EffectArgs {
+  public struct MagicArgs {
     public bool IsEnd;
     public Unit Source;
     public Unit Target;
@@ -10,6 +10,6 @@ namespace Battle {
   public abstract class MagicAction : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
-    public abstract void Run(BattleManager battleManager, Context context, EffectArgs args);
+    public abstract void Run(BattleManager battleManager, Context context, MagicArgs args);
   }
 }

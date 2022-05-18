@@ -7,7 +7,7 @@ namespace Battle {
     public override bool IgnoreOnEnd => false;
     public BehaviorGraph BehaviorGraph;
 
-    public override void Run(BattleManager battleManager, Context context, EffectArgs args) {
+    public override void Run(BattleManager battleManager, Context context, MagicArgs args) {
       if(args.IsEnd) {
         if(context is BuffContext buffContext && buffContext.BehaviorRuntimeId > 0) {
           battleManager.BehaviorManager.RemoveBehavior(buffContext.BehaviorRuntimeId);
