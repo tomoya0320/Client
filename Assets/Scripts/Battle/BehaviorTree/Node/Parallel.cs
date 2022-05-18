@@ -3,14 +3,14 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace BehaviorTree.Battle {
-  [CreateNodeMenu("节点/控制/平行")]
+  [CreateNodeMenu("鑺傜偣/鎺у埗/骞宠")]
   public class Parallel : ControllerNode {
     public override async UniTask<bool> Run(Behavior behavior, Context context) {
       var connections = GetOutputPort(nameof(Out)).GetConnections();
       foreach (var connection in connections) {
         BehaviorNode behaviorNode = connection.node as BehaviorNode;
         if (behaviorNode == null) {
-          Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
+          Debug.LogError($"鑺傜偣鍩虹被涓嶅尮閰嶏紒绫诲瀷:{connection.node.GetType().Name}");
           continue;
         }
         await behaviorNode.Run(behavior, context);

@@ -1,4 +1,4 @@
-﻿using Battle;
+using Battle;
 using UnityEngine;
 
 namespace BehaviorTree.Battle {

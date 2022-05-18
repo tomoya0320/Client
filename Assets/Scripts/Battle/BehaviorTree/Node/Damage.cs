@@ -1,11 +1,14 @@
 ﻿using Battle;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace BehaviorTree.Battle {
   [CreateNodeMenu("节点/行为/伤害")]
   public class Damage : ActionNode {
+    [LabelText("攻击力")]
     public NodeParam DamageValue;
+    [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
     public override async UniTask<bool> Run(Behavior behavior, Context context) {

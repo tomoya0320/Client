@@ -1,4 +1,4 @@
-﻿using Battle;
+using Battle;
 using System;
 using XNode;
 using UnityEngine;

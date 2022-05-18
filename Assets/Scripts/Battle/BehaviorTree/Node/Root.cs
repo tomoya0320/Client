@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace BehaviorTree.Battle {
-  [CreateNodeMenu("½Úµã/¸ù½Úµã/Ä¬ÈÏ")]
+  [CreateNodeMenu("èŠ‚ç‚¹/æ ¹èŠ‚ç‚¹/é»˜è®¤")]
   public class Root : BehaviorNode {
     [Output(connectionType = ConnectionType.Override)]
     public NodePort Out;
@@ -12,7 +12,7 @@ namespace BehaviorTree.Battle {
       var connection = GetOutputPort(nameof(Out)).Connection;
       BehaviorNode behaviorNode = connection.node as BehaviorNode;
       if (behaviorNode == null) {
-        Debug.LogError($"½Úµã»ùÀà²»Æ¥Åä£¡ÀàĞÍ:{connection.node.GetType().Name}");
+        Debug.LogError($"èŠ‚ç‚¹åŸºç±»ä¸åŒ¹é…ï¼ç±»å‹:{connection.node.GetType().Name}");
         return false;
       }
       bool result = await behaviorNode.Run(behavior, context);

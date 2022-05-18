@@ -1,10 +1,13 @@
 using Battle;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 
 namespace BehaviorTree.Battle {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/ÉèÖÃInt")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/è®¾ç½®Int")]
   public class SetInt : ActionNode {
+    [LabelText("æ•°æ®æº")]
     public NodeParam Source;
+    [LabelText("å­˜å€¼")]
     public NodeParamKey TargetKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {
