@@ -9,7 +9,9 @@ namespace Battle.MagicFuncs {
     public override void Run(BattleManager battleManager, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.Behavior != null) {
-          battleManager.BehaviorManager.RemoveBehavior(buffContext.Behavior.RuntimeId);
+          if (battleManager.BehaviorManager.RemoveBehavior(buffContext.Behavior.RuntimeId)) {
+            buffContext.Behavior = null;
+          }
         }
       } else {
         var behavior = battleManager.BehaviorManager.AddBehavior(BehaviorId, args.Source, args.Target);

@@ -9,15 +9,13 @@ namespace Battle.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public override async UniTask<bool> Run(Behavior behavior, Context context) {
-      // Test
-      await UniTask.Delay(1000);
+    public override UniTask<bool> Run(Behavior behavior, Context context) {
       Unit targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
-        return false;
+        return UniTask.FromResult(false);
       }
       float damageValue = behavior.GetFloat(DamageValue);
-      return behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
+      return UniTask.FromResult(behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue));
     }
   }
 }

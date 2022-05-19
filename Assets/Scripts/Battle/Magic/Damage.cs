@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Battle.MagicFuncs {
   [CreateAssetMenu(menuName = "Ð§¹û/ÉËº¦")]
   public class Damage : MagicFuncBase {
-    public override bool IgnoreOnEnd => false;
+    public override bool IgnoreOnEnd => true;
     [LabelText("¹¥»÷Á¦")]
     public NodeParam DamageValue;
 
