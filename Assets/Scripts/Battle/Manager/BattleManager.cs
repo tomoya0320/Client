@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Battle {
   public enum BattleState {
     None, // 退出循环的标记
-    Loading,
-    Running,
+    Load,
+    Run,
     Settle,
     Exit,
   }
@@ -50,13 +50,13 @@ namespace Battle {
       do {
         switch (BattleState) {
           case BattleState.None:
-            BattleState = BattleState.Loading;
+            BattleState = BattleState.Load;
             break;
-          case BattleState.Loading:
+          case BattleState.Load:
             await Load();
-            BattleState = BattleState.Running;
+            BattleState = BattleState.Run;
             break;
-          case BattleState.Running:
+          case BattleState.Run:
             await Run();
             break;
           case BattleState.Settle:
@@ -91,6 +91,7 @@ namespace Battle {
       BattleData = null;
       UnitManager = null;
       BuffManager = null;
+      MagicManager.CleanUp();
       MagicManager = null;
       BehaviorManager.CleanUp();
       BehaviorManager = null;

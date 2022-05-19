@@ -38,5 +38,11 @@ namespace Battle {
       magicAction.Run(BattleManager, context, args);
       return true;
     }
+
+    public void CleanUp() {
+      foreach (var magicFunc in MagicFuncs.Values) {
+        Addressables.Release(magicFunc);
+      }
+    }
   }
 }
