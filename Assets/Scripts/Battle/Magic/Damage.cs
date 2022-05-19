@@ -16,8 +16,7 @@ namespace Battle.MagicFuncs {
       } else {
         damageValue = DamageValue.Value;
       }
-      // Test
-      Debug.Log($"‘Ï≥…{damageValue}…À∫¶");
+      battleManager.DamageManager.Damage(args.Source, args.Target, damageValue);
     }
   }
 }

@@ -18,6 +18,7 @@ namespace Battle {
     public BuffManager BuffManager { get; private set; }
     public MagicManager MagicManager { get; private set; }
     public BehaviorManager BehaviorManager { get; private set; }
+    public DamageManager DamageManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public ObjectPool ObjectPool { get; private set; }
     public static BattleManager Instance { get; private set; }
@@ -42,6 +43,7 @@ namespace Battle {
       BuffManager = new BuffManager(this);
       MagicManager = new MagicManager(this);
       BehaviorManager = new BehaviorManager(this);
+      DamageManager = new DamageManager(this);
       Blackboard = new Blackboard();
       ObjectPool = new ObjectPool();
     }
@@ -95,6 +97,7 @@ namespace Battle {
       MagicManager = null;
       BehaviorManager.CleanUp();
       BehaviorManager = null;
+      DamageManager = null;
       Blackboard = null;
       ObjectPool = null;
 

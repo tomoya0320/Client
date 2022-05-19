@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
 using Sirenix.OdinInspector;
 
 namespace Battle.BehaviorFuncs {
@@ -17,9 +16,8 @@ namespace Battle.BehaviorFuncs {
       if (targetUnit == null) {
         return false;
       }
-      Debug.Log($"对{targetUnit}造成伤害:{behavior.GetFloat(DamageValue)}");
-
-      return true;
+      float damageValue = behavior.GetFloat(DamageValue);
+      return behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
     }
   }
 }
