@@ -20,6 +20,11 @@ namespace Battle {
       MagicFuncs.Add(magicId, magicFunc);
     }
 
+    public MagicFuncBase GetMagicFunc(string magicId) {
+      MagicFuncs.TryGetValue(magicId, out MagicFuncBase magicFunc);
+      return magicFunc;
+    }
+
     public bool DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
       if(target == null) {
         Debug.LogError("MagicManager.DoMagic error, target is null");
