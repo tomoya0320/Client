@@ -30,14 +30,14 @@ namespace Battle {
       TempRuntimeIdList.AddRange(BehaviorTimes[behaviorTime]);
       foreach (int runtimeId in TempRuntimeIdList) {
         var behavior = Behaviors[runtimeId];
-        if (unit == null || unit == behavior.Unit) {
+        if (unit == null || behavior.Unit == null || unit == behavior.Unit) {
           await behavior.Run(context);
         }
       }
       TempRuntimeIdList.Clear();
     }
 
-    public Behavior AddBehavior(string behaviorId, Unit source, Unit target) {
+    public Behavior AddBehavior(string behaviorId, Unit source = null, Unit target = null) {
       if (!BehaviorGraphs.TryGetValue(behaviorId, out var behaviorGraph)) {
         Debug.LogError($"BehaviorManager.AddBehavior error, behaviorGraph is not preload. Id:{behaviorId}");
         return null;
@@ -45,7 +45,7 @@ namespace Battle {
 
       int runtimeId = ++IncId;
       Behavior behavior = BattleManager.ObjectPool.Get<Behavior>();
-      behavior.Init(BattleManager, runtimeId, source, target, behaviorGraph);
+      behavior.Init(BattleManager, runtimeId, behaviorGraph, source, target);
       Behaviors.Add(runtimeId, behavior);
       BehaviorTimes[behaviorGraph.BehaviorTime].Add(runtimeId);
       return behavior;

@@ -11,7 +11,7 @@ namespace Battle {
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public void Init(BattleManager battleManager, int runtimeId, Unit sourceUnit, Unit targetUnit, BehaviorGraph behaviorGraph) {
+    public void Init(BattleManager battleManager, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null) {
       BattleManager = battleManager;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
