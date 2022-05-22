@@ -34,12 +34,16 @@ namespace Battle {
         Debug.LogError($"MagicManager.DoMagic error, magicTemplate is not preload. Id:{magicId}");
         return false;
       }
-      MagicArgs args = new MagicArgs {
-        IsEnd = isEnd,
-        Source = source,
-        Target = target,
-      };
-      magicTemplate.Run(BattleManager, context, args);
+
+      if (!magicTemplate.IgnoreOnEnd || !isEnd) {
+        MagicArgs args = new MagicArgs {
+          IsEnd = isEnd,
+          Source = source,
+          Target = target,
+        };
+        magicTemplate.Run(BattleManager, context, args);
+      }
+
       return true;
     }
 

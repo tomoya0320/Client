@@ -7,15 +7,17 @@ namespace Battle {
     public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
     public Unit Unit { get; private set; }
+    public Card Card { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public BehaviorTemplate BehaviorTemplate { get; private set; }
 
-    public void Init(BattleManager battleManager, int runtimeId, BehaviorTemplate behaviorTemplate, Unit sourceUnit = null, Unit targetUnit = null) {
+    public void Init(BattleManager battleManager, int runtimeId, BehaviorTemplate behaviorTemplate, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
       BattleManager = battleManager;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       Unit = targetUnit;
+      Card = card;
       BehaviorTemplate = behaviorTemplate;
       Blackboard = BattleManager.ObjectPool.Get<Blackboard>();
     }
@@ -27,6 +29,9 @@ namespace Battle {
       switch (type) {
         case DictType.Behavior:
           blackboard = Blackboard;
+          break;
+        case DictType.Card:
+          blackboard = Card?.Blackboard;
           break;
         case DictType.Unit:
           blackboard = Unit?.Blackboard;
@@ -96,6 +101,7 @@ namespace Battle {
       BattleManager = null;
       SourceUnit = null;
       Unit = null;
+      Card = null;
       BehaviorTemplate = null;
     }
   }
