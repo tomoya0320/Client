@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using XNode;
 
 namespace Battle.BehaviorFuncs {
-	public abstract class ControllerNode : BehaviorNode {
+  public abstract class ControllerNode : BehaviorNode {
+		[LabelText("Èë")]
 		[Input(connectionType = ConnectionType.Override)]
 		public NodePort In;
+		[LabelText("³ö")]
 		[Output]
 		public NodePort Out;
   }

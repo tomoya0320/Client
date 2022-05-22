@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle.BehaviorFuncs {
   [CreateNodeMenu("节点/根节点/默认")]
   public class Root : BehaviorNode {
+    [LabelText("出")]
     [Output(connectionType = ConnectionType.Override)]
     public NodePort Out;
 
