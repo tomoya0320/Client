@@ -34,7 +34,7 @@ namespace Battle.BehaviorFuncs {
 
     public abstract UniTask<bool> Run(Behavior behavior, Context context);
 
-    public void UpdateIndexInEditor() {
+    public void UpdateIndex() {
       var inputPort = GetInputPort("In");
       Index = inputPort?.Connection?.GetConnectionIndex(inputPort) ?? -1;
     }

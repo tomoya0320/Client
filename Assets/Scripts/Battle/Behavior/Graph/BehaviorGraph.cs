@@ -8,6 +8,8 @@ namespace Battle {
   public enum DictType {
     [InspectorName("行为树")]
     Behavior,
+    [InspectorName("卡牌")]
+    Card,
     [InspectorName("单位")]
     Unit,
     [InspectorName("玩家")]

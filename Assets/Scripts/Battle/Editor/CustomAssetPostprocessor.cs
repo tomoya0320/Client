@@ -11,7 +11,7 @@ public class CustomAssetPostprocessor : AssetPostprocessor {
       if (behaviorGraph) {
         behaviorGraph.BehaviorId = behaviorGraph.name;
         foreach (BehaviorNode node in behaviorGraph.nodes) {
-          node.UpdateIndexInEditor();
+          node.UpdateIndex();
         }
       }
       // magic
