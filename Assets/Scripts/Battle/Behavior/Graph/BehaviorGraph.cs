@@ -23,6 +23,14 @@ namespace Battle {
     ON_BEFORE_TURN,
     [InspectorName("回合结束时")]
     ON_LATE_TURN,
+    [InspectorName("造成伤害前")]
+    ON_BEFORE_DAMAGE,
+    [InspectorName("造成伤害后")]
+    ON_LATE_DAMAGE,
+    [InspectorName("被造成伤害前")]
+    ON_BEFORE_DAMAGED,
+    [InspectorName("被造成伤害后")]
+    ON_LATE_DAMAGED,
   }
 
   [CreateAssetMenu(menuName = "行为树/战斗")]
