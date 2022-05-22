@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Battle {
   public class BuffManager : BattleBase {
-    private Dictionary<string, BuffData> BuffData = new Dictionary<string, BuffData>();
+    private Dictionary<string, BuffTemplate> BuffTemplates = new Dictionary<string, BuffTemplate>();
     private Dictionary<int, BuffComponent> BuffComponents = new Dictionary<int, BuffComponent>();
 
     public BuffManager(BattleManager battleManager) : base(battleManager) {
@@ -13,16 +13,15 @@ namespace Battle {
     }
 
     public async UniTask PreloadBuff(string buffId) {
-      if (BuffData.ContainsKey(buffId)) {
+      if (BuffTemplates.ContainsKey(buffId)) {
         return;
       }
-      BuffData buffData = await Addressables.LoadAssetAsync<BuffData>(buffId);
-      BuffData.Add(buffId, buffData);
+      BuffTemplate buffData = await Addressables.LoadAssetAsync<BuffTemplate>(buffId);
+      BuffTemplates.Add(buffId, buffData);
     }
 
-    public BuffData GetBuffData(string buffId) {
-      BuffData.TryGetValue(buffId, out var buffData);
-      return buffData;
+    public bool TryGetBuffTemplate(string buffId, out BuffTemplate buffTemplate) {
+      return BuffTemplates.TryGetValue(buffId, out buffTemplate);
     }
 
     public void AddComponent(Unit unit) {

@@ -8,7 +8,7 @@ namespace Battle.MagicFuncs {
     public Unit Target;
   }
 
-  public abstract class MagicFuncBase : ScriptableObject {
+  public abstract class MagicTemplate : ScriptableObject {
     [ReadOnly]
     public string MagicId;
     public abstract bool IgnoreOnEnd { get; }

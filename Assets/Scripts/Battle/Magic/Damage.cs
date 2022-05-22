@@ -3,8 +3,8 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle.MagicFuncs {
-  [CreateAssetMenu(menuName = "效果/伤害")]
-  public class Damage : MagicFuncBase {
+  [CreateAssetMenu(menuName = "模板/效果/伤害")]
+  public class Damage : MagicTemplate {
     public override bool IgnoreOnEnd => true;
     [LabelText("攻击力")]
     public NodeParam DamageValue;

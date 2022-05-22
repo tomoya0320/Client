@@ -11,8 +11,13 @@ namespace Battle {
     Exit,
   }
 
+  [Serializable]
+  public class BattleArgs {
+
+  }
+
   public class BattleManager {
-    private BattleData BattleData;
+    private BattleArgs BattleArgs;
     private BattleState BattleState;
     public UnitManager UnitManager { get; private set; }
     public BuffManager BuffManager { get; private set; }
@@ -23,22 +28,22 @@ namespace Battle {
     public ObjectPool ObjectPool { get; private set; }
     public static BattleManager Instance { get; private set; }
 
-    public static bool Enter(BattleData battleData) {
+    public static bool Enter(BattleArgs battleArgs) {
       if(Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
       }
 
       // 战斗数据初始化
-      Instance = new BattleManager(battleData);
+      Instance = new BattleManager(battleArgs);
 
       Instance.Update();
       return true;
     }
 
-    private BattleManager(BattleData battleData) {
+    private BattleManager(BattleArgs battleArgs) {
       BattleState = BattleState.None;
-      BattleData = battleData;
+      BattleArgs = battleArgs;
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
       MagicManager = new MagicManager(this);
@@ -90,7 +95,7 @@ namespace Battle {
       // Test
       await UniTask.Delay(1000);
       Instance = null;
-      BattleData = null;
+      BattleArgs = null;
       UnitManager = null;
       BuffManager = null;
       MagicManager.CleanUp();

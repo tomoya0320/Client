@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace Battle.MagicFuncs {
-  [CreateAssetMenu(menuName = "效果/加行为树")]
-  public class AddBehavior : MagicFuncBase {
+  [CreateAssetMenu(menuName = "模板/效果/加行为树")]
+  public class AddBehavior : MagicTemplate {
     public override bool IgnoreOnEnd => false;
     public string BehaviorId;
 

@@ -6,23 +6,22 @@ using UnityEngine.AddressableAssets;
 
 namespace Battle {
   public class MagicManager : BattleBase {
-    private Dictionary<string, MagicFuncBase> MagicFuncs = new Dictionary<string, MagicFuncBase>();
+    private Dictionary<string, MagicTemplate> MagicTemplates = new Dictionary<string, MagicTemplate>();
 
     public MagicManager(BattleManager battleManager) : base(battleManager) { 
     
     }
 
     public async UniTask PreloadMagic(string magicId) {
-      if (MagicFuncs.ContainsKey(magicId)) {
+      if (MagicTemplates.ContainsKey(magicId)) {
         return;
       }
-      MagicFuncBase magicFunc = await Addressables.LoadAssetAsync<MagicFuncBase>(magicId);
-      MagicFuncs.Add(magicId, magicFunc);
+      MagicTemplate magicTemplate = await Addressables.LoadAssetAsync<MagicTemplate>(magicId);
+      MagicTemplates.Add(magicId, magicTemplate);
     }
 
-    public MagicFuncBase GetMagicFunc(string magicId) {
-      MagicFuncs.TryGetValue(magicId, out MagicFuncBase magicFunc);
-      return magicFunc;
+    public bool TryGetMagicTemplate(string magicId, out MagicTemplate magicTemplate) {
+      return MagicTemplates.TryGetValue(magicId, out magicTemplate);
     }
 
     public bool DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
@@ -31,8 +30,8 @@ namespace Battle {
         return false;
       }
       
-      if(!MagicFuncs.TryGetValue(magicId, out var magicAction)) {
-        Debug.LogError($"MagicManager.DoMagic error, magic is not preload. Id:{magicId}");
+      if(!MagicTemplates.TryGetValue(magicId, out var magicTemplate)) {
+        Debug.LogError($"MagicManager.DoMagic error, magicTemplate is not preload. Id:{magicId}");
         return false;
       }
       MagicArgs args = new MagicArgs {
@@ -40,13 +39,13 @@ namespace Battle {
         Source = source,
         Target = target,
       };
-      magicAction.Run(BattleManager, context, args);
+      magicTemplate.Run(BattleManager, context, args);
       return true;
     }
 
     public void CleanUp() {
-      foreach (var magicFunc in MagicFuncs.Values) {
-        Addressables.Release(magicFunc);
+      foreach (var magicTemplate in MagicTemplates.Values) {
+        Addressables.Release(magicTemplate);
       }
     }
   }

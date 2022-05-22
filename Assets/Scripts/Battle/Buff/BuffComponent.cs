@@ -17,15 +17,14 @@ namespace Battle {
     }
 
     public int Add(Unit source, string buffId) {
-      var buffData = BuffManager.GetBuffData(buffId);
-      if (buffData == null) {
-        Debug.LogError($"BuffData is null. id:{buffId}");
+      if (!BuffManager.TryGetBuffTemplate(buffId, out var buffTemplate)) {
+        Debug.LogError($"BuffTemplate is null. id:{buffId}");
         return 0;
       }
 
       int runtimeId = ++IncId;
       var buff = BattleManager.ObjectPool.Get<Buff>();
-      if(buff.Init(runtimeId, this, buffData, source, Unit)) {
+      if(buff.Init(runtimeId, this, buffTemplate, source, Unit)) {
         Buffs.Add(runtimeId, buff);
       } else {
         BattleManager.ObjectPool.Release(buff);

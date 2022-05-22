@@ -33,8 +33,8 @@ namespace Battle {
     ON_LATE_DAMAGED,
   }
 
-  [CreateAssetMenu(menuName = "行为树/战斗")]
-  public class BehaviorGraph : NodeGraph {
+  [CreateAssetMenu(menuName = "模板/行为树/战斗通用")]
+  public class BehaviorTemplate : NodeGraph {
     [ReadOnly]
     public string BehaviorId;
     public BehaviorTime BehaviorTime;

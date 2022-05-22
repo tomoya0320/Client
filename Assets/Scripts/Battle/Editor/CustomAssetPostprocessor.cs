@@ -7,17 +7,17 @@ public class CustomAssetPostprocessor : AssetPostprocessor {
   public static void OnPostprocessAllAssets(string[] importedAsset, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths) {
     foreach (string assetPath in importedAsset) {
       // behavior
-      var behaviorGraph = AssetDatabase.LoadAssetAtPath<BehaviorGraph>(assetPath);
-      if (behaviorGraph) {
-        behaviorGraph.BehaviorId = behaviorGraph.name;
-        foreach (BehaviorNode node in behaviorGraph.nodes) {
+      var behaviorTemplate = AssetDatabase.LoadAssetAtPath<BehaviorTemplate>(assetPath);
+      if (behaviorTemplate) {
+        behaviorTemplate.BehaviorId = behaviorTemplate.name;
+        foreach (BehaviorNode node in behaviorTemplate.nodes) {
           node.UpdateIndex();
         }
       }
       // magic
-      var magicAction = AssetDatabase.LoadAssetAtPath<MagicFuncBase>(assetPath);
-      if (magicAction) {
-        magicAction.MagicId = magicAction.name;
+      var magicTemplate = AssetDatabase.LoadAssetAtPath<MagicTemplate>(assetPath);
+      if (magicTemplate) {
+        magicTemplate.MagicId = magicTemplate.name;
       }
     }
   }
