@@ -10,19 +10,19 @@ namespace Battle {
     public Card Card { get; private set; }
     public BattleManager BattleManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
-    public BehaviorTemplate BehaviorTemplate { get; private set; }
+    public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public void Init(BattleManager battleManager, int runtimeId, BehaviorTemplate behaviorTemplate, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
+    public void Init(BattleManager battleManager, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
       BattleManager = battleManager;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       Unit = targetUnit;
       Card = card;
-      BehaviorTemplate = behaviorTemplate;
+      BehaviorGraph = behaviorGraph;
       Blackboard = BattleManager.ObjectPool.Get<Blackboard>();
     }
 
-    public async UniTask Run(Context context = null) => await BehaviorTemplate.Run(this, context);
+    public async UniTask Run(Context context = null) => await BehaviorGraph.Run(this, context);
 
     private Blackboard GetBlackboard(DictType type) {
       Blackboard blackboard;
@@ -102,7 +102,7 @@ namespace Battle {
       SourceUnit = null;
       Unit = null;
       Card = null;
-      BehaviorTemplate = null;
+      BehaviorGraph = null;
     }
   }
 }

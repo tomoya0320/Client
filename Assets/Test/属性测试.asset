@@ -73,13 +73,13 @@ MonoBehaviour:
       Data: 0
     - Name: m_InTangent
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: m_OutTangent
       Entry: 4
-      Data: 1
+      Data: 0
     - Name: m_TangentMode
       Entry: 3
-      Data: 34
+      Data: 0
     - Name: m_WeightedMode
       Entry: 3
       Data: 0
@@ -106,13 +106,13 @@ MonoBehaviour:
       Data: 1
     - Name: m_InTangent
       Entry: 4
-      Data: 1
+      Data: 2
     - Name: m_OutTangent
       Entry: 4
-      Data: 1
+      Data: 2
     - Name: m_TangentMode
       Entry: 3
-      Data: 34
+      Data: 0
     - Name: m_WeightedMode
       Entry: 3
       Data: 0
@@ -158,4 +158,3 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  AttribId: "\u5C5E\u6027\u6D4B\u8BD5"

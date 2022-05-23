@@ -4,10 +4,10 @@ using UnityEditor;
 using XNodeEditor;
 
 namespace Battle {
-  [CustomNodeGraphEditor(typeof(BehaviorTemplate))]
-  public class BehaviorTemplateEditor : NodeGraphEditor {
+  [CustomNodeGraphEditor(typeof(BehaviorGraph))]
+  public class BehaviorGraphEditor : NodeGraphEditor {
     public override void OnGUI() {
-      window.titleContent.text = (target as BehaviorTemplate).BehaviorId;
+      window.titleContent.text = target.name;
     }
 
     /// <summary> 

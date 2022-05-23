@@ -222,7 +222,6 @@ MonoBehaviour:
   - {fileID: -4406011754199303395}
   - {fileID: -3325480824349868527}
   - {fileID: -2804531047577945544}
-  BehaviorId: "\u6D4B\u8BD5\u7528\u884C\u4E3A\u6811"
   BehaviorTime: 0
 --- !u!114 &979383404904150242
 MonoBehaviour:

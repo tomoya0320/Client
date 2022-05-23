@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Battle.MagicFuncs {
   [CreateAssetMenu(menuName = "模板/效果/伤害")]
-  public class Damage : MagicTemplate {
+  public class Damage : MagicFuncBase {
     public override bool IgnoreOnEnd => true;
     [LabelText("攻击力")]
     public NodeParam DamageValue;

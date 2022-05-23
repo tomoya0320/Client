@@ -26,10 +26,10 @@ namespace Battle.BehaviorFuncs {
   public abstract class BehaviorNode : Node {
     [HideInInspector]
     public int Index = -1;
-    protected BehaviorTemplate BehaviorTemplate;
+    protected BehaviorGraph BehaviorGraph;
 
 		protected override void Init() {
-      BehaviorTemplate = graph as BehaviorTemplate;
+      BehaviorGraph = graph as BehaviorGraph;
 		}
 
     public abstract UniTask<bool> Run(Behavior behavior, Context context);

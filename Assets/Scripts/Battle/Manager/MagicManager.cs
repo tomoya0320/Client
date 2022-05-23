@@ -6,22 +6,22 @@ using UnityEngine.AddressableAssets;
 
 namespace Battle {
   public class MagicManager : BattleBase {
-    private Dictionary<string, MagicTemplate> MagicTemplates = new Dictionary<string, MagicTemplate>();
+    private Dictionary<string, MagicFuncBase> MagicFuncs = new Dictionary<string, MagicFuncBase>();
 
     public MagicManager(BattleManager battleManager) : base(battleManager) { 
     
     }
 
     public async UniTask PreloadMagic(string magicId) {
-      if (MagicTemplates.ContainsKey(magicId)) {
+      if (MagicFuncs.ContainsKey(magicId)) {
         return;
       }
-      MagicTemplate magicTemplate = await Addressables.LoadAssetAsync<MagicTemplate>(magicId);
-      MagicTemplates.Add(magicId, magicTemplate);
+      MagicFuncBase magicFunc = await Addressables.LoadAssetAsync<MagicFuncBase>(magicId);
+      MagicFuncs.Add(magicId, magicFunc);
     }
 
-    public bool TryGetMagicTemplate(string magicId, out MagicTemplate magicTemplate) {
-      return MagicTemplates.TryGetValue(magicId, out magicTemplate);
+    public bool TryGetMagicFunc(string magicId, out MagicFuncBase magicFunc) {
+      return MagicFuncs.TryGetValue(magicId, out magicFunc);
     }
 
     public bool DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
@@ -30,26 +30,26 @@ namespace Battle {
         return false;
       }
       
-      if(!MagicTemplates.TryGetValue(magicId, out var magicTemplate)) {
-        Debug.LogError($"MagicManager.DoMagic error, magicTemplate is not preload. Id:{magicId}");
+      if(!MagicFuncs.TryGetValue(magicId, out var magicFunc)) {
+        Debug.LogError($"MagicManager.DoMagic error, magicFunc is not preload. Id:{magicId}");
         return false;
       }
 
-      if (!magicTemplate.IgnoreOnEnd || !isEnd) {
+      if (!magicFunc.IgnoreOnEnd || !isEnd) {
         MagicArgs args = new MagicArgs {
           IsEnd = isEnd,
           Source = source,
           Target = target,
         };
-        magicTemplate.Run(BattleManager, context, args);
+        magicFunc.Run(BattleManager, context, args);
       }
 
       return true;
     }
 
     public void CleanUp() {
-      foreach (var magicTemplate in MagicTemplates.Values) {
-        Addressables.Release(magicTemplate);
+      foreach (var magicFunc in MagicFuncs.Values) {
+        Addressables.Release(magicFunc);
       }
     }
   }

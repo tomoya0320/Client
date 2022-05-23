@@ -16,8 +16,6 @@ namespace Battle {
       public int MaxValue;
     }
 
-    [ReadOnly]
-    public string AttribId;
     [DictionaryDrawerSettings(KeyLabel = "属性类型", ValueLabel = "属性成长")]
     public Dictionary<AttribType, AttribTemplateItem> Attribs;
 

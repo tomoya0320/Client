@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17f4f55e592f28e44b9ab9be715993eb, type: 3}
   m_Name: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
-  MagicId: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD5"
   DamageValue:
     IsDict: 1
     ParamKey:

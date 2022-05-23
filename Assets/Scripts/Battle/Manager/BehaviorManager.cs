@@ -8,7 +8,7 @@ namespace Battle {
   public class BehaviorManager : BattleBase {
     private int IncId;
     private List<int> TempRuntimeIdList = new List<int>();
-    private Dictionary<string, BehaviorTemplate> BehaviorTemplates = new Dictionary<string, BehaviorTemplate>();
+    private Dictionary<string, BehaviorGraph> BehaviorGraphs = new Dictionary<string, BehaviorGraph>();
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
     private Dictionary<BehaviorTime, List<int>> BehaviorTimes = new Dictionary<BehaviorTime, List<int>>();
 
@@ -19,11 +19,11 @@ namespace Battle {
     }
 
     public async UniTask PreloadBehavior(string behaviorId) {
-      if (BehaviorTemplates.ContainsKey(behaviorId)) {
+      if (BehaviorGraphs.ContainsKey(behaviorId)) {
         return;
       }
-      BehaviorTemplate behaviorTemplate = await Addressables.LoadAssetAsync<BehaviorTemplate>(behaviorId);
-      BehaviorTemplates.Add(behaviorId, behaviorTemplate);
+      BehaviorGraph behaviorGraph = await Addressables.LoadAssetAsync<BehaviorGraph>(behaviorId);
+      BehaviorGraphs.Add(behaviorId, behaviorGraph);
     }
 
     public async UniTask Run(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
@@ -38,8 +38,8 @@ namespace Battle {
     }
 
     public Behavior AddBehavior(string behaviorId, Unit source = null, Unit target = null) {
-      if (!BehaviorTemplates.TryGetValue(behaviorId, out var behaviorGraph)) {
-        Debug.LogError($"BehaviorManager.AddBehavior error, behaviorTemplate is not preload. Id:{behaviorId}");
+      if (!BehaviorGraphs.TryGetValue(behaviorId, out var behaviorGraph)) {
+        Debug.LogError($"BehaviorManager.AddBehavior error, behaviorGraph is not preload. Id:{behaviorId}");
         return null;
       }
 
@@ -57,13 +57,13 @@ namespace Battle {
         return false;
       }
       Behaviors.Remove(runtimeId);
-      BehaviorTimes[behavior.BehaviorTemplate.BehaviorTime].Remove(runtimeId);
+      BehaviorTimes[behavior.BehaviorGraph.BehaviorTime].Remove(runtimeId);
       BattleManager.ObjectPool.Release(behavior);
       return true;
     }
 
     public void CleanUp() {
-      foreach (var behaviorGraph in BehaviorTemplates.Values) {
+      foreach (var behaviorGraph in BehaviorGraphs.Values) {
         Addressables.Release(behaviorGraph);
       }
     }

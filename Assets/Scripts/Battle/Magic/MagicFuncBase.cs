@@ -1,4 +1,3 @@
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle.MagicFuncs {
@@ -8,9 +7,7 @@ namespace Battle.MagicFuncs {
     public Unit Target;
   }
 
-  public abstract class MagicTemplate : ScriptableObject {
-    [ReadOnly]
-    public string MagicId;
+  public abstract class MagicFuncBase : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
     public abstract void Run(BattleManager battleManager, Context context, MagicArgs args);

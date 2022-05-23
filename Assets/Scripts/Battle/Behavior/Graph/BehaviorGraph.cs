@@ -34,9 +34,7 @@ namespace Battle {
   }
 
   [CreateAssetMenu(menuName = "模板/行为树/战斗通用")]
-  public class BehaviorTemplate : NodeGraph {
-    [ReadOnly]
-    public string BehaviorId;
+  public class BehaviorGraph : NodeGraph {
     public BehaviorTime BehaviorTime;
 
     public async UniTask Run(Behavior behavior, Context context = null) {

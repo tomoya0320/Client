@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Battle.MagicFuncs {
   [CreateAssetMenu(menuName = "模板/效果/加属性")]
-  public class AddAttrib : MagicTemplate {
+  public class AddAttrib : MagicFuncBase {
     public override bool IgnoreOnEnd => false;
     [LabelText("目标属性类型")]
     public AttribType Type;
