@@ -14,10 +14,12 @@ namespace Battle {
   public class BuffContext : Context {
     public Buff Buff;
     public Behavior Behavior;
+    public int AttribValue;
 
     public override void Release() {
       Buff = null;
       Behavior = null;
+      AttribValue = 0;
     }
   }
 }

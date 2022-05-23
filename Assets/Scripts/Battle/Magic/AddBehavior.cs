@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace Battle.MagicFuncs {
-  [CreateAssetMenu(menuName = "模板/效果/加行为树")]
+  [CreateAssetMenu(menuName = "妯℃澘/鏁堟灉/鍔犺涓烘爲")]
   public class AddBehavior : MagicTemplate {
     public override bool IgnoreOnEnd => false;
     public string BehaviorId;

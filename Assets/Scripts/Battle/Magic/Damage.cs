@@ -3,10 +3,10 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle.MagicFuncs {
-  [CreateAssetMenu(menuName = "Ä£°å/Ð§¹û/ÉËº¦")]
+  [CreateAssetMenu(menuName = "æ¨¡æ¿/æ•ˆæžœ/ä¼¤å®³")]
   public class Damage : MagicTemplate {
     public override bool IgnoreOnEnd => true;
-    [LabelText("¹¥»÷Á¦")]
+    [LabelText("æ”»å‡»åŠ›")]
     public NodeParam DamageValue;
 
     public override void Run(BattleManager battleManager, Context context, MagicArgs args) {
