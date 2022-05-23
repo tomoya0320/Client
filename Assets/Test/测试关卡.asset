@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5954b03a9d908d4f96c74f974c61510, type: 3}
   m_Name: "\u6D4B\u8BD5\u5173\u5361"
   m_EditorClassIdentifier: 
-  BehaviorIds: []
+  BehaviorIds:
+  - 
   EnemyData:
   - PlayerId: 
     UnitData:
     - TemplateId: 
-      Level: 0
+      Lv: 0
       CardData:
       - TemplateId: 
-        Level: 0
+        Lv: 0
+      - TemplateId: 
+        Lv: 0
+      - TemplateId: 
+        Lv: 0

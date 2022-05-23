@@ -2,9 +2,9 @@
 using XNode;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
-using Battle.BehaviorFuncs;
+using GameCore.BehaviorFuncs;
 
-namespace Battle {
+namespace GameCore {
   public enum DictType {
     [InspectorName("行为树")]
     Behavior,

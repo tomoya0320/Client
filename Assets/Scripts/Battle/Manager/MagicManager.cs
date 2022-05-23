@@ -1,27 +1,13 @@
-using Battle.MagicFuncs;
+using GameCore.MagicFuncs;
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Battle {
-  public class MagicManager : BattleBase {
-    private Dictionary<string, MagicFuncBase> MagicFuncs = new Dictionary<string, MagicFuncBase>();
-
-    public MagicManager(BattleManager battleManager) : base(battleManager) { 
+namespace GameCore {
+  public class MagicManager : TemplateManager<MagicFuncBase> {
+    public MagicManager(Battle battle) : base(battle) { 
     
-    }
-
-    public async UniTask PreloadMagic(string magicId) {
-      if (MagicFuncs.ContainsKey(magicId)) {
-        return;
-      }
-      MagicFuncBase magicFunc = await Addressables.LoadAssetAsync<MagicFuncBase>(magicId);
-      MagicFuncs.Add(magicId, magicFunc);
-    }
-
-    public bool TryGetMagicFunc(string magicId, out MagicFuncBase magicFunc) {
-      return MagicFuncs.TryGetValue(magicId, out magicFunc);
     }
 
     public bool DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
@@ -30,7 +16,7 @@ namespace Battle {
         return false;
       }
       
-      if(!MagicFuncs.TryGetValue(magicId, out var magicFunc)) {
+      if(!Templates.TryGetValue(magicId, out var magicFunc)) {
         Debug.LogError($"MagicManager.DoMagic error, magicFunc is not preload. Id:{magicId}");
         return false;
       }
@@ -41,16 +27,10 @@ namespace Battle {
           Source = source,
           Target = target,
         };
-        magicFunc.Run(BattleManager, context, args);
+        magicFunc.Run(Battle, context, args);
       }
 
       return true;
-    }
-
-    public void CleanUp() {
-      foreach (var magicFunc in MagicFuncs.Values) {
-        Addressables.Release(magicFunc);
-      }
     }
   }
 }

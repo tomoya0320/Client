@@ -1,5 +1,5 @@
-using Battle;
-using Battle.BehaviorFuncs;
+using GameCore;
+using GameCore.BehaviorFuncs;
 using UnityEditor;
 
 public class CustomAssetPostprocessor : AssetPostprocessor {

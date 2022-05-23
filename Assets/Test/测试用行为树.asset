@@ -20,7 +20,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -4406011754199303395}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -61,7 +61,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -73,7 +73,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: -4152933803423289052}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
@@ -107,7 +107,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -3325480824349868527}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -142,7 +142,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -2804531047577945544}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -182,7 +182,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: -609178027055297194}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -243,7 +243,7 @@ MonoBehaviour:
     values:
     - _fieldName: Out
       _node: {fileID: 979383404904150242}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In
@@ -275,7 +275,7 @@ MonoBehaviour:
     values:
     - _fieldName: In
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: Out
@@ -287,7 +287,7 @@ MonoBehaviour:
       _dynamic: 0
     - _fieldName: Out
       _node: {fileID: 9055105036251962087}
-      _typeQualifiedName: Battle.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: In

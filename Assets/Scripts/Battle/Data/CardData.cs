@@ -1,9 +1,9 @@
 using System;
 
-namespace Battle {
+namespace GameCore {
   [Serializable]
   public struct CardData {
     public string TemplateId;
-    public int Level;
+    public int Lv;
   }
 }

@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/控制/选择")]
   public class Selector : ControllerNode {
     public override async UniTask<bool> Run(Behavior behavior, Context context) {

@@ -1,18 +1,18 @@
-using Battle.BehaviorFuncs;
+using GameCore.BehaviorFuncs;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Battle {
+namespace GameCore {
   public class Behavior : IPoolObject {
     public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
     public Unit Unit { get; private set; }
     public Card Card { get; private set; }
-    public BattleManager BattleManager { get; private set; }
+    public Battle BattleManager { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public void Init(BattleManager battleManager, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
+    public void Init(Battle battleManager, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
       BattleManager = battleManager;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;

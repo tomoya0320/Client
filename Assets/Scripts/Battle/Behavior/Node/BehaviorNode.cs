@@ -4,7 +4,7 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   [Serializable]
 	public struct NodePort { }
 

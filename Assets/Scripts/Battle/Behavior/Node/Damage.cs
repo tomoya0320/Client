@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/伤害")]
   public class Damage : ActionNode {
     [LabelText("攻击力")]

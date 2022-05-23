@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-namespace Battle {
+namespace GameCore {
   [CreateAssetMenu(menuName = "模板/单位")]
   public class UnitTemplate : ScriptableObject {
     public string Name;

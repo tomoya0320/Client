@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using System;
 using UnityEngine;
 
-namespace Battle {
+namespace GameCore {
   public enum AttribType {
     [InspectorName("生命")]
     HP,

@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   public abstract class ControllerNode : BehaviorNode {
 		[LabelText("»Î")]
 		[Input(connectionType = ConnectionType.Override)]

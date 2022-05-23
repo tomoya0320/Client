@@ -1,11 +1,18 @@
-namespace Battle {
-  public class AttribManager : BattleBase {
-    public AttribManager(BattleManager battleManager) : base(battleManager) {
+using UnityEngine;
+
+namespace GameCore {
+  public class AttribManager : TemplateManager<AttribTemplate> {
+    public AttribManager(Battle battleManager) : base(battleManager) {
 
     }
 
-    public Attrib[] GetAttribs(string attribId, int level) {
-      return null; // TODO:待实现
+    public Attrib[] GetAttribs(string attribId, int level, int maxLevel) {
+      if (!Templates.TryGetValue(attribId, out var attribTemplate)) {
+        Debug.LogWarning($"AttribTemplate is null. id:{attribId}");
+        return null;
+      }
+
+      return attribTemplate.GetAttribs(level, maxLevel);
     }
   }
 }

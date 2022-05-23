@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/修饰/取反")]
   public class Reverse : DecoratorNode {
     public override async UniTask<bool> Run(Behavior behavior, Context context) {

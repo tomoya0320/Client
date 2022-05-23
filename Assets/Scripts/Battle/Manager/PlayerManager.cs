@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-namespace Battle {
+namespace GameCore {
   public class PlayerManager : BattleBase {
-    private Dictionary<int, Player> RuntimePlayers = new Dictionary<int, Player>();
+    private Dictionary<int, Player> Players = new Dictionary<int, Player>();
 
-    public PlayerManager(BattleManager battleManager) : base(battleManager) {
+    public PlayerManager(Battle battle) : base(battle) {
 
     }
   }

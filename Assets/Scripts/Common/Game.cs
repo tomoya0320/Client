@@ -1,9 +1,11 @@
-using Battle;
+using GameCore;
+using Sirenix.OdinInspector;
 
 public class Game : SingletonMono<Game> {
+  [LabelText("Õ½¶·Êý¾Ý")]
   public BattleData BattleData;
 
   private void Start() {
-    BattleManager.Enter(BattleData);
+    Battle.Enter(BattleData);
   }
 }

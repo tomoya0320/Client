@@ -1,9 +1,11 @@
+using Sirenix.OdinInspector;
 using System;
 
-namespace Battle {
+namespace GameCore {
   [Serializable]
   public struct PlayerData {
     public string PlayerId;
+    [LabelText("角色数据列表")]
     public UnitData[] UnitData;
   }
 }

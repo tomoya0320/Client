@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Battle.MagicFuncs {
+namespace GameCore.MagicFuncs {
   public struct MagicArgs {
     public bool IsEnd;
     public Unit Source;
@@ -10,6 +10,6 @@ namespace Battle.MagicFuncs {
   public abstract class MagicFuncBase : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
-    public abstract void Run(BattleManager battleManager, Context context, MagicArgs args);
+    public abstract void Run(Battle battleManager, Context context, MagicArgs args);
   }
 }

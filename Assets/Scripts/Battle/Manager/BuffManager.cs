@@ -1,27 +1,21 @@
-using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-namespace Battle {
-  public class BuffManager : BattleBase {
-    private Dictionary<string, BuffTemplate> BuffTemplates = new Dictionary<string, BuffTemplate>();
+namespace GameCore {
+  public class BuffManager : TemplateManager<BuffTemplate> {
     private Dictionary<int, BuffComponent> BuffComponents = new Dictionary<int, BuffComponent>();
 
-    public BuffManager(BattleManager battleManager) : base(battleManager) {
+    public BuffManager(Battle battle) : base(battle) {
 
     }
 
-    public async UniTask PreloadBuff(string buffId) {
-      if (BuffTemplates.ContainsKey(buffId)) {
-        return;
+    public void Update(BattleTurnPhase phase) {
+      var list = TempList<BuffComponent>.Get();
+      list.AddRange(BuffComponents.Values);
+      foreach (var buffComponent in list) {
+        buffComponent.Update(phase);
       }
-      BuffTemplate buffData = await Addressables.LoadAssetAsync<BuffTemplate>(buffId);
-      BuffTemplates.Add(buffId, buffData);
-    }
-
-    public bool TryGetBuffTemplate(string buffId, out BuffTemplate buffTemplate) {
-      return BuffTemplates.TryGetValue(buffId, out buffTemplate);
+      TempList<BuffComponent>.CleanUp();
     }
 
     public void AddComponent(Unit unit) {
@@ -29,7 +23,8 @@ namespace Battle {
         Debug.LogWarning($"BuffComponent repeat add. id:{unit.RuntimeId}");
         return;
       }
-      BuffComponents.Add(unit.RuntimeId, new BuffComponent(BattleManager, unit));
+      var buffComponent = Battle.ObjectPool.Get<BuffComponent>();
+      BuffComponents.Add(unit.RuntimeId, buffComponent.Init(unit));
     }
 
     public void RemoveComponent(int runtimeId) {
@@ -37,7 +32,7 @@ namespace Battle {
         Debug.LogError($"BuffComponent is not exist. id:{runtimeId}");
         return;
       }
-      buffComponent.CleanUp();
+      Battle.ObjectPool.Release(buffComponent);
       BuffComponents.Remove(runtimeId);
     }
 

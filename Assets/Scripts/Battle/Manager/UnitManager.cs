@@ -1,16 +1,31 @@
 using System.Collections.Generic;
 
-namespace Battle {
-  public class UnitManager : BattleBase {
-    private Dictionary<int, Unit> RuntimeUnits = new Dictionary<int, Unit>();
+namespace GameCore {
+  public class UnitManager : TemplateManager<UnitTemplate> {
+    private int IncId;
+    private Dictionary<int, Unit> Units = new Dictionary<int, Unit>();
 
-    public UnitManager(BattleManager battleManager) : base(battleManager) {
+    public UnitManager(Battle battle) : base(battle) {
       
     }
 
+    public Unit Create(UnitData unitData) {
+      var unit = new Unit(Battle);
+      return unit.Init(++IncId, unitData);
+    }
+
     public Unit GetUnit(int runtimeId) {
-      RuntimeUnits.TryGetValue(runtimeId, out Unit unit);
+      Units.TryGetValue(runtimeId, out Unit unit);
       return unit;
+    }
+
+    public void OnUnitDie(int runtimeId) {
+      if(!Units.TryGetValue(runtimeId, out var unit)){
+        return;
+      }
+
+      Units.Remove(runtimeId);
+      Battle.BuffManager.RemoveComponent(runtimeId);
     }
   }
 }

@@ -1,4 +1,4 @@
-namespace Battle {
+namespace GameCore {
   public abstract class Context : IPoolObject {
     public abstract void Release();
   }

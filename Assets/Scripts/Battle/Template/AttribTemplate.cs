@@ -3,7 +3,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 
-namespace Battle {
+namespace GameCore {
   [CreateAssetMenu(menuName = "模板/属性")]
   public class AttribTemplate : SerializedScriptableObject {
     [Serializable]
@@ -21,7 +21,7 @@ namespace Battle {
 
     public Attrib[] GetAttribs(int level, int maxLevel) {
       float p = Mathf.Clamp01((float)level / maxLevel);
-      Attrib[] attribs = new Attrib[BattleConstant.ATTRIB_LENGTH];
+      Attrib[] attribs = new Attrib[BattleConstant.ATTRIB_COUNT];
       foreach (var kv in Attribs) {
         var type = kv.Key;
         var item = kv.Value;

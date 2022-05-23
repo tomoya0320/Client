@@ -1,4 +1,4 @@
-namespace Battle {
+namespace GameCore {
   public enum CardHeapType {
     /// <summary>
     /// 抽牌堆
@@ -23,28 +23,37 @@ namespace Battle {
   }
 
   public class Unit : BattleBase {
+    public Player Player;
+    private UnitTemplate UnitTemplate;
     public int RuntimeId { get; private set; }
     public int Level { get; private set; }
-    public Player Player { get; private set; }
-    public UnitTemplate UnitTemplate { get; private set; }
+    public int MaxLevel { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
-    public string Name => UnitTemplate?.Name;
+    public string Name => UnitTemplate != null ? UnitTemplate.Name : null;
 
-    public Unit(BattleManager battleManager, int runtimeId, int level, Player player, UnitTemplate unitTemplate) : base(battleManager) {
+    public Unit(Battle battle) : base(battle) {
+      Blackboard = Battle.ObjectPool.Get<Blackboard>();
+    }
+
+    public Unit Init(int runtimeId, UnitData unitData) {
       RuntimeId = runtimeId;
-      Level = level;
-      Player = player;
-      UnitTemplate = unitTemplate;
-      Blackboard = BattleManager.ObjectPool.Get<Blackboard>();
+      Level = unitData.Lv;
+      Battle.UnitManager.Templates.TryGetValue(unitData.TemplateId, out UnitTemplate);
+      MaxLevel = UnitTemplate.MaxLevel;
+
+      // TODO:卡牌初始化
+
       // 属性相关
-      Attribs = BattleManager.AttribManager.GetAttribs(unitTemplate.AttribId, Level);
+      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Level, MaxLevel);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
         Attribs[i].AllowNegative = false;
       }
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
+
+      return this;
     }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {

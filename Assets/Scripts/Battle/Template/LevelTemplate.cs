@@ -1,10 +1,12 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Battle {
+namespace GameCore {
   [CreateAssetMenu(menuName = "模板/关卡")]
   public class LevelTemplate : ScriptableObject {
+    [LabelText("关卡行为树Id列表")]
     public string[] BehaviorIds;
+    [LabelText("敌方数据列表")]
     public PlayerData[] EnemyData;
   }
 }

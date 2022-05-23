@@ -1,15 +1,15 @@
-using Battle.BehaviorFuncs;
+using GameCore.BehaviorFuncs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Battle.MagicFuncs {
+namespace GameCore.MagicFuncs {
   [CreateAssetMenu(menuName = "模板/效果/伤害")]
   public class Damage : MagicFuncBase {
     public override bool IgnoreOnEnd => true;
     [LabelText("攻击力")]
     public NodeParam DamageValue;
 
-    public override void Run(BattleManager battleManager, Context context, MagicArgs args) {
+    public override void Run(Battle battleManager, Context context, MagicArgs args) {
       float damageValue;
       if(context is BehaviorContext behaviorContext) {
         damageValue = behaviorContext.Behavior.GetFloat(DamageValue);

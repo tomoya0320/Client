@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Battle {
+namespace GameCore {
   public interface IPoolObject {
     void Release();
   }

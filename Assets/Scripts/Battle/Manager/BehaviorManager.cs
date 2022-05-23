@@ -2,50 +2,40 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
-namespace Battle {
-  public class BehaviorManager : BattleBase {
+namespace GameCore {
+  public class BehaviorManager : TemplateManager<BehaviorGraph> {
     private int IncId;
-    private List<int> TempRuntimeIdList = new List<int>();
-    private Dictionary<string, BehaviorGraph> BehaviorGraphs = new Dictionary<string, BehaviorGraph>();
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
     private Dictionary<BehaviorTime, List<int>> BehaviorTimes = new Dictionary<BehaviorTime, List<int>>();
 
-    public BehaviorManager(BattleManager battleManager) : base(battleManager) {
+    public BehaviorManager(Battle battle) : base(battle) {
       foreach (BehaviorTime behaviorTime in Enum.GetValues(typeof(BehaviorTime))) {
         BehaviorTimes.Add(behaviorTime, new List<int>());
       }
     }
 
-    public async UniTask PreloadBehavior(string behaviorId) {
-      if (BehaviorGraphs.ContainsKey(behaviorId)) {
-        return;
-      }
-      BehaviorGraph behaviorGraph = await Addressables.LoadAssetAsync<BehaviorGraph>(behaviorId);
-      BehaviorGraphs.Add(behaviorId, behaviorGraph);
-    }
-
     public async UniTask Run(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
-      TempRuntimeIdList.AddRange(BehaviorTimes[behaviorTime]);
-      foreach (int runtimeId in TempRuntimeIdList) {
+      var list = TempList<int>.Get();
+      list.AddRange(BehaviorTimes[behaviorTime]);
+      foreach (int runtimeId in list) {
         var behavior = Behaviors[runtimeId];
         if (unit == null || behavior.Unit == null || unit == behavior.Unit) {
           await behavior.Run(context);
         }
       }
-      TempRuntimeIdList.Clear();
+      TempList<int>.CleanUp();
     }
 
     public Behavior AddBehavior(string behaviorId, Unit source = null, Unit target = null) {
-      if (!BehaviorGraphs.TryGetValue(behaviorId, out var behaviorGraph)) {
+      if (!Templates.TryGetValue(behaviorId, out var behaviorGraph)) {
         Debug.LogError($"BehaviorManager.AddBehavior error, behaviorGraph is not preload. Id:{behaviorId}");
         return null;
       }
 
       int runtimeId = ++IncId;
-      Behavior behavior = BattleManager.ObjectPool.Get<Behavior>();
-      behavior.Init(BattleManager, runtimeId, behaviorGraph, source, target);
+      Behavior behavior = Battle.ObjectPool.Get<Behavior>();
+      behavior.Init(Battle, runtimeId, behaviorGraph, source, target);
       Behaviors.Add(runtimeId, behavior);
       BehaviorTimes[behaviorGraph.BehaviorTime].Add(runtimeId);
       return behavior;
@@ -58,14 +48,8 @@ namespace Battle {
       }
       Behaviors.Remove(runtimeId);
       BehaviorTimes[behavior.BehaviorGraph.BehaviorTime].Remove(runtimeId);
-      BattleManager.ObjectPool.Release(behavior);
+      Battle.ObjectPool.Release(behavior);
       return true;
-    }
-
-    public void CleanUp() {
-      foreach (var behaviorGraph in BehaviorGraphs.Values) {
-        Addressables.Release(behaviorGraph);
-      }
     }
   }
 }

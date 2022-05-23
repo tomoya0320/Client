@@ -1,9 +1,9 @@
-using Battle.BehaviorFuncs;
+using GameCore.BehaviorFuncs;
 using System;
 using UnityEditor;
 using XNodeEditor;
 
-namespace Battle {
+namespace GameCore {
   [CustomNodeGraphEditor(typeof(BehaviorGraph))]
   public class BehaviorGraphEditor : NodeGraphEditor {
     public override void OnGUI() {

@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
-namespace Battle.BehaviorFuncs {
+namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/执行效果")]
   public class DoMagic : ActionNode {
     [LabelText("效果Id")]

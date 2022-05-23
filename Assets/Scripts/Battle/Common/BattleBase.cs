@@ -1,7 +1,7 @@
-namespace Battle {
+namespace GameCore {
   public abstract class BattleBase {
-    protected BattleManager BattleManager;
+    public Battle Battle { get; private set; }
 
-    protected BattleBase(BattleManager battleManager) => BattleManager = battleManager;
+    protected BattleBase(Battle battle) => Battle = battle;
   }
 }
