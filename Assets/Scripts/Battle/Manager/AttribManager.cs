@@ -5,7 +5,7 @@ namespace Battle {
     }
 
     public Attrib[] GetAttribs(string attribId, int level) {
-      return null; // TODO:´ıÊµÏÖ
+      return null; // TODO:å¾…å®ç°
     }
   }
 }
