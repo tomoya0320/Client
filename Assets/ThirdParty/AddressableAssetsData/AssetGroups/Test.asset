@@ -37,6 +37,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - default
+  - m_GUID: 61d32442c679c4c488ad279dbbfb152f
+    m_Address: "\u6D4B\u8BD5\u5173\u5361"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+  - m_GUID: 9284c3a8365f4d64aa37ab31ec420096
+    m_Address: "\u5C5E\u6027\u6D4B\u8BD5"
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

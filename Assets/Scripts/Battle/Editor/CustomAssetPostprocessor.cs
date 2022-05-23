@@ -19,6 +19,26 @@ public class CustomAssetPostprocessor : AssetPostprocessor {
       if (magicTemplate) {
         magicTemplate.MagicId = magicTemplate.name;
       }
+      // level
+      var levelTemplate = AssetDatabase.LoadAssetAtPath<LevelTemplate>(assetPath);
+      if (levelTemplate) {
+        levelTemplate.LevelId = levelTemplate.name;
+      }
+      // buff
+      var buffTemplate = AssetDatabase.LoadAssetAtPath<BuffTemplate>(assetPath);
+      if (buffTemplate) {
+        buffTemplate.BuffId = buffTemplate.name;
+      }
+      // unit
+      var unitTemplate = AssetDatabase.LoadAssetAtPath<UnitTemplate>(assetPath);
+      if (unitTemplate) {
+        unitTemplate.UnitId = unitTemplate.name;
+      }
+      // attrib
+      var attribTemplate = AssetDatabase.LoadAssetAtPath<AttribTemplate>(assetPath);
+      if (attribTemplate) {
+        attribTemplate.AttribId = attribTemplate.name;
+      }
     }
   }
 }

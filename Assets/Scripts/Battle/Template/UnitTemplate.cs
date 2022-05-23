@@ -1,9 +1,13 @@
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Battle {
-  [CreateAssetMenu(menuName = "Ä£°å/µ¥Î»")]
+  [CreateAssetMenu(menuName = "æ¨¡æ¿/å•ä½")]
   public class UnitTemplate : ScriptableObject {
+    [ReadOnly]
+    public string UnitId;
     public string Name;
     public string AttribId;
+    public int MaxLevel;
   }
 }

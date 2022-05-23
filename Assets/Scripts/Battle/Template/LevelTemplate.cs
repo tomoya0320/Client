@@ -1,8 +1,12 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle {
-  [CreateAssetMenu(menuName = "Ä£°å/¹Ø¿¨")]
+  [CreateAssetMenu(menuName = "æ¨¡æ¿/å…³å¡")]
   public class LevelTemplate : ScriptableObject {
+    [ReadOnly]
     public string LevelId;
+    public string[] BehaviorIds;
+    public PlayerData[] EnemyData;
   }
 }

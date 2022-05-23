@@ -1,8 +1,10 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Battle {
-  [CreateAssetMenu(menuName = "Ä£°å/Buff")]
+  [CreateAssetMenu(menuName = "æ¨¡æ¿/Buff")]
   public class BuffTemplate : ScriptableObject {
-
+    [ReadOnly]
+    public string BuffId;
   }
 }
