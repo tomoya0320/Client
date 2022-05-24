@@ -35,6 +35,7 @@ namespace GameCore {
 
   [CreateAssetMenu(menuName = "模板/行为树/战斗通用")]
   public class BehaviorGraph : NodeGraph {
+    [LabelText("触发时机")]
     public BehaviorTime BehaviorTime;
 
     public async UniTask Run(Behavior behavior, Context context = null) {

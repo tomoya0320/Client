@@ -27,6 +27,7 @@ namespace GameCore {
     }
   }
 
+  [Serializable]
   public struct Attrib {
     public int Value;
     public int MaxValue;

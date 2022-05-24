@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace GameCore {
-  public class CardTemplate : ScriptableObject {
+  [CreateAssetMenu(menuName = "Ä£°å/¿¨ÅÆ")]
+  public class CardTemplate : SerializedScriptableObject {
 
   }
 }

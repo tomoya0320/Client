@@ -168,19 +168,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleData:
-    LevelId: 
+    LevelId: "\u6D4B\u8BD5\u5173\u5361"
     PlayerData:
-      PlayerId: 
+      PlayerId: "\u73A9\u5BB61"
       UnitData:
       - TemplateId: 
-        Level: 0
+        Lv: 0
         CardData:
         - TemplateId: 
-          Level: 0
+          Lv: 0
         - TemplateId: 
-          Level: 0
+          Lv: 0
         - TemplateId: 
-          Level: 0
+          Lv: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

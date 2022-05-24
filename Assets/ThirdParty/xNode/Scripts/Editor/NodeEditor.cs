@@ -41,10 +41,10 @@ namespace XNodeEditor {
             string[] excludes = { "m_Script", "graph", "position", "ports" };
 
 #if ODIN_INSPECTOR
-            InspectorUtilities.BeginDrawPropertyTree(objectTree, true);
+            objectTree.BeginDraw(true);
             GUIHelper.PushLabelWidth(84);
             objectTree.Draw(true);
-            InspectorUtilities.EndDrawPropertyTree(objectTree);
+            objectTree.EndDraw();
             GUIHelper.PopLabelWidth();
 #else
 
