@@ -1,5 +1,5 @@
 namespace GameCore {
-  public class CardSkill {
+  public class Skill {
 
   }
 }

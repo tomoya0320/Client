@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e845e9e7e7611334a93e225f395585ee, type: 3}
-  m_Name: "\u6D4B\u8BD5\u5361\u724C"
+  m_Script: {fileID: 11500000, guid: 8d7eed2b48dd57f42ae74379d733a5fa, type: 3}
+  m_Name: "\u6D4B\u8BD5\u6280\u80FD"
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,8 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  CardType: 0
-  LvCardItems:
-  - Name: 
-    Cost: 0
-    SkillTemplateId: 
+  SKillEvents:
+  - MagicTemplateId: 
+    WaitTime: 0
