@@ -1,12 +1,9 @@
 using Sirenix.OdinInspector;
-using System;
 using UnityEngine;
 
 namespace GameCore {
-  [Serializable]
   public struct SKillEvent {
-    [LabelText("效果Id")]
-    public string MagicTemplateId;
+    public string MagicId;
     [LabelText("等待时间")]
     public float WaitTime; // 配合动画表现使用
     [LabelText("目标选择器")]

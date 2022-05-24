@@ -4,7 +4,6 @@ using Sirenix.OdinInspector;
 namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/执行效果")]
   public class DoMagic : ActionNode {
-    [LabelText("效果Id")]
     public string MagicId;
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;

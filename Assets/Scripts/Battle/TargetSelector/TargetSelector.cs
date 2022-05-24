@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 
 namespace GameCore {
-  [Serializable]
   public abstract class TargetSelector {
     public abstract void Select(Battle battle, Unit source, Unit target, List<Unit> result);
   }

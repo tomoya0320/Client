@@ -20,7 +20,34 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  SKillEvents:
-  - MagicTemplateId: 
-    WaitTime: 0
+    SerializationNodes:
+    - Name: SKillEvents
+      Entry: 7
+      Data: 0|GameCore.SKillEvent[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: GameCore.SKillEvent, Assembly-CSharp
+    - Name: MagicTemplateId
+      Entry: 6
+      Data: 
+    - Name: WaitTime
+      Entry: 4
+      Data: 0
+    - Name: TargetSelector
+      Entry: 7
+      Data: 1|GameCore.DefaultSelector, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

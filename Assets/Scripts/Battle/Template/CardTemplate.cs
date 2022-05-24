@@ -14,7 +14,7 @@ namespace GameCore {
   public struct LvCardItem {
     public string Name;
     public int Cost;
-    public string SkillTemplateId;
+    public string SkillId;
   }
 
   [CreateAssetMenu(menuName = "模板/卡牌")]
