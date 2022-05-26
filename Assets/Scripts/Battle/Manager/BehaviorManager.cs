@@ -27,9 +27,9 @@ namespace GameCore {
       TempList<int>.CleanUp();
     }
 
-    public Behavior AddBehavior(string behaviorId, Unit source = null, Unit target = null) {
+    public Behavior Add(string behaviorId, Unit source = null, Unit target = null) {
       if (!Templates.TryGetValue(behaviorId, out var behaviorGraph)) {
-        Debug.LogError($"BehaviorManager.AddBehavior error, behaviorGraph is not preload. Id:{behaviorId}");
+        Debug.LogError($"BehaviorManager.Add error, behaviorGraph is not preload. Id:{behaviorId}");
         return null;
       }
 
@@ -41,9 +41,9 @@ namespace GameCore {
       return behavior;
     }
 
-    public bool RemoveBehavior(int runtimeId) {
+    public bool Remove(int runtimeId) {
       if (!Behaviors.TryGetValue(runtimeId, out var behavior)) {
-        Debug.LogError($"BehaviorManager.RemoveBehavior error, behavior is not exists. runtimeId:{runtimeId}");
+        Debug.LogError($"BehaviorManager.Remove error, behavior is not exists. runtimeId:{runtimeId}");
         return false;
       }
       Behaviors.Remove(runtimeId);

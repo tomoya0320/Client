@@ -9,12 +9,12 @@ namespace GameCore.MagicFuncs {
     public override void Run(Battle battleManager, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.Behavior != null) {
-          if (battleManager.BehaviorManager.RemoveBehavior(buffContext.Behavior.RuntimeId)) {
+          if (battleManager.BehaviorManager.Remove(buffContext.Behavior.RuntimeId)) {
             buffContext.Behavior = null;
           }
         }
       } else {
-        var behavior = battleManager.BehaviorManager.AddBehavior(BehaviorId, args.Source, args.Target);
+        var behavior = battleManager.BehaviorManager.Add(BehaviorId, args.Source, args.Target);
         if (behavior != null && context is BuffContext buffContext) {
           buffContext.Behavior = behavior;
         }

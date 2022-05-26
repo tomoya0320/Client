@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using GameCore.BehaviorFuncs;
+using GameCore.MagicFuncs;
 using System;
 using UnityEngine;
 
@@ -88,9 +90,9 @@ namespace GameCore {
       var levelTemplate = await LevelManager.Preload(BattleData.LevelId);
       // 加载关卡行为树
       foreach (var behaviorId in levelTemplate.BehaviorIds) {
-        var behavior = await BehaviorManager.Preload(behaviorId);
+        var behavior = await PreloadBehavior(behaviorId);
         if (behavior) {
-          BehaviorManager.AddBehavior(behaviorId);
+          BehaviorManager.Add(behaviorId);
         }
       }      
       // 先加载我方角色
@@ -115,6 +117,32 @@ namespace GameCore {
       foreach (var cardData in unitData.CardData) {
         await CardManager.Preload(cardData.TemplateId); // 卡牌模板
       }
+    }
+
+    private async UniTask<BehaviorGraph> PreloadBehavior(string behaviorId) {
+      var behavior = await BehaviorManager.Preload(behaviorId);
+      if (behavior) {
+        foreach (var behaviorNode in behavior.nodes) {
+          switch (behaviorNode) {
+            case DoMagic doMagic:
+              await PreloadMagic(doMagic.MagicId);
+              break;
+          }
+        }
+      }
+      return behavior;
+    }
+
+    private async UniTask<MagicFuncBase> PreloadMagic(string magicId) {
+      var magicFunc = await MagicManager.Preload(magicId);
+      if (magicFunc) {
+        switch (magicFunc) {
+          case AddBehavior addBehavior:
+            await PreloadBehavior(addBehavior.BehaviorId);
+            break;
+        }
+      }
+      return magicFunc;
     }
 
     public void Exit(bool force = false) {
