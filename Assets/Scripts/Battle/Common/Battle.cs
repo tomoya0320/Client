@@ -21,6 +21,12 @@ namespace GameCore {
   public class Battle {
     private BattleState BattleState;
     public BattleData BattleData { get; private set; }
+    public Blackboard Blackboard { get; private set; }
+    public ObjectPool ObjectPool { get; private set; }
+    public Player CurPlayer { get; private set; }
+    public Player MasterPlayer { get; private set; }
+
+    #region Manager
     public UnitManager UnitManager { get; private set; }
     public BuffManager BuffManager { get; private set; }
     public MagicManager MagicManager { get; private set; }
@@ -28,20 +34,21 @@ namespace GameCore {
     public AttribManager AttribManager { get; private set; }
     public CardManager CardManager { get; private set; }
     public LevelManager LevelManager { get; private set; }
+    public SkillManager SkillManager { get; private set; }
 
     public PlayerManager PlayerManager { get; private set; }
     public DamageManager DamageManager { get; private set; }
+    #endregion
 
-    public Blackboard Blackboard { get; private set; }
-    public ObjectPool ObjectPool { get; private set; }
+    #region Static
     public static Battle Instance { get; private set; }
+    #endregion
 
     public static bool Enter(BattleData battleData) {
       if(Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
       }
-
       // 战斗实例初始化
       Instance = new Battle(battleData);
       // 首先是加载资源
@@ -51,7 +58,6 @@ namespace GameCore {
     }
 
     private Battle(BattleData battleData) {
-      //-----------------first--------------------
       BattleData = battleData;
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
@@ -60,13 +66,13 @@ namespace GameCore {
       AttribManager = new AttribManager(this);
       CardManager = new CardManager(this);
       LevelManager = new LevelManager(this);
+      SkillManager = new SkillManager(this);
 
       PlayerManager = new PlayerManager(this);
       DamageManager = new DamageManager(this);
 
       Blackboard = new Blackboard();
       ObjectPool = new ObjectPool();
-      //------------------------------------------
     }
 
     public async void Update() {
@@ -99,13 +105,14 @@ namespace GameCore {
       foreach (var unitData in BattleData.PlayerData.UnitData) {
         await PreloadUnit(unitData);
       }
-      PlayerManager.Add(BattleData.PlayerData);
+      // 暂定我方先手
+      MasterPlayer = PlayerManager.Create(BattleData.PlayerData);
       // 再加载敌方角色
       foreach (var enemyData in levelTemplate.EnemyData) {
         foreach (var unitData in enemyData.UnitData) {
           await PreloadUnit(unitData);
         }
-        PlayerManager.Add(enemyData);
+        PlayerManager.Create(enemyData);
       }
 
       BattleState = BattleState.Run;
@@ -113,9 +120,16 @@ namespace GameCore {
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
-      await UnitManager.Preload(unitData.TemplateId); // 角色模板
+      var unitTemplate = await UnitManager.Preload(unitData.TemplateId);
+      // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
-        await CardManager.Preload(cardData.TemplateId); // 卡牌模板
+        var cardTemplate = await CardManager.Preload(cardData.TemplateId);
+        foreach (var item in cardTemplate.LvCardItems) {
+          var skillTemplate = await SkillManager.Preload(item.SkillId);
+          foreach (var skillEvent in skillTemplate.SKillEvents) {
+            await PreloadMagic(skillEvent.MagicId);
+          }
+        }
       }
     }
 
@@ -176,11 +190,16 @@ namespace GameCore {
       LevelManager.Release();
       LevelManager = null;
 
+      SkillManager.Release();
+      SkillManager = null;
+
       PlayerManager = null;
       DamageManager = null;
 
       Blackboard = null;
       ObjectPool = null;
+      CurPlayer = null;
+      MasterPlayer = null;
 
       await UniTask.Yield();
 
@@ -188,6 +207,11 @@ namespace GameCore {
     }
 
     private async UniTask Run() {
+      // 更新当前回合的玩家
+      CurPlayer = PlayerManager.MoveNext();
+      // 刷新角色能量
+      CurPlayer.RefreshEnergy();
+
       // 先结算buff
       BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN);
       // 执行回合开始前的行为树
@@ -195,8 +219,8 @@ namespace GameCore {
 
       // 先结算buff
       BuffManager.Update(BattleTurnPhase.ON_TURN);
-      // TODO:回合中的逻辑
-
+      // 回合中的逻辑
+      await CurPlayer.OnTurn();
 
       // 先结算buff
       BuffManager.Update(BattleTurnPhase.ON_LATE_TURN);

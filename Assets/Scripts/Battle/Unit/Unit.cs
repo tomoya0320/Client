@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace GameCore {
   public enum CardHeapType {
     /// <summary>
@@ -67,6 +69,22 @@ namespace GameCore {
       return realAttribValue;
     }
 
+    public int SetAttrib(AttribType type, int value, bool onMaxValue = false) {
+      Attrib attrib = GetAttrib(type);
+      int addValue;
+      if (onMaxValue) {
+        addValue = value - attrib.MaxValue;
+      } else {
+        addValue = value - attrib.Value;
+      }
+      return AddAttrib(type, addValue, onMaxValue);
+    }
+
     public Attrib GetAttrib(AttribType type) => Attribs[(int)type];
+
+    public void RefreshEnergy() {
+      var energyAttrib = GetAttrib(AttribType.ENERGY);
+      SetAttrib(AttribType.ENERGY, energyAttrib.MaxValue);
+    }
   }
 }

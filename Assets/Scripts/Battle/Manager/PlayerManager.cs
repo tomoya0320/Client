@@ -19,11 +19,12 @@ namespace GameCore {
       return PlayerList[LoopIndex];
     }
 
-    public void Add(PlayerData playerData) {
+    public Player Create(PlayerData playerData) {
       var player = new Player(Battle);
       player.Init(++IncId, playerData);
       Players.Add(player.RuntimeId, player);
       PlayerList.Add(player);
+      return player;
     }
   }
 }
