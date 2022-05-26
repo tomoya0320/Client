@@ -1,14 +1,12 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
   public enum BattleState {
-    None, // 退出循环的标记
+    None,
     Load,
     Run,
-    Settle,
     Exit,
   }
 
@@ -20,13 +18,14 @@ namespace GameCore {
 
   public class Battle {
     private BattleState BattleState;
-
+    public BattleData BattleData { get; private set; }
     public UnitManager UnitManager { get; private set; }
     public BuffManager BuffManager { get; private set; }
     public MagicManager MagicManager { get; private set; }
     public BehaviorManager BehaviorManager { get; private set; }
     public AttribManager AttribManager { get; private set; }
     public CardManager CardManager { get; private set; }
+    public LevelManager LevelManager { get; private set; }
 
     public PlayerManager PlayerManager { get; private set; }
     public DamageManager DamageManager { get; private set; }
@@ -41,23 +40,24 @@ namespace GameCore {
         return false;
       }
 
-      // 战斗数据初始化
+      // 战斗实例初始化
       Instance = new Battle(battleData);
-
+      // 首先是加载资源
+      Instance.BattleState = BattleState.Load;
       Instance.Update();
       return true;
     }
 
     private Battle(BattleData battleData) {
       //-----------------first--------------------
-      BattleState = BattleState.None;
-
+      BattleData = battleData;
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
       MagicManager = new MagicManager(this);
       BehaviorManager = new BehaviorManager(this);
       AttribManager = new AttribManager(this);
       CardManager = new CardManager(this);
+      LevelManager = new LevelManager(this);
 
       PlayerManager = new PlayerManager(this);
       DamageManager = new DamageManager(this);
@@ -68,43 +68,64 @@ namespace GameCore {
     }
 
     public async void Update() {
-      do {
+      while (BattleState != BattleState.None) {
         switch (BattleState) {
-          case BattleState.None:
-            BattleState = BattleState.Load;
-            break;
           case BattleState.Load:
             await Load();
-            BattleState = BattleState.Run;
             break;
           case BattleState.Run:
             await Run();
             break;
-          case BattleState.Settle:
-            Settle();
-            BattleState = BattleState.Exit;
-            break;
           case BattleState.Exit:
-            Exit();
-            BattleState = BattleState.None;
+            await Clear();
             break;
         }
       }
-      while (BattleState != BattleState.None);
     }
 
     private async UniTask Load() {
-      // Test
-      await UniTask.Delay(1000);
+      // 加载关卡模板
+      var levelTemplate = await LevelManager.Preload(BattleData.LevelId);
+      // 加载关卡行为树
+      foreach (var behaviorId in levelTemplate.BehaviorIds) {
+        var behavior = await BehaviorManager.Preload(behaviorId);
+        if (behavior) {
+          BehaviorManager.AddBehavior(behaviorId);
+        }
+      }      
+      // 先加载我方角色
+      foreach (var unitData in BattleData.PlayerData.UnitData) {
+        await PreloadUnit(unitData);
+      }
+      PlayerManager.Add(BattleData.PlayerData);
+      // 再加载敌方角色
+      foreach (var enemyData in levelTemplate.EnemyData) {
+        foreach (var unitData in enemyData.UnitData) {
+          await PreloadUnit(unitData);
+        }
+        PlayerManager.Add(enemyData);
+      }
+
+      BattleState = BattleState.Run;
       Debug.Log("战斗资源加载完毕");
     }
 
-    private void Settle() {
-      Debug.Log("战斗结算");
+    private async UniTask PreloadUnit(UnitData unitData) {
+      await UnitManager.Preload(unitData.TemplateId); // 角色模板
+      foreach (var cardData in unitData.CardData) {
+        await CardManager.Preload(cardData.TemplateId); // 卡牌模板
+      }
     }
 
-    private void Exit(bool force = false) {
+    public void Exit(bool force = false) {
+      BattleState = BattleState.Exit;
+      Debug.Log("退出战斗");
+    }
+
+    private async UniTask Clear() {
       Instance = null;
+      BattleData = null;
+      BattleState = BattleState.None;
 
       UnitManager.Release();
       UnitManager = null;
@@ -124,14 +145,18 @@ namespace GameCore {
       CardManager.Release();
       CardManager = null;
 
+      LevelManager.Release();
+      LevelManager = null;
+
       PlayerManager = null;
       DamageManager = null;
 
       Blackboard = null;
       ObjectPool = null;
 
+      await UniTask.Yield();
+
       GC.Collect();
-      Debug.Log("退出战斗");
     }
 
     private async UniTask Run() {

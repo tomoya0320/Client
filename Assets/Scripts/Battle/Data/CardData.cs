@@ -2,7 +2,7 @@ using System;
 
 namespace GameCore {
   [Serializable]
-  public struct CardData {
+  public class CardData {
     public string TemplateId;
     public int Lv;
   }

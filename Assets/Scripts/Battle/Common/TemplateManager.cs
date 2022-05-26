@@ -11,14 +11,16 @@ namespace GameCore {
 
     }
 
-    public async UniTask Preload(string id) {
-      if (Templates.ContainsKey(id)) {
-        return;
+    public async UniTask<T> Preload(string id) {
+      if (Templates.TryGetValue(id, out var template)) {
+        return template;
       }
-      T template = await Addressables.LoadAssetAsync<T>(id);
+      template = await Addressables.LoadAssetAsync<T>(id);
       if (template) {
         Templates.Add(id, template);
+        return template;
       }
+      return null;
     }
 
     public void Release() {

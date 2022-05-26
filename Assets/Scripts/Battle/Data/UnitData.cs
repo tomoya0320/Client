@@ -3,7 +3,7 @@ using System;
 
 namespace GameCore {
   [Serializable]
-  public struct UnitData {
+  public class UnitData {
     public string TemplateId;
     public int Lv;
     [LabelText("卡牌数据列表")]

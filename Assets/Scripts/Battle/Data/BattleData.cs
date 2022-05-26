@@ -3,7 +3,7 @@ using System;
 
 namespace GameCore {
   [Serializable]
-  public struct BattleData {
+  public class BattleData {
     [LabelText("关卡Id")]
     public string LevelId;
     [LabelText("玩家数据")]

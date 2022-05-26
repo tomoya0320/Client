@@ -23,8 +23,9 @@ namespace GameCore {
   }
 
   public class Unit : BattleBase {
-    public Player Player;
     private UnitTemplate UnitTemplate;
+    public bool IsDead { get; private set; }
+    public Player Player { get; private set; }
     public int RuntimeId { get; private set; }
     public int Level { get; private set; }
     public int MaxLevel { get; private set; }
@@ -36,9 +37,10 @@ namespace GameCore {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
     }
 
-    public Unit Init(int runtimeId, UnitData unitData) {
+    public void Init(int runtimeId, Player player, UnitData unitData) {
       RuntimeId = runtimeId;
       Level = unitData.Lv;
+      Player = player;
       Battle.UnitManager.Templates.TryGetValue(unitData.TemplateId, out UnitTemplate);
       MaxLevel = UnitTemplate.MaxLevel;
 
@@ -52,8 +54,6 @@ namespace GameCore {
       }
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
-
-      return this;
     }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {

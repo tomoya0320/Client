@@ -9,23 +9,26 @@ namespace GameCore {
       
     }
 
-    public Unit Create(UnitData unitData) {
+    public Unit Create(Player player, UnitData unitData) {
       var unit = new Unit(Battle);
-      return unit.Init(++IncId, unitData);
+      unit.Init(++IncId, player, unitData);
+      Units.Add(unit.RuntimeId, unit);
+      return unit;
     }
 
     public Unit GetUnit(int runtimeId) {
-      Units.TryGetValue(runtimeId, out Unit unit);
-      return unit;
+      if (Units.TryGetValue(runtimeId, out Unit unit)) {
+        return unit;
+      }
+      return null;
     }
 
     public void OnUnitDie(int runtimeId) {
       if(!Units.TryGetValue(runtimeId, out var unit)){
         return;
       }
-
-      Units.Remove(runtimeId);
       Battle.BuffManager.RemoveComponent(runtimeId);
+      unit.Player.DeadUnitCount++;
     }
   }
 }
