@@ -50,6 +50,7 @@ namespace GameCore {
       MaxLevel = UnitTemplate.MaxLevel;
 
       // ø®≈∆œ‡πÿ
+      CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         CardHeapDict.Add(cardHeapType, new List<Card>());
       }
@@ -69,7 +70,7 @@ namespace GameCore {
     }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
-      Attrib attrib = GetAttrib(type);
+      ref Attrib attrib = ref GetAttrib(type);
       int realAttribValue;
       if (onMaxValue) {
         realAttribValue = attrib.AddMaxValue(value);
@@ -100,14 +101,14 @@ namespace GameCore {
       await Battle.BehaviorManager.Run(BehaviorTime.ON_UNIT_DYING, this, damageContext);
       if(GetAttrib(AttribType.HP).Value <= 0) {
         UnitState = UnitState.DEAD;
-        Battle.UnitManager.OnUnitDie(RuntimeId);
+        Battle.UnitManager.OnUnitDie(this);
         await Battle.BehaviorManager.Run(BehaviorTime.ON_UNIT_DEAD, this, damageContext);
       }
 
       Battle.ObjectPool.Release(damageContext);
     }
 
-    public Attrib GetAttrib(AttribType type) => Attribs[(int)type];
+    public ref Attrib GetAttrib(AttribType type) => ref Attribs[(int)type];
 
     public void RefreshEnergy() {
       var energyAttrib = GetAttrib(AttribType.ENERGY);

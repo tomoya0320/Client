@@ -8,7 +8,7 @@ namespace GameCore {
 
     public Attrib[] GetAttribs(string attribId, int level, int maxLevel) {
       if (!Templates.TryGetValue(attribId, out var attribTemplate)) {
-        Debug.LogWarning($"AttribTemplate is null. id:{attribId}");
+        Debug.LogError($"AttribTemplate is null. id:{attribId}");
         return null;
       }
 

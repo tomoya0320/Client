@@ -19,12 +19,12 @@ namespace GameCore {
   }
 
   public class Battle {
-    private BattleState BattleState;
+    public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public ObjectPool ObjectPool { get; private set; }
     public Player CurPlayer { get; private set; }
-    public Player MasterPlayer { get; private set; }
+    public Player SelfPlayer { get; private set; }
 
     #region Manager
     public UnitManager UnitManager { get; private set; }
@@ -82,7 +82,13 @@ namespace GameCore {
             await Load();
             break;
           case BattleState.Run:
-            await Run();
+            try {
+              await Run();
+            } catch (Exception e) {
+              if (e.GetType() != typeof(OperationCanceledException)) {
+                Debug.LogError(e.GetType());
+              }
+            }
             break;
           case BattleState.Exit:
             await Clear();
@@ -106,7 +112,7 @@ namespace GameCore {
         await PreloadUnit(unitData);
       }
       // 暂定我方先手
-      MasterPlayer = PlayerManager.Create(BattleData.PlayerData);
+      SelfPlayer = PlayerManager.Create(BattleData.PlayerData);
       // 再加载敌方角色
       foreach (var enemyData in levelTemplate.EnemyData) {
         foreach (var unitData in enemyData.UnitData) {
@@ -121,6 +127,7 @@ namespace GameCore {
 
     private async UniTask PreloadUnit(UnitData unitData) {
       var unitTemplate = await UnitManager.Preload(unitData.TemplateId);
+      await AttribManager.Preload(unitTemplate.AttribId);
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
         var cardTemplate = await CardManager.Preload(cardData.TemplateId);
@@ -199,18 +206,21 @@ namespace GameCore {
       Blackboard = null;
       ObjectPool = null;
       CurPlayer = null;
-      MasterPlayer = null;
+      SelfPlayer = null;
 
       await UniTask.Yield();
 
       GC.Collect();
+      Debug.Log("清理战斗");
     }
 
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
+      Debug.Log($"当前玩家 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
       // 刷新角色能量
       CurPlayer.RefreshEnergy();
+      Debug.Log($"回合开始前刷新能量 energy:{CurPlayer.Master.GetAttrib(AttribType.ENERGY).Value}/{CurPlayer.Master.GetAttrib(AttribType.ENERGY).MaxValue}");
 
       // 先结算buff
       BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN);

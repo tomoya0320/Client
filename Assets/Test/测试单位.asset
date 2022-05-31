@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17f4f55e592f28e44b9ab9be715993eb, type: 3}
-  m_Name: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD5"
+  m_Script: {fileID: 11500000, guid: 640e6cd146271e2498cd353924b61565, type: 3}
+  m_Name: "\u6D4B\u8BD5\u5355\u4F4D"
   m_EditorClassIdentifier: 
-  DamageValue:
-    IsDict: 0
-    ParamKey:
-      Type: 0
-      Key: magic_damage
-    Value: 10
+  Name: "\u6D4B\u8BD5\u5355\u4F4D1"
+  AttribId: "\u5C5E\u6027\u6D4B\u8BD5"
+  MaxLevel: 100

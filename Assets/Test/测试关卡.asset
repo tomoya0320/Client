@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5954b03a9d908d4f96c74f974c61510, type: 3}
   m_Name: "\u6D4B\u8BD5\u5173\u5361"
   m_EditorClassIdentifier: 
-  BehaviorIds: []
+  BehaviorIds:
+  - "\u5173\u5361\u901A\u7528\u7ED3\u7B97\u884C\u4E3A\u6811\u6D4B\u8BD5"
   EnemyData:
   - PlayerId: "\u654C\u65B91"
+    FirstIndex: 0
     UnitData:
-    - TemplateId: 
+    - TemplateId: "\u6D4B\u8BD5\u5355\u4F4D"
       Lv: 0
       CardData:
-      - TemplateId: 
-        Lv: 0
-      - TemplateId: 
-        Lv: 0
-      - TemplateId: 
+      - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
         Lv: 0

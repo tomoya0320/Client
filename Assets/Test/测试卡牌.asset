@@ -20,9 +20,38 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: LvCardItems
+      Entry: 7
+      Data: 0|GameCore.LvCardItem[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: GameCore.LvCardItem, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: "\u666E\u901A\u653B\u51FB\u5361\u724C\u6D4B\u8BD5"
+    - Name: Cost
+      Entry: 3
+      Data: 1
+    - Name: SkillId
+      Entry: 1
+      Data: "\u6D4B\u8BD5\u6280\u80FD"
+    - Name: CardPlayer
+      Entry: 7
+      Data: 1|GameCore.DefaultCardPlayer, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   CardType: 0
-  LvCardItems:
-  - Name: 
-    Cost: 0
-    SkillTemplateId: 

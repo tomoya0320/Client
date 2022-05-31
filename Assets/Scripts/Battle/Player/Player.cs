@@ -11,6 +11,7 @@ namespace GameCore {
 
   public class Player : BattleBase {
     public int RuntimeId { get; private set; }
+    public string PlayerId { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Unit Master { get; private set; }
     public Unit[] Units { get; private set; }
@@ -23,6 +24,7 @@ namespace GameCore {
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
       RuntimeId = runtimeId;
+      PlayerId = playerData.PlayerId;
       Units = new Unit[playerData.UnitData.Length];
       for (int i = 0; i < Units.Length; i++) {
         Units[i] = Battle.UnitManager.Create(this, playerData.UnitData[i]);

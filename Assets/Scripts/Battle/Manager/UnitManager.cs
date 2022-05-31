@@ -12,6 +12,7 @@ namespace GameCore {
     public Unit Create(Player player, UnitData unitData) {
       var unit = new Unit(Battle, ++IncId, player, unitData);
       Units.Add(unit.RuntimeId, unit);
+      Battle.BuffManager.AddComponent(unit);
       return unit;
     }
 
@@ -22,11 +23,11 @@ namespace GameCore {
       return null;
     }
 
-    public void OnUnitDie(int runtimeId) {
-      if(!Units.TryGetValue(runtimeId, out var unit)){
+    public void OnUnitDie(Unit unit) {
+      if(!Units.ContainsKey(unit.RuntimeId)){
         return;
       }
-      Battle.BuffManager.RemoveComponent(runtimeId);
+      Battle.BuffManager.RemoveComponent(unit.RuntimeId);
       unit.Player.DeadUnitCount++;
     }
   }
