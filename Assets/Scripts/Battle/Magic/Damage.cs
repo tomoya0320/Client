@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using GameCore.BehaviorFuncs;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -9,14 +10,14 @@ namespace GameCore.MagicFuncs {
     [LabelText("攻击力")]
     public NodeParam DamageValue;
 
-    public override void Run(Battle battleManager, Context context, MagicArgs args) {
+    public override async UniTask Run(Battle battleManager, Context context, MagicArgs args) {
       float damageValue;
       if(context is BehaviorContext behaviorContext) {
         damageValue = behaviorContext.Behavior.GetFloat(DamageValue);
       } else {
         damageValue = DamageValue.Value;
       }
-      battleManager.DamageManager.Damage(args.Source, args.Target, damageValue);
+      await battleManager.DamageManager.Damage(args.Source, args.Target, damageValue);
     }
   }
 }

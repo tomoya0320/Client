@@ -31,6 +31,10 @@ namespace GameCore {
     ON_BEFORE_DAMAGED,
     [InspectorName("被造成伤害后")]
     ON_LATE_DAMAGED,
+    [InspectorName("单位濒死时")]
+    ON_UNIT_DYING,
+    [InspectorName("单位死亡时")]
+    ON_UNIT_DEAD,
   }
 
   [CreateAssetMenu(menuName = "模板/行为树/战斗通用")]

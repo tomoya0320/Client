@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 
@@ -21,9 +22,15 @@ namespace GameCore {
     HAND,
   }
 
+  public enum UnitState {
+    ALIVE,
+    DYING,
+    DEAD,
+  }
+
   public class Unit : BattleBase {
     private UnitTemplate UnitTemplate;
-    public bool IsDead { get; private set; }
+    public UnitState UnitState { get; private set; } = UnitState.ALIVE;
     public Player Player { get; private set; }
     public int RuntimeId { get; private set; }
     public int Level { get; private set; }
@@ -81,6 +88,23 @@ namespace GameCore {
         addValue = value - attrib.Value;
       }
       return AddAttrib(type, addValue, onMaxValue);
+    }
+
+    public async UniTask TryDie(Unit source, int damageValue) {
+      DamageContext damageContext = Battle.ObjectPool.Get<DamageContext>();
+      damageContext.Source = source;
+      damageContext.Target = this;
+      damageContext.DamageValue = damageValue;
+
+      UnitState = UnitState.DYING;
+      await Battle.BehaviorManager.Run(BehaviorTime.ON_UNIT_DYING, this, damageContext);
+      if(GetAttrib(AttribType.HP).Value <= 0) {
+        UnitState = UnitState.DEAD;
+        Battle.UnitManager.OnUnitDie(RuntimeId);
+        await Battle.BehaviorManager.Run(BehaviorTime.ON_UNIT_DEAD, this, damageContext);
+      }
+
+      Battle.ObjectPool.Release(damageContext);
     }
 
     public Attrib GetAttrib(AttribType type) => Attribs[(int)type];

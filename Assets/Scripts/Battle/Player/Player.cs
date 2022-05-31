@@ -33,7 +33,7 @@ namespace GameCore {
     public void RefreshEnergy() {
       // 每回合开始前刷新能量(强制设置为最大值)
       foreach (var unit in Units) {
-        if (!unit.IsDead) {
+        if (unit.UnitState == UnitState.ALIVE) {
           unit.RefreshEnergy();
         }
       }
@@ -41,7 +41,7 @@ namespace GameCore {
 
     private void DrawCard() {
       foreach (var unit in Units) {
-        if (!unit.IsDead) {
+        if (unit.UnitState == UnitState.ALIVE) {
           unit.DrawCard();
         }
       }
@@ -49,7 +49,7 @@ namespace GameCore {
 
     private void DiscardCard() {
       foreach (var unit in Units) {
-        if (!unit.IsDead) {
+        if (unit.UnitState == UnitState.ALIVE) {
           unit.DiscardCard();
         }
       }

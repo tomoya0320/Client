@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace GameCore.MagicFuncs {
     [LabelText("附加值")]
     public AttribAdditive AttribAdditive;
 
-    public override void Run(Battle battleManager, Context context, MagicArgs args) {
+    public override UniTask Run(Battle battleManager, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.AttribValue != 0) {
           args.Target.AddAttrib(Type, buffContext.AttribValue, OnMaxValue);
@@ -27,6 +28,7 @@ namespace GameCore.MagicFuncs {
           buffContext.AttribValue = realAttribValue;
         }
       }
+      return UniTask.CompletedTask;
     }
   }
 }

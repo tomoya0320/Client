@@ -22,4 +22,16 @@ namespace GameCore {
       AttribValue = 0;
     }
   }
+
+  public class DamageContext : Context {
+    public Unit Source;
+    public Unit Target;
+    public int DamageValue;
+
+    public override void Release() {
+      Source = null;
+      Target = null;
+      DamageValue = 0;
+    }
+  }
 }

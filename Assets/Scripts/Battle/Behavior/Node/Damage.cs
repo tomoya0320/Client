@@ -9,13 +9,14 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override async UniTask<bool> Run(Behavior behavior, Context context) {
       Unit targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
-        return UniTask.FromResult(false);
+        return false;
       }
       float damageValue = behavior.GetFloat(DamageValue);
-      return UniTask.FromResult(behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue));
+      await behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
+      return true;
     }
   }
 }

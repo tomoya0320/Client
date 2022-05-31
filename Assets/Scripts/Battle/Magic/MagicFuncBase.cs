@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore.MagicFuncs {
@@ -10,6 +11,6 @@ namespace GameCore.MagicFuncs {
   public abstract class MagicFuncBase : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
-    public abstract void Run(Battle battleManager, Context context, MagicArgs args);
+    public abstract UniTask Run(Battle battleManager, Context context, MagicArgs args);
   }
 }

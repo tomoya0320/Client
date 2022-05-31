@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore.MagicFuncs {
@@ -6,7 +7,7 @@ namespace GameCore.MagicFuncs {
     public override bool IgnoreOnEnd => false;
     public string BehaviorId;
 
-    public override void Run(Battle battleManager, Context context, MagicArgs args) {
+    public override UniTask Run(Battle battleManager, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.Behavior != null) {
           if (battleManager.BehaviorManager.Remove(buffContext.Behavior.RuntimeId)) {
@@ -19,6 +20,7 @@ namespace GameCore.MagicFuncs {
           buffContext.Behavior = behavior;
         }
       }
+      return UniTask.CompletedTask;
     }
   }
 }

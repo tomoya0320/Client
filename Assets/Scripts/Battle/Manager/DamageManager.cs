@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore {
@@ -6,11 +7,13 @@ namespace GameCore {
 
     }
 
-    public bool Damage(Unit source, Unit target, float damageValue) {
+    public async UniTask Damage(Unit source, Unit target, float damageValue) {
       // Test
       Debug.Log($"{source.RuntimeId}:{source.Name}对{target.RuntimeId}:{target.Name}造成{damageValue}点伤害");
-      target.AddAttrib(AttribType.HP, -(int)damageValue);
-      return true;
+      int realDamageValue = target.AddAttrib(AttribType.HP, -(int)damageValue);
+      if(target.GetAttrib(AttribType.HP).Value <= 0) {
+        await target.TryDie(source, realDamageValue);
+      }
     }
   }
 }
