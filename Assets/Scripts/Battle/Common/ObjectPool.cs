@@ -23,7 +23,7 @@ namespace GameCore {
       return obj;
     }
 
-    public void Release<T>(T obj) where T : class, IPoolObject, new() {
+    public void Release<T>(T obj) where T : class, IPoolObject {
       if (!PoolObjects.TryGetValue(typeof(T), out var stack)) {
         stack = new Stack<IPoolObject>();
         PoolObjects.Add(typeof(T), stack);

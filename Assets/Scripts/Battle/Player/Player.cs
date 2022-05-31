@@ -20,11 +20,8 @@ namespace GameCore {
     public PlayerTurnState TurnState { get; private set; } = PlayerTurnState.NONE;
     private Queue<BattleOperation> OperationQueue = new Queue<BattleOperation>();
 
-    public Player(Battle battle) : base(battle) {
+    public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
-    }
-
-    public void Init(int runtimeId, PlayerData playerData) {
       RuntimeId = runtimeId;
       Units = new Unit[playerData.UnitData.Length];
       for (int i = 0; i < Units.Length; i++) {
@@ -42,19 +39,38 @@ namespace GameCore {
       }
     }
 
+    private void DrawCard() {
+      foreach (var unit in Units) {
+        if (!unit.IsDead) {
+          unit.DrawCard();
+        }
+      }
+    }
+
+    private void DiscardCard() {
+      foreach (var unit in Units) {
+        if (!unit.IsDead) {
+          unit.DiscardCard();
+        }
+      }
+    }
+
     public async UniTask OnTurn() {
-      // TODO:³éÅÆ
+      DrawCard();
 
       do {
         TurnState = PlayerTurnState.WAIT_OP;
-        await UniTask.WaitUntil(() => OperationQueue.Count > 0);
+        await UniTask.WaitUntil(OnTurnWait);
         TurnState = PlayerTurnState.DO_OP;
-        await OperationQueue.Dequeue().DoOperation();
+        var operation = OperationQueue.Dequeue();
+        await operation.DoOperation();
+        Battle.ObjectPool.Release(operation);
       } while (TurnState != PlayerTurnState.END_TURN);
 
-      // TODO:ÆúÅÆ
-
+      DiscardCard();
     }
+
+    private bool OnTurnWait() => OperationQueue.Count > 0;
 
     public void AddOperation(BattleOperation operation) {
       OperationQueue.Enqueue(operation);

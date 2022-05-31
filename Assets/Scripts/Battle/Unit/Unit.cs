@@ -1,4 +1,5 @@
-using Cysharp.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace GameCore {
   public enum CardHeapType {
@@ -18,10 +19,6 @@ namespace GameCore {
     /// 手牌堆
     /// </summary>
     HAND,
-    /// <summary>
-    /// 出牌堆
-    /// </summary>
-    PLAY,
   }
 
   public class Unit : BattleBase {
@@ -33,20 +30,26 @@ namespace GameCore {
     public int MaxLevel { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
+    public Dictionary<CardHeapType, List<Card>> CardHeapDict { get; private set; }
     public string Name => UnitTemplate != null ? UnitTemplate.Name : null;
+    public bool IsMaster => Player.Master == this;
 
-    public Unit(Battle battle) : base(battle) {
+    public Unit(Battle battle, int runtimeId, Player player, UnitData unitData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
-    }
-
-    public void Init(int runtimeId, Player player, UnitData unitData) {
       RuntimeId = runtimeId;
       Level = unitData.Lv;
       Player = player;
       Battle.UnitManager.Templates.TryGetValue(unitData.TemplateId, out UnitTemplate);
       MaxLevel = UnitTemplate.MaxLevel;
 
-      // TODO:卡牌初始化
+      // 卡牌相关
+      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
+        CardHeapDict.Add(cardHeapType, new List<Card>());
+      }
+
+      foreach (var cardData in unitData.CardData) {
+        CardHeapDict[CardHeapType.DRAW].Add(new Card(Battle, this, cardData));
+      }
 
       // 属性相关
       Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Level, MaxLevel);
@@ -85,6 +88,76 @@ namespace GameCore {
     public void RefreshEnergy() {
       var energyAttrib = GetAttrib(AttribType.ENERGY);
       SetAttrib(AttribType.ENERGY, energyAttrib.MaxValue);
+    }
+
+    private void RefreshCardList(CardHeapType cardHeapType) {
+      var cardList = CardHeapDict[cardHeapType];
+      for (int i = cardList.Count - 1; i >= 0; i--) {
+        var card = cardList[i];
+        if (card.CardHeapType != cardHeapType) {
+          cardList.RemoveAt(i);
+        }
+      }
+    }
+
+    public bool PlayCard(Card card, Unit mainTarget) {
+      // Test
+      if (card.CardHeapType != CardHeapType.HAND) {
+        return false;
+      }
+
+      if (!card.TryPlay(mainTarget)) {
+        return false;
+      }
+
+      card.CardHeapType = CardHeapType.DISCARD;
+      CardHeapDict[CardHeapType.HAND].Remove(card);
+      CardHeapDict[CardHeapType.DISCARD].Add(card);
+
+      var playCardOp = Battle.ObjectPool.Get<PlayCardOp>();
+      playCardOp.Unit = this;
+      playCardOp.MainTarget = mainTarget;
+      playCardOp.Card = card;
+
+      Player.AddOperation(playCardOp);
+
+      return true;
+    }
+
+    public void DrawCard() {
+      // Test
+      var handCardList = CardHeapDict[CardHeapType.HAND];
+      int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - handCardList.Count;
+      if (drawCardCount > 0) {
+        var drawCardList = CardHeapDict[CardHeapType.DRAW];
+        if(drawCardList.Count < drawCardCount) {
+          var discardCardList = CardHeapDict[CardHeapType.DISCARD];
+          for (int i = 0; i < discardCardList.Count; i++) {
+            var card = discardCardList[i];
+            drawCardList.Add(card);
+            card.CardHeapType = CardHeapType.DRAW;
+          }
+          RefreshCardList(CardHeapType.DISCARD);
+        }
+        MathUtil.FisherYatesShuffle(drawCardList);
+        for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
+          var card = drawCardList[i];
+          handCardList.Add(card);
+          card.CardHeapType = CardHeapType.HAND;
+        }
+        RefreshCardList(CardHeapType.DRAW);
+      }
+    }
+
+    public void DiscardCard() {
+      // Test
+      var handCardList = CardHeapDict[CardHeapType.HAND];
+      var discardCardList = CardHeapDict[CardHeapType.DISCARD];
+      for (int i = 0; i < handCardList.Count; i++) {
+        var card = handCardList[i];
+        discardCardList.Add(card);
+        card.CardHeapType = CardHeapType.DISCARD;
+      }
     }
   }
 }

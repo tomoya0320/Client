@@ -2,7 +2,7 @@ using GameCore;
 using Sirenix.OdinInspector;
 
 public class Game : SingletonMono<Game> {
-  [LabelText("Õ½¶·Êı¾İ")]
+  [LabelText("æˆ˜æ–—æ•°æ®")]
   public BattleData BattleData;
 
   private void Start() {

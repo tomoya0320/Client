@@ -20,8 +20,7 @@ namespace GameCore {
     }
 
     public Player Create(PlayerData playerData) {
-      var player = new Player(Battle);
-      player.Init(++IncId, playerData);
+      var player = new Player(Battle, ++IncId, playerData);
       Players.Add(player.RuntimeId, player);
       PlayerList.Add(player);
       return player;

@@ -10,8 +10,7 @@ namespace GameCore {
     }
 
     public Unit Create(Player player, UnitData unitData) {
-      var unit = new Unit(Battle);
-      unit.Init(++IncId, player, unitData);
+      var unit = new Unit(Battle, ++IncId, player, unitData);
       Units.Add(unit.RuntimeId, unit);
       return unit;
     }

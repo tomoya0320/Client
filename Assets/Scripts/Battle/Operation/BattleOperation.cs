@@ -1,20 +1,32 @@
 using Cysharp.Threading.Tasks;
 
 namespace GameCore {
-  public abstract class BattleOperation : BattleBase, IPoolObject {
-    protected Unit Unit;
+  public abstract class BattleOperation : IPoolObject {
+    public Unit Unit;
 
-    protected BattleOperation(Battle battle) : base(battle) { }
     public abstract UniTask DoOperation();
-    public virtual void Release() { }
+    public virtual void Release() { 
+      Unit = null;
+    }
   }
 
   public class EndTurnOp : BattleOperation {
-    public EndTurnOp(Battle battle) : base(battle) { }
-
     public override UniTask DoOperation() {
       Unit.Player.EndTurn();
       return UniTask.CompletedTask;
+    }
+  }
+
+  public class PlayCardOp : BattleOperation {
+    public Card Card;
+    public Unit MainTarget;
+
+    public override async UniTask DoOperation() => await Card.Cast(MainTarget);
+
+    public override void Release() {
+      base.Release();
+      Card = null;
+      MainTarget = null;
     }
   }
 }
