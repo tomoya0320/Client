@@ -1,8 +1,6 @@
 using GameCore.MagicFuncs;
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public class MagicManager : TemplateManager<MagicFuncBase> {
@@ -10,7 +8,7 @@ namespace GameCore {
     
     }
 
-    public bool DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
+    public async UniTask<bool> DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
       if(target == null) {
         Debug.LogError("MagicManager.DoMagic error, target is null");
         return false;
@@ -27,7 +25,7 @@ namespace GameCore {
           Source = source,
           Target = target,
         };
-        magicFunc.Run(Battle, context, args);
+        await magicFunc.Run(Battle, context, args);
       }
 
       return true;

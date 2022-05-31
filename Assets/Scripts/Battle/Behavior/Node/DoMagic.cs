@@ -8,10 +8,10 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public async override UniTask<bool> Run(Behavior behavior, Context context) {
       Unit targetUnit = behavior.GetUnit(TargetUnit);
-      bool result = behavior.BattleManager.MagicManager.DoMagic(MagicId, behavior.Unit, targetUnit, context);
-      return UniTask.FromResult(result);
+      bool result = await behavior.Battle.MagicManager.DoMagic(MagicId, behavior.Unit, targetUnit, context);
+      return result;
     }
   }
 }

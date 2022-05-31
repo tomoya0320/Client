@@ -17,7 +17,7 @@ namespace GameCore {
         var targets = TempList<Unit>.Get();
         skillEvent.TargetSelector.Select(Battle, Owner, mainTarget, targets);
         foreach (var target in targets) {
-          Battle.MagicManager.DoMagic(magicId, Owner, target);
+          await Battle.MagicManager.DoMagic(magicId, Owner, target);
         }
         TempList<Unit>.CleanUp();
       }

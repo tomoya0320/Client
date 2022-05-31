@@ -15,7 +15,7 @@ namespace GameCore.BehaviorFuncs {
         return false;
       }
       float damageValue = behavior.GetFloat(DamageValue);
-      await behavior.BattleManager.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
+      await behavior.Battle.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
       return true;
     }
   }

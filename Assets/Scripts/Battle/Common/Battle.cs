@@ -159,9 +159,9 @@ namespace GameCore {
       return magicFunc;
     }
 
-    public void Exit(bool force = false) {
+    public void Settle(bool isWin) {
+      Debug.Log(isWin ? "Battle win" : "Battle lose");
       BattleState = BattleState.Exit;
-      Debug.Log("退出战斗");
     }
 
     private async UniTask Clear() {

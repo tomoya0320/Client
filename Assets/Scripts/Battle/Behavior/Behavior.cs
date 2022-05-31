@@ -8,18 +8,18 @@ namespace GameCore {
     public Unit SourceUnit { get; private set; }
     public Unit Unit { get; private set; }
     public Card Card { get; private set; }
-    public Battle BattleManager { get; private set; }
+    public Battle Battle { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public void Init(Battle battleManager, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
-      BattleManager = battleManager;
+    public void Init(Battle battle, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
+      Battle = battle;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       Unit = targetUnit;
       Card = card;
       BehaviorGraph = behaviorGraph;
-      Blackboard = BattleManager.ObjectPool.Get<Blackboard>();
+      Blackboard = Battle.ObjectPool.Get<Blackboard>();
     }
 
     public async UniTask Run(Context context = null) => await BehaviorGraph.Run(this, context);
@@ -40,7 +40,7 @@ namespace GameCore {
           blackboard = Unit?.Player?.Blackboard;
           break;
         case DictType.Battle:
-          blackboard = BattleManager.Blackboard;
+          blackboard = Battle.Blackboard;
           break;
         default:
           blackboard = null;
@@ -87,7 +87,7 @@ namespace GameCore {
       }
 
       if (blackboard.TryGetValue(nodeParam.Key, out float runtimeId)) {
-        return BattleManager.UnitManager.GetUnit((int)runtimeId);
+        return Battle.UnitManager.GetUnit((int)runtimeId);
       }
 
       Debug.LogError($"BehaviorGraph.GetUnit error, key is not exists! key:{nodeParam.Key}");
@@ -95,10 +95,10 @@ namespace GameCore {
     }
 
     public void Release() {
-      BattleManager.ObjectPool.Release(Blackboard);
+      Battle.ObjectPool.Release(Blackboard);
       RuntimeId = 0;
       Blackboard = null;
-      BattleManager = null;
+      Battle = null;
       SourceUnit = null;
       Unit = null;
       Card = null;
