@@ -128,6 +128,9 @@ namespace GameCore {
     private async UniTask PreloadUnit(UnitData unitData) {
       var unitTemplate = await UnitManager.Preload(unitData.TemplateId);
       await AttribManager.Preload(unitTemplate.AttribId);
+      foreach (var behaviorId in unitTemplate.BehaviorIds) {
+        await PreloadBehavior(behaviorId);
+      }
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
         var cardTemplate = await CardManager.Preload(cardData.TemplateId);
@@ -223,17 +226,17 @@ namespace GameCore {
       Debug.Log($"回合开始前刷新能量 energy:{CurPlayer.Master.GetAttrib(AttribType.ENERGY).Value}/{CurPlayer.Master.GetAttrib(AttribType.ENERGY).MaxValue}");
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN);
+      BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
       // 执行回合开始前的行为树
       await BehaviorManager.Run(BehaviorTime.ON_BEFORE_TURN);
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_TURN);
+      BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
       // 回合中的逻辑
       await CurPlayer.OnTurn();
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_LATE_TURN);
+      BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
       // 执行回合结束后的行为树
       await BehaviorManager.Run(BehaviorTime.ON_LATE_TURN);
     }

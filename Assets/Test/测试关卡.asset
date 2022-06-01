@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u6D4B\u8BD5\u5173\u5361"
   m_EditorClassIdentifier: 
   BehaviorIds:
-  - "\u5173\u5361\u901A\u7528\u7ED3\u7B97\u884C\u4E3A\u6811\u6D4B\u8BD5"
+  - "\u884C\u4E3A\u6811\u6D4B\u8BD5"
   EnemyData:
   - PlayerId: "\u654C\u65B91"
     FirstIndex: 0

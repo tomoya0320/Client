@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46347c610395c7f4681ec7bbe1ed6038, type: 3}
-  m_Name: "\u5173\u5361\u901A\u7528\u7ED3\u7B97\u884C\u4E3A\u6811\u6D4B\u8BD5"
+  m_Name: "\u884C\u4E3A\u6811\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 9055105036251962087}
@@ -209,7 +209,7 @@ MonoBehaviour:
   - {fileID: 6838471016717794669}
   - {fileID: -5202230786887711784}
   - {fileID: -1860802270495552548}
-  BehaviorTime: 7
+  BehaviorTime: 8
 --- !u!114 &474068457118245049
 MonoBehaviour:
   m_ObjectHideFlags: 0

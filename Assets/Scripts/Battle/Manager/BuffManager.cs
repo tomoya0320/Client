@@ -9,9 +9,12 @@ namespace GameCore {
 
     }
 
-    public void Update(BattleTurnPhase phase) {
+    public void Update(BattleTurnPhase phase, params Unit[] units) {
       var list = TempList<BuffComponent>.Get();
-      list.AddRange(BuffComponents.Values);
+      foreach (var unit in units) {
+        list.Add(BuffComponents[unit.RuntimeId]);
+      }
+
       foreach (var buffComponent in list) {
         buffComponent.Update(phase);
       }

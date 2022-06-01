@@ -23,6 +23,8 @@ namespace GameCore {
     ON_BEFORE_TURN,
     [InspectorName("回合结束时")]
     ON_LATE_TURN,
+    [InspectorName("回合中等待指令")]
+    ON_TURN_WAIT_OP,
     [InspectorName("造成伤害前")]
     ON_BEFORE_DAMAGE,
     [InspectorName("造成伤害后")]

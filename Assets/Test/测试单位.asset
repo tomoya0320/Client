@@ -15,3 +15,4 @@ MonoBehaviour:
   Name: "\u6D4B\u8BD5\u5355\u4F4D1"
   AttribId: "\u5C5E\u6027\u6D4B\u8BD5"
   MaxLevel: 100
+  BehaviorIds: []

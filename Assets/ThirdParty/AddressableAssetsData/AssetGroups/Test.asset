@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 9ea49cdb978cce14a83c8590bdb69dfe
   m_SerializeEntries:
   - m_GUID: 554518a6acaca684d80f57ecce45132b
-    m_Address: "\u5173\u5361\u901A\u7528\u7ED3\u7B97\u884C\u4E3A\u6811\u6D4B\u8BD5"
+    m_Address: "\u884C\u4E3A\u6811\u6D4B\u8BD5"
     m_ReadOnly: 0
     m_SerializedLabels:
     - default

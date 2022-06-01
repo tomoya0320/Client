@@ -18,8 +18,9 @@ namespace GameCore {
     public int DeadUnitCount;
     public int TotalUnitCount => Units.Length;
     public bool Available => DeadUnitCount < TotalUnitCount;
+    public bool IsSelf => Battle.SelfPlayer == this;
     public PlayerTurnState TurnState { get; private set; } = PlayerTurnState.NONE;
-    private Queue<BattleOperation> OperationQueue = new Queue<BattleOperation>();
+    private BattleOperation Operation;
 
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
@@ -62,20 +63,25 @@ namespace GameCore {
 
       do {
         TurnState = PlayerTurnState.WAIT_OP;
-        await UniTask.WaitUntil(OnTurnWait);
+        while (Operation == null) {
+          await Battle.BehaviorManager.Run(BehaviorTime.ON_TURN_WAIT_OP, Master);
+          await UniTask.Yield();
+        }
         TurnState = PlayerTurnState.DO_OP;
-        var operation = OperationQueue.Dequeue();
-        await operation.DoOperation();
-        Battle.ObjectPool.Release(operation);
+        await Operation.DoOperation();
+        Battle.ObjectPool.Release(Operation);
+        Operation = null;
       } while (TurnState != PlayerTurnState.END_TURN);
 
       DiscardCard();
     }
 
-    private bool OnTurnWait() => OperationQueue.Count > 0;
-
-    public void AddOperation(BattleOperation operation) {
-      OperationQueue.Enqueue(operation);
+    public bool DoOperation(BattleOperation operation) {
+      if (TurnState != PlayerTurnState.WAIT_OP) {
+        return false;
+      }
+      Operation = operation;
+      return true;
     }
 
     public void EndTurn() {

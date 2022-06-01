@@ -67,6 +67,11 @@ namespace GameCore {
       }
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
+
+      // 行为树相关
+      foreach (var behaviorId in UnitTemplate.BehaviorIds) {
+        battle.BehaviorManager.Add(behaviorId, this, this);
+      }
     }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
@@ -144,7 +149,10 @@ namespace GameCore {
       playCardOp.MainTarget = mainTarget;
       playCardOp.Card = card;
 
-      Player.AddOperation(playCardOp);
+      if (!Player.DoOperation(playCardOp)) {
+        Battle.ObjectPool.Release(playCardOp);
+        return false;
+      }
 
       return true;
     }

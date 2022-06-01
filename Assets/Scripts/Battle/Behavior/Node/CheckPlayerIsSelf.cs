@@ -9,7 +9,7 @@ namespace GameCore.BehaviorFuncs {
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {
       var unit = behavior.GetUnit(UnitKey);
-      return UniTask.FromResult(unit.Player == behavior.Battle.SelfPlayer);
+      return UniTask.FromResult(unit.Player.IsSelf);
     }
   }
 }
