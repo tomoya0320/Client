@@ -202,6 +202,7 @@ namespace GameCore {
         discardCardList.Add(card);
         card.CardHeapType = CardHeapType.DISCARD;
       }
+      RefreshCardList(CardHeapType.HAND);
     }
   }
 }

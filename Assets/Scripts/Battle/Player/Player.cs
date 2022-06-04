@@ -79,15 +79,13 @@ namespace GameCore {
     }
 
     public bool DoOperation(BattleOperation operation) {
-      if (TurnState != PlayerTurnState.WAIT_OP) {
+      if (Operation != null) {
         return false;
       }
       Operation = operation;
       return true;
     }
 
-    public void EndTurn() {
-      TurnState = PlayerTurnState.END_TURN;
-    }
+    public void EndTurn() => TurnState = PlayerTurnState.END_TURN;
   }
 }
