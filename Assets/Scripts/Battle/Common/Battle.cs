@@ -91,7 +91,7 @@ namespace GameCore {
               await Run();
             } catch (Exception e) {
               if (e is not OperationCanceledException) {
-                Debug.LogError(e.GetType());
+                throw e;
               }
             }
             break;

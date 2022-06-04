@@ -201,7 +201,7 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   graph: {fileID: 11400000}
-  position: {x: 8, y: 152}
+  position: {x: 8, y: 200}
   ports:
     keys:
     - In
@@ -711,7 +711,7 @@ MonoBehaviour:
   Index: 0
   TargetUnit:
     Type: 0
-    Key: 
+    Key: behavior_unit
   CardHeapType: 3
   TargetKey:
     Type: 0

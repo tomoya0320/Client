@@ -4,7 +4,9 @@ namespace GameCore {
   public class Card : BattleBase {
     public CardTemplate CardTemplate;
     public int RuntimeId { get; private set; }
-    public int Lv { get; private set; }
+    public CardData CardData { get; private set; }
+    public string TemplateId => CardData.TemplateId;
+    public int Lv => CardData.Lv;
     public Unit Owner { get; private set; }
     public Skill[] Skills { get; private set; }
     private Skill Skill => Skills[Lv];
@@ -14,9 +16,11 @@ namespace GameCore {
 
     public Card(Battle battle, int runtimeId, Unit owner, CardData cardData) : base(battle) {
       RuntimeId = runtimeId;
-      Lv = cardData.Lv;
       Owner = owner;
-      Battle.CardManager.Templates.TryGetValue(cardData.TemplateId, out CardTemplate);
+      CardData = cardData;
+
+      Battle.CardManager.Templates.TryGetValue(TemplateId, out CardTemplate);
+
       Skills = new Skill[CardTemplate.LvCardItems.Length];
       for (int i = 0; i < Skills.Length; i++) {
         Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].SkillId);

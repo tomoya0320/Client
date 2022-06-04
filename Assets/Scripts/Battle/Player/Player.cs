@@ -11,11 +11,12 @@ namespace GameCore {
 
   public class Player : BattleBase {
     public int RuntimeId { get; private set; }
-    public string PlayerId { get; private set; }
+    public string PlayerId => PlayerData.PlayerId;
+    public PlayerData PlayerData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Unit Master { get; private set; }
     public Unit[] Units { get; private set; }
-    public UnitData[] UnitData { get; private set; }
+    public UnitData[] UnitData => PlayerData.UnitData;
     public int DeadUnitCount;
     public int TotalUnitCount => Units.Length;
     public bool Available => DeadUnitCount < TotalUnitCount;
@@ -26,16 +27,15 @@ namespace GameCore {
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
       RuntimeId = runtimeId;
-      PlayerId = playerData.PlayerId;
+      PlayerData = playerData;
       Units = new Unit[playerData.UnitData.Length];
-      UnitData = playerData.UnitData;
-      Master = Units[playerData.FirstIndex];
     }
 
     public async UniTask Init() {
       for (int i = 0; i < Units.Length; i++) {
         Units[i] = await Battle.UnitManager.Create(this, UnitData[i]);
       }
+      Master = Units[PlayerData.FirstIndex];
     }
 
     public void RefreshEnergy() {

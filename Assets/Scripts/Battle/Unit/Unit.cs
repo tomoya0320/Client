@@ -26,8 +26,9 @@ namespace GameCore {
     public UnitState UnitState { get; private set; } = UnitState.ALIVE;
     public Player Player { get; private set; }
     public int RuntimeId { get; private set; }
-    public int Level { get; private set; }
-    public int MaxLevel => UnitTemplate.MaxLevel;
+    public string TemplateId => UnitData.TemplateId;
+    public int Lv => UnitData.Lv;
+    public int MaxLv => UnitTemplate.MaxLevel;
     public UnitData UnitData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
@@ -38,17 +39,17 @@ namespace GameCore {
     public Unit(Battle battle, int runtimeId, Player player, UnitData unitData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
       RuntimeId = runtimeId;
-      Level = unitData.Lv;
       Player = player;
       UnitData = unitData;
-      Battle.UnitManager.Templates.TryGetValue(unitData.TemplateId, out UnitTemplate);
+
+      Battle.UnitManager.Templates.TryGetValue(TemplateId, out UnitTemplate);
 
       CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         CardHeapDict.Add(cardHeapType, new List<Card>());
       }
 
-      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Level, MaxLevel);
+      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Lv, MaxLv);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
         Attribs[i].AllowNegative = false;
