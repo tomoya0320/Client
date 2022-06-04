@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace GameCore.BehaviorFuncs {
 	public abstract class DecoratorNode : BehaviorNode {
-    [LabelText("Èë")]
+    [LabelText("å…¥")]
     [Input(connectionType = ConnectionType.Override)]
     public NodePort In;
-    [LabelText("³ö")]
+    [LabelText("å‡º")]
     [Output(connectionType = ConnectionType.Override)]
     public NodePort Out;
   }

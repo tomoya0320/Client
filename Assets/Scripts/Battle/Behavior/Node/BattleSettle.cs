@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/战斗结算")]
+  [CreateNodeMenu("鑺傜偣/琛屼负/鎴樻枟缁撶畻")]
   public class BattleSettle : ActionNode {
-    [LabelText("是否胜利")]
+    [LabelText("鏄惁鑳滃埄")]
     public bool IsWin;
 
     public override async UniTask<bool> Run(Behavior behavior, Context context) {

@@ -7,19 +7,18 @@ namespace GameCore {
     public int RuntimeId { get; private set; }
     public Unit SourceUnit { get; private set; }
     public Unit Unit { get; private set; }
-    public Card Card { get; private set; }
     public Battle Battle { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public void Init(Battle battle, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Card card = null) {
+    public async UniTask Init(Battle battle, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Context context = null) {
       Battle = battle;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       Unit = targetUnit;
-      Card = card;
       BehaviorGraph = behaviorGraph;
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
+      await BehaviorGraph.Init(this, context);
     }
 
     public async UniTask Run(Context context = null) => await BehaviorGraph.Run(this, context);
@@ -29,9 +28,6 @@ namespace GameCore {
       switch (type) {
         case DictType.Behavior:
           blackboard = Blackboard;
-          break;
-        case DictType.Card:
-          blackboard = Card?.Blackboard;
           break;
         case DictType.Unit:
           blackboard = Unit?.Blackboard;
@@ -63,14 +59,12 @@ namespace GameCore {
       return 0f;
     }
 
-    public int GetInt(NodeParam nodeParam) => (int)GetFloat(nodeParam);
+    public int GetInt(NodeIntParam nodeParam) => nodeParam.IsDict ? (int)GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key) : nodeParam.Value;
 
 
     public void SetInt(NodeParamKey nodeParamKey, int i) => SetFloat(nodeParamKey, i);
 
-    public float GetFloat(NodeParam nodeParam) {
-      return nodeParam.IsDict ? GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key) : nodeParam.Value;
-    }
+    public float GetFloat(NodeFloatParam nodeParam) => nodeParam.IsDict ? GetBlackboardValue(nodeParam.ParamKey.Type, nodeParam.ParamKey.Key) : nodeParam.Value;
 
     public void SetFloat(NodeParamKey nodeParamKey, float f) {
       Blackboard blackboard = GetBlackboard(nodeParamKey.Type);
@@ -101,7 +95,6 @@ namespace GameCore {
       Battle = null;
       SourceUnit = null;
       Unit = null;
-      Card = null;
       BehaviorGraph = null;
     }
   }

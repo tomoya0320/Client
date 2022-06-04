@@ -2,13 +2,16 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/¼ì²éÍæ¼ÒÊÇ·ñ¿ÉÓÃ")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/æ£€æŸ¥ç©å®¶æ˜¯å¦å¯ç”¨")]
   public class CheckPlayerAvailable : ActionNode {
-    [LabelText("Íæ¼Òµ¥Î»")]
+    [LabelText("ç©å®¶å•ä½")]
     public NodeParamKey UnitKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {
       var unit = behavior.GetUnit(UnitKey);
+      if(unit == null) {
+        return UniTask.FromResult(false);
+      }
       return UniTask.FromResult(unit.Player.Available);
     }
   }

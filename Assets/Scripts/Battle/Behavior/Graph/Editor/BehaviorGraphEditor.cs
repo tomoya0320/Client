@@ -28,6 +28,13 @@ namespace GameCore {
           return false;
         }
       }
+      if (typeof(Init).IsAssignableFrom(type)) {
+        var init = target.nodes.Find(node => node is Init);
+        if (init) {
+          EditorUtility.DisplayDialog("提示", $"已添加初始化节点{init.GetType().Name},请勿重复添加!", "确定");
+          return false;
+        }
+      }
       return true;
     }
   }

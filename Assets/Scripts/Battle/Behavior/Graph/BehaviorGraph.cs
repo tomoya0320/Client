@@ -8,8 +8,6 @@ namespace GameCore {
   public enum DictType {
     [InspectorName("行为树")]
     Behavior,
-    [InspectorName("卡牌")]
-    Card,
     [InspectorName("单位")]
     Unit,
     [InspectorName("玩家")]
@@ -43,6 +41,13 @@ namespace GameCore {
   public class BehaviorGraph : NodeGraph {
     [LabelText("触发时机")]
     public BehaviorTime BehaviorTime;
+
+    public async UniTask Init(Behavior behavior, Context context = null) {
+      var node = nodes.Find(n => n is Init) as BehaviorNode;
+      if (node) {
+        await node.Run(behavior, context);
+      }
+    }
 
     public async UniTask Run(Behavior behavior, Context context = null) {
       var node = nodes.Find(n => n is Root) as BehaviorNode;

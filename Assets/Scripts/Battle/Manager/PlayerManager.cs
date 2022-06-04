@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace GameCore {
@@ -19,8 +20,9 @@ namespace GameCore {
       return PlayerList[LoopIndex];
     }
 
-    public Player Create(PlayerData playerData) {
+    public async UniTask<Player> Create(PlayerData playerData) {
       var player = new Player(Battle, ++IncId, playerData);
+      await player.Init();
       Players.Add(player.RuntimeId, player);
       PlayerList.Add(player);
       return player;

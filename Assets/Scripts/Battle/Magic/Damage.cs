@@ -8,12 +8,12 @@ namespace GameCore.MagicFuncs {
   public class Damage : MagicFuncBase {
     public override bool IgnoreOnEnd => true;
     [LabelText("攻击力")]
-    public NodeParam DamageValue;
+    public NodeIntParam DamageValue;
 
     public override async UniTask Run(Battle battleManager, Context context, MagicArgs args) {
-      float damageValue;
+      int damageValue;
       if(context is BehaviorContext behaviorContext) {
-        damageValue = behaviorContext.Behavior.GetFloat(DamageValue);
+        damageValue = behaviorContext.Behavior.GetInt(DamageValue);
       } else {
         damageValue = DamageValue.Value;
       }

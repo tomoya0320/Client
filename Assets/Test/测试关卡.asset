@@ -18,8 +18,10 @@ MonoBehaviour:
   - PlayerId: "\u654C\u65B91"
     FirstIndex: 0
     UnitData:
-    - TemplateId: "\u6D4B\u8BD5\u5355\u4F4D"
+    - TemplateId: "\u6D4B\u8BD5\u654C\u65B9\u5355\u4F4D"
       Lv: 0
       CardData:
       - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
         Lv: 0
+      - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
+        Lv: 1

@@ -1,24 +1,17 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameCore {
   public enum CardHeapType {
-    /// <summary>
-    /// ≥È≈∆∂—
-    /// </summary>
+    [InspectorName("≥È≈∆∂—")]
     DRAW,
-    /// <summary>
-    /// ∆˙≈∆∂—
-    /// </summary>
+    [InspectorName("∆˙≈∆∂—")]
     DISCARD,
-    /// <summary>
-    /// ∫ƒ≈∆∂—
-    /// </summary>
+    [InspectorName("∫ƒ≈∆∂—")]
     CONSUME,
-    /// <summary>
-    ///  ÷≈∆∂—
-    /// </summary>
+    [InspectorName(" ÷≈∆∂—")]
     HAND,
   }
 
@@ -34,7 +27,8 @@ namespace GameCore {
     public Player Player { get; private set; }
     public int RuntimeId { get; private set; }
     public int Level { get; private set; }
-    public int MaxLevel { get; private set; }
+    public int MaxLevel => UnitTemplate.MaxLevel;
+    public UnitData UnitData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
     public Dictionary<CardHeapType, List<Card>> CardHeapDict { get; private set; }
@@ -46,20 +40,14 @@ namespace GameCore {
       RuntimeId = runtimeId;
       Level = unitData.Lv;
       Player = player;
+      UnitData = unitData;
       Battle.UnitManager.Templates.TryGetValue(unitData.TemplateId, out UnitTemplate);
-      MaxLevel = UnitTemplate.MaxLevel;
 
-      // ø®≈∆œ‡πÿ
       CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         CardHeapDict.Add(cardHeapType, new List<Card>());
       }
 
-      foreach (var cardData in unitData.CardData) {
-        CardHeapDict[CardHeapType.DRAW].Add(new Card(Battle, this, cardData));
-      }
-
-      //  Ù–‘œ‡πÿ
       Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Level, MaxLevel);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
@@ -67,10 +55,17 @@ namespace GameCore {
       }
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
+    }
 
+    public async UniTask Init() {
       // ––Œ™ ˜œ‡πÿ
       foreach (var behaviorId in UnitTemplate.BehaviorIds) {
-        battle.BehaviorManager.Add(behaviorId, this, this);
+        await Battle.BehaviorManager.Add(behaviorId, this, this);
+      }
+
+      // ø®≈∆œ‡πÿ
+      foreach (var cardData in UnitData.CardData) {
+        CardHeapDict[CardHeapType.DRAW].Add(Battle.CardManager.Create(this, cardData));
       }
     }
 
@@ -128,6 +123,16 @@ namespace GameCore {
           cardList.RemoveAt(i);
         }
       }
+    }
+
+    public bool EndTurn() {
+      var endTurnOp = Battle.ObjectPool.Get<EndTurnOp>();
+      endTurnOp.Unit = this;
+      if (!Player.DoOperation(endTurnOp)) {
+        Battle.ObjectPool.Release(endTurnOp);
+        return false;
+      }
+      return true;
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {

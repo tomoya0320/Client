@@ -10,6 +10,9 @@ namespace GameCore.BehaviorFuncs {
 
     public async override UniTask<bool> Run(Behavior behavior, Context context) {
       Unit targetUnit = behavior.GetUnit(TargetUnit);
+      if (targetUnit == null) {
+        return false;
+      }
       bool result = await behavior.Battle.MagicManager.DoMagic(MagicId, behavior.Unit, targetUnit, context);
       return result;
     }

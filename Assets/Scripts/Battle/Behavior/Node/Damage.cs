@@ -1,11 +1,11 @@
-﻿using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/伤害")]
   public class Damage : ActionNode {
     [LabelText("攻击力")]
-    public NodeParam DamageValue;
+    public NodeIntParam DamageValue;
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
@@ -14,7 +14,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return false;
       }
-      float damageValue = behavior.GetFloat(DamageValue);
+      int damageValue = behavior.GetInt(DamageValue);
       await behavior.Battle.DamageManager.Damage(behavior.Unit, targetUnit, damageValue);
       return true;
     }

@@ -7,7 +7,7 @@ namespace GameCore.MagicFuncs {
     public override bool IgnoreOnEnd => false;
     public string BehaviorId;
 
-    public override UniTask Run(Battle battleManager, Context context, MagicArgs args) {
+    public async override UniTask Run(Battle battleManager, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.Behavior != null) {
           if (battleManager.BehaviorManager.Remove(buffContext.Behavior.RuntimeId)) {
@@ -15,12 +15,11 @@ namespace GameCore.MagicFuncs {
           }
         }
       } else {
-        var behavior = battleManager.BehaviorManager.Add(BehaviorId, args.Source, args.Target);
+        var behavior = await battleManager.BehaviorManager.Add(BehaviorId, args.Source, args.Target);
         if (behavior != null && context is BuffContext buffContext) {
           buffContext.Behavior = behavior;
         }
       }
-      return UniTask.CompletedTask;
     }
   }
 }

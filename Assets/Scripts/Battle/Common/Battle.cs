@@ -8,6 +8,7 @@ namespace GameCore {
   public enum BattleState {
     None,
     Load,
+    Enter,
     Run,
     Exit,
   }
@@ -21,6 +22,7 @@ namespace GameCore {
   public class Battle {
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
+    public LevelTemplate LevelTemplate { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public ObjectPool ObjectPool { get; private set; }
     public Player CurPlayer { get; private set; }
@@ -81,11 +83,14 @@ namespace GameCore {
           case BattleState.Load:
             await Load();
             break;
+          case BattleState.Enter:
+            await Enter();
+            break;
           case BattleState.Run:
             try {
               await Run();
             } catch (Exception e) {
-              if (e.GetType() != typeof(OperationCanceledException)) {
+              if (e is not OperationCanceledException) {
                 Debug.LogError(e.GetType());
               }
             }
@@ -98,31 +103,39 @@ namespace GameCore {
     }
 
     private async UniTask Load() {
-      // 加载关卡模板
-      var levelTemplate = await LevelManager.Preload(BattleData.LevelId);
-      // 加载关卡行为树
-      foreach (var behaviorId in levelTemplate.BehaviorIds) {
-        var behavior = await PreloadBehavior(behaviorId);
-        if (behavior) {
-          BehaviorManager.Add(behaviorId);
-        }
-      }      
-      // 先加载我方角色
+      // 加载关卡相关资源
+      LevelTemplate = await LevelManager.Preload(BattleData.LevelId);
+      foreach (var behaviorId in LevelTemplate.BehaviorIds) {
+        await PreloadBehavior(behaviorId);
+      }
+
+      // 加载单位相关资源
       foreach (var unitData in BattleData.PlayerData.UnitData) {
         await PreloadUnit(unitData);
       }
-      // 暂定我方先手
-      SelfPlayer = PlayerManager.Create(BattleData.PlayerData);
-      // 再加载敌方角色
-      foreach (var enemyData in levelTemplate.EnemyData) {
+      foreach (var enemyData in LevelTemplate.EnemyData) {
         foreach (var unitData in enemyData.UnitData) {
           await PreloadUnit(unitData);
         }
-        PlayerManager.Create(enemyData);
+      }
+
+      BattleState = BattleState.Enter;
+      Debug.Log("战斗资源加载完毕");
+    }
+
+    private async UniTask Enter() {
+      // 先初始化自己
+      SelfPlayer = await PlayerManager.Create(BattleData.PlayerData);
+      // 再初始化敌方
+      foreach (var enemyData in LevelTemplate.EnemyData) {
+        await PlayerManager.Create(enemyData);
+      }
+      // 最后初始化关卡
+      foreach (var behaviorId in LevelTemplate.BehaviorIds) {
+        await BehaviorManager.Add(behaviorId);
       }
 
       BattleState = BattleState.Run;
-      Debug.Log("战斗资源加载完毕");
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
@@ -143,7 +156,7 @@ namespace GameCore {
       }
     }
 
-    private async UniTask<BehaviorGraph> PreloadBehavior(string behaviorId) {
+    private async UniTask PreloadBehavior(string behaviorId) {
       var behavior = await BehaviorManager.Preload(behaviorId);
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
@@ -154,10 +167,9 @@ namespace GameCore {
           }
         }
       }
-      return behavior;
     }
 
-    private async UniTask<MagicFuncBase> PreloadMagic(string magicId) {
+    private async UniTask PreloadMagic(string magicId) {
       var magicFunc = await MagicManager.Preload(magicId);
       if (magicFunc) {
         switch (magicFunc) {
@@ -166,7 +178,6 @@ namespace GameCore {
             break;
         }
       }
-      return magicFunc;
     }
 
     public void Settle(bool isWin) {
@@ -210,6 +221,7 @@ namespace GameCore {
       ObjectPool = null;
       CurPlayer = null;
       SelfPlayer = null;
+      LevelTemplate = null;
 
       await UniTask.Yield();
 

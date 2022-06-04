@@ -2,13 +2,13 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/»ñÈ¡ÉËº¦ÉÏÏÂÎÄ")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/è·å–ä¼¤å®³ä¸Šä¸‹æ–‡")]
   public class GetDamageContext : ActionNode {
-    [LabelText("À´Ô´µ¥Î»")]
+    [LabelText("æ¥æºå•ä½")]
     public NodeParamKey SourceKey;
-    [LabelText("Ä¿±êµ¥Î»")]
+    [LabelText("ç›®æ ‡å•ä½")]
     public NodeParamKey TargetKey;
-    [LabelText("ÉËº¦Öµ")]
+    [LabelText("ä¼¤å®³å€¼")]
     public NodeParamKey DamageValueKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {

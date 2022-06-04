@@ -27,7 +27,7 @@ namespace GameCore {
       TempList<int>.CleanUp();
     }
 
-    public Behavior Add(string behaviorId, Unit source = null, Unit target = null) {
+    public async UniTask<Behavior> Add(string behaviorId, Unit source = null, Unit target = null, Context context = null) {
       if (!Templates.TryGetValue(behaviorId, out var behaviorGraph)) {
         Debug.LogError($"BehaviorManager.Add error, behaviorGraph is not preload. Id:{behaviorId}");
         return null;
@@ -35,7 +35,7 @@ namespace GameCore {
 
       int runtimeId = ++IncId;
       Behavior behavior = Battle.ObjectPool.Get<Behavior>();
-      behavior.Init(Battle, runtimeId, behaviorGraph, source, target);
+      await behavior.Init(Battle, runtimeId, behaviorGraph, source, target, context);
       Behaviors.Add(runtimeId, behavior);
       BehaviorTimes[behaviorGraph.BehaviorTime].Add(runtimeId);
       return behavior;

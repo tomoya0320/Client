@@ -26,7 +26,7 @@ MonoBehaviour:
       Data: 0|GameCore.LvCardItem[], Assembly-CSharp
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: GameCore.LvCardItem, Assembly-CSharp
@@ -42,6 +42,27 @@ MonoBehaviour:
     - Name: CardPlayer
       Entry: 7
       Data: 1|GameCore.DefaultCardPlayer, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: GameCore.LvCardItem, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: "\u666E\u901A\u653B\u51FB\u5361\u724C\u6D4B\u8BD5"
+    - Name: Cost
+      Entry: 3
+      Data: 2
+    - Name: SkillId
+      Entry: 1
+      Data: "\u6D4B\u8BD5\u6280\u80FD2"
+    - Name: CardPlayer
+      Entry: 7
+      Data: 2|GameCore.DefaultCardPlayer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

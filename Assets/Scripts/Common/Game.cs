@@ -17,6 +17,10 @@ public class Game : SingletonMono<Game> {
         var self = Battle.Instance.SelfPlayer.Master;
         self.PlayCard(self.CardHeapDict[CardHeapType.HAND][0], Battle.Instance.UnitManager.GetUnit(2));
       }
+      if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        var self = Battle.Instance.SelfPlayer.Master;
+        self.EndTurn();
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ namespace GameCore {
     public Blackboard Blackboard { get; private set; }
     public Unit Master { get; private set; }
     public Unit[] Units { get; private set; }
+    public UnitData[] UnitData { get; private set; }
     public int DeadUnitCount;
     public int TotalUnitCount => Units.Length;
     public bool Available => DeadUnitCount < TotalUnitCount;
@@ -27,10 +28,14 @@ namespace GameCore {
       RuntimeId = runtimeId;
       PlayerId = playerData.PlayerId;
       Units = new Unit[playerData.UnitData.Length];
-      for (int i = 0; i < Units.Length; i++) {
-        Units[i] = Battle.UnitManager.Create(this, playerData.UnitData[i]);
-      }
+      UnitData = playerData.UnitData;
       Master = Units[playerData.FirstIndex];
+    }
+
+    public async UniTask Init() {
+      for (int i = 0; i < Units.Length; i++) {
+        Units[i] = await Battle.UnitManager.Create(this, UnitData[i]);
+      }
     }
 
     public void RefreshEnergy() {

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace GameCore {
@@ -5,12 +6,11 @@ namespace GameCore {
     private int IncId;
     private Dictionary<int, Unit> Units = new Dictionary<int, Unit>();
 
-    public UnitManager(Battle battle) : base(battle) {
-      
-    }
+    public UnitManager(Battle battle) : base(battle) { }
 
-    public Unit Create(Player player, UnitData unitData) {
+    public async UniTask<Unit> Create(Player player, UnitData unitData) {
       var unit = new Unit(Battle, ++IncId, player, unitData);
+      await unit.Init();
       Units.Add(unit.RuntimeId, unit);
       Battle.BuffManager.AddComponent(unit);
       return unit;

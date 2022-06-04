@@ -15,7 +15,16 @@ namespace GameCore.BehaviorFuncs {
   }
 
   [Serializable]
-  public struct NodeParam {
+  public struct NodeIntParam {
+    public bool IsDict;
+    [ShowIf("IsDict"), HideLabel]
+    public NodeParamKey ParamKey;
+    [HideIf("IsDict")]
+    public int Value;
+  }
+
+  [Serializable]
+  public struct NodeFloatParam {
     public bool IsDict;
     [ShowIf("IsDict"), HideLabel]
     public NodeParamKey ParamKey;
