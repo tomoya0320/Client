@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BehaviorIds:
   - "\u884C\u4E3A\u6811\u6D4B\u8BD5"
-  EnemyData:
+  PlayerData:
   - PlayerId: "\u654C\u65B91"
+    PlayerCamp: 2
     FirstIndex: 0
     UnitData:
     - TemplateId: "\u6D4B\u8BD5\u654C\u65B9\u5355\u4F4D"
@@ -24,4 +25,4 @@ MonoBehaviour:
       - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
         Lv: 0
       - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
-        Lv: 0
+        Lv: 1

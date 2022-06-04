@@ -4,6 +4,7 @@ namespace GameCore {
   public class Card : BattleBase {
     public CardTemplate CardTemplate;
     public int RuntimeId { get; private set; }
+    public PlayerCamp TargetCamp => CardTemplate.TargetCamp;
     public CardData CardData { get; private set; }
     public string TemplateId => CardData.TemplateId;
     public int Lv => CardData.Lv;
@@ -24,6 +25,21 @@ namespace GameCore {
       Skills = new Skill[CardTemplate.LvCardItems.Length];
       for (int i = 0; i < Skills.Length; i++) {
         Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].SkillId);
+      }
+    }
+
+    public bool CheckTargetCamp(Unit mainTarget) {
+      switch (TargetCamp) {
+        case PlayerCamp.NONE:
+          return false;
+        case PlayerCamp.ALL:
+          return true;
+        case PlayerCamp.ALLY:
+          return Owner.PlayerCamp == mainTarget.PlayerCamp;
+        case PlayerCamp.ENEMY:
+          return Owner.PlayerCamp != mainTarget.PlayerCamp;
+        default:
+          return false;
       }
     }
 

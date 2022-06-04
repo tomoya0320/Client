@@ -20,6 +20,8 @@ namespace GameCore {
   public class CardTemplate : SerializedScriptableObject {
     [LabelText("类型")]
     public CardType CardType;
+    [LabelText("目标相对阵营")]
+    public PlayerCamp TargetCamp;
     [LabelText("不同等级的配置列表")]
     public LvCardItem[] LvCardItems;
   }

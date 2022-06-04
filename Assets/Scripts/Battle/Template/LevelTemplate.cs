@@ -6,7 +6,7 @@ namespace GameCore {
   public class LevelTemplate : ScriptableObject {
     [LabelText("关卡行为树Id列表")]
     public string[] BehaviorIds;
-    [LabelText("敌方数据列表")]
-    public PlayerData[] EnemyData;
+    [LabelText("玩家数据列表")]
+    public PlayerData[] PlayerData;
   }
 }

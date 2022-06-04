@@ -107,16 +107,16 @@ namespace GameCore {
         await PreloadUnit(unitData);
       }
 
-      foreach (var enemyData in LevelTemplate.EnemyData) {
-        foreach (var unitData in enemyData.UnitData) {
+      foreach (var playerData in LevelTemplate.PlayerData) {
+        foreach (var unitData in playerData.UnitData) {
           await PreloadUnit(unitData);
         }
       }
 
       // step2:创建单位
       SelfPlayer = PlayerManager.Create(BattleData.PlayerData);
-      foreach (var enemyData in LevelTemplate.EnemyData) {
-        PlayerManager.Create(enemyData);
+      foreach (var playerData in LevelTemplate.PlayerData) {
+        PlayerManager.Create(playerData);
       }
 
       // step3:初始化关卡和单位的行为树

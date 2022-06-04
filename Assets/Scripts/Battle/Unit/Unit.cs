@@ -25,6 +25,7 @@ namespace GameCore {
     private UnitTemplate UnitTemplate;
     public UnitState UnitState { get; private set; } = UnitState.ALIVE;
     public Player Player { get; private set; }
+    public PlayerCamp PlayerCamp => Player.PlayerCamp;
     public int RuntimeId { get; private set; }
     public string TemplateId => UnitData.TemplateId;
     public int Lv => UnitData.Lv;
@@ -142,12 +143,7 @@ namespace GameCore {
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {
-      // Test
-      if (card.CardHeapType != CardHeapType.HAND) {
-        return false;
-      }
-
-      if (!card.TryPlay(mainTarget)) {
+      if (card.CardHeapType != CardHeapType.HAND || !card.CheckTargetCamp(mainTarget) || !card.TryPlay(mainTarget)) {
         return false;
       }
 

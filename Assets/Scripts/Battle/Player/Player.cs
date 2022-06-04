@@ -1,7 +1,20 @@
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
+using System;
+using UnityEngine;
 
 namespace GameCore {
+  [Flags]
+  public enum PlayerCamp {
+    [InspectorName("无")]
+    NONE = 0,
+    [InspectorName("我方")]
+    ALLY = 1 << 0,
+    [InspectorName("敌方")]
+    ENEMY = 1 << 1,
+    [InspectorName("全部")]
+    ALL = ALLY | ENEMY,
+  }
+
   public enum PlayerTurnState {
     NONE,
     WAIT_OP,
@@ -12,6 +25,7 @@ namespace GameCore {
   public class Player : BattleBase {
     public int RuntimeId { get; private set; }
     public string PlayerId => PlayerData.PlayerId;
+    public PlayerCamp PlayerCamp => PlayerData.PlayerCamp;
     public PlayerData PlayerData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Unit Master { get; private set; }
