@@ -11,6 +11,6 @@ namespace GameCore.MagicFuncs {
   public abstract class MagicFuncBase : ScriptableObject {
     public abstract bool IgnoreOnEnd { get; }
 
-    public abstract UniTask Run(Battle battleManager, Context context, MagicArgs args);
+    public abstract UniTask Run(Battle battle, Context context, MagicArgs args);
   }
 }

@@ -43,9 +43,16 @@ namespace GameCore {
 
       var buff = Battle.ObjectPool.Get<Buff>();
       buff.Init(++IncId, this, buffTemplate, source, Unit);
-      await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
       Buffs.Add(buff.RuntimeId, buff);
 
+      await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
+
+      // 加buff时也可能会移除buff
+      if(!Buffs.ContainsKey(buff.RuntimeId)) {
+        return null;
+      }
+
+      // 回合数小于等于0的会马上移除
       if(buffTemplate.Duration <= 0) {
         await Remove(buff.RuntimeId);
         return null;

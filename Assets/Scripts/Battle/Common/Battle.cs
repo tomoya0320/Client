@@ -1,6 +1,4 @@
 using Cysharp.Threading.Tasks;
-using GameCore.BehaviorFuncs;
-using GameCore.MagicFuncs;
 using System;
 using UnityEngine;
 
@@ -156,8 +154,11 @@ namespace GameCore {
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
           switch (behaviorNode) {
-            case DoMagic doMagic:
+            case BehaviorFuncs.DoMagic doMagic:
               await PreloadMagic(doMagic.MagicId);
+              break;
+            case BehaviorFuncs.AddBuff addBuff:
+              await PreloadBuff(addBuff.BuffId);
               break;
           }
         }
@@ -168,10 +169,20 @@ namespace GameCore {
       var magicFunc = await MagicManager.Preload(magicId);
       if (magicFunc) {
         switch (magicFunc) {
-          case AddBehavior addBehavior:
+          case MagicFuncs.AddBehavior addBehavior:
             await PreloadBehavior(addBehavior.BehaviorId);
             break;
+          case MagicFuncs.AddBuff addBuff:
+            await PreloadBuff(addBuff.BuffId);
+            break;
         }
+      }
+    }
+
+    private async UniTask PreloadBuff(string buffId) {
+      var buffTemplate = await BuffManager.Preload(buffId);
+      if (buffTemplate) {
+        await PreloadMagic(buffTemplate.MagicId);
       }
     }
 
@@ -235,7 +246,7 @@ namespace GameCore {
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
       // 执行回合开始前的行为树
-      await BehaviorManager.Run(BehaviorTime.ON_BEFORE_TURN);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_BEFORE_TURN);
 
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
@@ -245,7 +256,7 @@ namespace GameCore {
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
       // 执行回合结束后的行为树
-      await BehaviorManager.Run(BehaviorTime.ON_LATE_TURN);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_LATE_TURN);
     }
   }
 }

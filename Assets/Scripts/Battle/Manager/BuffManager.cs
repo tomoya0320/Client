@@ -38,7 +38,7 @@ namespace GameCore {
       BuffComponents.Remove(runtimeId);
     }
 
-    public async UniTask<Buff> AddBuff(Unit source, Unit target, string buffId) {
+    public async UniTask<Buff> AddBuff(string buffId, Unit source, Unit target) {
       if(!BuffComponents.TryGetValue(target.RuntimeId, out var buffComponent)) {
         Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
         return null;

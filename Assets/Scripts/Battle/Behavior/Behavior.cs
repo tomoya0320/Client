@@ -11,17 +11,18 @@ namespace GameCore {
     public Blackboard Blackboard { get; private set; }
     public BehaviorGraph BehaviorGraph { get; private set; }
 
-    public async UniTask Init(Battle battle, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null, Context context = null) {
+    public void Init(Battle battle, int runtimeId, BehaviorGraph behaviorGraph, Unit sourceUnit = null, Unit targetUnit = null) {
       Battle = battle;
       RuntimeId = runtimeId;
       SourceUnit = sourceUnit;
       Unit = targetUnit;
       BehaviorGraph = behaviorGraph;
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
-      await BehaviorGraph.Init(this, context);
     }
 
-    public async UniTask Run(Context context = null) => await BehaviorGraph.Run(this, context);
+    public async UniTask Run<T>(Context context = null) where T : SingleOutNode {
+      await BehaviorGraph.Run<T>(this, context);
+    }
 
     private Blackboard GetBlackboard(DictType type) {
       Blackboard blackboard;

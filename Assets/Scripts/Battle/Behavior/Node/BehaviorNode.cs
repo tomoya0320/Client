@@ -17,18 +17,18 @@ namespace GameCore.BehaviorFuncs {
   [Serializable]
   public struct NodeIntParam {
     public bool IsDict;
-    [ShowIf("IsDict"), HideLabel]
+    [ShowIf(nameof(IsDict)), HideLabel]
     public NodeParamKey ParamKey;
-    [HideIf("IsDict")]
+    [HideIf(nameof(IsDict))]
     public int Value;
   }
 
   [Serializable]
   public struct NodeFloatParam {
     public bool IsDict;
-    [ShowIf("IsDict"), HideLabel]
+    [ShowIf(nameof(IsDict)), HideLabel]
     public NodeParamKey ParamKey;
-    [HideIf("IsDict")]
+    [HideIf(nameof(IsDict))]
     public float Value;
   }
 

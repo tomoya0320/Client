@@ -11,8 +11,7 @@ namespace GameCore.BehaviorFuncs {
         Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
         return false;
       }
-      bool result = await behaviorNode.Run(behavior, context);
-      return !result;
+      return !await behaviorNode.Run(behavior, context);
     }
   }
 }

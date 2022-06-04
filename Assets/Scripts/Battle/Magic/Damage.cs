@@ -10,14 +10,14 @@ namespace GameCore.MagicFuncs {
     [LabelText("攻击力")]
     public NodeIntParam DamageValue;
 
-    public override async UniTask Run(Battle battleManager, Context context, MagicArgs args) {
+    public override async UniTask Run(Battle battle, Context context, MagicArgs args) {
       int damageValue;
       if(context is BehaviorContext behaviorContext) {
         damageValue = behaviorContext.Behavior.GetInt(DamageValue);
       } else {
         damageValue = DamageValue.Value;
       }
-      await battleManager.DamageManager.Damage(args.Source, args.Target, damageValue);
+      await battle.DamageManager.Damage(args.Source, args.Target, damageValue);
     }
   }
 }

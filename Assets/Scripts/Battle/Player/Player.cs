@@ -66,7 +66,7 @@ namespace GameCore {
       do {
         TurnState = PlayerTurnState.WAIT_OP;
         while (Operation == null) {
-          await Battle.BehaviorManager.Run(BehaviorTime.ON_TURN_WAIT_OP, Master);
+          await Battle.BehaviorManager.RunRoot(BehaviorTime.ON_TURN_WAIT_OP, Master);
           await UniTask.Yield();
         }
         TurnState = PlayerTurnState.DO_OP;

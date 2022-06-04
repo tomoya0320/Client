@@ -6,15 +6,15 @@ namespace GameCore {
   public class MagicManager : TemplateManager<MagicFuncBase> {
     public MagicManager(Battle battle) : base(battle) { }
 
-    public async UniTask<bool> DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
+    public async UniTask DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
       if(target == null) {
         Debug.LogError("MagicManager.DoMagic error, target is null");
-        return false;
+        return;
       }
       
       if(!Templates.TryGetValue(magicId, out var magicFunc)) {
         Debug.LogError($"MagicManager.DoMagic error, magicFunc is not preload. Id:{magicId}");
-        return false;
+        return;
       }
 
       if (!magicFunc.IgnoreOnEnd || !isEnd) {
@@ -25,8 +25,6 @@ namespace GameCore {
         };
         await magicFunc.Run(Battle, context, args);
       }
-
-      return true;
     }
   }
 }

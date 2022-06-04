@@ -15,7 +15,7 @@ namespace GameCore.MagicFuncs {
     [LabelText("附加值")]
     public AttribAdditive AttribAdditive;
 
-    public override UniTask Run(Battle battleManager, Context context, MagicArgs args) {
+    public override UniTask Run(Battle battle, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.AttribValue != 0) {
           args.Target.AddAttrib(Type, buffContext.AttribValue, OnMaxValue);

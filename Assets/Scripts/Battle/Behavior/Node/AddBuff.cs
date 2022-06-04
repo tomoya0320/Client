@@ -2,10 +2,10 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("鑺傜偣/琛屼负/鎵ц鏁堟灉")]
-  public class DoMagic : ActionNode {
-    public string MagicId;
-    [LabelText("鐩爣鍗曚綅")]
+  [CreateNodeMenu("节点/行为/加Buff")]
+  public class AddBuff : ActionNode {
+    public string BuffId;
+    [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
     public async override UniTask<bool> Run(Behavior behavior, Context context) {
@@ -13,7 +13,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return false;
       }
-      await behavior.Battle.MagicManager.DoMagic(MagicId, behavior.Unit, targetUnit, context);
+      await behavior.Battle.BuffManager.AddBuff(BuffId, behavior.Unit, targetUnit);
       return true;
     }
   }

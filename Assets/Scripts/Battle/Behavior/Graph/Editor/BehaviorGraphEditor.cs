@@ -1,11 +1,18 @@
 using GameCore.BehaviorFuncs;
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using XNodeEditor;
 
 namespace GameCore {
   [CustomNodeGraphEditor(typeof(BehaviorGraph))]
   public class BehaviorGraphEditor : NodeGraphEditor {
+    private static HashSet<Type> UniqueTypes = new HashSet<Type> {
+      typeof(Root),
+      typeof(Init),
+      typeof(Finalize),
+    };
+
     public override void OnGUI() {
       window.titleContent.text = target.name;
     }
@@ -21,19 +28,9 @@ namespace GameCore {
     }
 
     protected override bool CheckAddNode(Type type) {
-      if (typeof(Root).IsAssignableFrom(type)) {
-        var root = target.nodes.Find(node => node is Root);
-        if (root) {
-          EditorUtility.DisplayDialog("提示", $"已添加根节点{root.GetType().Name},请勿重复添加!", "确定");
-          return false;
-        }
-      }
-      if (typeof(Init).IsAssignableFrom(type)) {
-        var init = target.nodes.Find(node => node is Init);
-        if (init) {
-          EditorUtility.DisplayDialog("提示", $"已添加初始化节点{init.GetType().Name},请勿重复添加!", "确定");
-          return false;
-        }
+      if (UniqueTypes.Contains(type) && target.nodes.Find(node => node.GetType() == type)) {
+        EditorUtility.DisplayDialog("提示", $"已添加{type.Name}节点,请勿重复添加!", "确定");
+        return false;
       }
       return true;
     }

@@ -42,15 +42,8 @@ namespace GameCore {
     [LabelText("触发时机")]
     public BehaviorTime BehaviorTime;
 
-    public async UniTask Init(Behavior behavior, Context context = null) {
-      var node = nodes.Find(n => n is Init) as BehaviorNode;
-      if (node) {
-        await node.Run(behavior, context);
-      }
-    }
-
-    public async UniTask Run(Behavior behavior, Context context = null) {
-      var node = nodes.Find(n => n is Root) as BehaviorNode;
+    public async UniTask Run<T>(Behavior behavior, Context context = null) where T : SingleOutNode {
+      var node = nodes.Find(n => n is T) as T;
       if (node) {
         await node.Run(behavior, context);
       }
