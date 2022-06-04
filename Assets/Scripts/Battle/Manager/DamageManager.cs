@@ -3,9 +3,7 @@ using UnityEngine;
 
 namespace GameCore {
   public class DamageManager : BattleBase {
-    public DamageManager(Battle battle) : base(battle) {
-
-    }
+    public DamageManager(Battle battle) : base(battle) { }
 
     public async UniTask Damage(Unit source, Unit target, int damageValue) {
       int realDamageValue = target.AddAttrib(AttribType.HP, -damageValue);

@@ -4,9 +4,7 @@ using UnityEngine;
 
 namespace GameCore {
   public class MagicManager : TemplateManager<MagicFuncBase> {
-    public MagicManager(Battle battle) : base(battle) { 
-    
-    }
+    public MagicManager(Battle battle) : base(battle) { }
 
     public async UniTask<bool> DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
       if(target == null) {

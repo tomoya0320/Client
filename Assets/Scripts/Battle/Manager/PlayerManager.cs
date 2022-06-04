@@ -8,9 +8,7 @@ namespace GameCore {
     private List<Player> PlayerList = new List<Player>();
     private Dictionary<int, Player> Players = new Dictionary<int, Player>();
 
-    public PlayerManager(Battle battle) : base(battle) {
-
-    }
+    public PlayerManager(Battle battle) : base(battle) { }
 
     public Player MoveNext() {
       do {
@@ -20,9 +18,8 @@ namespace GameCore {
       return PlayerList[LoopIndex];
     }
 
-    public async UniTask<Player> Create(PlayerData playerData) {
+    public Player Create(PlayerData playerData) {
       var player = new Player(Battle, ++IncId, playerData);
-      await player.Init();
       Players.Add(player.RuntimeId, player);
       PlayerList.Add(player);
       return player;

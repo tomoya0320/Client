@@ -35,6 +35,7 @@ namespace GameCore {
     public Dictionary<CardHeapType, List<Card>> CardHeapDict { get; private set; }
     public string Name => UnitTemplate != null ? UnitTemplate.Name : null;
     public bool IsMaster => Player.Master == this;
+    private bool BehaviorInited;
 
     public Unit(Battle battle, int runtimeId, Player player, UnitData unitData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
@@ -44,9 +45,13 @@ namespace GameCore {
 
       Battle.UnitManager.Templates.TryGetValue(TemplateId, out UnitTemplate);
 
+      // 卡牌相关
       CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         CardHeapDict.Add(cardHeapType, new List<Card>());
+      }
+      foreach (var cardData in UnitData.CardData) {
+        CardHeapDict[CardHeapType.DRAW].Add(Battle.CardManager.Create(this, cardData));
       }
 
       Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Lv, MaxLv);
@@ -58,16 +63,16 @@ namespace GameCore {
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
     }
 
-    public async UniTask Init() {
+    public async UniTask InitBehavior() {
+      if (BehaviorInited) {
+        Debug.LogError($"单位行为树已初始化! id:{RuntimeId}");
+        return;
+      }
       // 行为树相关
       foreach (var behaviorId in UnitTemplate.BehaviorIds) {
         await Battle.BehaviorManager.Add(behaviorId, this, this);
       }
-
-      // 卡牌相关
-      foreach (var cardData in UnitData.CardData) {
-        CardHeapDict[CardHeapType.DRAW].Add(Battle.CardManager.Create(this, cardData));
-      }
+      BehaviorInited = true;
     }
 
     public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {

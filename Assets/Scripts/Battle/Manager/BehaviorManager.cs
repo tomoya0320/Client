@@ -33,11 +33,10 @@ namespace GameCore {
         return null;
       }
 
-      int runtimeId = ++IncId;
       Behavior behavior = Battle.ObjectPool.Get<Behavior>();
-      await behavior.Init(Battle, runtimeId, behaviorGraph, source, target, context);
-      Behaviors.Add(runtimeId, behavior);
-      BehaviorTimes[behaviorGraph.BehaviorTime].Add(runtimeId);
+      await behavior.Init(Battle, ++IncId, behaviorGraph, source, target, context);
+      Behaviors.Add(behavior.RuntimeId, behavior);
+      BehaviorTimes[behaviorGraph.BehaviorTime].Add(behavior.RuntimeId);
       return behavior;
     }
 

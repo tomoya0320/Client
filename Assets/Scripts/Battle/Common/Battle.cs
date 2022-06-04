@@ -8,7 +8,6 @@ namespace GameCore {
   public enum BattleState {
     None,
     Load,
-    Enter,
     Run,
     Exit,
   }
@@ -83,9 +82,6 @@ namespace GameCore {
           case BattleState.Load:
             await Load();
             break;
-          case BattleState.Enter:
-            await Enter();
-            break;
           case BattleState.Run:
             try {
               await Run();
@@ -103,39 +99,38 @@ namespace GameCore {
     }
 
     private async UniTask Load() {
-      // 加载关卡相关资源
+      // step1:加载关卡和单位的相关资源
       LevelTemplate = await LevelManager.Preload(BattleData.LevelId);
       foreach (var behaviorId in LevelTemplate.BehaviorIds) {
         await PreloadBehavior(behaviorId);
       }
 
-      // 加载单位相关资源
       foreach (var unitData in BattleData.PlayerData.UnitData) {
         await PreloadUnit(unitData);
       }
+
       foreach (var enemyData in LevelTemplate.EnemyData) {
         foreach (var unitData in enemyData.UnitData) {
           await PreloadUnit(unitData);
         }
       }
 
-      BattleState = BattleState.Enter;
-      Debug.Log("战斗资源加载完毕");
-    }
-
-    private async UniTask Enter() {
-      // 先初始化自己
-      SelfPlayer = await PlayerManager.Create(BattleData.PlayerData);
-      // 再初始化敌方
+      // step2:创建单位
+      SelfPlayer = PlayerManager.Create(BattleData.PlayerData);
       foreach (var enemyData in LevelTemplate.EnemyData) {
-        await PlayerManager.Create(enemyData);
+        PlayerManager.Create(enemyData);
       }
-      // 最后初始化关卡
+
+      // step3:初始化关卡和单位的行为树
       foreach (var behaviorId in LevelTemplate.BehaviorIds) {
         await BehaviorManager.Add(behaviorId);
       }
+      foreach (var unit in UnitManager.AllUnits) {
+        await unit.InitBehavior();
+      }
 
       BattleState = BattleState.Run;
+      Debug.Log("战斗加载完毕");
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
@@ -238,17 +233,17 @@ namespace GameCore {
       Debug.Log($"回合开始前刷新能量 energy:{CurPlayer.Master.GetAttrib(AttribType.ENERGY).Value}/{CurPlayer.Master.GetAttrib(AttribType.ENERGY).MaxValue}");
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
+      await BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
       // 执行回合开始前的行为树
       await BehaviorManager.Run(BehaviorTime.ON_BEFORE_TURN);
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
+      await BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
       // 回合中的逻辑
       await CurPlayer.OnTurn();
 
       // 先结算buff
-      BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
+      await BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
       // 执行回合结束后的行为树
       await BehaviorManager.Run(BehaviorTime.ON_LATE_TURN);
     }

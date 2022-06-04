@@ -29,11 +29,8 @@ namespace GameCore {
       RuntimeId = runtimeId;
       PlayerData = playerData;
       Units = new Unit[playerData.UnitData.Length];
-    }
-
-    public async UniTask Init() {
       for (int i = 0; i < Units.Length; i++) {
-        Units[i] = await Battle.UnitManager.Create(this, UnitData[i]);
+        Units[i] = Battle.UnitManager.Create(this, UnitData[i]);
       }
       Master = Units[PlayerData.FirstIndex];
     }
