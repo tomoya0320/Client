@@ -2,10 +2,10 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/加Buff")]
+  [CreateNodeMenu("鑺傜偣/琛屼负/鍔燘uff")]
   public class AddBuff : ActionNode {
     public string BuffId;
-    [LabelText("目标单位")]
+    [LabelText("鐩爣鍗曚綅")]
     public NodeParamKey TargetUnit;
 
     public async override UniTask<bool> Run(Behavior behavior, Context context) {

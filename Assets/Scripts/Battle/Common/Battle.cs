@@ -239,7 +239,7 @@ namespace GameCore {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
       Debug.Log($"当前玩家 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
-      // 刷新角色能量
+      // 刷新单位能量
       CurPlayer.RefreshEnergy();
       Debug.Log($"回合开始前刷新能量 energy:{CurPlayer.Master.GetAttrib(AttribType.ENERGY).Value}/{CurPlayer.Master.GetAttrib(AttribType.ENERGY).MaxValue}");
 

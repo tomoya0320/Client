@@ -47,12 +47,12 @@ namespace GameCore {
 
       await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
 
-      // ¼ÓbuffÊ±Ò²¿ÉÄÜ»áÒÆ³ıbuff
+      // åŠ buffæ—¶ä¹Ÿå¯èƒ½ä¼šç§»é™¤buff
       if(!Buffs.ContainsKey(buff.RuntimeId)) {
         return null;
       }
 
-      // »ØºÏÊıĞ¡ÓÚµÈÓÚ0µÄ»áÂíÉÏÒÆ³ı
+      // å›åˆæ•°å°äºç­‰äº0çš„ä¼šé©¬ä¸Šç§»é™¤
       if(buffTemplate.Duration <= 0) {
         await Remove(buff.RuntimeId);
         return null;
