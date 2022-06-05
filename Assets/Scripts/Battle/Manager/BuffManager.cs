@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GameCore {
   public class BuffManager : TemplateManager<BuffTemplate> {
+    private int IncId;
     private Dictionary<int, BuffComponent> BuffComponents = new Dictionary<int, BuffComponent>();
 
     public BuffManager(Battle battle) : base(battle) { }
@@ -43,7 +44,7 @@ namespace GameCore {
         Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
         return null;
       }
-      var buff = await buffComponent.Add(source, buffId);
+      var buff = await buffComponent.Add(source, buffId, ++IncId);
       return buff;
     }
 

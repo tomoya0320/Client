@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace GameCore {
   public class BuffComponent : IPoolObject {
-    private int IncId;
     public Unit Unit { get; private set; }
     private Battle Battle => Unit.Battle;
     private BuffManager BuffManager => Battle.BuffManager;
@@ -16,12 +15,12 @@ namespace GameCore {
     }
 
     public void Release() {
-      IncId = 0;
-      Unit = null;
       foreach (var buff in Buffs.Values) {
         Battle.ObjectPool.Release(buff);
       }
       Buffs.Clear();
+
+      Unit = null;
     }
 
     public async UniTask Update(BattleTurnPhase phase) {
@@ -35,14 +34,14 @@ namespace GameCore {
       TempList<Buff>.CleanUp();
     }
 
-    public async UniTask<Buff> Add(Unit source, string buffId) {
+    public async UniTask<Buff> Add(Unit source, string buffId, int runtimeId) {
       if (!BuffManager.Templates.TryGetValue(buffId, out var buffTemplate)) {
         Debug.LogError($"BuffTemplate is null. id:{buffId}");
         return null;
       }
 
       var buff = Battle.ObjectPool.Get<Buff>();
-      buff.Init(++IncId, this, buffTemplate, source, Unit);
+      buff.Init(runtimeId, this, buffTemplate, source, Unit);
       Buffs.Add(buff.RuntimeId, buff);
 
       await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
