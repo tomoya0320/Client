@@ -16,6 +16,12 @@ namespace GameCore {
       }
     }
 
+    public async UniTask RunRoot(BehaviorTime behaviorTime, Unit[] units, Context context = null) {
+      foreach (var unit in units) {
+        await RunRoot(behaviorTime, unit, context);
+      }
+    }
+
     public async UniTask RunRoot(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
       var list = TempList<int>.Get();
       list.AddRange(BehaviorTimes[behaviorTime]);

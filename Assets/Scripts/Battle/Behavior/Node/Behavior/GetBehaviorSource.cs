@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/ĞĞÎªÊ÷/»ñÈ¡ĞĞÎªÊ÷À´Ô´µ¥Î»")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/è¡Œä¸ºæ ‘/è·å–è¡Œä¸ºæ ‘æ¥æºå•ä½")]
   public class GetBehaviorSource : ActionNode {
-    [LabelText("´æÖµ")]
+    [LabelText("å­˜å€¼")]
     public NodeParamKey TargetKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {

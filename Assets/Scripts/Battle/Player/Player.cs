@@ -15,13 +15,6 @@ namespace GameCore {
     ALL = ALLY | ENEMY,
   }
 
-  public enum PlayerTurnState {
-    NONE,
-    WAIT_OP,
-    DO_OP,
-    END_TURN,
-  }
-
   public class Player : BattleBase {
     public int RuntimeId { get; private set; }
     public string PlayerId => PlayerData.PlayerId;
@@ -35,7 +28,7 @@ namespace GameCore {
     public int TotalUnitCount => Units.Length;
     public bool Available => DeadUnitCount < TotalUnitCount;
     public bool IsSelf => Battle.SelfPlayer == this;
-    public PlayerTurnState TurnState { get; private set; } = PlayerTurnState.NONE;
+    public bool EndTurnFlag;
     private BattleOperation Operation;
 
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
@@ -74,21 +67,21 @@ namespace GameCore {
       }
     }
 
-    public async UniTask OnTurn() {
-      DrawCard();
-
-      do {
-        TurnState = PlayerTurnState.WAIT_OP;
+    private async UniTask PlayCard() {
+      while (!EndTurnFlag) {
         while (Operation == null) {
           await Battle.BehaviorManager.RunRoot(BehaviorTime.ON_TURN_WAIT_OP, Master);
           await UniTask.Yield();
         }
-        TurnState = PlayerTurnState.DO_OP;
         await Operation.DoOperation();
         Battle.ObjectPool.Release(Operation);
         Operation = null;
-      } while (TurnState != PlayerTurnState.END_TURN);
+      }
+    }
 
+    public async UniTask OnTurn() {
+      DrawCard();
+      await PlayCard();
       DiscardCard();
     }
 
@@ -99,7 +92,5 @@ namespace GameCore {
       Operation = operation;
       return true;
     }
-
-    public void EndTurn() => TurnState = PlayerTurnState.END_TURN;
   }
 }

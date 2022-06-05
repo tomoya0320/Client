@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace GameCore {
@@ -14,8 +13,9 @@ namespace GameCore {
       do {
         LoopIndex = (LoopIndex + 1) % PlayerList.Count;
       } while (!PlayerList[LoopIndex].Available);
-
-      return PlayerList[LoopIndex];
+      var nextPlayer = PlayerList[LoopIndex];
+      nextPlayer.EndTurnFlag = false;
+      return nextPlayer;
     }
 
     public Player Create(PlayerData playerData) {

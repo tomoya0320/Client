@@ -69,6 +69,10 @@ MonoBehaviour:
     m_Address: "\u884C\u4E3A\u6811\u6D4B\u8BD5"
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a27dfe4b9a19f6a4ab562786286470cb
+    m_Address: "\u5EF6\u8FDF\u4F24\u5BB3\u884C\u4E3A\u6811\u6D4B\u8BD5"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

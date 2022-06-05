@@ -238,15 +238,14 @@ namespace GameCore {
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
-      Debug.Log($"当前玩家 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
+      Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
       // 刷新单位能量
       CurPlayer.RefreshEnergy();
-      Debug.Log($"回合开始前刷新能量 energy:{CurPlayer.Master.GetAttrib(AttribType.ENERGY).Value}/{CurPlayer.Master.GetAttrib(AttribType.ENERGY).MaxValue}");
 
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
       // 执行回合开始前的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_BEFORE_TURN);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_BEFORE_TURN, CurPlayer.Units);
 
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
@@ -256,7 +255,7 @@ namespace GameCore {
       // 先结算buff
       await BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
       // 执行回合结束后的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_LATE_TURN);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_LATE_TURN, CurPlayer.Units);
     }
   }
 }
