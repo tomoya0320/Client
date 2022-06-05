@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/通过索引出牌")]
+  [CreateNodeMenu("节点/行为/卡牌/通过索引出牌")]
   public class PlayCardByIndex : ActionNode {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;

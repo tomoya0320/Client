@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/设置Int")]
+  [CreateNodeMenu("节点/行为/数学/设置Int")]
   public class SetInt : ActionNode {
     [LabelText("数据源")]
     public NodeIntParam Source;

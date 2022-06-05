@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/执行效果")]
+  [CreateNodeMenu("节点/行为/其他/执行效果")]
   public class DoMagic : ActionNode {
     public string MagicId;
     [LabelText("目标单位")]

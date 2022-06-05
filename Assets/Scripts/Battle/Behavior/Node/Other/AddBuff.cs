@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/加Buff")]
+  [CreateNodeMenu("节点/行为/其他/加Buff")]
   public class AddBuff : ActionNode {
     public string BuffId;
     [LabelText("目标单位")]

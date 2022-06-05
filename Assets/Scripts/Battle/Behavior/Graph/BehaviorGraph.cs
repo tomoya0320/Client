@@ -17,6 +17,8 @@ namespace GameCore {
   }
 
   public enum BehaviorTime {
+    [InspectorName("无")]
+    NONE,   
     [InspectorName("回合开始时")]
     ON_BEFORE_TURN,
     [InspectorName("回合结束时")]

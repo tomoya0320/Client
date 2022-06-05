@@ -2,16 +2,16 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/»ñÈ¡ĞĞÎªÊ÷À´Ô´µÄµ¥Î»")]
-  public class GetBehaviorSource : ActionNode {
-    [LabelText("´æÖµ")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/è¡Œä¸ºæ ‘/è·å–è¡Œä¸ºæ ‘å•ä½")]
+  public class GetBehaviorUnit : ActionNode {
+    [LabelText("å­˜å€¼")]
     public NodeParamKey TargetKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {
-      if (behavior.Unit == null) {
+      if(behavior.Unit == null) {
         return UniTask.FromResult(false);
       }
-      behavior.SetInt(TargetKey, behavior.SourceUnit.RuntimeId);
+      behavior.SetInt(TargetKey, behavior.Unit.RuntimeId);
       return UniTask.FromResult(true);
     }
   }

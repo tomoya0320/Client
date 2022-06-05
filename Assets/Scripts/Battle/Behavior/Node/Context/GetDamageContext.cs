@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/获取伤害上下文")]
+  [CreateNodeMenu("节点/行为/上下文/获取伤害上下文")]
   public class GetDamageContext : ActionNode {
     [LabelText("来源单位")]
     public NodeParamKey SourceKey;

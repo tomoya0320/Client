@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/伤害")]
+  [CreateNodeMenu("节点/行为/其他/伤害")]
   public class Damage : ActionNode {
     [LabelText("攻击力")]
     public NodeIntParam DamageValue;

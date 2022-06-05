@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/设置Float")]
+  [CreateNodeMenu("节点/行为/数学/设置Float")]
   public class SetFloat : ActionNode {
     [LabelText("数据源")]
     public NodeFloatParam Source;

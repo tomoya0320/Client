@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/获取卡牌数量")]
+  [CreateNodeMenu("节点/行为/卡牌/获取卡牌数量")]
   public class GetCardCount : ActionNode {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
