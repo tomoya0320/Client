@@ -70,7 +70,7 @@ namespace GameCore {
     private async UniTask PlayCard() {
       while (!EndTurnFlag) {
         while (Operation == null) {
-          await Battle.BehaviorManager.RunRoot(BehaviorTime.ON_TURN_WAIT_OP, Master);
+          await Battle.BehaviorManager.RunRoot(TrickTime.ON_TURN_WAIT_OP, Master);
           await UniTask.Yield();
         }
         await Operation.DoOperation();

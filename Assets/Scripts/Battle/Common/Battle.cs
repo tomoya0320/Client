@@ -10,6 +10,29 @@ namespace GameCore {
     Exit,
   }
 
+  public enum TrickTime {
+    [InspectorName("无")]
+    NONE,
+    [InspectorName("回合开始")]
+    ON_START_TURN,
+    [InspectorName("回合结束")]
+    ON_END_TURN,
+    [InspectorName("回合中等待指令")]
+    ON_TURN_WAIT_OP,
+    [InspectorName("造成伤害前")]
+    ON_BEFORE_DAMAGE,
+    [InspectorName("造成伤害后")]
+    ON_LATE_DAMAGE,
+    [InspectorName("被造成伤害前")]
+    ON_BEFORE_DAMAGED,
+    [InspectorName("被造成伤害后")]
+    ON_LATE_DAMAGED,
+    [InspectorName("单位濒死时")]
+    ON_UNIT_DYING,
+    [InspectorName("单位死亡时")]
+    ON_UNIT_DEAD,
+  }
+
   public class Battle {
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
@@ -237,13 +260,13 @@ namespace GameCore {
       CurPlayer.RefreshEnergy();
 
       // 执行回合开始前的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_START_TURN, CurPlayer.Units);
+      await BehaviorManager.RunRoot(TrickTime.ON_START_TURN, CurPlayer.Units);
 
       // 回合中的逻辑
       await CurPlayer.OnTurn();
 
       // 执行回合结束后的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_END_TURN, CurPlayer.Units);
+      await BehaviorManager.RunRoot(TrickTime.ON_END_TURN, CurPlayer.Units);
     }
   }
 }

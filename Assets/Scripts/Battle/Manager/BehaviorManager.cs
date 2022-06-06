@@ -8,21 +8,21 @@ namespace GameCore {
   public class BehaviorManager : TemplateManager<BehaviorGraph> {
     private int IncId;
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
-    private Dictionary<BehaviorTime, List<int>> BehaviorTimes = new Dictionary<BehaviorTime, List<int>>();
+    private Dictionary<TrickTime, List<int>> BehaviorTimes = new Dictionary<TrickTime, List<int>>();
 
     public BehaviorManager(Battle battle) : base(battle) {
-      foreach (BehaviorTime behaviorTime in Enum.GetValues(typeof(BehaviorTime))) {
+      foreach (TrickTime behaviorTime in Enum.GetValues(typeof(TrickTime))) {
         BehaviorTimes.Add(behaviorTime, new List<int>());
       }
     }
 
-    public async UniTask RunRoot(BehaviorTime behaviorTime, Unit[] units, Context context = null) {
+    public async UniTask RunRoot(TrickTime behaviorTime, Unit[] units, Context context = null) {
       foreach (var unit in units) {
         await RunRoot(behaviorTime, unit, context);
       }
     }
 
-    public async UniTask RunRoot(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
+    public async UniTask RunRoot(TrickTime behaviorTime, Unit unit = null, Context context = null) {
       // 优先更新Buff回合数
       await Battle.BuffManager.Update(behaviorTime, unit);
 

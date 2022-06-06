@@ -8,6 +8,6 @@ namespace GameCore {
     [LabelText("持续回合数")]
     public int Duration;
     [LabelText("更新回合数时机")]
-    public BehaviorTime UpdateTime;
+    public TrickTime UpdateTime;
   }
 }

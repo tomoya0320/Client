@@ -23,7 +23,7 @@ namespace GameCore {
       Unit = null;
     }
 
-    public async UniTask Update(BehaviorTime updateTime) {
+    public async UniTask Update(TrickTime updateTime) {
       var buffList = TempList<Buff>.Get();
       buffList.AddRange(Buffs.Values);
       foreach (var buff in buffList) {

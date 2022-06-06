@@ -9,7 +9,7 @@ namespace GameCore {
 
     public BuffManager(Battle battle) : base(battle) { }
 
-    public async UniTask Update(BehaviorTime updateTime, Unit unit) {
+    public async UniTask Update(TrickTime updateTime, Unit unit) {
       var buffComponentList = TempList<BuffComponent>.Get();
       if (unit == null) {
         buffComponentList.AddRange(BuffComponents.Values);
