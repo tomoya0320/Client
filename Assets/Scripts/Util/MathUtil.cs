@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CompareMethod {
-  [InspectorName("等于")]
+  [InspectorName("绛変簬")]
   EQUAL,
-  [InspectorName("大于")]
+  [InspectorName("澶т簬")]
   GREATER,
-  [InspectorName("小于")]
+  [InspectorName("灏忎簬")]
   LESS,
-  [InspectorName("大于等于")]
+  [InspectorName("澶т簬绛変簬")]
   GREATER_EQUAL,
-  [InspectorName("小于等于")]
+  [InspectorName("灏忎簬绛変簬")]
   LESS_EQUAL,
 }
 
@@ -39,7 +39,7 @@ public static class MathUtil {
       case CompareMethod.LESS_EQUAL:
         return delta <= 0;
     }
-    Debug.LogError($"未知的比较方式！{method}");
+    Debug.LogError($"鏈煡鐨勬瘮杈冩柟寮忥紒{method}");
     return false;
   }
 }

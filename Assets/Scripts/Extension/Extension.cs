@@ -4,7 +4,7 @@ using System.Reflection;
 
 public static class Extension {
   /// <summary>
-  /// 获取当前枚举描述
+  /// 鑾峰彇褰撳墠鏋氫妇鎻忚堪
   /// </summary>
   /// <param name="enumValue"></param>
   /// <returns></returns>

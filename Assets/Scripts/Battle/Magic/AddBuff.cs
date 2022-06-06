@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore.MagicFuncs {
-  [CreateAssetMenu(menuName = "模板/效果/加Buff")]
+  [CreateAssetMenu(menuName = "妯℃澘/鏁堟灉/鍔燘uff")]
   public class AddBuff : MagicFuncBase {
     public override bool IgnoreOnEnd => true;
     public string BuffId;

@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace GameCore {
   public enum CardHeapType {
-    [InspectorName("³éÅÆ¶Ñ")]
+    [InspectorName("æŠ½ç‰Œå †")]
     DRAW,
-    [InspectorName("ÆúÅÆ¶Ñ")]
+    [InspectorName("å¼ƒç‰Œå †")]
     DISCARD,
-    [InspectorName("ºÄÅÆ¶Ñ")]
+    [InspectorName("è€—ç‰Œå †")]
     CONSUME,
-    [InspectorName("ÊÖÅÆ¶Ñ")]
+    [InspectorName("æ‰‹ç‰Œå †")]
     HAND,
   }
 
@@ -46,7 +46,7 @@ namespace GameCore {
 
       Battle.UnitManager.Templates.TryGetValue(TemplateId, out UnitTemplate);
 
-      // ¿¨ÅÆÏà¹Ø
+      // å¡ç‰Œç›¸å…³
       CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
       foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
         CardHeapDict.Add(cardHeapType, new List<Card>());
@@ -66,10 +66,10 @@ namespace GameCore {
 
     public async UniTask InitBehavior() {
       if (BehaviorInited) {
-        Debug.LogError($"µ¥Î»ĞĞÎªÊ÷ÒÑ³õÊ¼»¯! id:{RuntimeId}");
+        Debug.LogError($"å•ä½è¡Œä¸ºæ ‘å·²åˆå§‹åŒ–! id:{RuntimeId}");
         return;
       }
-      // ĞĞÎªÊ÷Ïà¹Ø
+      // è¡Œä¸ºæ ‘ç›¸å…³
       foreach (var behaviorId in UnitTemplate.BehaviorIds) {
         await Battle.BehaviorManager.Add(behaviorId, this, this);
       }

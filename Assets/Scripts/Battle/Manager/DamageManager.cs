@@ -8,7 +8,7 @@ namespace GameCore {
     public async UniTask Damage(Unit source, Unit target, int damageValue) {
       int realDamageValue = target.AddAttrib(AttribType.HP, -damageValue);
       // Test
-      Debug.Log($"{source.RuntimeId}:{source.Name} ∂‘ {target.RuntimeId}:{target.Name} ‘Ï≥…{-realDamageValue}µ„…À∫¶");
+      Debug.Log($"{source.RuntimeId}:{source.Name} ÂØπ {target.RuntimeId}:{target.Name} ÈÄ†Êàê{-realDamageValue}ÁÇπ‰º§ÂÆ≥");
       if (target.GetAttrib(AttribType.HP).Value <= 0) {
         await target.TryDie(source, realDamageValue);
       }

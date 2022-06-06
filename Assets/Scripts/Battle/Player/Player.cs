@@ -5,13 +5,13 @@ using UnityEngine;
 namespace GameCore {
   [Flags]
   public enum PlayerCamp {
-    [InspectorName("ÎÞ")]
+    [InspectorName("æ— ")]
     NONE = 0,
-    [InspectorName("ÎÒ·½")]
+    [InspectorName("æˆ‘æ–¹")]
     ALLY = 1 << 0,
-    [InspectorName("µÐ·½")]
+    [InspectorName("æ•Œæ–¹")]
     ENEMY = 1 << 1,
-    [InspectorName("È«²¿")]
+    [InspectorName("å…¨éƒ¨")]
     ALL = ALLY | ENEMY,
   }
 
@@ -43,7 +43,7 @@ namespace GameCore {
     }
 
     public void RefreshEnergy() {
-      // Ã¿»ØºÏ¿ªÊ¼Ç°Ë¢ÐÂÄÜÁ¿(Ç¿ÖÆÉèÖÃÎª×î´óÖµ)
+      // æ¯å›žåˆå¼€å§‹å‰åˆ·æ–°èƒ½é‡(å¼ºåˆ¶è®¾ç½®ä¸ºæœ€å¤§å€¼)
       foreach (var unit in Units) {
         if (unit.UnitState == UnitState.ALIVE) {
           unit.RefreshEnergy();

@@ -2,13 +2,13 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("½Úµã/ĞĞÎª/ÊıÑ§/¼õFloat")]
+  [CreateNodeMenu("èŠ‚ç‚¹/è¡Œä¸º/æ•°å­¦/å‡Float")]
   public class SubtractFloat : ActionNode {
-    [LabelText("×ó²Ù×÷Êı")]
+    [LabelText("å·¦æ“ä½œæ•°")]
     public NodeFloatParam LeftFloat;
-    [LabelText("ÓÒ²Ù×÷Êı")]
+    [LabelText("å³æ“ä½œæ•°")]
     public NodeFloatParam RightFloat;
-    [LabelText("´æÖµ")]
+    [LabelText("å­˜å€¼")]
     public NodeParamKey TargetKey;
 
     public override UniTask<bool> Run(Behavior behavior, Context context) {

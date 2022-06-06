@@ -13,7 +13,7 @@ namespace GameCore {
 
   public class EndTurnOp : BattleOperation {
     public override UniTask DoOperation() {
-      Debug.Log("½áÊø»ØºÏ");
+      Debug.Log("ç»“æŸå›åˆ");
       Unit.Player.EndTurnFlag = true;
       return UniTask.CompletedTask;
     }
@@ -24,7 +24,7 @@ namespace GameCore {
     public Unit MainTarget;
 
     public override async UniTask DoOperation() {
-      Debug.Log($"{Card.Owner.RuntimeId}:{Card.Owner.Name} ¶Ô {MainTarget.RuntimeId}:{MainTarget.Name} Ê¹ÓÃÁË¿¨ÅÆ{Card.CardTemplate.name} Lv:{Card.Lv}");
+      Debug.Log($"{Card.Owner.RuntimeId}:{Card.Owner.Name} å¯¹ {MainTarget.RuntimeId}:{MainTarget.Name} ä½¿ç”¨äº†å¡ç‰Œ{Card.CardTemplate.name} Lv:{Card.Lv}");
       await Card.Cast(MainTarget);
     }
 
