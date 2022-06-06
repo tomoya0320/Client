@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 
-public static class Extensions {
+public static class Extension {
   /// <summary>
   /// 获取当前枚举描述
   /// </summary>
