@@ -20,7 +20,10 @@ namespace GameCore {
       BuffContext.Buff = this;
     }
 
-    public bool UpdateTurn() => ++Turn < BattleConstant.TURN_PHASE_COUNT * BuffTemplate.Duration;
+    public bool Update(BehaviorTime updateTime) {
+      Turn += updateTime == BuffTemplate.UpdateTime ? 1 : 0;
+      return BuffTemplate.Duration <= 0 || Turn < BuffTemplate.Duration;
+    }
 
     public void Release() {
       Target.Battle.ObjectPool.Release(BuffContext);

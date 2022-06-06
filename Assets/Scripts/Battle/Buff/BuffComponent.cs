@@ -23,11 +23,11 @@ namespace GameCore {
       Unit = null;
     }
 
-    public async UniTask Update(BattleTurnPhase phase) {
-      var list = TempList<Buff>.Get();
-      list.AddRange(Buffs.Values);
-      foreach (var buff in list) {
-        if (!buff.UpdateTurn()) {
+    public async UniTask Update(BehaviorTime updateTime) {
+      var buffList = TempList<Buff>.Get();
+      buffList.AddRange(Buffs.Values);
+      foreach (var buff in buffList) {
+        if (!buff.Update(updateTime)) {
           await Remove(buff.RuntimeId);
         }
       }
@@ -45,17 +45,6 @@ namespace GameCore {
       Buffs.Add(buff.RuntimeId, buff);
 
       await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
-
-      // 加buff时也可能会移除buff
-      if(!Buffs.ContainsKey(buff.RuntimeId)) {
-        return null;
-      }
-
-      // 回合数小于等于0的会马上移除
-      if(buffTemplate.Duration <= 0) {
-        await Remove(buff.RuntimeId);
-        return null;
-      }
 
       return buff;
     }

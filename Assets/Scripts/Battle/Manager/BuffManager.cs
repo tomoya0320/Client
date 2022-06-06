@@ -9,14 +9,15 @@ namespace GameCore {
 
     public BuffManager(Battle battle) : base(battle) { }
 
-    public async UniTask Update(BattleTurnPhase phase, params Unit[] units) {
-      var list = TempList<BuffComponent>.Get();
-      foreach (var unit in units) {
-        list.Add(BuffComponents[unit.RuntimeId]);
+    public async UniTask Update(BehaviorTime updateTime, Unit unit) {
+      var buffComponentList = TempList<BuffComponent>.Get();
+      if (unit == null) {
+        buffComponentList.AddRange(BuffComponents.Values);
+      } else if (BuffComponents.TryGetValue(unit.RuntimeId, out var buffComponent)) {
+        buffComponentList.Add(buffComponent);
       }
-
-      foreach (var buffComponent in list) {
-        await buffComponent.Update(phase);
+      foreach (var buffComponent in buffComponentList) {
+        await buffComponent.Update(updateTime);
       }
       TempList<BuffComponent>.CleanUp();
     }

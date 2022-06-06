@@ -10,12 +10,6 @@ namespace GameCore {
     Exit,
   }
 
-  public enum BattleTurnPhase {
-    ON_BEFORE_TURN,
-    ON_TURN,
-    ON_LATE_TURN,
-  }
-
   public class Battle {
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
@@ -242,20 +236,14 @@ namespace GameCore {
       // 刷新单位能量
       CurPlayer.RefreshEnergy();
 
-      // 先结算buff
-      await BuffManager.Update(BattleTurnPhase.ON_BEFORE_TURN, CurPlayer.Units);
       // 执行回合开始前的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_BEFORE_TURN, CurPlayer.Units);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_START_TURN, CurPlayer.Units);
 
-      // 先结算buff
-      await BuffManager.Update(BattleTurnPhase.ON_TURN, CurPlayer.Units);
       // 回合中的逻辑
       await CurPlayer.OnTurn();
 
-      // 先结算buff
-      await BuffManager.Update(BattleTurnPhase.ON_LATE_TURN, CurPlayer.Units);
       // 执行回合结束后的行为树
-      await BehaviorManager.RunRoot(BehaviorTime.ON_LATE_TURN, CurPlayer.Units);
+      await BehaviorManager.RunRoot(BehaviorTime.ON_END_TURN, CurPlayer.Units);
     }
   }
 }

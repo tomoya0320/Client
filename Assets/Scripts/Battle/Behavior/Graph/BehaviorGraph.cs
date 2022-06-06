@@ -18,11 +18,11 @@ namespace GameCore {
 
   public enum BehaviorTime {
     [InspectorName("无")]
-    NONE,   
-    [InspectorName("回合开始时")]
-    ON_BEFORE_TURN,
-    [InspectorName("回合结束时")]
-    ON_LATE_TURN,
+    NONE,
+    [InspectorName("回合开始")]
+    ON_START_TURN,
+    [InspectorName("回合结束")]
+    ON_END_TURN,
     [InspectorName("回合中等待指令")]
     ON_TURN_WAIT_OP,
     [InspectorName("造成伤害前")]

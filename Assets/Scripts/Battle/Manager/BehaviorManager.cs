@@ -23,9 +23,12 @@ namespace GameCore {
     }
 
     public async UniTask RunRoot(BehaviorTime behaviorTime, Unit unit = null, Context context = null) {
-      var list = TempList<int>.Get();
-      list.AddRange(BehaviorTimes[behaviorTime]);
-      foreach (int runtimeId in list) {
+      // 优先更新Buff回合数
+      await Battle.BuffManager.Update(behaviorTime, unit);
+
+      var behaviorList = TempList<int>.Get();
+      behaviorList.AddRange(BehaviorTimes[behaviorTime]);
+      foreach (int runtimeId in behaviorList) {
         var behavior = Behaviors[runtimeId];
         if (unit == null || behavior.Unit == null || unit == behavior.Unit) {
           await behavior.Run<Root>(context);
@@ -46,11 +49,6 @@ namespace GameCore {
       BehaviorTimes[behaviorGraph.BehaviorTime].Add(behavior.RuntimeId);
 
       await behavior.Run<Init>();
-
-      // 初始化节点里可能会移除行为树
-      if (!Behaviors.ContainsKey(behavior.RuntimeId)) {
-        return null;
-      }
 
       return behavior;
     }
