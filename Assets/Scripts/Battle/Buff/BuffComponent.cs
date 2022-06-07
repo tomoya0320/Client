@@ -46,6 +46,14 @@ namespace GameCore {
 
       await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
 
+      if (buffTemplate.RemoveImmediately) {
+        await Remove(runtimeId);
+      }
+
+      if (!Buffs.ContainsKey(runtimeId)) {
+        return null;
+      }
+
       return buff;
     }
 

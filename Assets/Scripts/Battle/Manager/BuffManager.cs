@@ -45,8 +45,7 @@ namespace GameCore {
         Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
         return null;
       }
-      var buff = await buffComponent.Add(source, buffId, ++IncId);
-      return buff;
+      return await buffComponent.Add(source, buffId, ++IncId);
     }
 
     public async UniTask<bool> RemoveBuff(Unit unit, int runtimeId) {
