@@ -8,8 +8,8 @@ namespace GameCore.MagicFuncs {
     public override bool IgnoreOnEnd => false;
     [LabelText("目标属性类型")]
     public AttribType Type;
-    [LabelText("是否作用于最大值")]
-    public bool OnMaxValue;
+    [LabelText("当前/最大值")]
+    public AttribField AttribField;
     [LabelText("基础值")]
     public int Value;
     [LabelText("附加值")]
@@ -18,12 +18,12 @@ namespace GameCore.MagicFuncs {
     public override UniTask Run(Battle battle, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.AttribValue != 0) {
-          args.Target.AddAttrib(Type, buffContext.AttribValue, OnMaxValue);
+          args.Target.AddAttrib(Type, buffContext.AttribValue, AttribField);
           buffContext.AttribValue = 0;
         }
       } else {
         int attribValue = Value + AttribAdditive.GetValue(args.Target);
-        int realAttribValue = args.Target.AddAttrib(Type, attribValue, OnMaxValue);
+        int realAttribValue = args.Target.AddAttrib(Type, attribValue, AttribField);
         if (realAttribValue != 0 && context is BuffContext buffContext) {
           buffContext.AttribValue = realAttribValue;
         }

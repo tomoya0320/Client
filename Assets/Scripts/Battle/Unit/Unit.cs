@@ -76,26 +76,38 @@ namespace GameCore {
       BehaviorInited = true;
     }
 
-    public int AddAttrib(AttribType type, int value, bool onMaxValue = false) {
+    public int AddAttrib(AttribType type, int value, AttribField attribField = AttribField.VALUE) {
       ref Attrib attrib = ref GetAttrib(type);
       int realAttribValue;
-      if (onMaxValue) {
-        realAttribValue = attrib.AddMaxValue(value);
-      } else {
-        realAttribValue = attrib.AddValue(value);
+      switch (attribField) {
+        case AttribField.VALUE:
+          realAttribValue = attrib.AddValue(value);
+          break;
+        case AttribField.MAX_VALUE:
+          realAttribValue = attrib.AddMaxValue(value);
+          break;
+        default:
+          realAttribValue = 0;
+          break;
       }
       return realAttribValue;
     }
 
-    public int SetAttrib(AttribType type, int value, bool onMaxValue = false) {
+    public int SetAttrib(AttribType type, int value, AttribField attribField = AttribField.VALUE) {
       Attrib attrib = GetAttrib(type);
       int addValue;
-      if (onMaxValue) {
-        addValue = value - attrib.MaxValue;
-      } else {
-        addValue = value - attrib.Value;
+      switch (attribField) {
+        case AttribField.VALUE:
+          addValue = value - attrib.Value;
+          break;
+        case AttribField.MAX_VALUE:
+          addValue = value - attrib.MaxValue;
+          break;
+        default:
+          addValue = 0;
+          break;
       }
-      return AddAttrib(type, addValue, onMaxValue);
+      return AddAttrib(type, addValue, attribField);
     }
 
     public async UniTask TryDie(Unit source, int damageValue) {

@@ -4,12 +4,21 @@ using UnityEngine;
 
 namespace GameCore {
   public enum AttribType {
+    [InspectorName("无")]
+    NONE = 0,
     [InspectorName("生命")]
     HP,
     [InspectorName("攻击")]
     ATK,
     [InspectorName("能量")]
     ENERGY,
+  }
+
+  public enum AttribField {
+    [InspectorName("当前值")]
+    VALUE,
+    [InspectorName("最大值")]
+    MAX_VALUE,
   }
 
   [Serializable]

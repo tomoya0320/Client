@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc34e37bebddb0b498b2493ed4eb5722, type: 3}
   m_Name: "\u52A0\u5C5E\u6027\u6548\u679C\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
-  Type: 1
-  OnMaxValue: 0
+  Type: 2
+  AttribField: 0
   Value: 20
   AttribAdditive:
     Type: 0
