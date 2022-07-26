@@ -7,12 +7,12 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
-        return UniTask.FromResult(false);
+        return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(targetUnit.EndTurn());
+      return UniTask.FromResult(BoolToNodeResult(targetUnit.EndTurn()));
     }
   }
 }

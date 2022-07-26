@@ -11,18 +11,18 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("卡牌索引")]
     public NodeIntParam CardIndex;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var targetUnit = behavior.GetUnit(TargetUnit);
       var cardUnit = behavior.GetUnit(CardUnit);
       var cardIndex = behavior.GetInt(CardIndex);
       if (targetUnit == null || cardUnit == null) {
-        return UniTask.FromResult(false);
+        return UniTask.FromResult(NodeResult.False);
       }
       var cardList = cardUnit.CardHeapDict[CardHeapType.HAND];
       if(cardIndex < 0 || cardIndex >= cardList.Count) {
-        return UniTask.FromResult(false);
+        return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(cardUnit.PlayCard(cardList[cardIndex], targetUnit));
+      return UniTask.FromResult(BoolToNodeResult(cardUnit.PlayCard(cardList[cardIndex], targetUnit)));
     }
   }
 }

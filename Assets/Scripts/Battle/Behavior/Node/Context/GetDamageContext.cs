@@ -11,14 +11,14 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("伤害值")]
     public NodeParamKey DamageValueKey;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       if(context is DamageContext damageContext) {
         behavior.SetInt(SourceKey, damageContext.Source.RuntimeId);
         behavior.SetInt(TargetKey, damageContext.Target.RuntimeId);
         behavior.SetInt(DamageValueKey, damageContext.DamageValue);
-        return UniTask.FromResult(true);
+        return UniTask.FromResult(NodeResult.True);
       }
-      return UniTask.FromResult(false);
+      return UniTask.FromResult(NodeResult.False);
     }
   }
 }

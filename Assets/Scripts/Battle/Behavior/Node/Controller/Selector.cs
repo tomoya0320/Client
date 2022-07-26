@@ -4,19 +4,20 @@ using UnityEngine;
 namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/控制/选择")]
   public class Selector : ControllerNode {
-    public override async UniTask<bool> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var connections = GetOutputPort(nameof(Out)).GetConnections();
       foreach (var connection in connections) {
         BehaviorNode behaviorNode = connection.node as BehaviorNode;
         if (behaviorNode == null) {
           Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
-          continue;
+          return NodeResult.False;
         }
-        if (await behaviorNode.Run(behavior, context)) {
-          return true;
+        NodeResult nodeResult = await behaviorNode.Run(behavior, context);
+        if (nodeResult != NodeResult.False) {
+          return nodeResult;
         }
       }
-      return false;
+      return NodeResult.False;
     }
   }
 }

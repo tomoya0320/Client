@@ -11,15 +11,15 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public override async UniTask<bool> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       Unit attackUnit = behavior.GetUnit(AttackUnit);
       Unit targetUnit = behavior.GetUnit(TargetUnit);
       if (attackUnit == null || targetUnit == null) {
-        return false;
+        return NodeResult.False;
       }
       int damageValue = behavior.GetInt(DamageValue);
       await behavior.Battle.DamageManager.Damage(attackUnit, targetUnit, damageValue);
-      return true;
+      return NodeResult.True;
     }
   }
 }

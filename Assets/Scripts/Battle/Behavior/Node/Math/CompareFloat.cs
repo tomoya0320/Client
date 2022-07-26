@@ -11,10 +11,10 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("比较方式")]
     public CompareMethod CompareMethod;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       float left = behavior.GetFloat(LeftFloat);
       float right = behavior.GetFloat(RightFloat);
-      return UniTask.FromResult(MathUtil.Compare(left, right, CompareMethod));
+      return UniTask.FromResult(BoolToNodeResult(MathUtil.Compare(left, right, CompareMethod)));
     }
   }
 }

@@ -7,10 +7,10 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("是否胜利")]
     public bool IsWin;
 
-    public override async UniTask<bool> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       behavior.Battle.Settle(IsWin);
       await UniTask.FromCanceled();
-      return true;
+      return NodeResult.True;
     }
   }
 }

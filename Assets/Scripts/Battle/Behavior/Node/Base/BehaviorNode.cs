@@ -32,6 +32,13 @@ namespace GameCore.BehaviorFuncs {
     public float Value;
   }
 
+  public enum NodeResult {
+    False = 0,
+    Break = 1,
+    True = 2,
+    Max = True,
+  }
+
   public abstract class BehaviorNode : Node {
     [HideInInspector]
     public int Index = -1;
@@ -41,11 +48,13 @@ namespace GameCore.BehaviorFuncs {
       BehaviorGraph = graph as BehaviorGraph;
 		}
 
-    public abstract UniTask<bool> Run(Behavior behavior, Context context);
+    public abstract UniTask<NodeResult> Run(Behavior behavior, Context context);
 
     public void UpdateIndex() {
       var inputPort = GetInputPort("In");
       Index = inputPort?.Connection?.GetConnectionIndex(inputPort) ?? -1;
     }
+
+    protected NodeResult BoolToNodeResult(bool result) => result ? NodeResult.True : NodeResult.False;
   }
 }

@@ -7,12 +7,12 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("玩家单位")]
     public NodeParamKey UnitKey;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var unit = behavior.GetUnit(UnitKey);
       if (unit == null) {
-        return UniTask.FromResult(false);
+        return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(unit.Player.IsSelf);
+      return UniTask.FromResult(BoolToNodeResult(unit.Player.IsSelf));
     }
   }
 }

@@ -9,9 +9,9 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("存值")]
     public NodeParamKey TargetKey;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       behavior.SetFloat(TargetKey, behavior.GetFloat(Source));
-      return UniTask.FromResult(true);
+      return UniTask.FromResult(NodeResult.True);
     }
   }
 }

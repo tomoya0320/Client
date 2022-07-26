@@ -4,19 +4,20 @@ using UnityEngine;
 namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/控制/顺序")]
   public class Sequence : ControllerNode {
-    public override async UniTask<bool> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var connections = GetOutputPort(nameof(Out)).GetConnections();
       foreach (var connection in connections) {
         BehaviorNode behaviorNode = connection.node as BehaviorNode;
         if (behaviorNode == null) {
           Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
-          return false;
+          return NodeResult.False;
         }
-        if (!await behaviorNode.Run(behavior, context)) {
-          return false;
+        NodeResult nodeResult = await behaviorNode.Run(behavior, context);
+        if (nodeResult != NodeResult.True) {
+          return nodeResult;
         }
       }
-      return true;
+      return NodeResult.True;
     }
   }
 }

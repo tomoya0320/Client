@@ -12,11 +12,11 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("存值")]
     public NodeParamKey TargetKey;
 
-    public override UniTask<bool> Run(Behavior behavior, Context context) {
+    public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       float minRange = behavior.GetInt(MinRange);
       float maxRange = behavior.GetInt(MaxRange);
       behavior.SetFloat(TargetKey, Random.Range(minRange, maxRange));
-      return UniTask.FromResult(true);
+      return UniTask.FromResult(NodeResult.True);
     }
   }
 }
