@@ -40,11 +40,6 @@ namespace GameCore.BehaviorFuncs {
 
   public abstract class BehaviorNode : Node {
     protected override string IndexPortName => "In";
-    protected BehaviorGraph BehaviorGraph;
-
-		protected override void Init() {
-      BehaviorGraph = graph as BehaviorGraph;
-		}
 
     public abstract UniTask<NodeResult> Run(Behavior behavior, Context context);
 

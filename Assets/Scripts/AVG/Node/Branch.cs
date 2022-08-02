@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore.AVG {
+namespace GameCore {
 	[CreateNodeMenu("节点/控制/分支")]
 	public class Branch : AVGNode {
 		[LabelText("入")]
@@ -12,7 +12,7 @@ namespace GameCore.AVG {
 		[Output(dynamicPortList = true)]
 		public string[] Options;
 
-		public override void Run() {
+		public override void Run(AVG avg) {
 			// TODO:初始化选项
 		}
 	}

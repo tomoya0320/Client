@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore.AVG {
+namespace GameCore {
   [CreateNodeMenu("节点/控制/主流程")]
   public class Main : AVGNode {
     [LabelText("入")]
@@ -12,14 +12,14 @@ namespace GameCore.AVG {
     public NodePort Out;
     [LabelText("效果")]
     [Output]
-    public NodePort ActionNodes;
+    public NodePort Effect;
 
-    public override void Run() {
-      var connections = GetOutputPort(nameof(ActionNodes)).GetConnections();
+    public override void Run(AVG avg) {
+      var connections = GetOutputPort(nameof(Effect)).GetConnections();
       foreach (var connection in connections) {
-        (connection.node as ActionNode)?.Run();
+        (connection.node as AVGNode)?.Run(avg);
       }
-      AVGGraph.AVGNode = GetOutputPort(nameof(Out)).Connection?.node as AVGNode;
+      avg.AVGNode = GetOutputPort(nameof(Out)).Connection?.node as AVGNode;
     }
   }
 }

@@ -2,7 +2,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore.AVG {
+namespace GameCore {
   public abstract class FadeNode : ActionNode {
     [LabelText("是否阻塞")]
     [SerializeField]
@@ -10,24 +10,26 @@ namespace GameCore.AVG {
     [LabelText("过渡时间")]
     [SerializeField]
     protected float FadeTime;
-    [LabelText("过渡结束回调节点")]
-    public AVGNode[] OnFadeCompletedNode;
+    [LabelText("过渡结束回调")]
+    [Output]
+    public NodePort OnFadeCompleted;
 
-    public override void Run() {
+    public override void Run(AVG avg) {
       if (Block) {
-        AVGGraph.Block++;
+        avg.Block++;
       }
       Tween tween = DoTween(FadeTime);
       tween.OnComplete(() => {
-        AVGGraph.Tweens.Remove(tween);
-        foreach (var node in OnFadeCompletedNode) {
-          node?.Run();
+        avg.Tweens.Remove(tween);
+        var connections = GetOutputPort(nameof(OnFadeCompleted)).GetConnections();
+        foreach (var connection in connections) {
+          (connection.node as AVGNode)?.Run(avg);
         }
         if (Block) {
-          AVGGraph.Block--;
+          avg.Block--;
         }
       });
-      AVGGraph.Tweens.Add(tween);
+      avg.Tweens.Add(tween);
     }
 
     protected abstract Tween DoTween(float fadeTime);

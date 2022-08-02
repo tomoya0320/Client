@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using XNodeEditor;
 
-namespace GameCore.AVG {
+namespace GameCore {
   [CustomNodeGraphEditor(typeof(AVGGraph))]
   public class AVGGraphEditor : NodeGraphEditor {
     private static HashSet<Type> UniqueTypes = new HashSet<Type> {
