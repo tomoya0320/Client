@@ -1,3 +1,4 @@
+using GameCore.AVGFuncs;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
@@ -15,7 +16,7 @@ namespace GameCore {
     /// In this example we are sorting out all node types that are not in the XNode.Examples namespace.
     /// </summary>
     public override string GetNodeMenuName(Type type) {
-      if (type.Namespace.StartsWith("GameCore.AVG")) {
+      if (type.Namespace.StartsWith("GameCore.AVGFuncs")) {
         return base.GetNodeMenuName(type);
       } else return null;
     }

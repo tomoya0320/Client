@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GameCore.AVGFuncs;
 using GameCore.UI;
 using System.Collections.Generic;
 

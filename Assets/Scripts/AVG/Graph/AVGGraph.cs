@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using GameCore.AVGFuncs;
 using System.Linq;
 using UnityEngine;
 using XNode;

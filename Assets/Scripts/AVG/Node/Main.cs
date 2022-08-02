@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore {
+namespace GameCore.AVGFuncs {
   [CreateNodeMenu("节点/控制/主流程")]
   public class Main : AVGNode {
     [LabelText("入")]

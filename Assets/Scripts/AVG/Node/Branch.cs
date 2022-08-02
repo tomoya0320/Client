@@ -1,7 +1,7 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore {
+namespace GameCore.AVGFuncs {
 	[CreateNodeMenu("节点/控制/分支")]
 	public class Branch : AVGNode {
 		[LabelText("入")]

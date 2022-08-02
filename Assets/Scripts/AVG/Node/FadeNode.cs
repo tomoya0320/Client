@@ -2,8 +2,8 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameCore {
-  public abstract class FadeNode : ActionNode {
+namespace GameCore.AVGFuncs {
+  public abstract class FadeNode : EffectNode {
     [LabelText("ÊÇ·ñ×èÈû")]
     [SerializeField]
     protected bool Block = true;

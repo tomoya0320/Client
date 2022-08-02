@@ -1,6 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 
-namespace GameCore {
+namespace GameCore.AVGFuncs {
   [CreateNodeMenu("节点/控制/开始")]
   public class Enter : AVGNode {
 		[LabelText("出")]

@@ -1,7 +1,7 @@
 using System;
 using XNode;
 
-namespace GameCore {
+namespace GameCore.AVGFuncs {
 	[Serializable]
 	public struct NodePort { }
 
