@@ -1,15 +1,14 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace GameCore.AVGFuncs {
   public abstract class FadeNode : EffectNode {
     [LabelText("是否阻塞")]
-    [SerializeField]
-    protected bool Block = true;
+    public bool Block = true;
+    [LabelText("设置为速度")]
+    public bool SetSpeedBased;
     [LabelText("过渡时间")]
-    [SerializeField]
-    protected float FadeTime;
+    public float FadeTime;
     [LabelText("过渡结束回调")]
     [Output]
     public NodePort OnFadeCompleted;

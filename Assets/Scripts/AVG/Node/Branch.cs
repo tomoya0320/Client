@@ -8,18 +8,18 @@ namespace GameCore.AVGFuncs {
 		[Input]
 		public NodePort In;
 		[LabelText("选项")]
-    [TextArea]
+		[TextArea]
 		[Output(dynamicPortList = true)]
 		public string[] Options;
 
 		public override void Run(AVG avg) {
-      for (int i = 0; i < Options.Length; i++) {
-				avg.UI.SetOption(i, Options[i], () => {
-					var connection = GetOutputPort($"{nameof(Options)} {i}").Connection;
-					avg.AVGNode = connection.node as AVGNode;
-					avg.Run();
-				});
-      }
+			avg.Block++;
+			avg.UI.SetOptions(Options, index => {
+				var connection = GetOutputPort($"{nameof(Options)} {index}").Connection;
+				avg.AVGNode = connection.node as AVGNode;
+				avg.Block--;
+				avg.Run();
+			});
 		}
 	}
 }

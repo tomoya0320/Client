@@ -3,11 +3,10 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.AVGFuncs {
+  [CreateNodeMenu("节点/效果/设置对话")]
   public class SetDialogue : FadeNode {
     [LabelText("名字")]
     public string Name;
-    [LabelText("是否将过渡时间设置为速度")]
-    public bool SetSpeedBased;
     [LabelText("对话内容")]
     [TextArea]
     public string Dialogue;
