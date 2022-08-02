@@ -13,7 +13,13 @@ namespace GameCore.AVGFuncs {
 		public string[] Options;
 
 		public override void Run(AVG avg) {
-			// TODO:初始化选项
+      for (int i = 0; i < Options.Length; i++) {
+				avg.UI.SetOption(i, Options[i], () => {
+					var connection = GetOutputPort($"{nameof(Options)} {i}").Connection;
+					avg.AVGNode = connection.node as AVGNode;
+					avg.Run();
+				});
+      }
 		}
 	}
 }

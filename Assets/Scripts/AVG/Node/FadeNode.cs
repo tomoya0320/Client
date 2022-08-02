@@ -18,7 +18,7 @@ namespace GameCore.AVGFuncs {
       if (Block) {
         avg.Block++;
       }
-      Tween tween = DoTween(FadeTime);
+      Tween tween = DoTween(avg);
       tween.OnComplete(() => {
         avg.Tweens.Remove(tween);
         var connections = GetOutputPort(nameof(OnFadeCompleted)).GetConnections();
@@ -32,6 +32,6 @@ namespace GameCore.AVGFuncs {
       avg.Tweens.Add(tween);
     }
 
-    protected abstract Tween DoTween(float fadeTime);
+    protected abstract Tween DoTween(AVG avg);
   }
 }
