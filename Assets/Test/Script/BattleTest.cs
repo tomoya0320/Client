@@ -2,7 +2,7 @@ using GameCore;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class Game : SingletonMono<Game> {
+public class BattleTest : SingletonMono<BattleTest> {
   [LabelText("战斗数据")]
   public BattleData BattleData;
 
