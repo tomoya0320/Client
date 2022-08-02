@@ -95,6 +95,9 @@ namespace XNode {
         }
 #endregion
 
+        [HideInInspector]
+        public int Index = -1;
+        protected abstract string IndexPortName { get; }
         /// <summary> Iterate over all ports on this node. </summary>
         public IEnumerable<NodePort> Ports { get { foreach (NodePort port in ports.Values) yield return port; } }
         /// <summary> Iterate over all outputs on this node. </summary>
@@ -122,6 +125,11 @@ namespace XNode {
             graphHotfix = null;
             UpdatePorts();
             Init();
+        }
+
+        public void UpdateIndex() {
+            var inputPort = GetInputPort(IndexPortName);
+            Index = inputPort?.Connection?.GetConnectionIndex(inputPort) ?? -1;
         }
 
         /// <summary> Update static ports and dynamic ports managed by DynamicPortLists to reflect class fields. This happens automatically on enable or on redrawing a dynamic port list. </summary>

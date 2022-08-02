@@ -1,6 +1,5 @@
 using System;
 using XNode;
-using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
@@ -40,8 +39,7 @@ namespace GameCore.BehaviorFuncs {
   }
 
   public abstract class BehaviorNode : Node {
-    [HideInInspector]
-    public int Index = -1;
+    protected override string IndexPortName => "In";
     protected BehaviorGraph BehaviorGraph;
 
 		protected override void Init() {
@@ -49,11 +47,6 @@ namespace GameCore.BehaviorFuncs {
 		}
 
     public abstract UniTask<NodeResult> Run(Behavior behavior, Context context);
-
-    public void UpdateIndex() {
-      var inputPort = GetInputPort("In");
-      Index = inputPort?.Connection?.GetConnectionIndex(inputPort) ?? -1;
-    }
 
     protected NodeResult BoolToNodeResult(bool result) => result ? NodeResult.True : NodeResult.False;
   }

@@ -26,6 +26,9 @@ namespace XNodeEditor {
 
         public virtual void OnHeaderGUI() {
             GUILayout.Label(target.name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            if (target.Index >= 0) {
+                GUI.Label(GUILayoutUtility.GetLastRect(), $"{target.Index}", NodeEditorResources.styles.indexHeader);
+            }
         }
 
         /// <summary> Draws standard field editors for all public fields </summary>

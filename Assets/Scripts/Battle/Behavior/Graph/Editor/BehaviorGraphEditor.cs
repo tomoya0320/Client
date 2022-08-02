@@ -13,10 +13,6 @@ namespace GameCore {
       typeof(Finalize),
     };
 
-    public override void OnGUI() {
-      window.titleContent.text = target.name;
-    }
-
     /// <summary> 
     /// Overriding GetNodeMenuName lets you control if and how nodes are categorized.
     /// In this example we are sorting out all node types that are not in the XNode.Examples namespace.

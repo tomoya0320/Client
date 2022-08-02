@@ -6,6 +6,7 @@ namespace GameCore.AVG {
 	public struct NodePort { }
 
 	public abstract class AVGNode : Node {
+		protected override string IndexPortName => "In";
 		protected AVGGraph AVGGraph;
 
 		protected override void Init() {

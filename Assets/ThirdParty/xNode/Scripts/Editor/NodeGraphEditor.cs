@@ -13,7 +13,9 @@ namespace XNodeEditor {
         /// <summary> Are we currently renaming a node? </summary>
         protected bool isRenaming;
 
-        public virtual void OnGUI() { }
+        public virtual void OnGUI() {
+            window.titleContent.text = target.name;
+        }
 
         /// <summary> Called when opened by NodeEditorWindow </summary>
         public virtual void OnOpen() { }

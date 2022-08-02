@@ -10,12 +10,14 @@ namespace GameCore.AVG {
     [LabelText("出")]
     [Output(connectionType = ConnectionType.Override)]
     public NodePort Out;
-    [LabelText("节点列表")]
-    public AVGNode[] Nodes;
+    [LabelText("效果")]
+    [Output]
+    public NodePort ActionNodes;
 
     public override void Run() {
-      foreach (var node in Nodes) {
-        node.Run();
+      var connections = GetOutputPort(nameof(ActionNodes)).GetConnections();
+      foreach (var connection in connections) {
+        (connection.node as ActionNode)?.Run();
       }
       AVGGraph.AVGNode = GetOutputPort(nameof(Out)).Connection?.node as AVGNode;
     }
