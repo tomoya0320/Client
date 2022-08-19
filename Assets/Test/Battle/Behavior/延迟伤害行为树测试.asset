@@ -21,6 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 0
   graph: {fileID: 11400000}
   position: {x: -200, y: -136}
   ports:
@@ -39,7 +40,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 0
   LeftInt:
     IsDict: 1
     ParamKey:
@@ -76,6 +76,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 2
   graph: {fileID: 11400000}
   position: {x: 280, y: -88}
   ports:
@@ -94,7 +95,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 2
   Source:
     IsDict: 0
     ParamKey:
@@ -125,6 +125,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: -1
   graph: {fileID: 11400000}
   position: {x: -952, y: 328}
   ports:
@@ -143,7 +144,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: -1
 --- !u!114 &-61988035158854590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 0
   graph: {fileID: 11400000}
   position: {x: 280, y: -392}
   ports:
@@ -183,7 +184,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 0
   TargetKey:
     Type: 0
     Key: source_unit
@@ -234,6 +234,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 0
   graph: {fileID: 11400000}
   position: {x: -685, y: 374.5}
   ports:
@@ -252,7 +253,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 0
   DamageValue:
     IsDict: 0
     ParamKey:
@@ -286,6 +286,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 0
   graph: {fileID: 11400000}
   position: {x: -504, y: -56}
   ports:
@@ -323,7 +324,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  Index: 0
 --- !u!114 &1309708690097807485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,8 +345,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 1
   graph: {fileID: 11400000}
-  position: {x: -216, y: 168}
+  position: {x: -168, y: 88}
   ports:
     keys:
     - In
@@ -363,7 +364,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 1
   LeftInt:
     IsDict: 1
     ParamKey:
@@ -398,6 +398,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: -1
   graph: {fileID: 11400000}
   position: {x: -728, y: -120}
   ports:
@@ -416,7 +417,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: -1
 --- !u!114 &5408174074055765157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,6 +438,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: -1
   graph: {fileID: 11400000}
   position: {x: -280, y: -328}
   ports:
@@ -456,7 +457,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: -1
 --- !u!114 &7885156834798417655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,8 +478,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 2
   graph: {fileID: 11400000}
-  position: {x: -216, y: 424}
+  position: {x: -168, y: 344}
   ports:
     keys:
     - In
@@ -496,7 +497,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 2
 --- !u!114 &8001561164231029131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +518,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 0
   graph: {fileID: 11400000}
   position: {x: -16, y: -278.5}
   ports:
@@ -555,7 +556,6 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  Index: 0
 --- !u!114 &8634076809594433394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -577,6 +577,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Index: 1
   graph: {fileID: 11400000}
   position: {x: 280, y: -232}
   ports:
@@ -595,7 +596,6 @@ MonoBehaviour:
       _connectionType: 1
       _typeConstraint: 0
       _dynamic: 0
-  Index: 1
   TargetKey:
     Type: 0
     Key: behavior_unit
