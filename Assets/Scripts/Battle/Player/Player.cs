@@ -48,17 +48,13 @@ namespace GameCore {
 
     private async UniTask StartTurn() {
       foreach (var unit in Units) {
-        if (unit.IsAlive) {
-          await unit.UnitStateMachine.SwitchState((int)UnitState.IN_TURN);
-        }
+        await unit.UnitStateMachine.SwitchState((int)UnitState.IN_TURN);
       }
     }
 
     private async UniTask EndTurn() {
       foreach (var unit in Units) {
-        if (unit.IsAlive) {
-          await unit.UnitStateMachine.SwitchState((int)UnitState.OUT_TURN);
-        }
+        await unit.UnitStateMachine.SwitchState((int)UnitState.OUT_TURN);
       }
     }
 
