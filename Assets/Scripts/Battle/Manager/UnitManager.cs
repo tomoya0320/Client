@@ -27,7 +27,6 @@ namespace GameCore {
         return;
       }
       Battle.BuffManager.RemoveComponent(unit.RuntimeId);
-      unit.Player.DeadUnitCount++;
     }
   }
 }

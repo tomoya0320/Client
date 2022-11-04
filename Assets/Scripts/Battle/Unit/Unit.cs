@@ -103,9 +103,8 @@ namespace GameCore {
       damageContext.DamageValue = damageValue;
 
       await Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_WILL_DIE, this, damageContext);
-      if(GetAttrib(AttribType.HP).Value <= 0) {
-        await UnitStateMachine.SwitchState((int)UnitState.DYING);
-        Battle.UnitManager.OnUnitDie(this);
+      if (GetAttrib(AttribType.HP).Value <= 0) {
+        await UnitStateMachine.SwitchState((int)UnitState.DEAD, damageContext);
       }
 
       Battle.ObjectPool.Release(damageContext);

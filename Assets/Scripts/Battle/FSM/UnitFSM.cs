@@ -1,12 +1,10 @@
 using Cysharp.Threading.Tasks;
-using UnityEngine.Timeline;
 
 namespace GameCore {
   public enum UnitState {
     BORN,
     IN_TURN,
     OUT_TURN,
-    DYING,
     DEAD,
   }
 
@@ -47,8 +45,6 @@ namespace GameCore {
         }
         Owner.BattleCardControl.RefreshCardList(CardHeapType.DRAW);
       }
-
-      await UniTask.CompletedTask;
     }
   }
 
@@ -69,18 +65,6 @@ namespace GameCore {
         card.CardHeapType = CardHeapType.DISCARD;
       }
       Owner.BattleCardControl.RefreshCardList(CardHeapType.HAND);
-
-      await UniTask.CompletedTask;
-    }
-  }
-
-  public class UnitDyingState : State<Unit> {
-    public UnitDyingState(StateMachine<Unit> stateMachine) : base((int)UnitState.DYING, stateMachine) {
-    }
-
-    public override UniTask OnEnter(int lastStateId, Context context = null) {
-      // TODO:死亡动画
-      return StateMachine.SwitchState((int)UnitState.DEAD, context);
     }
   }
 
@@ -89,8 +73,12 @@ namespace GameCore {
     }
     
     public async override UniTask OnEnter(int lastStateId, Context context = null) {
+      Owner.Player.DeadUnitCount++;
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_DEAD, Owner, context);
+      Owner.Battle.UnitManager.OnUnitDie(Owner);
     }
+
+    public override bool CheckLeave(int nextStateId) => false;
   }
 
   public class UnitStateMachine : StateMachine<Unit> {
@@ -98,13 +86,12 @@ namespace GameCore {
       RegisterState(new UnitBornState(this));
       RegisterState(new UnitInTurnState(this));
       RegisterState(new UnitOutTurnState(this));
-      RegisterState(new UnitDyingState(this));
       RegisterState(new UnitDeadState(this));
 
       CurrentState = States[(int)UnitState.BORN];
       CurrentState.OnEnter(-1);
     }
 
-    public bool IsAlive => CurrentState.StateId != (int)UnitState.DYING && CurrentState.StateId != (int)UnitState.DEAD;
+    public bool IsAlive => CurrentState.StateId != (int)UnitState.DEAD;
   }
 }
