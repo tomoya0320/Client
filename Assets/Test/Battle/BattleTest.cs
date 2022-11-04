@@ -1,15 +1,16 @@
-using Cysharp.Threading.Tasks;
 using GameCore;
 using Sirenix.OdinInspector;
-using System;
+using System.Threading;
 using UnityEngine;
 
 public class BattleTest : SingletonMono<BattleTest> {
   [LabelText("战斗数据")]
   public BattleData BattleData;
+  private CancellationTokenSource cancellationTokenSource;
 
   private void Start() {
-    Battle.Enter(BattleData);
+    cancellationTokenSource = new CancellationTokenSource();
+    Battle.Enter(BattleData, cancellationTokenSource.Token);
   }
 
   private void Update() {
@@ -24,5 +25,11 @@ public class BattleTest : SingletonMono<BattleTest> {
         self.EndTurn();
       }
     }
+  }
+
+  private void OnApplicationQuit() {
+    cancellationTokenSource.Cancel();
+    cancellationTokenSource.Dispose();
+    cancellationTokenSource = null;
   }
 }

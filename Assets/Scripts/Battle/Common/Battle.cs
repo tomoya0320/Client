@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public enum BattleState {
@@ -11,6 +13,7 @@ namespace GameCore {
   }
 
   public class Battle {
+    public CancellationToken CancellationToken { get; private set; }
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public LevelTemplate LevelTemplate { get; private set; }
@@ -37,21 +40,22 @@ namespace GameCore {
     public static Battle Instance { get; private set; }
     #endregion
 
-    public static bool Enter(BattleData battleData) {
+    public static bool Enter(BattleData battleData, CancellationToken token) {
       if(Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
       }
       // 战斗实例初始化
-      Instance = new Battle(battleData);
+      Instance = new Battle(battleData, token);
       // 首先是加载资源
       Instance.BattleState = BattleState.Load;
       Instance.Update();
       return true;
     }
 
-    private Battle(BattleData battleData) {
+    private Battle(BattleData battleData, CancellationToken token) {
       BattleData = battleData;
+      CancellationToken = token;
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
       MagicManager = new MagicManager(this);
@@ -69,26 +73,26 @@ namespace GameCore {
     }
 
     public async void Update() {
-      while (BattleState != BattleState.None) {
-        switch (BattleState) {
-          case BattleState.Load:
-            await Load();
-            break;
-          case BattleState.Run:
-            try {
+      try {
+        while (BattleState != BattleState.None) {
+          switch (BattleState) {
+            case BattleState.Load:
+              await Load();
+              break;
+            case BattleState.Run:
               await Run();
-            } catch (OperationCanceledException) { }
-            break;
-          case BattleState.Exit:
-            await Clear();
-            break;
+              break;
+            case BattleState.Exit:
+              await Clear();
+              break;
+          }
         }
-      }
+      } catch (OperationCanceledException) { }
     }
 
     private async UniTask Load() {
       // step1:加载关卡和单位的相关资源
-      LevelTemplate = await LevelManager.Preload(BattleData.LevelId);
+      LevelTemplate = LevelManager.Preload(BattleData.LevelId);
       foreach (var behaviorId in LevelTemplate.BehaviorIds) {
         await PreloadBehavior(behaviorId);
       }
@@ -122,16 +126,16 @@ namespace GameCore {
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
-      var unitTemplate = await UnitManager.Preload(unitData.TemplateId);
-      await AttribManager.Preload(unitTemplate.AttribId);
+      var unitTemplate = UnitManager.Preload(unitData.TemplateId);
+      AttribManager.Preload(unitTemplate.AttribId);
       foreach (var behaviorId in unitTemplate.BehaviorIds) {
         await PreloadBehavior(behaviorId);
       }
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
-        var cardTemplate = await CardManager.Preload(cardData.TemplateId);
+        var cardTemplate = CardManager.Preload(cardData.TemplateId);
         foreach (var item in cardTemplate.LvCardItems) {
-          var skillTemplate = await SkillManager.Preload(item.SkillId);
+          var skillTemplate = SkillManager.Preload(item.SkillId);
           foreach (var skillEvent in skillTemplate.SKillEvents) {
             await PreloadMagic(skillEvent.MagicId);
           }
@@ -140,7 +144,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBehavior(string behaviorId) {
-      var behavior = await BehaviorManager.Preload(behaviorId);
+      var behavior = BehaviorManager.Preload(behaviorId);
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
           switch (behaviorNode) {
@@ -156,7 +160,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadMagic(string magicId) {
-      var magicFunc = await MagicManager.Preload(magicId);
+      var magicFunc = MagicManager.Preload(magicId);
       if (magicFunc) {
         switch (magicFunc) {
           case MagicFuncs.AddBehavior addBehavior:
@@ -170,7 +174,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBuff(string buffId) {
-      var buffTemplate = await BuffManager.Preload(buffId);
+      var buffTemplate = BuffManager.Preload(buffId);
       if (buffTemplate) {
         await PreloadMagic(buffTemplate.MagicId);
       }
@@ -184,6 +188,7 @@ namespace GameCore {
     private async UniTask Clear() {
       Instance = null;
       BattleData = null;
+      CancellationToken = default;
       BattleState = BattleState.None;
 
       UnitManager.Release();
