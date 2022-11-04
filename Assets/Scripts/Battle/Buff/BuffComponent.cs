@@ -23,7 +23,7 @@ namespace GameCore {
       Unit = null;
     }
 
-    public async UniTask Update(TrickTime updateTime) {
+    public async UniTask Update(TickTime updateTime) {
       var buffList = TempList<Buff>.Get();
       buffList.AddRange(Buffs.Values);
       foreach (var buff in buffList) {
@@ -31,11 +31,11 @@ namespace GameCore {
           await Remove(buff.RuntimeId);
         }
       }
-      TempList<Buff>.CleanUp();
+      TempList<Buff>.Release(buffList);
     }
 
     public async UniTask<Buff> Add(Unit source, string buffId, int runtimeId) {
-      if (!BuffManager.Templates.TryGetValue(buffId, out var buffTemplate)) {
+      if (!BuffManager.TryGetTemplate(buffId, out var buffTemplate)) {
         Debug.LogError($"BuffTemplate is null. id:{buffId}");
         return null;
       }

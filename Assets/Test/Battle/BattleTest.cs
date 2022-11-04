@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using GameCore;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 public class BattleTest : SingletonMono<BattleTest> {
@@ -15,7 +17,7 @@ public class BattleTest : SingletonMono<BattleTest> {
     if(Battle.Instance != null) {
       if (Input.GetKeyDown(KeyCode.Alpha1)) {
         var self = Battle.Instance.SelfPlayer.Master;
-        self.PlayCard(self.CardHeapDict[CardHeapType.HAND][0], Battle.Instance.UnitManager.GetUnit(2));
+        self.PlayCard(self.BattleCardControl[CardHeapType.HAND][0], Battle.Instance.UnitManager.GetUnit(2));
       }
       if (Input.GetKeyDown(KeyCode.Alpha2)) {
         var self = Battle.Instance.SelfPlayer.Master;

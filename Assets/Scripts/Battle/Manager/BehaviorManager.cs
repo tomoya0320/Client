@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
-  public enum TrickTime {
+  public enum TickTime {
     [InspectorName("无")]
     NONE,
     [InspectorName("回合开始")]
@@ -22,8 +22,8 @@ namespace GameCore {
     ON_BEFORE_DAMAGED,
     [InspectorName("被造成伤害后")]
     ON_LATE_DAMAGED,
-    [InspectorName("单位濒死时")]
-    ON_UNIT_DYING,
+    [InspectorName("单位将要死亡时")]
+    ON_UNIT_WILL_DIE,
     [InspectorName("单位死亡时")]
     ON_UNIT_DEAD,
   }
@@ -31,21 +31,15 @@ namespace GameCore {
   public class BehaviorManager : TemplateManager<BehaviorGraph> {
     private int IncId;
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
-    private Dictionary<TrickTime, List<int>> BehaviorTimes = new Dictionary<TrickTime, List<int>>();
+    private Dictionary<TickTime, List<int>> BehaviorTimes = new Dictionary<TickTime, List<int>>();
 
     public BehaviorManager(Battle battle) : base(battle) {
-      foreach (TrickTime behaviorTime in Enum.GetValues(typeof(TrickTime))) {
+      foreach (TickTime behaviorTime in Enum.GetValues(typeof(TickTime))) {
         BehaviorTimes.Add(behaviorTime, new List<int>());
       }
     }
 
-    public async UniTask RunRoot(TrickTime behaviorTime, Unit[] units, Context context = null) {
-      foreach (var unit in units) {
-        await RunRoot(behaviorTime, unit, context);
-      }
-    }
-
-    public async UniTask RunRoot(TrickTime behaviorTime, Unit unit = null, Context context = null) {
+    public async UniTask RunRoot(TickTime behaviorTime, Unit unit = null, Context context = null) {
       // 优先更新Buff回合数
       await Battle.BuffManager.Update(behaviorTime, unit);
 
@@ -57,7 +51,7 @@ namespace GameCore {
           await behavior.Run<Root>(context);
         }
       }
-      TempList<int>.CleanUp();
+      TempList<int>.Release(behaviorList);
     }
 
     public async UniTask<Behavior> Add(string behaviorId, Unit source = null, Unit target = null) {

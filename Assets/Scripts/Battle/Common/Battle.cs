@@ -233,17 +233,9 @@ namespace GameCore {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
       Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
-      // 刷新单位能量
-      CurPlayer.RefreshEnergy();
-
-      // 执行回合开始前的行为树
-      await BehaviorManager.RunRoot(TrickTime.ON_START_TURN, CurPlayer.Units);
 
       // 回合中的逻辑
       await CurPlayer.OnTurn();
-
-      // 执行回合结束后的行为树
-      await BehaviorManager.RunRoot(TrickTime.ON_END_TURN, CurPlayer.Units);
     }
   }
 }

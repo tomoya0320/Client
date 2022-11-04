@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public abstract class TemplateManager<T> : BattleBase where T : ScriptableObject {
-    public Dictionary<string, T> Templates = new Dictionary<string, T>();
+    protected Dictionary<string, T> Templates = new Dictionary<string, T>();
 
     protected TemplateManager(Battle battle) : base(battle) { }
 
@@ -19,6 +19,10 @@ namespace GameCore {
         return template;
       }
       return null;
+    }
+
+    public bool TryGetTemplate(string id, out T template) {
+      return Templates.TryGetValue(id, out template);
     }
 
     public void Release() {

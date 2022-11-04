@@ -19,7 +19,7 @@ namespace GameCore {
   [CreateAssetMenu(menuName = "模板/行为树/战斗通用")]
   public class BehaviorGraph : NodeGraph {
     [LabelText("触发时机")]
-    public TrickTime BehaviorTime;
+    public TickTime BehaviorTime;
 
     public async UniTask Run<T>(Behavior behavior, Context context = null) where T : SingleOutNode {
       var node = nodes.Find(n => n is T) as T;

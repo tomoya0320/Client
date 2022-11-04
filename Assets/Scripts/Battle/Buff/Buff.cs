@@ -20,7 +20,7 @@ namespace GameCore {
       BuffContext.Buff = this;
     }
 
-    public bool Update(TrickTime updateTime) {
+    public bool Update(TickTime updateTime) {
       Turn += updateTime == BuffTemplate.UpdateTime ? 1 : 0;
       return BuffTemplate.Duration <= 0 || Turn < BuffTemplate.Duration;
     }

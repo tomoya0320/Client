@@ -1,6 +1,9 @@
 using Cysharp.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace GameCore {
   [Flags]
@@ -23,13 +26,13 @@ namespace GameCore {
     public Blackboard Blackboard { get; private set; }
     public Unit Master { get; private set; }
     public Unit[] Units { get; private set; }
-    public UnitData[] UnitData => PlayerData.UnitData;
     public int DeadUnitCount;
-    public int TotalUnitCount => Units.Length;
+    public int TotalUnitCount { get; }
     public bool Available => DeadUnitCount < TotalUnitCount;
     public bool IsSelf => Battle.SelfPlayer == this;
     public bool EndTurnFlag;
-    private BattleOperation Operation;
+    private Queue<BattleOperation> Operations = new Queue<BattleOperation>();
+    public bool HasOperation => Operations.Count > 0;
 
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
@@ -37,60 +40,56 @@ namespace GameCore {
       PlayerData = playerData;
       Units = new Unit[playerData.UnitData.Length];
       for (int i = 0; i < Units.Length; i++) {
-        Units[i] = Battle.UnitManager.Create(this, UnitData[i]);
+        Units[i] = Battle.UnitManager.Create(this, PlayerData.UnitData[i]);
       }
       Master = Units[PlayerData.FirstIndex];
+      TotalUnitCount = Units.Length;
     }
 
-    public void RefreshEnergy() {
-      // 每回合开始前刷新能量(强制设置为最大值)
+    private async UniTask StartTurn() {
       foreach (var unit in Units) {
-        if (unit.UnitState == UnitState.ALIVE) {
-          unit.RefreshEnergy();
+        if (unit.IsAlive) {
+          await unit.UnitStateMachine.SwitchState((int)UnitState.IN_TURN);
         }
       }
     }
 
-    private void DrawCard() {
+    private async UniTask EndTurn() {
       foreach (var unit in Units) {
-        if (unit.UnitState == UnitState.ALIVE) {
-          unit.DrawCard();
+        if (unit.IsAlive) {
+          await unit.UnitStateMachine.SwitchState((int)UnitState.OUT_TURN);
         }
       }
     }
 
-    private void DiscardCard() {
-      foreach (var unit in Units) {
-        if (unit.UnitState == UnitState.ALIVE) {
-          unit.DiscardCard();
-        }
-      }
-    }
-
-    private async UniTask PlayCard() {
+    private async UniTask InTurn() {
       while (!EndTurnFlag) {
-        while (Operation == null) {
-          await Battle.BehaviorManager.RunRoot(TrickTime.ON_TURN_WAIT_OP, Master);
+        while (!HasOperation) {
+          await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
           await UniTask.Yield();
         }
-        await Operation.DoOperation();
-        Battle.ObjectPool.Release(Operation);
-        Operation = null;
+        await DoOperation();
       }
     }
 
     public async UniTask OnTurn() {
-      DrawCard();
-      await PlayCard();
-      DiscardCard();
+      await StartTurn();
+      await InTurn();
+      await EndTurn();
     }
 
-    public bool DoOperation(BattleOperation operation) {
-      if (Operation != null) {
-        return false;
+    public void AddOperation(BattleOperation operation) {
+      Operations.Enqueue(operation);
+    }
+
+    private async UniTask DoOperation() {
+      if (Operations.Count == 0) {
+        await UniTask.CompletedTask;
       }
-      Operation = operation;
-      return true;
+
+      BattleOperation operation = Operations.Dequeue();
+      await operation.DoOperation();
+      Battle.ObjectPool.Release(operation);
     }
   }
 }

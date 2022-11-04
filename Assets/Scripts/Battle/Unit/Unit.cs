@@ -1,6 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
@@ -15,15 +13,10 @@ namespace GameCore {
     HAND,
   }
 
-  public enum UnitState {
-    ALIVE,
-    DYING,
-    DEAD,
-  }
 
   public class Unit : BattleBase {
     private UnitTemplate UnitTemplate;
-    public UnitState UnitState { get; private set; } = UnitState.ALIVE;
+    public bool IsAlive => UnitStateMachine.IsAlive;
     public Player Player { get; private set; }
     public PlayerCamp PlayerCamp => Player.PlayerCamp;
     public int RuntimeId { get; private set; }
@@ -33,28 +26,21 @@ namespace GameCore {
     public UnitData UnitData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
-    public Dictionary<CardHeapType, List<Card>> CardHeapDict { get; private set; }
     public string Name => UnitTemplate != null ? UnitTemplate.Name : null;
     public bool IsMaster => Player.Master == this;
     private bool BehaviorInited;
+    public UnitStateMachine UnitStateMachine { get; private set; }
+    public BattleCardControl BattleCardControl { get; private set; }
 
     public Unit(Battle battle, int runtimeId, Player player, UnitData unitData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
       RuntimeId = runtimeId;
       Player = player;
       UnitData = unitData;
+      UnitStateMachine = new UnitStateMachine(this);
+      BattleCardControl = new BattleCardControl(this, UnitData.CardData);
 
-      Battle.UnitManager.Templates.TryGetValue(TemplateId, out UnitTemplate);
-
-      // 卡牌相关
-      CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
-      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
-        CardHeapDict.Add(cardHeapType, new List<Card>());
-      }
-      foreach (var cardData in UnitData.CardData) {
-        CardHeapDict[CardHeapType.DRAW].Add(Battle.CardManager.Create(this, cardData));
-      }
-
+      Battle.UnitManager.TryGetTemplate(TemplateId, out UnitTemplate);
       Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Lv, MaxLv);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
@@ -116,12 +102,10 @@ namespace GameCore {
       damageContext.Target = this;
       damageContext.DamageValue = damageValue;
 
-      UnitState = UnitState.DYING;
-      await Battle.BehaviorManager.RunRoot(TrickTime.ON_UNIT_DYING, this, damageContext);
+      await Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_WILL_DIE, this, damageContext);
       if(GetAttrib(AttribType.HP).Value <= 0) {
-        UnitState = UnitState.DEAD;
+        await UnitStateMachine.SwitchState((int)UnitState.DYING);
         Battle.UnitManager.OnUnitDie(this);
-        await Battle.BehaviorManager.RunRoot(TrickTime.ON_UNIT_DEAD, this, damageContext);
       }
 
       Battle.ObjectPool.Release(damageContext);
@@ -134,23 +118,10 @@ namespace GameCore {
       SetAttrib(AttribType.ENERGY, energyAttrib.MaxValue);
     }
 
-    private void RefreshCardList(CardHeapType cardHeapType) {
-      var cardList = CardHeapDict[cardHeapType];
-      for (int i = cardList.Count - 1; i >= 0; i--) {
-        var card = cardList[i];
-        if (card.CardHeapType != cardHeapType) {
-          cardList.RemoveAt(i);
-        }
-      }
-    }
-
     public bool EndTurn() {
       var endTurnOp = Battle.ObjectPool.Get<EndTurnOp>();
       endTurnOp.Unit = this;
-      if (!Player.DoOperation(endTurnOp)) {
-        Battle.ObjectPool.Release(endTurnOp);
-        return false;
-      }
+      Player.AddOperation(endTurnOp);
       return true;
     }
 
@@ -160,57 +131,17 @@ namespace GameCore {
       }
 
       card.CardHeapType = CardHeapType.DISCARD;
-      CardHeapDict[CardHeapType.HAND].Remove(card);
-      CardHeapDict[CardHeapType.DISCARD].Add(card);
+      BattleCardControl[CardHeapType.HAND].Remove(card);
+      BattleCardControl[CardHeapType.DISCARD].Add(card);
 
       var playCardOp = Battle.ObjectPool.Get<PlayCardOp>();
       playCardOp.Unit = this;
       playCardOp.MainTarget = mainTarget;
       playCardOp.Card = card;
 
-      if (!Player.DoOperation(playCardOp)) {
-        Battle.ObjectPool.Release(playCardOp);
-        return false;
-      }
+      Player.AddOperation(playCardOp);
 
       return true;
-    }
-
-    public void DrawCard() {
-      // Test
-      var handCardList = CardHeapDict[CardHeapType.HAND];
-      int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - handCardList.Count;
-      if (drawCardCount > 0) {
-        var drawCardList = CardHeapDict[CardHeapType.DRAW];
-        if(drawCardList.Count < drawCardCount) {
-          var discardCardList = CardHeapDict[CardHeapType.DISCARD];
-          for (int i = 0; i < discardCardList.Count; i++) {
-            var card = discardCardList[i];
-            drawCardList.Add(card);
-            card.CardHeapType = CardHeapType.DRAW;
-          }
-          RefreshCardList(CardHeapType.DISCARD);
-        }
-        MathUtil.FisherYatesShuffle(drawCardList);
-        for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
-          var card = drawCardList[i];
-          handCardList.Add(card);
-          card.CardHeapType = CardHeapType.HAND;
-        }
-        RefreshCardList(CardHeapType.DRAW);
-      }
-    }
-
-    public void DiscardCard() {
-      // Test
-      var handCardList = CardHeapDict[CardHeapType.HAND];
-      var discardCardList = CardHeapDict[CardHeapType.DISCARD];
-      for (int i = 0; i < handCardList.Count; i++) {
-        var card = handCardList[i];
-        discardCardList.Add(card);
-        card.CardHeapType = CardHeapType.DISCARD;
-      }
-      RefreshCardList(CardHeapType.HAND);
     }
   }
 }

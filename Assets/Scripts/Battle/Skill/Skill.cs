@@ -7,7 +7,7 @@ namespace GameCore {
 
     public Skill(Battle battle, Unit owner, string skillId) : base(battle) { 
       Owner = owner;
-      Battle.SkillManager.Templates.TryGetValue(skillId, out SkillTemplate);
+      Battle.SkillManager.TryGetTemplate(skillId, out SkillTemplate);
     }
 
     public async UniTask Cast(Unit mainTarget) {
@@ -19,7 +19,7 @@ namespace GameCore {
         foreach (var target in targets) {
           await Battle.MagicManager.DoMagic(magicId, Owner, target);
         }
-        TempList<Unit>.CleanUp();
+        TempList<Unit>.Release(targets);
       }
     }
   }

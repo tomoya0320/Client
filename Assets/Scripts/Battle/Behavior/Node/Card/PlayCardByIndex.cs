@@ -18,7 +18,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null || cardUnit == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      var cardList = cardUnit.CardHeapDict[CardHeapType.HAND];
+      var cardList = cardUnit.BattleCardControl[CardHeapType.HAND];
       if(cardIndex < 0 || cardIndex >= cardList.Count) {
         return UniTask.FromResult(NodeResult.False);
       }

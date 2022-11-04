@@ -12,6 +12,6 @@ namespace GameCore {
     public int Duration;
     [HideIf(nameof(RemoveImmediately))]
     [LabelText("更新回合数时机")]
-    public TrickTime UpdateTime;
+    public TickTime UpdateTime;
   }
 }
