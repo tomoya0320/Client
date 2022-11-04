@@ -32,8 +32,8 @@ namespace GameCore {
       return true;
     }
 
-    public async UniTask<bool> SwitchState(int nextStateId, Context context = null, bool force = false) {
-      if (States.TryGetValue(nextStateId, out var nextState) && (CurrentState.StateId != nextStateId || force) && CurrentState.CheckLeave(nextStateId)) {
+    public async UniTask<bool> SwitchState(int nextStateId, Context context = null) {
+      if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextStateId)) {
         int lastStateId = CurrentState.StateId;
         await CurrentState.OnExit(nextStateId, context);
         CurrentState = nextState;
