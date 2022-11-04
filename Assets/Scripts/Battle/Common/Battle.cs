@@ -77,11 +77,7 @@ namespace GameCore {
           case BattleState.Run:
             try {
               await Run();
-            } catch (Exception e) {
-              if (e is not OperationCanceledException) {
-                throw e;
-              }
-            }
+            } catch (OperationCanceledException) { }
             break;
           case BattleState.Exit:
             await Clear();
