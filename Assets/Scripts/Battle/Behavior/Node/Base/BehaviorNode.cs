@@ -9,7 +9,9 @@ namespace GameCore.BehaviorFuncs {
 
   [Serializable]
   public struct NodeParamKey {
+    [LabelText("字典类型")]
     public DictType Type;
+    [LabelText("字典值名")]
     public string Key;
   }
 

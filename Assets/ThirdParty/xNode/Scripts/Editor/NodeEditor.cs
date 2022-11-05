@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
 #if ODIN_INSPECTOR
-using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 #endif
 
@@ -25,7 +23,13 @@ namespace XNodeEditor {
 #endif
 
         public virtual void OnHeaderGUI() {
-            GUILayout.Label(target.name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
+            string name;
+            if (NodeEditorUtilities.GetAttrib(target.GetType(), out XNode.Node.CreateNodeMenuAttribute attrib)) {
+                name = Path.GetFileName(attrib.menuName);
+            } else {
+                name = target.name;
+            }
+            GUILayout.Label(name, NodeEditorResources.styles.nodeHeader, GUILayout.Height(30));
             if (target.Index >= 0) {
                 GUI.Label(GUILayoutUtility.GetLastRect(), $"{target.Index}", NodeEditorResources.styles.indexHeader);
             }
