@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace GameCore {
   public abstract class State<T> where T : class {
@@ -21,6 +22,7 @@ namespace GameCore {
     protected Dictionary<int, State<T>> States = new Dictionary<int, State<T>>();
     public T Owner { get; private set; }
     public State<T> CurrentState { get; protected set; }
+    private bool IsSwitching;
 
     public StateMachine(T owner) => Owner = owner;
 
@@ -33,12 +35,19 @@ namespace GameCore {
     }
 
     public async UniTask<bool> SwitchState(int nextStateId, Context context = null) {
+      if (IsSwitching) {
+        Debug.LogError("last state is switching!");
+        return false;
+      }
+
       if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextStateId)) {
+        IsSwitching = true;
         int lastStateId = CurrentState.StateId;
         await CurrentState.OnExit(nextStateId, context);
         CurrentState = nextState;
         await CurrentState.OnEnter(lastStateId, context);
-        
+        IsSwitching = false;
+
         return true;
       }
       return false;

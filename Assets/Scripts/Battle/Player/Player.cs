@@ -48,16 +48,12 @@ namespace GameCore {
 
     private async UniTask StartTurn() {
       foreach (var unit in Units) {
-        // 执行回合开始前的行为树
-        await Battle.BehaviorManager.RunRoot(TickTime.ON_START_TURN, unit);
         await unit.UnitStateMachine.SwitchState((int)UnitState.IN_TURN);
       }
     }
 
     private async UniTask EndTurn() {
       foreach (var unit in Units) {
-        // 执行回合结束前的行为树
-        await Battle.BehaviorManager.RunRoot(TickTime.ON_END_TURN, unit);
         await unit.UnitStateMachine.SwitchState((int)UnitState.OUT_TURN);
       }
     }
