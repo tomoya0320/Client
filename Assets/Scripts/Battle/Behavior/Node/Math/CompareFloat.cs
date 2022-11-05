@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/数学/比较浮点数")]
+  [CreateNodeMenu("节点/行为/数学/比较Float")]
   public class CompareFloat : ActionNode {
     [LabelText("左操作数")]
     public NodeFloatParam LeftFloat;

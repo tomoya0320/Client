@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/数学/获取随机整数")]
+  [CreateNodeMenu("节点/行为/数学/获取随机Int")]
   public class GetIntRandom : ActionNode {
     [LabelText("最小随机值")]
     public NodeIntParam MinRange;

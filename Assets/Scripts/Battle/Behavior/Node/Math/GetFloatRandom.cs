@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.BehaviorFuncs {
-  [CreateNodeMenu("节点/行为/数学/获取随机浮点数")]
+  [CreateNodeMenu("节点/行为/数学/获取随机Float")]
   public class GetFloatRandom : ActionNode {
     [LabelText("最小随机值")]
     public NodeFloatParam MinRange;

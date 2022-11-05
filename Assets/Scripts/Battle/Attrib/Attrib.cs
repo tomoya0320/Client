@@ -31,7 +31,7 @@ namespace GameCore {
     public int RateOnMaxValue;
 
     public int GetValue(Unit unit) {
-      Attrib attrib = unit.GetAttrib(Type);
+      Attrib attrib = unit.Attribs[(int)Type];
       return (attrib.Value * RateOnValue + attrib.MaxValue * RateOnValue) / BattleConstant.THOUSAND;
     }
   }

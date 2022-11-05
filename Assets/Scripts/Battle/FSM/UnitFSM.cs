@@ -17,12 +17,7 @@ namespace GameCore {
     public UnitInTurnState(StateMachine<Unit> stateMachine) : base((int)UnitState.IN_TURN, stateMachine) {
     }
 
-    public async override UniTask OnEnter(int lastStateId, Context context = null) {
-      Owner.RefreshEnergy();
-
-      // 执行回合开始前的行为树
-      await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_START_TURN, Owner);
-
+    public override UniTask OnEnter(int lastStateId, Context context = null) {
       // Test
       var handCardList = Owner.BattleCardControl[CardHeapType.HAND];
       int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - handCardList.Count;
@@ -45,6 +40,8 @@ namespace GameCore {
         }
         Owner.BattleCardControl.RefreshCardList(CardHeapType.DRAW);
       }
+
+      return UniTask.CompletedTask;
     }
   }
 
@@ -52,10 +49,7 @@ namespace GameCore {
     public UnitOutTurnState(StateMachine<Unit> stateMachine) : base((int)UnitState.OUT_TURN, stateMachine) {
     }
 
-    public async override UniTask OnEnter(int lastStateId, Context context = null) {
-      // 执行回合结束前的行为树
-      await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_END_TURN, Owner);
-
+    public override UniTask OnEnter(int lastStateId, Context context = null) {
       // Test
       var handCardList = Owner.BattleCardControl[CardHeapType.HAND];
       var discardCardList = Owner.BattleCardControl[CardHeapType.DISCARD];
@@ -65,6 +59,8 @@ namespace GameCore {
         card.CardHeapType = CardHeapType.DISCARD;
       }
       Owner.BattleCardControl.RefreshCardList(CardHeapType.HAND);
+
+      return UniTask.CompletedTask;
     }
   }
 

@@ -31,11 +31,11 @@ namespace GameCore {
   public class BehaviorManager : TemplateManager<BehaviorGraph> {
     private int IncId;
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
-    private Dictionary<TickTime, List<int>> BehaviorTimes = new Dictionary<TickTime, List<int>>();
+    private Dictionary<TickTime, List<Behavior>> BehaviorTimes = new Dictionary<TickTime, List<Behavior>>();
 
     public BehaviorManager(Battle battle) : base(battle) {
       foreach (TickTime behaviorTime in Enum.GetValues(typeof(TickTime))) {
-        BehaviorTimes.Add(behaviorTime, new List<int>());
+        BehaviorTimes.Add(behaviorTime, new List<Behavior>());
       }
     }
 
@@ -43,15 +43,14 @@ namespace GameCore {
       // 优先更新Buff回合数
       await Battle.BuffManager.Update(behaviorTime, unit);
 
-      var behaviorList = TempList<int>.Get();
+      var behaviorList = TempList<Behavior>.Get();
       behaviorList.AddRange(BehaviorTimes[behaviorTime]);
-      foreach (int runtimeId in behaviorList) {
-        var behavior = Behaviors[runtimeId];
+      foreach (var behavior in behaviorList) {
         if (unit == null || behavior.Unit == null || unit == behavior.Unit) {
           await behavior.Run<Root>(context);
         }
       }
-      TempList<int>.Release(behaviorList);
+      TempList<Behavior>.Release(behaviorList);
     }
 
     public async UniTask<Behavior> Add(string behaviorId, Unit source = null, Unit target = null) {
@@ -60,10 +59,15 @@ namespace GameCore {
         return null;
       }
 
+      if(!BehaviorTimes.TryGetValue(behaviorGraph.BehaviorTime, out var behaviorList)) {
+        Debug.LogError($"BehaviorManager.Add error, BehaviorTime:[{behaviorGraph.BehaviorTime}] is undefined. Id:{behaviorId} ");
+        return null;
+      }
+
       Behavior behavior = Battle.ObjectPool.Get<Behavior>();
       behavior.Init(Battle, ++IncId, behaviorGraph, source, target);
       Behaviors.Add(behavior.RuntimeId, behavior);
-      BehaviorTimes[behaviorGraph.BehaviorTime].Add(behavior.RuntimeId);
+      behaviorList.Add(behavior);
 
       await behavior.Run<Init>();
 
@@ -71,7 +75,20 @@ namespace GameCore {
         return null;
       }
 
+      // 按优先级从大到小排序
+      behaviorList.Sort(CompareBehavior);
+
       return behavior;
+    }
+
+    private int CompareBehavior(Behavior left, Behavior right) {
+      int leftPriority = left.BehaviorGraph.Priority;
+      int rightPriority = right.BehaviorGraph.Priority;
+      if (leftPriority != rightPriority) {
+        return rightPriority.CompareTo(leftPriority);
+      }
+
+      return left.RuntimeId.CompareTo(right.RuntimeId);
     }
 
     public async UniTask<bool> Remove(int runtimeId) {
@@ -83,7 +100,7 @@ namespace GameCore {
       await behavior.Run<Finalize>();
 
       Behaviors.Remove(runtimeId);
-      BehaviorTimes[behavior.BehaviorGraph.BehaviorTime].Remove(runtimeId);
+      BehaviorTimes[behavior.BehaviorGraph.BehaviorTime].Remove(behavior);
       Battle.ObjectPool.Release(behavior);
 
       return true;

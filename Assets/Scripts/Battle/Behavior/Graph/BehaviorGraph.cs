@@ -20,6 +20,8 @@ namespace GameCore {
   public class BehaviorGraph : NodeGraph {
     [LabelText("触发时机")]
     public TickTime BehaviorTime;
+    [LabelText("优先级(越大越先执行)")]
+    public int Priority;
 
     public async UniTask Run<T>(Behavior behavior, Context context = null) where T : SingleOutNode {
       var node = nodes.Find(n => n is T) as T;

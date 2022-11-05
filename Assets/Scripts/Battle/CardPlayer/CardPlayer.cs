@@ -13,7 +13,7 @@ namespace GameCore {
         Debug.LogError("cost < 0");
         return false;
       }
-      if (cost > owner.GetAttrib(AttribType.ENERGY).Value) {
+      if (cost > owner.Attribs[(int)AttribType.ENERGY].Value) {
         Debug.LogError("energy is not enough");
         return false;
       }

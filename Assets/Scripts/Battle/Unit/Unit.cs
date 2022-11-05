@@ -63,7 +63,7 @@ namespace GameCore {
     }
 
     public int AddAttrib(AttribType type, int value, AttribField attribField = AttribField.VALUE) {
-      ref Attrib attrib = ref GetAttrib(type);
+      ref Attrib attrib = ref Attribs[(int)type];
       int realAttribValue;
       switch (attribField) {
         case AttribField.VALUE:
@@ -74,25 +74,14 @@ namespace GameCore {
           break;
         default:
           realAttribValue = 0;
+          Debug.LogError($"undefined attribField! AttribField:{attribField}");
           break;
       }
       return realAttribValue;
     }
 
-    public int SetAttrib(AttribType type, int value, AttribField attribField = AttribField.VALUE) {
-      Attrib attrib = GetAttrib(type);
-      int addValue;
-      switch (attribField) {
-        case AttribField.VALUE:
-          addValue = value - attrib.Value;
-          break;
-        case AttribField.MAX_VALUE:
-          addValue = value - attrib.MaxValue;
-          break;
-        default:
-          addValue = 0;
-          break;
-      }
+    public int SetAttrib(AttribType type, AttribField attribField, int value) {
+      int addValue = value - GetAttribField(type, attribField);
       return AddAttrib(type, addValue, attribField);
     }
 
@@ -103,18 +92,30 @@ namespace GameCore {
       damageContext.DamageValue = damageValue;
 
       await Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_WILL_DIE, this, damageContext);
-      if (GetAttrib(AttribType.HP).Value <= 0) {
+      if (Attribs[(int)AttribType.HP].Value <= 0) {
         await UnitStateMachine.SwitchState((int)UnitState.DEAD, damageContext);
       }
 
       Battle.ObjectPool.Release(damageContext);
     }
 
-    public ref Attrib GetAttrib(AttribType type) => ref Attribs[(int)type];
+    public int GetAttribField(AttribType type, AttribField attribField) {
+      Attrib attrib = Attribs[(int)type];
+      int value;
+      switch (attribField) {
+        case AttribField.VALUE:
+          value = attrib.Value;
+          break;
+        case AttribField.MAX_VALUE:
+          value = attrib.MaxValue;
+          break;
+        default:
+          value = 0;
+          Debug.LogError($"undefined attribField! AttribField:{attribField}");
+          break;
+      }
 
-    public void RefreshEnergy() {
-      var energyAttrib = GetAttrib(AttribType.ENERGY);
-      SetAttrib(AttribType.ENERGY, energyAttrib.MaxValue);
+      return value;
     }
 
     public bool EndTurn() {
