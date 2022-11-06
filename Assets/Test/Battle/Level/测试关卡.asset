@@ -22,5 +22,5 @@ MonoBehaviour:
     - TemplateId: "\u6D4B\u8BD5\u654C\u65B9\u5355\u4F4D"
       Lv: 0
       CardData:
-      - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
-        Lv: 1
+      - TemplateId: "\u51FA\u8840\u6548\u679C\u5361\u724C"
+        Lv: 0

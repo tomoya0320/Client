@@ -341,7 +341,7 @@ MonoBehaviour:
   TargetUnit:
     Type: 0
     Key: self_unit
-  CardUnit:
+  SourceUnit:
     Type: 0
     Key: behavior_unit
   CardIndex:
@@ -379,6 +379,7 @@ MonoBehaviour:
   - {fileID: 1463770144908877444}
   - {fileID: -3609819947744317475}
   BehaviorTime: 3
+  Priority: 0
 --- !u!114 &1463770144908877444
 MonoBehaviour:
   m_ObjectHideFlags: 0

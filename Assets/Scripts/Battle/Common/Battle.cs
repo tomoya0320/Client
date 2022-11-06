@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace GameCore {
   public enum BattleState {
@@ -21,6 +21,7 @@ namespace GameCore {
     public ObjectPool ObjectPool { get; private set; }
     public Player CurPlayer { get; private set; }
     public Player SelfPlayer { get; private set; }
+    public int Turn { get; private set; }
 
     #region Manager
     public UnitManager UnitManager { get; private set; }
@@ -36,12 +37,16 @@ namespace GameCore {
     public DamageManager DamageManager { get; private set; }
     #endregion
 
+    #region UI
+    public UIBattleTest UIBattleTest { get; private set; } // Test
+    #endregion
+
     #region Static
     public static Battle Instance { get; private set; }
     #endregion
 
     public static bool Enter(BattleData battleData, CancellationToken token) {
-      if(Instance != null) {
+      if (Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
       }
@@ -73,21 +78,23 @@ namespace GameCore {
     }
 
     public async void Update() {
-      try {
-        while (BattleState != BattleState.None) {
-          switch (BattleState) {
-            case BattleState.Load:
-              await Load();
-              break;
-            case BattleState.Run:
+      while (BattleState != BattleState.None) {
+        switch (BattleState) {
+          case BattleState.Load:
+            await Load();
+            break;
+          case BattleState.Run:
+            try {
               await Run();
-              break;
-            case BattleState.Exit:
-              await Clear();
-              break;
-          }
+            } catch (OperationCanceledException) {
+              BattleState = BattleState.Exit;
+            }
+            break;
+          case BattleState.Exit:
+            await Clear();
+            break;
         }
-      } catch (OperationCanceledException) { }
+      }
     }
 
     private async UniTask Load() {
@@ -120,6 +127,13 @@ namespace GameCore {
       foreach (var unit in UnitManager.AllUnits) {
         await unit.InitBehavior();
       }
+
+      // step4:加载战斗UI
+      // ---------------------------------Test-------------------------------------------
+      UIBattleTest = Object.Instantiate(GameResManager.LoadAsset<GameObject>("UIBattle"),
+        GameObject.Find("UIRoot").transform).GetComponent<UIBattleTest>();
+      UIBattleTest.InitBattle(this);
+      // --------------------------------------------------------------------------------
 
       BattleState = BattleState.Run;
       Debug.Log("战斗加载完毕");
@@ -177,15 +191,22 @@ namespace GameCore {
       var buffTemplate = BuffManager.Preload(buffId);
       if (buffTemplate) {
         await PreloadMagic(buffTemplate.MagicId);
+        await PreloadMagic(buffTemplate.IntervalMagicId);
       }
     }
 
-    public void Settle(bool isWin) {
+    public UniTask Settle(bool isWin) {
       Debug.Log(isWin ? "Battle win" : "Battle lose");
-      BattleState = BattleState.Exit;
+      return UniTask.FromCanceled(CancellationToken);
     }
 
     private async UniTask Clear() {
+      // ---------------------------------Test-------------------------------------------
+      if (UIBattleTest) {
+        Object.Destroy(UIBattleTest.gameObject);
+      }
+      // --------------------------------------------------------------------------------
+
       Instance = null;
       BattleData = null;
       CancellationToken = default;
@@ -233,8 +254,10 @@ namespace GameCore {
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
+      if (CurPlayer == SelfPlayer) {
+        Turn++;
+      }
       Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
-
       // 回合中的逻辑
       await CurPlayer.OnTurn();
     }

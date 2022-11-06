@@ -8,10 +8,14 @@ namespace GameCore {
     protected TemplateManager(Battle battle) : base(battle) { }
 
     public T Preload(string id) {
+      if (string.IsNullOrEmpty(id)) {
+        return null;
+      }
+
       if (Templates.TryGetValue(id, out var template)) {
         return template;
       }
-      template = GameResManager.LoadAssetAsync<T>(id);
+      template = GameResManager.LoadAsset<T>(id);
       if (template) {
         Templates.Add(id, template);
         return template;

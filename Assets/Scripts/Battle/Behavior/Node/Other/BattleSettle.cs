@@ -8,8 +8,7 @@ namespace GameCore.BehaviorFuncs {
     public bool IsWin;
 
     public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
-      behavior.Battle.Settle(IsWin);
-      await UniTask.FromCanceled();
+      await behavior.Battle.Settle(IsWin);
       return NodeResult.True;
     }
   }

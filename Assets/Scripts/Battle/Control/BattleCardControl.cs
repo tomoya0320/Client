@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace GameCore {
   public class BattleCardControl {
     public Unit Owner { get; private set; }
+    public int PlayCardCount { get; private set; }
     private Dictionary<CardHeapType, List<Card>> CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
 
     public BattleCardControl(Unit owner, CardData[] cardData) { 
@@ -25,6 +26,27 @@ namespace GameCore {
           cardList.RemoveAt(i);
         }
       }
+    }
+
+    public bool PlayCard(Card card, Unit mainTarget) {
+      if (card.CardHeapType != CardHeapType.HAND || !card.CheckTargetCamp(mainTarget) || !card.TryPlay(mainTarget)) {
+        return false;
+      }
+
+      card.CardHeapType = CardHeapType.DISCARD;
+      this[CardHeapType.HAND].Remove(card);
+      this[CardHeapType.DISCARD].Add(card);
+
+      var playCardOp = Owner.Battle.ObjectPool.Get<PlayCardOp>();
+      playCardOp.Unit = Owner;
+      playCardOp.MainTarget = mainTarget;
+      playCardOp.Card = card;
+
+      Owner.Player.AddOperation(playCardOp);
+
+      PlayCardCount++;
+
+      return true;
     }
 
     public List<Card> this[CardHeapType cardHeapType] => CardHeapDict[cardHeapType];

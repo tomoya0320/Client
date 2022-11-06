@@ -7,12 +7,16 @@ namespace GameCore {
     public MagicManager(Battle battle) : base(battle) { }
 
     public async UniTask DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {
-      if(target == null) {
+      if (string.IsNullOrEmpty(magicId)) {
+        return;
+      }
+
+      if (target == null) {
         Debug.LogError("MagicManager.DoMagic error, target is null");
         return;
       }
-      
-      if(!Templates.TryGetValue(magicId, out var magicFunc)) {
+
+      if (!Templates.TryGetValue(magicId, out var magicFunc)) {
         Debug.LogError($"MagicManager.DoMagic error, magicFunc is not preload. Id:{magicId}");
         return;
       }

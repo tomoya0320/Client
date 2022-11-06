@@ -124,24 +124,5 @@ namespace GameCore {
       Player.AddOperation(endTurnOp);
       return true;
     }
-
-    public bool PlayCard(Card card, Unit mainTarget) {
-      if (card.CardHeapType != CardHeapType.HAND || !card.CheckTargetCamp(mainTarget) || !card.TryPlay(mainTarget)) {
-        return false;
-      }
-
-      card.CardHeapType = CardHeapType.DISCARD;
-      BattleCardControl[CardHeapType.HAND].Remove(card);
-      BattleCardControl[CardHeapType.DISCARD].Add(card);
-
-      var playCardOp = Battle.ObjectPool.Get<PlayCardOp>();
-      playCardOp.Unit = this;
-      playCardOp.MainTarget = mainTarget;
-      playCardOp.Card = card;
-
-      Player.AddOperation(playCardOp);
-
-      return true;
-    }
   }
 }

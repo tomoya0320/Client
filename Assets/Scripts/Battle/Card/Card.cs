@@ -46,5 +46,9 @@ namespace GameCore {
     public async UniTask Cast(Unit mainTarget) => await Skill.Cast(mainTarget);
 
     public bool TryPlay(Unit mainTarget) => CardPlayer.TryPlay(this, mainTarget);
+
+    public override string ToString() {
+      return $"{RuntimeId}:{CardTemplate.LvCardItems[Lv].Name}\nLv:{Lv}\nCost:{CardTemplate.LvCardItems[Lv].Cost}"; // Test
+    }
   }
 }

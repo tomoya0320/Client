@@ -27,7 +27,7 @@ namespace GameCore {
       var buffList = TempList<Buff>.Get();
       buffList.AddRange(Buffs.Values);
       foreach (var buff in buffList) {
-        if (!buff.Update(updateTime)) {
+        if (!await buff.Update(updateTime)) {
           await Remove(buff.RuntimeId);
         }
       }
@@ -40,13 +40,36 @@ namespace GameCore {
         return null;
       }
 
+      // ¼ì²éÃâÒßÀàÐÍ
+      string buffKind = buffTemplate.BuffKind;
+      if (!string.IsNullOrEmpty(buffKind)) {
+        foreach (var checkBuff in Buffs.Values) {
+          var checkBuffImmuneKinds = checkBuff.BuffTemplate.ImmuneKinds;
+          if (checkBuffImmuneKinds != null && checkBuffImmuneKinds.Contains(buffKind)) {
+            return null;
+          }
+        }
+      }
+      var immuneKinds = buffTemplate.ImmuneKinds;
+      if (immuneKinds != null && immuneKinds.Count > 0) {
+        var tempBuffList = TempList<Buff>.Get();
+        tempBuffList.AddRange(Buffs.Values);
+        foreach (var checkBuff in tempBuffList) {
+          string checkBuffKind = checkBuff.BuffTemplate.BuffKind;
+          if (!string.IsNullOrEmpty(checkBuffKind) && immuneKinds.Contains(checkBuffKind)) {
+            await Remove(checkBuff.RuntimeId);
+          }
+        }
+        TempList<Buff>.Release(tempBuffList);
+      }
+
       var buff = Battle.ObjectPool.Get<Buff>();
       buff.Init(runtimeId, this, buffTemplate, source, Unit);
       Buffs.Add(buff.RuntimeId, buff);
 
       await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
 
-      if (buffTemplate.RemoveImmediately) {
+      if (buffTemplate.Duration == 0) {
         await Remove(runtimeId);
       }
 

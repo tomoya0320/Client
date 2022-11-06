@@ -76,5 +76,9 @@ namespace GameCore {
       }
       return MaxValue - origin;
     }
+
+    public override string ToString() {
+      return $"{Value}/{MaxValue}";
+    }
   }
 }

@@ -7,22 +7,22 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
     [LabelText("出牌单位")]
-    public NodeParamKey CardUnit;
+    public NodeParamKey SourceUnit;
     [LabelText("卡牌索引")]
     public NodeIntParam CardIndex;
 
     public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var targetUnit = behavior.GetUnit(TargetUnit);
-      var cardUnit = behavior.GetUnit(CardUnit);
+      var sourceUnit = behavior.GetUnit(SourceUnit);
       var cardIndex = behavior.GetInt(CardIndex);
-      if (targetUnit == null || cardUnit == null) {
+      if (targetUnit == null || sourceUnit == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      var cardList = cardUnit.BattleCardControl[CardHeapType.HAND];
+      var cardList = sourceUnit.BattleCardControl[CardHeapType.HAND];
       if(cardIndex < 0 || cardIndex >= cardList.Count) {
         return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(BoolToNodeResult(cardUnit.PlayCard(cardList[cardIndex], targetUnit)));
+      return UniTask.FromResult(BoolToNodeResult(sourceUnit.BattleCardControl.PlayCard(cardList[cardIndex], targetUnit)));
     }
   }
 }

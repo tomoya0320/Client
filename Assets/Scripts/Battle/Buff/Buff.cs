@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace GameCore {
   public class Buff : IPoolObject {
     public int RuntimeId { get; private set; }
@@ -5,6 +7,7 @@ namespace GameCore {
     public BuffTemplate BuffTemplate { get; private set; }
     public BuffContext BuffContext { get; private set; }
     public string MagicId => BuffTemplate.MagicId;
+    public string IntervalMagicId => BuffTemplate.IntervalMagicId;
     public Unit Source { get; private set; }
     public Unit Target { get; private set; }
     private int Turn;
@@ -20,9 +23,12 @@ namespace GameCore {
       BuffContext.Buff = this;
     }
 
-    public bool Update(TickTime updateTime) {
-      Turn += updateTime == BuffTemplate.UpdateTime ? 1 : 0;
-      return BuffTemplate.Duration <= 0 || Turn < BuffTemplate.Duration;
+    public async UniTask<bool> Update(TickTime updateTime) {
+      if (updateTime == BuffTemplate.UpdateTime) {
+        await Target.Battle.MagicManager.DoMagic(IntervalMagicId, Source, Target, BuffContext);
+        Turn++;
+      }
+      return BuffTemplate.Duration < 0 || Turn < BuffTemplate.Duration;
     }
 
     public void Release() {
