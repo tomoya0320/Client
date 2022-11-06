@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace GameCore {
   public class Buff : IPoolObject {
@@ -7,10 +8,9 @@ namespace GameCore {
     public BuffTemplate BuffTemplate { get; private set; }
     public BuffContext BuffContext { get; private set; }
     public string MagicId => BuffTemplate.MagicId;
-    public string IntervalMagicId => BuffTemplate.IntervalMagicId;
     public Unit Source { get; private set; }
     public Unit Target { get; private set; }
-    private int Turn;
+    public int Turn { get; private set; }
 
     public void Init(int runtimeId, BuffComponent buffComponent, BuffTemplate buffTemplate, Unit source, Unit target) {
       RuntimeId = runtimeId;
@@ -25,10 +25,11 @@ namespace GameCore {
 
     public async UniTask<bool> Update(TickTime updateTime) {
       if (updateTime == BuffTemplate.UpdateTime) {
-        await Target.Battle.MagicManager.DoMagic(IntervalMagicId, Source, Target, BuffContext);
-        Turn++;
+        string magicId = ++Turn == BuffTemplate.Delay ? BuffTemplate.MagicId : BuffTemplate.IntervalMagicId;
+        await Target.Battle.MagicManager.DoMagic(magicId, Source, Target, BuffContext);
       }
-      return BuffTemplate.Duration < 0 || Turn < BuffTemplate.Duration;
+
+      return BuffTemplate.Duration < 0 || Turn < BuffTemplate.TotalDuration;
     }
 
     public void Release() {

@@ -24,7 +24,7 @@ namespace GameCore {
     public Unit MainTarget;
 
     public override async UniTask DoOperation() {
-      Debug.Log($"{Card.Owner.RuntimeId}:{Card.Owner.Name} 对 {MainTarget.RuntimeId}:{MainTarget.Name} 使用了卡牌{Card.CardTemplate.name} Lv:{Card.Lv}");
+      Debug.Log($"[{Card.Owner.RuntimeId}:{Card.Owner.Name}]对[{MainTarget.RuntimeId}:{MainTarget.Name}]使用了卡牌{Card.CardTemplate.name} Lv:{Card.Lv}");
       await Card.Cast(MainTarget);
     }
 

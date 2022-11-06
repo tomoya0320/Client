@@ -61,6 +61,10 @@ namespace GameCore {
     }
 
     private void Update() {
+      if (Battle == null) {
+        return;
+      }
+
       if (TurnText) {
         TurnText.text = Battle.Turn.ToString();
       }
@@ -79,7 +83,12 @@ namespace GameCore {
     }
 
     private string GetUnitInfo(Unit unit) {
-      return $"{unit.RuntimeId}:{unit.Name}\nLv:{unit.Lv}\nHp:{unit.Attribs[(int)AttribType.HP]}\nAtk:{unit.Attribs[(int)AttribType.ATK]}\nEnergy:{unit.Attribs[(int)AttribType.ENERGY]}";
+      StringBuilder stringBuilder = new StringBuilder($"{unit.RuntimeId}:{unit.Name}\nLv:{unit.Lv}\nHp:{unit.Attribs[(int)AttribType.HP]}\nAtk:{unit.Attribs[(int)AttribType.ATK]}\nEnergy:{unit.Attribs[(int)AttribType.ENERGY]}");
+      foreach (var buff in Battle.BuffManager[unit.RuntimeId].AllBuffs) {
+        stringBuilder.Append($"\n{buff.RuntimeId}:{buff.BuffTemplate.name}-Duration:{buff.Turn}/{buff.BuffTemplate.TotalDuration}({buff.BuffTemplate.Delay})");
+      }
+      
+      return stringBuilder.ToString();
     }
 
     private void LogCards(CardHeapType cardHeapType) {

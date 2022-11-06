@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6422cbc394c748e49ab7853f40f209a5, type: 3}
-  m_Name: "\u52A0\u884C\u4E3A\u6811\u6548\u679C\u6D4B\u8BD5"
+  m_Script: {fileID: 11500000, guid: 3f3fd41cb8b4c5e44bef650d3b7fc796, type: 3}
+  m_Name: "\u5EF6\u8FDF\u4F24\u5BB3\u6548\u679C"
   m_EditorClassIdentifier: 
-  BehaviorId: "\u5EF6\u8FDF\u4F24\u5BB3\u884C\u4E3A\u6811\u6D4B\u8BD5"
+  BuffId: "\u5EF6\u8FDF\u4F24\u5BB3buff"

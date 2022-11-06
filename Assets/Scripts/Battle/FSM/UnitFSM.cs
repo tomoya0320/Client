@@ -17,7 +17,7 @@ namespace GameCore {
     public UnitInTurnState(StateMachine<Unit> stateMachine) : base((int)UnitState.IN_TURN, stateMachine) {
     }
 
-    public async override UniTask OnEnter(int lastStateId, Context context = null) {
+    public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
       // 执行回合开始前的行为树
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_START_TURN, Owner, context);
       // Test
@@ -49,7 +49,7 @@ namespace GameCore {
     public UnitOutTurnState(StateMachine<Unit> stateMachine) : base((int)UnitState.OUT_TURN, stateMachine) {
     }
 
-    public async override UniTask OnEnter(int lastStateId, Context context = null) {
+    public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
       // 执行回合结束前的行为树
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_END_TURN, Owner, context);
       // Test
@@ -68,13 +68,13 @@ namespace GameCore {
     public UnitDeadState(StateMachine<Unit> stateMachine) : base((int)UnitState.DEAD, stateMachine) {
     }
     
-    public async override UniTask OnEnter(int lastStateId, Context context = null) {
+    public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
       Owner.Player.DeadUnitCount++;
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_DEAD, Owner, context);
       Owner.Battle.UnitManager.OnUnitDie(Owner);
     }
 
-    public override bool CheckLeave(int nextStateId) => false;
+    public override bool CheckLeave(State<Unit> nextState) => false;
   }
 
   public class UnitStateMachine : StateMachine<Unit> {
@@ -85,7 +85,7 @@ namespace GameCore {
       RegisterState(new UnitDeadState(this));
 
       CurrentState = States[(int)UnitState.BORN];
-      CurrentState.OnEnter(-1);
+      CurrentState.OnEnter(null);
     }
 
     public bool IsAlive => CurrentState.StateId != (int)UnitState.DEAD;

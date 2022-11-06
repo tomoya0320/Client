@@ -12,9 +12,9 @@ namespace GameCore {
       StateMachine = stateMachine;
     }
 
-    public virtual UniTask OnEnter(int lastStateId, Context context = null) => UniTask.CompletedTask;
-    public virtual UniTask OnExit(int nextStateId, Context context = null) => UniTask.CompletedTask;
-    public virtual bool CheckLeave(int nextStateId) => true;
+    public virtual UniTask OnEnter(State<T> lastState, Context context = null) => UniTask.CompletedTask;
+    public virtual UniTask OnExit(State<T> nextState, Context context = null) => UniTask.CompletedTask;
+    public virtual bool CheckLeave(State<T> nextState) => true;
   }
 
   public abstract class StateMachine<T> where T : class {
@@ -33,12 +33,13 @@ namespace GameCore {
     }
 
     public async UniTask<bool> SwitchState(int nextStateId, Context context = null) {
-      if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextStateId)) {
-        int lastStateId = CurrentState.StateId;
-        await CurrentState.OnExit(nextStateId, context);
+      if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextState)) {
+        // 注意顺序
+        var lastState = CurrentState;
         CurrentState = nextState;
-        await CurrentState.OnEnter(lastStateId, context);
-        // TODO:OnExit OnEnter里可能又会调用SwitchState 需要解决
+        await lastState.OnExit(nextState, context);
+        await nextState.OnEnter(lastState, context);
+
         return true;
       }
       return false;

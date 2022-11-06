@@ -14,7 +14,7 @@ namespace GameCore {
         return false;
       }
       if (cost > owner.Attribs[(int)AttribType.ENERGY].Value) {
-        Debug.LogError("energy is not enough");
+        Debug.Log("energy is not enough");
         return false;
       }
       owner.AddAttrib(AttribType.ENERGY, -cost);

@@ -32,7 +32,7 @@ MonoBehaviour:
       Data: GameCore.SKillEvent, Assembly-CSharp
     - Name: MagicId
       Entry: 1
-      Data: "\u52A0\u884C\u4E3A\u6811\u6548\u679C\u6D4B\u8BD5"
+      Data: "\u5EF6\u8FDF\u4F24\u5BB3\u6548\u679C"
     - Name: WaitTime
       Entry: 4
       Data: 0

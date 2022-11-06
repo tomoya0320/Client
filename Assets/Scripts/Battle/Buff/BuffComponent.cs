@@ -8,6 +8,7 @@ namespace GameCore {
     private Battle Battle => Unit.Battle;
     private BuffManager BuffManager => Battle.BuffManager;
     private Dictionary<int, Buff> Buffs = new Dictionary<int, Buff>();
+    public Dictionary<int, Buff>.ValueCollection AllBuffs => Buffs.Values;
 
     public BuffComponent Init(Unit unit) {
       Unit = unit;
@@ -40,12 +41,13 @@ namespace GameCore {
         return null;
       }
 
-      // �����������
+      // 检查免疫类型
       string buffKind = buffTemplate.BuffKind;
       if (!string.IsNullOrEmpty(buffKind)) {
         foreach (var checkBuff in Buffs.Values) {
           var checkBuffImmuneKinds = checkBuff.BuffTemplate.ImmuneKinds;
           if (checkBuffImmuneKinds != null && checkBuffImmuneKinds.Contains(buffKind)) {
+            Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加的buff[{runtimeId}:{buffId}]被buff[{checkBuff.RuntimeId}:{checkBuff.BuffTemplate.name}]免疫");
             return null;
           }
         }
@@ -57,6 +59,7 @@ namespace GameCore {
         foreach (var checkBuff in tempBuffList) {
           string checkBuffKind = checkBuff.BuffTemplate.BuffKind;
           if (!string.IsNullOrEmpty(checkBuffKind) && immuneKinds.Contains(checkBuffKind)) {
+            Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加的buff[{runtimeId}:{buffId}]免疫了buff[{checkBuff.RuntimeId}:{checkBuff.BuffTemplate.name}]");
             await Remove(checkBuff.RuntimeId);
           }
         }
@@ -65,19 +68,18 @@ namespace GameCore {
 
       var buff = Battle.ObjectPool.Get<Buff>();
       buff.Init(runtimeId, this, buffTemplate, source, Unit);
-      Buffs.Add(buff.RuntimeId, buff);
+      Buffs.Add(runtimeId, buff);
 
-      await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
-
-      if (buffTemplate.Duration == 0) {
-        await Remove(runtimeId);
+      if (buffTemplate.Delay <= 0) {
+        await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
+        if (buffTemplate.Duration == 0) {
+          await Remove(runtimeId);
+        }
       }
 
-      if (!Buffs.ContainsKey(runtimeId)) {
-        return null;
-      }
+      Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加buff[{runtimeId}:{buffId}]");
 
-      return buff;
+      return Buffs.ContainsKey(runtimeId) ? buff : null;
     }
 
     public async UniTask<bool> Remove(int runtimeId) {

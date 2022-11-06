@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050030f581b6d7a48bfe858af379bef1, type: 3}
-  m_Name: "\u51FA\u8840Buff\u6D4B\u8BD5"
+  m_Name: "\u5EF6\u8FDF\u4F24\u5BB3buff"
   m_EditorClassIdentifier: 
-  MagicId: 
-  IntervalMagicId: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD53"
-  BuffKind: "\u51FA\u8840"
+  MagicId: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD52"
+  IntervalMagicId: 
+  BuffKind: 
   ImmuneKinds: []
-  Delay: 0
-  Duration: 3
+  Delay: 1
+  Duration: 0
   UpdateTime: 2

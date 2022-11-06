@@ -13,10 +13,13 @@ namespace GameCore {
     public string BuffKind;
     [LabelText("免疫类型")]
     public List<string> ImmuneKinds;
+    [LabelText("延迟回合数")]
+    public int Delay;
     [LabelText("持续回合数")]
     public int Duration;
-    [ShowIf("@Duration > 0")]
     [LabelText("更新回合数时机")]
     public TickTime UpdateTime;
+
+    public int TotalDuration => Delay > 0 ? Delay + Duration : Duration;
   }
 }

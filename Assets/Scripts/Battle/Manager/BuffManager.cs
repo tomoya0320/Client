@@ -9,6 +9,13 @@ namespace GameCore {
 
     public BuffManager(Battle battle) : base(battle) { }
 
+    public BuffComponent this[int id] {
+      get {
+        BuffComponents.TryGetValue(id, out var buffComponent);
+        return buffComponent;
+      }
+    }
+
     public async UniTask Update(TickTime updateTime, Unit unit) {
       var buffComponentList = TempList<BuffComponent>.Get();
       if (unit == null) {

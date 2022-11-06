@@ -21,8 +21,8 @@ MonoBehaviour:
     m_Address: "\u51FA\u8840\u6280\u80FD"
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9550c6227d0fcdb439e936f47dc97015
-    m_Address: "\u52A0\u884C\u4E3A\u6811\u6548\u679C\u6D4B\u8BD5"
+  - m_GUID: c2a34fe9137ec5541bcb3c20ae26357b
+    m_Address: "\u5EF6\u8FDF\u4F24\u5BB3\u6548\u679C"
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7bfcbb1578e649a4da62c04f880df812
@@ -73,8 +73,8 @@ MonoBehaviour:
     m_Address: "\u654C\u65B9\u901A\u7528AI"
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a27dfe4b9a19f6a4ab562786286470cb
-    m_Address: "\u5EF6\u8FDF\u4F24\u5BB3\u884C\u4E3A\u6811\u6D4B\u8BD5"
+  - m_GUID: cc1cc7fc32b37574e986c845e9196e35
+    m_Address: "\u5EF6\u8FDF\u4F24\u5BB3buff"
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 4efe531774fc1e140ad8bdae0837daf8
