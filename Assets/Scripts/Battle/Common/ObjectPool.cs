@@ -10,17 +10,15 @@ namespace GameCore {
     private Dictionary<Type, Stack<IPoolObject>> PoolObjects = new Dictionary<Type, Stack<IPoolObject>>();
 
     public T Get<T>() where T : class, IPoolObject, new() {
-      if(!PoolObjects.TryGetValue(typeof(T), out var stack)) {
+      if (!PoolObjects.TryGetValue(typeof(T), out var stack)) {
         stack = new Stack<IPoolObject>();
         PoolObjects.Add(typeof(T), stack);
       }
-      T obj;
-      if (stack.Count > 0) {
-        obj = stack.Pop() as T;
-      } else {
-        obj = new();
+
+      if (!stack.TryPop(out var obj)) {
+        obj = new T();
       }
-      return obj;
+      return obj as T;
     }
 
     public void Release<T>(T obj) where T : class, IPoolObject {
