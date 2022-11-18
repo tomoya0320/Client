@@ -16,7 +16,7 @@ namespace GameCore.BehaviorFuncs {
       if(targetUnit == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      behavior.SetInt(TargetKey, targetUnit.BattleCardControl[CardHeapType].Count);
+      behavior.SetInt(TargetKey, targetUnit.BattleCardControl.GetCardCount(CardHeapType));
       return UniTask.FromResult(NodeResult.True);
     }
   }

@@ -35,5 +35,16 @@ namespace GameCore {
     }
 
     public List<Card> this[CardHeapType cardHeapType] => Cards.FindAll(card => card.CardHeapType == cardHeapType);
+
+    public int GetCardCount(CardHeapType cardHeapType) {
+      int count = 0;
+      foreach (var card in Cards) {
+        if (card.CardHeapType == cardHeapType) {
+          count++;
+        }
+      }
+
+      return count;
+    }
   }
 }
