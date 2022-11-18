@@ -38,7 +38,7 @@ namespace GameCore {
     #endregion
 
     #region UI
-    public UIBattleTest UIBattleTest { get; private set; } // Test
+    public UIBattle UIBattle { get; private set; } // Test
     #endregion
 
     #region Static
@@ -130,9 +130,9 @@ namespace GameCore {
 
       // step4:加载战斗UI
       // ---------------------------------Test-------------------------------------------
-      UIBattleTest = Object.Instantiate(GameResManager.LoadAsset<GameObject>("UIBattle"),
-        GameObject.Find("UIRoot").transform).GetComponent<UIBattleTest>();
-      UIBattleTest.InitBattle(this);
+      UIBattle = Object.Instantiate(GameResManager.LoadAsset<GameObject>("UIBattle"),
+        GameObject.Find("UIRoot").transform).GetComponent<UIBattle>();
+      UIBattle.InitBattle(this);
       // --------------------------------------------------------------------------------
 
       BattleState = BattleState.Run;
@@ -202,8 +202,8 @@ namespace GameCore {
 
     private async UniTask Clear() {
       // ---------------------------------Test-------------------------------------------
-      if (UIBattleTest) {
-        Object.Destroy(UIBattleTest.gameObject);
+      if (UIBattle) {
+        Object.Destroy(UIBattle.gameObject);
       }
       // --------------------------------------------------------------------------------
 
