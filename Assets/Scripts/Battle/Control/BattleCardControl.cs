@@ -15,7 +15,7 @@ namespace GameCore {
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {
-      if (card.CardHeapType != CardHeapType.HAND || !card.CheckTargetCamp(mainTarget) || !card.PrePlay(mainTarget)) {
+      if (Owner.Player.EndTurnFlag || !card.CheckTargetCamp(mainTarget) || !card.PrePlay(mainTarget)) {
         return false;
       }
 

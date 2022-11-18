@@ -49,10 +49,8 @@ namespace GameCore {
 
     private void Start() {
       FinishTurnButton?.onClick.AddListener(() => {
-        if(Battle.CurPlayer == Battle.SelfPlayer) {
-          var op = new EndTurnOp();
-          op.Unit = Battle.CurPlayer.Master;
-          Battle.CurPlayer.AddOperation(op);
+        if (Battle.CurPlayer == Battle.SelfPlayer) {
+          Battle.CurPlayer.EndTurnFlag = true;
         }
       });
       DrawButton?.onClick.AddListener(() => LogCards(CardHeapType.DRAW));

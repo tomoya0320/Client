@@ -117,12 +117,5 @@ namespace GameCore {
 
       return value;
     }
-
-    public bool EndTurn() {
-      var endTurnOp = Battle.ObjectPool.Get<EndTurnOp>();
-      endTurnOp.Unit = this;
-      Player.AddOperation(endTurnOp);
-      return true;
-    }
   }
 }

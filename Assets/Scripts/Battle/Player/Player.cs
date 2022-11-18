@@ -28,7 +28,21 @@ namespace GameCore {
     public int TotalUnitCount { get; }
     public bool Available => DeadUnitCount < TotalUnitCount;
     public bool IsSelf => Battle.SelfPlayer == this;
-    public bool EndTurnFlag;
+    private bool _EndTurnFlag;
+    public bool EndTurnFlag {
+      get => _EndTurnFlag;
+      set {
+        if (_EndTurnFlag == value) {
+          return;
+        }
+
+        _EndTurnFlag = value;
+        if (_EndTurnFlag) {
+          AddOperation(null);
+          Debug.Log("结束回合");
+        }
+      }
+    }
     private Queue<BattleOperation> Operations = new Queue<BattleOperation>();
     public bool HasOperation => Operations.Count > 0;
 
@@ -77,7 +91,7 @@ namespace GameCore {
     }
 
     private async UniTask DoOperation() {
-      if (Operations.TryDequeue(out var operation)) {
+      if (Operations.TryDequeue(out var operation) && operation != null) {
         await operation.DoOperation();
         Battle.ObjectPool.Release(operation);
       }

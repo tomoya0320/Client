@@ -11,14 +11,6 @@ namespace GameCore {
     }
   }
 
-  public class EndTurnOp : BattleOperation {
-    public override UniTask DoOperation() {
-      Debug.Log("结束回合");
-      Unit.Player.EndTurnFlag = true;
-      return UniTask.CompletedTask;
-    }
-  }
-
   public class PlayCardOp : BattleOperation {
     public Card Card;
     public Unit MainTarget;

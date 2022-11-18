@@ -12,7 +12,8 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(BoolToNodeResult(targetUnit.EndTurn()));
+      targetUnit.Player.EndTurnFlag = true;
+      return UniTask.FromResult(NodeResult.True);
     }
   }
 }
