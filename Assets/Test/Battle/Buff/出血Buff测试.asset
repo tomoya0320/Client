@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050030f581b6d7a48bfe858af379bef1, type: 3}
   m_Name: "\u51FA\u8840Buff\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
-  MagicId: 
-  IntervalMagicId: "\u4F24\u5BB3\u6548\u679C\u6D4B\u8BD53"
+  Magic:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  IntervalMagic:
+    m_AssetGUID: 909e76674a029524683fc7cf1dfa726a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   BuffKind: "\u51FA\u8840"
   ImmuneKinds: []
   Delay: 0

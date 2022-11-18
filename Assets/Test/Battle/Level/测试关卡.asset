@@ -12,15 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5954b03a9d908d4f96c74f974c61510, type: 3}
   m_Name: "\u6D4B\u8BD5\u5173\u5361"
   m_EditorClassIdentifier: 
-  BehaviorIds:
-  - "\u884C\u4E3A\u6811\u6D4B\u8BD5"
+  Behaviors:
+  - m_AssetGUID: 554518a6acaca684d80f57ecce45132b
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   PlayerData:
   - PlayerId: "\u654C\u65B91"
     PlayerCamp: 2
     FirstIndex: 0
     UnitData:
-    - TemplateId: "\u6D4B\u8BD5\u654C\u65B9\u5355\u4F4D"
+    - Template:
+        m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
       Lv: 0
       CardData:
-      - TemplateId: "\u51FA\u8840\u6548\u679C\u5361\u724C"
+      - Template:
+          m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
         Lv: 0

@@ -39,12 +39,28 @@ MonoBehaviour:
     - Name: Consumable
       Entry: 5
       Data: false
-    - Name: SkillId
+    - Name: Skill
+      Entry: 7
+      Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
       Entry: 1
-      Data: "\u51FA\u8840\u6280\u80FD"
+      Data: 66182a794226d83419d47a3808a66693
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: CardPlayer
       Entry: 7
-      Data: 1|GameCore.DefaultCardPrePlayer, Assembly-CSharp
+      Data: 2|GameCore.DefaultCardPrePlayer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

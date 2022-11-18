@@ -1,7 +1,9 @@
 using Cysharp.Threading.Tasks;
+using GameCore.MagicFuncs;
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Object = UnityEngine.Object;
 
 namespace GameCore {
@@ -99,8 +101,8 @@ namespace GameCore {
 
     private async UniTask Load() {
       // step1:加载关卡和单位的相关资源
-      LevelTemplate = LevelManager.Preload(BattleData.LevelId);
-      foreach (var behaviorId in LevelTemplate.BehaviorIds) {
+      LevelTemplate = LevelManager.Preload(BattleData.Level);
+      foreach (var behaviorId in LevelTemplate.Behaviors) {
         await PreloadBehavior(behaviorId);
       }
 
@@ -122,8 +124,8 @@ namespace GameCore {
       }
 
       // step3:初始化关卡和单位的行为树
-      foreach (var behaviorId in LevelTemplate.BehaviorIds) {
-        await BehaviorManager.Add(behaviorId);
+      foreach (var behavior in LevelTemplate.Behaviors) {
+        await BehaviorManager.Add(behavior?.AssetGUID);
       }
       foreach (var unit in UnitManager.AllUnits) {
         await unit.InitBehavior();
@@ -141,58 +143,58 @@ namespace GameCore {
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
-      var unitTemplate = UnitManager.Preload(unitData.TemplateId);
-      AttribManager.Preload(unitTemplate.AttribId);
-      foreach (var behaviorId in unitTemplate.BehaviorIds) {
-        await PreloadBehavior(behaviorId);
+      var unitTemplate = UnitManager.Preload(unitData.Template);
+      AttribManager.Preload(unitTemplate.Attrib);
+      foreach (var behavior in unitTemplate.Behaviors) {
+        await PreloadBehavior(behavior);
       }
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
-        var cardTemplate = CardManager.Preload(cardData.TemplateId);
+        var cardTemplate = CardManager.Preload(cardData.Template);
         foreach (var item in cardTemplate.LvCardItems) {
-          var skillTemplate = SkillManager.Preload(item.SkillId);
+          var skillTemplate = SkillManager.Preload(item.Skill);
           foreach (var skillEvent in skillTemplate.SKillEvents) {
-            await PreloadMagic(skillEvent.MagicId);
+            await PreloadMagic(skillEvent.Magic);
           }
         }
       }
     }
 
-    private async UniTask PreloadBehavior(string behaviorId) {
-      var behavior = BehaviorManager.Preload(behaviorId);
+    private async UniTask PreloadBehavior(AssetReferenceT<BehaviorGraph> behaviorRef) {
+      var behavior = BehaviorManager.Preload(behaviorRef);
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
           switch (behaviorNode) {
             case BehaviorFuncs.DoMagic doMagic:
-              await PreloadMagic(doMagic.MagicId);
+              await PreloadMagic(doMagic.Magic);
               break;
             case BehaviorFuncs.AddBuff addBuff:
-              await PreloadBuff(addBuff.BuffId);
+              await PreloadBuff(addBuff.Buff);
               break;
           }
         }
       }
     }
 
-    private async UniTask PreloadMagic(string magicId) {
-      var magicFunc = MagicManager.Preload(magicId);
-      if (magicFunc) {
-        switch (magicFunc) {
-          case MagicFuncs.AddBehavior addBehavior:
-            await PreloadBehavior(addBehavior.BehaviorId);
+    private async UniTask PreloadMagic(AssetReferenceT<MagicFuncBase> magicRef) {
+      var magic = MagicManager.Preload(magicRef);
+      if (magic) {
+        switch (magic) {
+          case AddBehavior addBehavior:
+            await PreloadBehavior(addBehavior.Behavior);
             break;
-          case MagicFuncs.AddBuff addBuff:
-            await PreloadBuff(addBuff.BuffId);
+          case AddBuff addBuff:
+            await PreloadBuff(addBuff.Buff);
             break;
         }
       }
     }
 
-    private async UniTask PreloadBuff(string buffId) {
-      var buffTemplate = BuffManager.Preload(buffId);
-      if (buffTemplate) {
-        await PreloadMagic(buffTemplate.MagicId);
-        await PreloadMagic(buffTemplate.IntervalMagicId);
+    private async UniTask PreloadBuff(AssetReferenceT<BuffTemplate> buffRef) {
+      var buff = BuffManager.Preload(buffRef);
+      if (buff) {
+        await PreloadMagic(buff.Magic);
+        await PreloadMagic(buff.IntervalMagic);
       }
     }
 

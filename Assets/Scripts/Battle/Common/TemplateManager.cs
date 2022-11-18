@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public abstract class TemplateManager<T> : BattleBase where T : ScriptableObject {
@@ -7,17 +8,17 @@ namespace GameCore {
 
     protected TemplateManager(Battle battle) : base(battle) { }
 
-    public T Preload(string id) {
-      if (string.IsNullOrEmpty(id)) {
+    public T Preload(AssetReferenceT<T> assetRef) {
+      if (string.IsNullOrEmpty(assetRef?.AssetGUID)) {
         return null;
       }
 
-      if (Templates.TryGetValue(id, out var template)) {
+      if (Templates.TryGetValue(assetRef.AssetGUID, out var template)) {
         return template;
       }
-      template = GameResManager.LoadAsset<T>(id);
+      template = GameResManager.LoadAsset(assetRef);
       if (template) {
-        Templates.Add(id, template);
+        Templates.Add(assetRef.AssetGUID, template);
         return template;
       }
       return null;

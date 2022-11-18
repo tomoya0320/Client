@@ -7,7 +7,7 @@ namespace GameCore {
     public BuffComponent BuffComponent { get; private set; }
     public BuffTemplate BuffTemplate { get; private set; }
     public BuffContext BuffContext { get; private set; }
-    public string MagicId => BuffTemplate.MagicId;
+    public string MagicId => BuffTemplate.Magic?.AssetGUID;
     public Unit Source { get; private set; }
     public Unit Target { get; private set; }
     public int Turn { get; private set; }
@@ -25,7 +25,7 @@ namespace GameCore {
 
     public async UniTask<bool> Update(TickTime updateTime) {
       if (updateTime == BuffTemplate.UpdateTime) {
-        string magicId = ++Turn == BuffTemplate.Delay ? BuffTemplate.MagicId : BuffTemplate.IntervalMagicId;
+        string magicId = ++Turn == BuffTemplate.Delay ? BuffTemplate.Magic?.AssetGUID : BuffTemplate.IntervalMagic?.AssetGUID;
         await Target.Battle.MagicManager.DoMagic(magicId, Source, Target, BuffContext);
       }
 

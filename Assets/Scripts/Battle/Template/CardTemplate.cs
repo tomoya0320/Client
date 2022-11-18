@@ -1,5 +1,6 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public enum CardType {
@@ -13,7 +14,8 @@ namespace GameCore {
     public string Name;
     public int Cost;
     public bool Consumable;
-    public string SkillId;
+    [DrawWithUnity]
+    public AssetReferenceT<SkillTemplate> Skill;
     public CardPrePlayer CardPlayer;
   }
 

@@ -168,20 +168,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BattleData:
-    LevelId: "\u6D4B\u8BD5\u5173\u5361"
+    Level:
+      m_AssetGUID: 61d32442c679c4c488ad279dbbfb152f
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
     PlayerData:
       PlayerId: "\u73A9\u5BB61"
       PlayerCamp: 1
       FirstIndex: 0
       UnitData:
-      - TemplateId: "\u6D4B\u8BD5\u5355\u4F4D"
+      - Template:
+          m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
         Lv: 0
         CardData:
-        - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
+        - Template:
+            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
           Lv: 0
-        - TemplateId: "\u6D4B\u8BD5\u5361\u724C"
+        - Template:
+            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
           Lv: 1
-        - TemplateId: "\u514D\u75AB\u51FA\u8840\u6548\u679C\u5361\u724C"
+        - Template:
+            m_AssetGUID: 8e81780d2dff328438aad1e6222b26f9
+            m_SubObjectName: 
+            m_SubObjectType: 
+            m_EditorAssetChanged: 0
           Lv: 0
 --- !u!1 &907478201
 GameObject:

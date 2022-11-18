@@ -1,11 +1,12 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore.MagicFuncs {
   [CreateAssetMenu(menuName = "模板/效果/加行为树")]
   public class AddBehavior : MagicFuncBase {
     public override bool IgnoreOnEnd => false;
-    public string BehaviorId;
+    public AssetReferenceT<BehaviorGraph> Behavior;
 
     public async override UniTask Run(Battle battle, Context context, MagicArgs args) {
       if (args.IsEnd) {
@@ -15,7 +16,7 @@ namespace GameCore.MagicFuncs {
           }
         }
       } else {
-        var behavior = await battle.BehaviorManager.Add(BehaviorId, args.Source, args.Target);
+        var behavior = await battle.BehaviorManager.Add(Behavior?.AssetGUID, args.Source, args.Target);
         if (behavior != null && context is BuffContext buffContext) {
           buffContext.Behavior = behavior;
         }

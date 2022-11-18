@@ -6,7 +6,7 @@ namespace GameCore {
     public int RuntimeId { get; private set; }
     public PlayerCamp TargetCamp => CardTemplate.TargetCamp;
     public CardData CardData { get; private set; }
-    public string TemplateId => CardData.TemplateId;
+    public string TemplateId => CardData.Template?.AssetGUID;
     public int Lv => CardData.Lv;
     public Unit Owner { get; private set; }
     public Skill[] Skills { get; private set; }
@@ -25,7 +25,7 @@ namespace GameCore {
 
       Skills = new Skill[CardTemplate.LvCardItems.Length];
       for (int i = 0; i < Skills.Length; i++) {
-        Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].SkillId);
+        Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].Skill?.AssetGUID);
       }
     }
 

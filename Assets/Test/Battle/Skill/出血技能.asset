@@ -30,15 +30,31 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: GameCore.SKillEvent, Assembly-CSharp
-    - Name: MagicId
+    - Name: Magic
+      Entry: 7
+      Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.MagicFuncs.MagicFuncBase,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
       Entry: 1
-      Data: "\u52A0\u51FA\u8840buff\u6548\u679C"
+      Data: 7ebab6b15bfc55748b9650ca1789bae5
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: WaitTime
       Entry: 4
       Data: 0
     - Name: TargetSelector
       Entry: 7
-      Data: 1|GameCore.DefaultSelector, Assembly-CSharp
+      Data: 2|GameCore.DefaultSelector, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

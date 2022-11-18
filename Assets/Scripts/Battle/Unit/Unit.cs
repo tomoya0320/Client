@@ -20,7 +20,7 @@ namespace GameCore {
     public Player Player { get; private set; }
     public PlayerCamp PlayerCamp => Player.PlayerCamp;
     public int RuntimeId { get; private set; }
-    public string TemplateId => UnitData.TemplateId;
+    public string TemplateId => UnitData.Template?.AssetGUID;
     public int Lv => UnitData.Lv;
     public int MaxLv => UnitTemplate.MaxLevel;
     public UnitData UnitData { get; private set; }
@@ -42,7 +42,7 @@ namespace GameCore {
       BattleCardControl = new BattleCardControl(this, UnitData.CardData);
 
       Battle.UnitManager.TryGetTemplate(TemplateId, out UnitTemplate);
-      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.AttribId, Lv, MaxLv);
+      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.Attrib?.AssetGUID, Lv, MaxLv);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
         Attribs[i].AllowNegative = false;
@@ -60,8 +60,8 @@ namespace GameCore {
         return;
       }
       // 行为树相关
-      foreach (var behaviorId in UnitTemplate.BehaviorIds) {
-        await Battle.BehaviorManager.Add(behaviorId, this, this);
+      foreach (var behavior in UnitTemplate.Behaviors) {
+        await Battle.BehaviorManager.Add(behavior?.AssetGUID, this, this);
       }
       BehaviorInited = true;
     }

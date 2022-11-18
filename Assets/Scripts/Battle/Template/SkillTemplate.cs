@@ -1,9 +1,14 @@
+using GameCore.MagicFuncs;
 using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public struct SKillEvent {
-    public string MagicId;
+    [DrawWithUnity]
+    [LabelText("效果")]
+    public AssetReferenceT<MagicFuncBase> Magic;
     [LabelText("等待时间")]
     public float WaitTime; // 配合动画表现使用
     [LabelText("目标选择器")]

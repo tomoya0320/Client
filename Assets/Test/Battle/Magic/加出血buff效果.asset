@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3fd41cb8b4c5e44bef650d3b7fc796, type: 3}
   m_Name: "\u52A0\u51FA\u8840buff\u6548\u679C"
   m_EditorClassIdentifier: 
-  BuffId: "\u51FA\u8840Buff\u6D4B\u8BD5"
+  Buff:
+    m_AssetGUID: 0f8bf66f1d6cb1949957107be7f4d3c9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

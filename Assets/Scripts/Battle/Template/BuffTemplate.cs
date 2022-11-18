@@ -1,14 +1,16 @@
+using GameCore.MagicFuncs;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   [CreateAssetMenu(menuName = "模板/Buff")]
-  public class BuffTemplate : ScriptableObject {
-    [LabelText("效果Id")]
-    public string MagicId;
-    [LabelText("间隔触发效果Id")]
-    public string IntervalMagicId;
+  public class BuffTemplate : SerializedScriptableObject {
+    [LabelText("效果")]
+    public AssetReferenceT<MagicFuncBase> Magic;
+    [LabelText("间隔触发效果")]
+    public AssetReferenceT<MagicFuncBase> IntervalMagic;
     [LabelText("Buff类型")]
     public string BuffKind;
     [LabelText("免疫类型")]

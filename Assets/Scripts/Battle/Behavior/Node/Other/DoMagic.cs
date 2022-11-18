@@ -1,10 +1,12 @@
 using Cysharp.Threading.Tasks;
+using GameCore.MagicFuncs;
 using Sirenix.OdinInspector;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore.BehaviorFuncs {
   [CreateNodeMenu("节点/行为/其他/执行效果")]
   public class DoMagic : ActionNode {
-    public string MagicId;
+    public AssetReferenceT<MagicFuncBase> Magic;
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
@@ -13,7 +15,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return NodeResult.False;
       }
-      await behavior.Battle.MagicManager.DoMagic(MagicId, behavior.Unit, targetUnit, context);
+      await behavior.Battle.MagicManager.DoMagic(Magic?.AssetGUID, behavior.Unit, targetUnit, context);
       return NodeResult.True;
     }
   }
