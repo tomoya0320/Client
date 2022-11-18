@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 namespace GameCore {
@@ -26,6 +27,7 @@ namespace GameCore {
     public UnitData UnitData { get; private set; }
     public Blackboard Blackboard { get; private set; }
     public Attrib[] Attribs { get; private set; }
+    private Action<int, int>[] AttribChangedCallbacks;
     public string Name => UnitTemplate != null ? UnitTemplate.Name : null;
     public bool IsMaster => Player.Master == this;
     private bool BehaviorInited;
@@ -48,7 +50,10 @@ namespace GameCore {
       }
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
+      AttribChangedCallbacks = new Action<int, int>[Attribs.Length];
     }
+
+    public void AddAttribChangedCallback(AttribType type, Action<int, int> callback) => AttribChangedCallbacks[(int)type] += callback;
 
     public async UniTask InitBehavior() {
       if (BehaviorInited) {
@@ -64,6 +69,8 @@ namespace GameCore {
 
     public int AddAttrib(AttribType type, int value, AttribField attribField = AttribField.VALUE) {
       ref Attrib attrib = ref Attribs[(int)type];
+      int beforeValue = attrib.Value;
+      int beforeMaxValue = attrib.MaxValue;
       int realAttribValue;
       switch (attribField) {
         case AttribField.VALUE:
@@ -77,6 +84,7 @@ namespace GameCore {
           Debug.LogError($"undefined attribField! AttribField:{attribField}");
           break;
       }
+      AttribChangedCallbacks[(int)type]?.Invoke(beforeValue, beforeMaxValue);
       return realAttribValue;
     }
 
