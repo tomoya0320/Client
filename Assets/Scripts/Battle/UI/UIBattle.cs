@@ -6,21 +6,13 @@ namespace GameCore {
   public class UIBattle : MonoBehaviour {
     private Battle Battle;
     [SerializeField]
-    private Button FinishTurnButton;
-    [SerializeField]
-    private Button DrawButton;
-    [SerializeField]
-    private Button DiscardButton;
-    [SerializeField]
-    private Button ConsumeButton;
-    [SerializeField]
     private Text TurnText;
+    public Transform DrawNode;
+    public Transform DiscardNode;
     [SerializeField]
     private Transform[] AllyNodes;
     [SerializeField]
     private Transform[] EnemyNodes;
-    public Transform DrawTransform => DrawButton ? DrawButton.transform : null;
-    public Transform DiscardTransform => DiscardButton ? DiscardButton.transform : null;
 
     public void Init(Battle battle) {
       Battle = battle;
