@@ -1,5 +1,5 @@
 namespace GameCore {
-  public class LevelManager : TemplateManager<LevelTemplate> {
+  public class LevelManager : AssetManager<LevelTemplate> {
     public LevelManager(Battle battle) : base(battle) { }
   }
 }

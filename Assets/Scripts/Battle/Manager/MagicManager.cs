@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace GameCore {
-  public class MagicManager : TemplateManager<MagicFuncBase> {
+  public class MagicManager : AssetManager<MagicFuncBase> {
     public MagicManager(Battle battle) : base(battle) { }
 
     public async UniTask DoMagic(string magicId, Unit source, Unit target, Context context = null, bool isEnd = false) {

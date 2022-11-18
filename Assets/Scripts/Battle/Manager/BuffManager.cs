@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
-  public class BuffManager : TemplateManager<BuffTemplate> {
+  public class BuffManager : AssetManager<BuffTemplate> {
     private int IncId;
     private Dictionary<int, BuffComponent> BuffComponents = new Dictionary<int, BuffComponent>();
 

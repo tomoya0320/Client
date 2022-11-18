@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace GameCore {
-  public class UnitManager : TemplateManager<UnitTemplate> {
+  public class UnitManager : AssetManager<UnitTemplate> {
     private int IncId;
     private Dictionary<int, Unit> Units = new Dictionary<int, Unit>();
     public Dictionary<int, Unit>.ValueCollection AllUnits => Units.Values;

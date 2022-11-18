@@ -21,7 +21,7 @@ namespace GameCore {
       Owner = owner;
       CardData = cardData;
 
-      Battle.CardManager.TryGetTemplate(TemplateId, out CardTemplate);
+      Battle.CardManager.TryGetAsset(TemplateId, out CardTemplate);
 
       Skills = new Skill[CardTemplate.LvCardItems.Length];
       for (int i = 0; i < Skills.Length; i++) {

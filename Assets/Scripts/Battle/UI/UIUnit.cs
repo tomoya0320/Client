@@ -37,7 +37,7 @@ namespace GameCore {
       if (UIHp) {
         Attrib hpAttrib = Unit.Attribs[(int)AttribType.HP];
         UIHp.fillAmount = (float)hpAttrib.Value / hpAttrib.MaxValue;
-        UIHp.Text = $"{hpAttrib.Value}";
+        UIHp.Text = $"{hpAttrib.Value}/{hpAttrib.MaxValue}";
       }
     }
   }

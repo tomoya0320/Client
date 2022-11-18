@@ -36,7 +36,7 @@ MonoBehaviour:
         Assembly-CSharp]], Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
-      Data: c2a34fe9137ec5541bcb3c20ae26357b
+      Data: 756793f857c157240bcc93c86bb3bc9a
     - Name: m_SubObjectName
       Entry: 1
       Data: 
@@ -51,7 +51,7 @@ MonoBehaviour:
       Data: 
     - Name: WaitTime
       Entry: 4
-      Data: 0
+      Data: 0.6
     - Name: TargetSelector
       Entry: 7
       Data: 2|GameCore.DefaultSelector, Assembly-CSharp
@@ -67,3 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Anim: Attack
+  AnimTime: 1

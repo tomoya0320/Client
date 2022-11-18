@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace GameCore {
   public enum CardHeapType {
@@ -32,6 +33,8 @@ namespace GameCore {
     private bool BehaviorInited;
     public UnitStateMachine UnitStateMachine { get; private set; }
     public BattleCardControl BattleCardControl { get; private set; }
+    public UIUnit UIUnit { get; private set; }
+    public float DieAnimTime => UnitTemplate.DieAnimTime;
 
     public Unit(Battle battle, int runtimeId, Player player, UnitData unitData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
@@ -41,7 +44,7 @@ namespace GameCore {
       UnitStateMachine = new UnitStateMachine(this);
       BattleCardControl = new BattleCardControl(this, UnitData.CardData);
 
-      Battle.UnitManager.TryGetTemplate(TemplateId, out UnitTemplate);
+      Battle.UnitManager.TryGetAsset(TemplateId, out UnitTemplate);
       Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.Attrib?.AssetGUID, Lv, MaxLv);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
@@ -50,6 +53,15 @@ namespace GameCore {
       Attribs[(int)AttribType.ATK].AllowExceedMax = true;
       Attribs[(int)AttribType.ENERGY].AllowExceedMax = true;
       AttribChangedCallbacks = new Action<int, int>[Attribs.Length];
+    }
+
+    public void InitUI(int index) {
+      if (Battle.PrefabManager.TryGetAsset(UnitTemplate.Prefab?.AssetGUID, out var prefab)) {
+        UIUnit = Object.Instantiate(prefab, Battle.UIBattle.GetUnitNode(Player.PlayerCamp, index)).GetComponent<UIUnit>();
+        if (UIUnit) {
+          UIUnit.Init(this);
+        }
+      }
     }
 
     public void AddAttribChangedCallback(AttribType type, Action<int, int> callback) => AttribChangedCallbacks[(int)type] += callback;

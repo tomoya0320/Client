@@ -34,6 +34,7 @@ namespace GameCore {
     public CardManager CardManager { get; private set; }
     public LevelManager LevelManager { get; private set; }
     public SkillManager SkillManager { get; private set; }
+    public PrefabManager PrefabManager { get; private set; }
 
     public PlayerManager PlayerManager { get; private set; }
     public DamageManager DamageManager { get; private set; }
@@ -71,6 +72,7 @@ namespace GameCore {
       CardManager = new CardManager(this);
       LevelManager = new LevelManager(this);
       SkillManager = new SkillManager(this);
+      PrefabManager = new PrefabManager(this);
 
       PlayerManager = new PlayerManager(this);
       DamageManager = new DamageManager(this);
@@ -137,6 +139,12 @@ namespace GameCore {
         GameObject.Find("UIRoot").transform).GetComponent<UIBattle>();
       UIBattle.Init(this);
       // --------------------------------------------------------------------------------
+      // 依赖UIBattle初始化
+      foreach (var player in PlayerManager.PlayerList) {
+        for (int i = 0; i < player.Units.Length; i++) {
+          player.Units[i].InitUI(i);
+        }
+      }
 
       BattleState = BattleState.Run;
       Debug.Log("战斗加载完毕");
@@ -144,6 +152,7 @@ namespace GameCore {
 
     private async UniTask PreloadUnit(UnitData unitData) {
       var unitTemplate = UnitManager.Preload(unitData.Template);
+      PrefabManager.Preload(unitTemplate.Prefab);
       AttribManager.Preload(unitTemplate.Attrib);
       foreach (var behavior in unitTemplate.Behaviors) {
         await PreloadBehavior(behavior);
@@ -206,7 +215,7 @@ namespace GameCore {
     private async UniTask Clear() {
       // ---------------------------------Test-------------------------------------------
       if (UIBattle) {
-        Object.Destroy(UIBattle.gameObject);
+        Object.Destroy(UIBattle);
       }
       // --------------------------------------------------------------------------------
 
@@ -238,6 +247,9 @@ namespace GameCore {
 
       SkillManager.Release();
       SkillManager = null;
+
+      PrefabManager.Release();
+      PrefabManager = null;
 
       PlayerManager = null;
       DamageManager = null;

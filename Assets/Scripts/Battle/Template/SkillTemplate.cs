@@ -17,6 +17,10 @@ namespace GameCore {
 
   [CreateAssetMenu(menuName = "模板/技能")]
   public class SkillTemplate : SerializedScriptableObject {
+    [LabelText("动画")]
+    public string Anim;
+    [LabelText("动画时长")]
+    public float AnimTime;
     [LabelText("技能事件列表")]
     public SKillEvent[] SKillEvents;
   }

@@ -19,20 +19,23 @@ namespace GameCore {
       Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
     }
 
-    public Transform GetAllyNode(int index) {
-      if(index < 0 || index >= AllyNodes.Length) {
-        return null;
+    public Transform GetUnitNode(PlayerCamp playerCamp, int index) {
+      switch (playerCamp) {
+        case PlayerCamp.ALLY:
+          return GetNode(AllyNodes, index);
+        case PlayerCamp.ENEMY:
+          return GetNode(EnemyNodes, index);
+        default:
+          return null;
       }
-
-      return AllyNodes[index];
     }
 
-    public Transform GetEnemyNode(int index) {
-      if (index < 0 || index >= EnemyNodes.Length) {
+    private Transform GetNode(Transform[] nodes, int index) {
+      if(index < 0 || index >= nodes.Length) {
         return null;
       }
 
-      return EnemyNodes[index];
+      return nodes[index];
     }
 
     public void EndTurn() => Battle.SelfPlayer.EndTurnFlag = true;

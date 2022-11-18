@@ -179,7 +179,7 @@ MonoBehaviour:
       FirstIndex: 0
       UnitData:
       - Template:
-          m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+          m_AssetGUID: b756ee77718b47c45b273833658993f8
           m_SubObjectName: 
           m_SubObjectType: 
           m_EditorAssetChanged: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
             m_EditorAssetChanged: 0
           Lv: 1
         - Template:
-            m_AssetGUID: 8e81780d2dff328438aad1e6222b26f9
+            m_AssetGUID: b75f4cffe6b48894488953fce9589c18
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0

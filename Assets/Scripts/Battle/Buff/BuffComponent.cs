@@ -36,7 +36,7 @@ namespace GameCore {
     }
 
     public async UniTask<Buff> Add(Unit source, string buffId, int runtimeId) {
-      if (!BuffManager.TryGetTemplate(buffId, out var buffTemplate)) {
+      if (!BuffManager.TryGetAsset(buffId, out var buffTemplate)) {
         Debug.LogError($"BuffTemplate is null. id:{buffId}");
         return null;
       }

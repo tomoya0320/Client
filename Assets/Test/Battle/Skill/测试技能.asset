@@ -51,7 +51,7 @@ MonoBehaviour:
       Data: 
     - Name: WaitTime
       Entry: 4
-      Data: 0
+      Data: 0.6
     - Name: TargetSelector
       Entry: 7
       Data: 2|GameCore.DefaultSelector, Assembly-CSharp
@@ -67,3 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Anim: Attack
+  AnimTime: 1
