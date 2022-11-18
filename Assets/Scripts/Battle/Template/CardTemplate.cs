@@ -14,7 +14,7 @@ namespace GameCore {
     public int Cost;
     public bool Consumable;
     public string SkillId;
-    public CardPlayer CardPlayer;
+    public CardPrePlayer CardPlayer;
   }
 
   [CreateAssetMenu(menuName = "模板/卡牌")]

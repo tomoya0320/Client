@@ -36,12 +36,15 @@ MonoBehaviour:
     - Name: Cost
       Entry: 3
       Data: 2
+    - Name: Consumable
+      Entry: 5
+      Data: false
     - Name: SkillId
       Entry: 1
       Data: "\u51FA\u8840\u6280\u80FD"
     - Name: CardPlayer
       Entry: 7
-      Data: 1|GameCore.DefaultCardPlayer, Assembly-CSharp
+      Data: 1|GameCore.DefaultCardPrePlayer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

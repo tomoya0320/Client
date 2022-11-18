@@ -36,12 +36,15 @@ MonoBehaviour:
     - Name: Cost
       Entry: 3
       Data: 1
+    - Name: Consumable
+      Entry: 5
+      Data: false
     - Name: SkillId
       Entry: 1
       Data: "\u6D4B\u8BD5\u6280\u80FD"
     - Name: CardPlayer
       Entry: 7
-      Data: 1|GameCore.DefaultCardPlayer, Assembly-CSharp
+      Data: 1|GameCore.DefaultCardPrePlayer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -57,12 +60,15 @@ MonoBehaviour:
     - Name: Cost
       Entry: 3
       Data: 2
+    - Name: Consumable
+      Entry: 5
+      Data: false
     - Name: SkillId
       Entry: 1
       Data: "\u6D4B\u8BD5\u6280\u80FD2"
     - Name: CardPlayer
       Entry: 7
-      Data: 2|GameCore.DefaultCardPlayer, Assembly-CSharp
+      Data: 2|GameCore.DefaultCardPrePlayer, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

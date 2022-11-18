@@ -1,12 +1,12 @@
 using UnityEngine;
 
 namespace GameCore {
-  public abstract class CardPlayer {
-    public abstract bool TryPlay(Card card, Unit mainTarget);
+  public abstract class CardPrePlayer {
+    public abstract bool PrePlay(Card card, Unit mainTarget);
   }
 
-  public class DefaultCardPlayer : CardPlayer {
-    public override bool TryPlay(Card card, Unit mainTarget) {
+  public class DefaultCardPrePlayer : CardPrePlayer {
+    public override bool PrePlay(Card card, Unit mainTarget) {
       int cost = card.Cost;
       Unit owner = card.Owner;
       if (cost < 0) {
