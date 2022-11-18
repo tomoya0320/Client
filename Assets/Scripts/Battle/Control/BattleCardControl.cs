@@ -1,30 +1,16 @@
-using System;
 using System.Collections.Generic;
 
 namespace GameCore {
   public class BattleCardControl {
     public Unit Owner { get; private set; }
     public int PlayCardCount { get; private set; }
-    private Dictionary<CardHeapType, List<Card>> CardHeapDict = new Dictionary<CardHeapType, List<Card>>();
+    private List<Card> Cards = new List<Card>();
 
-    public BattleCardControl(Unit owner, CardData[] cardData) { 
+    public BattleCardControl(Unit owner, CardData[] cardData) {
       Owner = owner;
       // ø®≈∆œ‡πÿ
-      foreach (CardHeapType cardHeapType in Enum.GetValues(typeof(CardHeapType))) {
-        CardHeapDict.Add(cardHeapType, new List<Card>());
-      }
       foreach (var data in cardData) {
-        CardHeapDict[CardHeapType.DRAW].Add(Owner.Battle.CardManager.Create(Owner, data));
-      }
-    }
-
-    public void RefreshCardList(CardHeapType cardHeapType) {
-      var cardList = CardHeapDict[cardHeapType];
-      for (int i = cardList.Count - 1; i >= 0; i--) {
-        var card = cardList[i];
-        if (card.CardHeapType != cardHeapType) {
-          cardList.RemoveAt(i);
-        }
+        Cards.Add(Owner.Battle.CardManager.Create(Owner, data));
       }
     }
 
@@ -33,10 +19,6 @@ namespace GameCore {
         return false;
       }
 
-      card.CardHeapType = CardHeapType.DISCARD;
-      this[CardHeapType.HAND].Remove(card);
-      this[CardHeapType.DISCARD].Add(card);
-
       var playCardOp = Owner.Battle.ObjectPool.Get<PlayCardOp>();
       playCardOp.Unit = Owner;
       playCardOp.MainTarget = mainTarget;
@@ -44,11 +26,14 @@ namespace GameCore {
 
       Owner.Player.AddOperation(playCardOp);
 
-      PlayCardCount++;
-
       return true;
     }
 
-    public List<Card> this[CardHeapType cardHeapType] => CardHeapDict[cardHeapType];
+    public void OnPlayedCard(Card card) {
+      card.CardHeapType = card.Consumable ? CardHeapType.CONSUME : CardHeapType.DISCARD;
+      PlayCardCount++;
+    }
+
+    public List<Card> this[CardHeapType cardHeapType] => Cards.FindAll(card => card.CardHeapType == cardHeapType);
   }
 }

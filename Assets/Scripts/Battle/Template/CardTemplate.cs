@@ -12,6 +12,7 @@ namespace GameCore {
   public struct LvCardItem {
     public string Name;
     public int Cost;
+    public bool Consumable;
     public string SkillId;
     public CardPlayer CardPlayer;
   }

@@ -2,8 +2,6 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace GameCore {
   [Flags]

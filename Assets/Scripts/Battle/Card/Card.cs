@@ -12,6 +12,7 @@ namespace GameCore {
     public Skill[] Skills { get; private set; }
     private Skill Skill => Skills[Lv];
     public int Cost => CardTemplate.LvCardItems[Lv].Cost;
+    public bool Consumable => CardTemplate.LvCardItems[Lv].Consumable;
     private CardPlayer CardPlayer => CardTemplate.LvCardItems[Lv].CardPlayer;
     public CardHeapType CardHeapType = CardHeapType.DRAW;
 

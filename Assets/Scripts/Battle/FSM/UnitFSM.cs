@@ -21,26 +21,22 @@ namespace GameCore {
       // 执行回合开始前的行为树
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_START_TURN, Owner, context);
       // Test
-      var handCardList = Owner.BattleCardControl[CardHeapType.HAND];
-      int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - handCardList.Count;
+      int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - Owner.BattleCardControl[CardHeapType.HAND].Count;
       if (drawCardCount > 0) {
         var drawCardList = Owner.BattleCardControl[CardHeapType.DRAW];
         if (drawCardList.Count < drawCardCount) {
           var discardCardList = Owner.BattleCardControl[CardHeapType.DISCARD];
           for (int i = 0; i < discardCardList.Count; i++) {
             var card = discardCardList[i];
-            drawCardList.Add(card);
             card.CardHeapType = CardHeapType.DRAW;
+            drawCardList.Add(card);
           }
-          Owner.BattleCardControl.RefreshCardList(CardHeapType.DISCARD);
         }
         MathUtil.FisherYatesShuffle(drawCardList);
         for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
           var card = drawCardList[i];
-          handCardList.Add(card);
           card.CardHeapType = CardHeapType.HAND;
         }
-        Owner.BattleCardControl.RefreshCardList(CardHeapType.DRAW);
       }
     }
   }
@@ -60,7 +56,6 @@ namespace GameCore {
         discardCardList.Add(card);
         card.CardHeapType = CardHeapType.DISCARD;
       }
-      Owner.BattleCardControl.RefreshCardList(CardHeapType.HAND);
     }
   }
 
