@@ -16,8 +16,6 @@ namespace GameCore {
     [SerializeField]
     private Text TurnText;
     [SerializeField]
-    private Text PlayCardCountText;
-    [SerializeField]
     private Transform[] AllyNodes;
     [SerializeField]
     private Transform[] EnemyNodes;
@@ -26,16 +24,7 @@ namespace GameCore {
 
     public void Init(Battle battle) {
       Battle = battle;
-
-      // Test
-      FinishTurnButton?.onClick.AddListener(() => {
-        if (Battle.CurPlayer == Battle.SelfPlayer) {
-          Battle.CurPlayer.EndTurnFlag = true;
-        }
-      });
-      DrawButton?.onClick.AddListener(() => LogCards(CardHeapType.DRAW));
-      DiscardButton?.onClick.AddListener(() => LogCards(CardHeapType.DISCARD));
-      ConsumeButton?.onClick.AddListener(() => LogCards(CardHeapType.CONSUME));
+      Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
     }
 
     public Transform GetAllyNode(int index) {
@@ -54,10 +43,33 @@ namespace GameCore {
       return EnemyNodes[index];
     }
 
+    public void EndTurn() => Battle.SelfPlayer.EndTurnFlag = true;
+
+    public void OnSelfStartTurn() {
+      if (TurnText) {
+        TurnText.text = $"{Battle.Turn}";
+      }
+    }
     // Test
-    private void LogCards(CardHeapType cardHeapType) {
+    public void LogDrawCards() {
       StringBuilder stringBuilder = new StringBuilder();
-      foreach (var card in Battle.SelfPlayer.Master.BattleCardControl[cardHeapType]) {
+      foreach (var card in Battle.SelfPlayer.Master.BattleCardControl[CardHeapType.DRAW]) {
+        stringBuilder.Append(card);
+      }
+      Debug.Log(stringBuilder);
+    }
+    // Test
+    public void LogDiscardCards() {
+      StringBuilder stringBuilder = new StringBuilder();
+      foreach (var card in Battle.SelfPlayer.Master.BattleCardControl[CardHeapType.DISCARD]) {
+        stringBuilder.Append(card);
+      }
+      Debug.Log(stringBuilder);
+    }
+    // Test
+    public void LogConsumeCards() {
+      StringBuilder stringBuilder = new StringBuilder();
+      foreach (var card in Battle.SelfPlayer.Master.BattleCardControl[CardHeapType.CONSUME]) {
         stringBuilder.Append(card);
       }
       Debug.Log(stringBuilder);

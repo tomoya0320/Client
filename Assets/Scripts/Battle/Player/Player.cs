@@ -45,6 +45,7 @@ namespace GameCore {
     }
     private Queue<BattleOperation> Operations = new Queue<BattleOperation>();
     public bool HasOperation => Operations.Count > 0;
+    public event Action OnStartTurn;
 
     public Player(Battle battle, int runtimeId, PlayerData playerData) : base(battle) {
       Blackboard = Battle.ObjectPool.Get<Blackboard>();
@@ -81,6 +82,7 @@ namespace GameCore {
     }
 
     public async UniTask OnTurn() {
+      OnStartTurn?.Invoke();
       await StartTurn();
       await InTurn();
       await EndTurn();

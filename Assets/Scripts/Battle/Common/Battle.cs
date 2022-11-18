@@ -116,6 +116,7 @@ namespace GameCore {
 
       // step2:创建单位
       SelfPlayer = PlayerManager.Create(BattleData.PlayerData);
+      SelfPlayer.OnStartTurn += OnSelfStartTurn;
       foreach (var playerData in LevelTemplate.PlayerData) {
         PlayerManager.Create(playerData);
       }
@@ -254,12 +255,11 @@ namespace GameCore {
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
-      if (CurPlayer == SelfPlayer) {
-        Turn++;
-      }
       Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
       // 回合中的逻辑
       await CurPlayer.OnTurn();
     }
+
+    private void OnSelfStartTurn() => Turn++;
   }
 }

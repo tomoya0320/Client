@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296805454844356986}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7197506512863465316}
+        m_TargetAssemblyTypeName: GameCore.UIBattle, Assembly-CSharp
+        m_MethodName: LogConsumeCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &296805455175380859
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,7 +575,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296805455740591264}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7197506512863465316}
+        m_TargetAssemblyTypeName: GameCore.UIBattle, Assembly-CSharp
+        m_MethodName: LogDiscardCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &296805455795218323
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,7 +657,6 @@ MonoBehaviour:
   DiscardButton: {fileID: 1537186201846085492}
   ConsumeButton: {fileID: 1823253118728809605}
   TurnText: {fileID: 296805456319923856}
-  PlayCardCountText: {fileID: 296805456258988826}
   AllyNodes: []
   EnemyNodes: []
 --- !u!1 &296805455931482133
@@ -757,7 +780,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296805455931482135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7197506512863465316}
+        m_TargetAssemblyTypeName: GameCore.UIBattle, Assembly-CSharp
+        m_MethodName: LogDrawCards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &296805456203268529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1074,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296805456300388511}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7197506512863465316}
+        m_TargetAssemblyTypeName: GameCore.UIBattle, Assembly-CSharp
+        m_MethodName: EndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &296805456319923862
 GameObject:
   m_ObjectHideFlags: 0
