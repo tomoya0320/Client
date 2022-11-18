@@ -132,7 +132,7 @@ namespace GameCore {
       // ---------------------------------Test-------------------------------------------
       UIBattle = Object.Instantiate(GameResManager.LoadAsset<GameObject>("UIBattle"),
         GameObject.Find("UIRoot").transform).GetComponent<UIBattle>();
-      UIBattle.InitBattle(this);
+      UIBattle.Init(this);
       // --------------------------------------------------------------------------------
 
       BattleState = BattleState.Run;

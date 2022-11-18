@@ -17,8 +17,14 @@ namespace GameCore {
     private Text TurnText;
     [SerializeField]
     private Text PlayCardCountText;
+    [SerializeField]
+    private Transform[] AllyNodes;
+    [SerializeField]
+    private Transform[] EnemyNodes;
+    public Transform DrawTransform => DrawButton ? DrawButton.transform : null;
+    public Transform DiscardTransform => DiscardButton ? DiscardButton.transform : null;
 
-    public void InitBattle(Battle battle) {
+    public void Init(Battle battle) {
       Battle = battle;
 
       // Test
@@ -30,6 +36,22 @@ namespace GameCore {
       DrawButton?.onClick.AddListener(() => LogCards(CardHeapType.DRAW));
       DiscardButton?.onClick.AddListener(() => LogCards(CardHeapType.DISCARD));
       ConsumeButton?.onClick.AddListener(() => LogCards(CardHeapType.CONSUME));
+    }
+
+    public Transform GetAllyNode(int index) {
+      if(index < 0 || index >= AllyNodes.Length) {
+        return null;
+      }
+
+      return AllyNodes[index];
+    }
+
+    public Transform GetEnemyNode(int index) {
+      if (index < 0 || index >= EnemyNodes.Length) {
+        return null;
+      }
+
+      return EnemyNodes[index];
     }
 
     // Test

@@ -20,10 +20,16 @@ namespace GameCore {
 
     public void SetSelected(bool selected) {
       SelectedCount += selected ? 1 : -1;
-      SelectedGo.SetActive(SelectedCount > 0);
+      if (SelectedGo) {
+        SelectedGo.SetActive(SelectedCount > 0);
+      }
     }
 
-    public void PlayAnimation(string animation) => Animator?.Play(animation);
+    public void PlayAnimation(string animation) {
+      if (Animator) {
+        Animator.Play(animation);
+      }
+    }
 
     private void OnHpChanged(int beforeValue, int beforeMaxValue) => SetUIHp();
 

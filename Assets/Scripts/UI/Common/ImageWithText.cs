@@ -7,8 +7,12 @@ namespace GameCore {
     [SerializeField]
     private Text TextComponent;
     public string Text {
-      get => TextComponent.text;
-      set => TextComponent.text = value;
+      get => TextComponent ? TextComponent.text : null;
+      set {
+        if (TextComponent) {
+          TextComponent.text = value;
+        }
+      }
     }
 
     protected override void Awake() {

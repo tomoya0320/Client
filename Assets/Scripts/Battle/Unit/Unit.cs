@@ -14,7 +14,6 @@ namespace GameCore {
     HAND,
   }
 
-
   public class Unit : BattleBase {
     private UnitTemplate UnitTemplate;
     public bool IsAlive => UnitStateMachine.IsAlive;
