@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine.AddressableAssets;
 
 namespace GameCore.BehaviorFuncs {
+  [NodeWidth(300)]
   [CreateNodeMenu("节点/行为/其他/加Buff")]
   public class AddBuff : ActionNode {
     public AssetReferenceT<BuffTemplate> Buff;
