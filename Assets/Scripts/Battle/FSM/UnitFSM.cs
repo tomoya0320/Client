@@ -25,17 +25,21 @@ namespace GameCore {
       if (drawCardCount > 0) {
         if (Owner.BattleCardControl.GetCardCount(CardHeapType.DRAW) < drawCardCount) {
           var discardCardList = TempList<Card>.Get();
+          var uniTaskList = TempList<UniTask>.Get();
           Owner.BattleCardControl.GetCardList(CardHeapType.DISCARD, discardCardList);
           foreach (var card in discardCardList) {
-            await card.SetCardHeapType(CardHeapType.DRAW);
+            uniTaskList.Add(card.SetCardHeapType(CardHeapType.DRAW));
           }
+          await UniTask.WhenAll(uniTaskList);
           TempList<Card>.Release(discardCardList);
+          TempList<UniTask>.Release(uniTaskList);
         }
         var drawCardList = TempList<Card>.Get();
         Owner.BattleCardControl.GetCardList(CardHeapType.DRAW, drawCardList);
         MathUtil.FisherYatesShuffle(drawCardList);
         for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
           await drawCardList[i].SetCardHeapType(CardHeapType.HAND);
+          await UniTask.Delay(200);
         }
         TempList<Card>.Release(drawCardList);
       }
@@ -51,11 +55,14 @@ namespace GameCore {
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_END_TURN, Owner, context);
       // Test
       var handCardList = TempList<Card>.Get();
+      var uniTaskList = TempList<UniTask>.Get();
       Owner.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
       foreach (var card in handCardList) {
-        await card.SetCardHeapType(CardHeapType.DISCARD);
+        uniTaskList.Add(card.SetCardHeapType(CardHeapType.DISCARD));
       }
+      await UniTask.WhenAll(uniTaskList);
       TempList<Card>.Release(handCardList);
+      TempList<UniTask>.Release(uniTaskList);
     }
   }
 

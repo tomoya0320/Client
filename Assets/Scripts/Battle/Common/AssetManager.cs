@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Cysharp.Threading.Tasks;
 
 namespace GameCore {
   public abstract class AssetManager<T> : BattleBase where T : Object {
@@ -8,7 +9,7 @@ namespace GameCore {
 
     protected AssetManager(Battle battle) : base(battle) { }
 
-    public T Preload(AssetReferenceT<T> assetRef) {
+    public async UniTask<T> Preload(AssetReferenceT<T> assetRef) {
       if (string.IsNullOrEmpty(assetRef?.AssetGUID)) {
         return null;
       }
@@ -16,7 +17,7 @@ namespace GameCore {
       if (Templates.TryGetValue(assetRef.AssetGUID, out var template)) {
         return template;
       }
-      template = GameResManager.LoadAsset(assetRef);
+      template = await assetRef.LoadAssetAsync();
       if (template) {
         Templates.Add(assetRef.AssetGUID, template);
         return template;

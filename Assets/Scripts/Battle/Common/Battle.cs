@@ -106,7 +106,7 @@ namespace GameCore {
 
     private async UniTask Load() {
       // step1:加载关卡和单位的相关资源
-      LevelTemplate = LevelManager.Preload(BattleData.Level);
+      LevelTemplate = await LevelManager.Preload(BattleData.Level);
       foreach (var behaviorId in LevelTemplate.Behaviors) {
         await PreloadBehavior(behaviorId);
       }
@@ -138,15 +138,16 @@ namespace GameCore {
 
       // step4:加载战斗UI
       // ---------------------------------Test-------------------------------------------
-      UIBattle = Object.Instantiate(GameResManager.LoadAsset<GameObject>("UIBattle"),
+      UIBattle = Object.Instantiate(await Addressables.LoadAssetAsync<GameObject>("UIBattle"),
         GameObject.Find("UIRoot").transform).GetComponent<UIBattle>();
       UIBattle.Init(this);
       // --------------------------------------------------------------------------------
       // 依赖UIBattle初始化
       UIBattleText = new UIBattleText(this);
+      await UIBattleText.InitUI();
       foreach (var player in PlayerManager.PlayerList) {
         for (int i = 0; i < player.Units.Length; i++) {
-          player.Units[i].InitUI(i);
+          await player.Units[i].InitUI(i);
         }
       }
 
@@ -155,18 +156,18 @@ namespace GameCore {
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
-      var unitTemplate = UnitManager.Preload(unitData.Template);
-      PrefabManager.Preload(unitTemplate.Prefab);
-      AttribManager.Preload(unitTemplate.Attrib);
+      var unitTemplate = await UnitManager.Preload(unitData.Template);
+      await PrefabManager.Preload(unitTemplate.Prefab);
+      await AttribManager.Preload(unitTemplate.Attrib);
       foreach (var behavior in unitTemplate.Behaviors) {
         await PreloadBehavior(behavior);
       }
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
-        var cardTemplate = CardManager.Preload(cardData.Template);
-        SpriteManager.Preload(cardTemplate.Icon);
+        var cardTemplate = await CardManager.Preload(cardData.Template);
+        await SpriteManager.Preload(cardTemplate.Icon);
         foreach (var item in cardTemplate.LvCardItems) {
-          var skillTemplate = SkillManager.Preload(item.Skill);
+          var skillTemplate = await SkillManager.Preload(item.Skill);
           foreach (var skillEvent in skillTemplate.SKillEvents) {
             await PreloadMagic(skillEvent.Magic);
           }
@@ -175,7 +176,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBehavior(AssetReferenceT<BehaviorGraph> behaviorRef) {
-      var behavior = BehaviorManager.Preload(behaviorRef);
+      var behavior = await BehaviorManager.Preload(behaviorRef);
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
           switch (behaviorNode) {
@@ -191,7 +192,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadMagic(AssetReferenceT<MagicFuncBase> magicRef) {
-      var magic = MagicManager.Preload(magicRef);
+      var magic = await MagicManager.Preload(magicRef);
       if (magic) {
         switch (magic) {
           case AddBehavior addBehavior:
@@ -205,7 +206,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBuff(AssetReferenceT<BuffTemplate> buffRef) {
-      var buff = BuffManager.Preload(buffRef);
+      var buff = await BuffManager.Preload(buffRef);
       if (buff) {
         await PreloadMagic(buff.Magic);
         await PreloadMagic(buff.IntervalMagic);

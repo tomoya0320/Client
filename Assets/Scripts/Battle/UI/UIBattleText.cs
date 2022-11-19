@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public class UIBattleText : BattleBase {
     private const float TEXT_SHOW_TIME = 0.4f;
     private const float ANIM_DURATION = 0.3f;
-    private readonly GameObject TextPrefab;
-    private readonly Stack<Text> TextStack = new Stack<Text>();
+    private GameObject TextPrefab;
+    private Stack<Text> TextStack = new Stack<Text>();
 
-    public UIBattleText(Battle battle) : base(battle) {
-      TextPrefab = GameResManager.LoadAsset<GameObject>("BattleTextPrefab");
+    public UIBattleText(Battle battle) : base(battle) { }
+
+    public async UniTask InitUI() {
+      TextPrefab = await Addressables.LoadAssetAsync<GameObject>("BattleTextPrefab");
     }
 
     /// <summary>

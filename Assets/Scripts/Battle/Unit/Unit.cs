@@ -55,7 +55,7 @@ namespace GameCore {
       AttribChangedCallbacks = new Action<int, int>[Attribs.Length];
     }
 
-    public void InitUI(int index) {
+    public async UniTask InitUI(int index) {
       if (Battle.PrefabManager.TryGetAsset(UnitTemplate.Prefab?.AssetGUID, out var prefab)) {
         UIUnit = Object.Instantiate(prefab, Battle.UIBattle.GetUnitNode(Player.PlayerCamp, index)).GetComponent<UIUnit>();
         if (UIUnit) {
@@ -65,7 +65,7 @@ namespace GameCore {
 
       if (Player.IsSelf) {
         foreach (var card in BattleCardControl.Cards) {
-          card.InitUI();
+          await card.InitUI();
         }
       }
     }

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public class Card : BattleBase {
@@ -67,8 +68,8 @@ namespace GameCore {
       }
     }
 
-    public void InitUI() {
-      var prefab = GameResManager.LoadAsset<GameObject>("UICard");
+    public async UniTask InitUI() {
+      var prefab = await Addressables.LoadAssetAsync<GameObject>("UICard");
       UICard = Object.Instantiate(prefab, Battle.UIBattle.CardNode).GetComponent<UICard>();
       UICard.Init(this);
     }

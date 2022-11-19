@@ -130,7 +130,7 @@ namespace GameCore {
     public const float OUT_HAND_MOVE_TIME = 0.6f;
     public const float DRAGGING_SCALE = 1.2f;
     public const float DRAGGING_SCALE_SPEED = 12.0f;
-    public const float IN_HAND_SPEED = 0.02f;
+    public const float IN_HAND_SPEED = 0.1f;
 
     public UICardStateMachine(UICard owner) : base(owner) {
       RegisterState(new UICardInDraw(this));
@@ -197,6 +197,10 @@ namespace GameCore {
     }
 
     public void OnPointerDown(PointerEventData eventData) {
+      if (Card.Battle.BattleState != BattleState.Run) {
+        return;
+      }
+
       if (UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
         EventData = eventData;
         UICardStateMachine.SwitchState((int)UICardState.DRAGGING).Forget();
@@ -204,6 +208,10 @@ namespace GameCore {
     }
 
     public void OnPointerUp(PointerEventData eventData) {
+      if (Card.Battle.BattleState != BattleState.Run) {
+        return;
+      }
+
       if (UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
         if (Card.Owner.BattleCardControl.PlayCard(Card, MainTarget)) {
           UICardStateMachine.SwitchState((int)UICardState.PLAYING).Forget();
