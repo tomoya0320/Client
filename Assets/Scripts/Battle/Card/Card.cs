@@ -14,8 +14,44 @@ namespace GameCore {
     private Skill Skill => Skills[Lv];
     public int Cost => CardTemplate.LvCardItems[Lv].Cost;
     public bool Consumable => CardTemplate.LvCardItems[Lv].Consumable;
+    public string Desc => CardTemplate.LvCardItems[Lv].Desc;
+    public string Name => CardTemplate.LvCardItems[Lv].Name;
+    public CardType CardType => CardTemplate.CardType;
+    public string IconId => CardTemplate.Icon?.AssetGUID;
     private CardPrePlayer CardPlayer => CardTemplate.LvCardItems[Lv].CardPlayer;
-    public CardHeapType CardHeapType = CardHeapType.DRAW;
+    public CardHeapType CardHeapType { get; private set; } = CardHeapType.DRAW;
+    public UniTask SetCardHeapType(CardHeapType cardHeapType) {
+      if (CardHeapType == cardHeapType) {
+        return UniTask.CompletedTask;
+      }
+
+      var beforeType = CardHeapType;
+      CardHeapType = cardHeapType;
+
+      if (Owner.Player.IsSelf) {
+        if ((beforeType == CardHeapType.HAND || CardHeapType == CardHeapType.HAND)) {
+          var handCardList = TempList<Card>.Get();
+          Owner.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
+          for (int i = 0; i < handCardList.Count; i++) {
+            handCardList[i].UICard.InHandIndex = i;
+          }
+        }
+
+        switch (CardHeapType) {
+          case CardHeapType.DRAW:
+            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DRAW);
+          case CardHeapType.DISCARD:
+            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DISCARD);
+          case CardHeapType.CONSUME:
+            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_CONSUME);
+          case CardHeapType.HAND:
+            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_HAND);
+        }
+      }
+
+      return UniTask.CompletedTask;
+    }
+
     public UICard UICard { get; private set; }
 
     public Card(Battle battle, int runtimeId, Unit owner, CardData cardData) : base(battle) {
@@ -33,23 +69,8 @@ namespace GameCore {
 
     public void InitUI() {
       var prefab = GameResManager.LoadAsset<GameObject>("UICard");
-      UICard = Object.Instantiate(prefab, Battle.UIBattle.DrawNode).GetComponent<UICard>();
+      UICard = Object.Instantiate(prefab, Battle.UIBattle.CardNode).GetComponent<UICard>();
       UICard.Init(this);
-    }
-
-    public bool CheckTargetCamp(Unit mainTarget) {
-      switch (TargetCamp) {
-        case PlayerCamp.NONE:
-          return false;
-        case PlayerCamp.ALL:
-          return true;
-        case PlayerCamp.ALLY:
-          return Owner.PlayerCamp == mainTarget.PlayerCamp;
-        case PlayerCamp.ENEMY:
-          return Owner.PlayerCamp != mainTarget.PlayerCamp;
-        default:
-          return false;
-      }
     }
 
     public async UniTask Cast(Unit mainTarget) => await Skill.Cast(mainTarget);

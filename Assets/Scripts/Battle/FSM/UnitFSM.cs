@@ -24,16 +24,20 @@ namespace GameCore {
       int drawCardCount = BattleConstant.MAX_HAND_CARD_COUNT - Owner.BattleCardControl.GetCardCount(CardHeapType.HAND);
       if (drawCardCount > 0) {
         if (Owner.BattleCardControl.GetCardCount(CardHeapType.DRAW) < drawCardCount) {
-          foreach (var card in Owner.BattleCardControl[CardHeapType.DISCARD]) {
-            card.CardHeapType = CardHeapType.DRAW;
+          var discardCardList = TempList<Card>.Get();
+          Owner.BattleCardControl.GetCardList(CardHeapType.DISCARD, discardCardList);
+          foreach (var card in discardCardList) {
+            await card.SetCardHeapType(CardHeapType.DRAW);
           }
+          TempList<Card>.Release(discardCardList);
         }
-        var drawCardList = Owner.BattleCardControl[CardHeapType.DRAW];
+        var drawCardList = TempList<Card>.Get();
+        Owner.BattleCardControl.GetCardList(CardHeapType.DRAW, drawCardList);
         MathUtil.FisherYatesShuffle(drawCardList);
         for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
-          var card = drawCardList[i];
-          card.CardHeapType = CardHeapType.HAND;
+          await drawCardList[i].SetCardHeapType(CardHeapType.HAND);
         }
+        TempList<Card>.Release(drawCardList);
       }
     }
   }
@@ -46,9 +50,12 @@ namespace GameCore {
       // 执行回合结束前的行为树
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_END_TURN, Owner, context);
       // Test
-      foreach (var card in Owner.BattleCardControl[CardHeapType.HAND]) {
-        card.CardHeapType = CardHeapType.DISCARD;
+      var handCardList = TempList<Card>.Get();
+      Owner.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
+      foreach (var card in handCardList) {
+        await card.SetCardHeapType(CardHeapType.DISCARD);
       }
+      TempList<Card>.Release(handCardList);
     }
   }
 

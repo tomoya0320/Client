@@ -35,6 +35,7 @@ namespace GameCore {
     public LevelManager LevelManager { get; private set; }
     public SkillManager SkillManager { get; private set; }
     public PrefabManager PrefabManager { get; private set; }
+    public SpriteManager SpriteManager { get; private set; }
 
     public PlayerManager PlayerManager { get; private set; }
     public DamageManager DamageManager { get; private set; }
@@ -74,6 +75,7 @@ namespace GameCore {
       LevelManager = new LevelManager(this);
       SkillManager = new SkillManager(this);
       PrefabManager = new PrefabManager(this);
+      SpriteManager = new SpriteManager(this);
 
       PlayerManager = new PlayerManager(this);
       DamageManager = new DamageManager(this);
@@ -162,6 +164,7 @@ namespace GameCore {
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
         var cardTemplate = CardManager.Preload(cardData.Template);
+        SpriteManager.Preload(cardTemplate.Icon);
         foreach (var item in cardTemplate.LvCardItems) {
           var skillTemplate = SkillManager.Preload(item.Skill);
           foreach (var skillEvent in skillTemplate.SKillEvents) {
@@ -252,6 +255,9 @@ namespace GameCore {
 
       PrefabManager.Release();
       PrefabManager = null;
+
+      SpriteManager.Release();
+      SpriteManager = null;
 
       PlayerManager = null;
       DamageManager = null;

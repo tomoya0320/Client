@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace GameCore {
@@ -15,7 +16,7 @@ namespace GameCore {
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {
-      if (Owner.Player.EndTurnFlag || !card.CheckTargetCamp(mainTarget) || !card.PrePlay(mainTarget)) {
+      if (Owner.Player.EndTurnFlag || !UnitManager.CheckTargetCamp(card.TargetCamp, card.Owner, mainTarget) || !card.PrePlay(mainTarget)) {
         return false;
       }
 
@@ -29,12 +30,19 @@ namespace GameCore {
       return true;
     }
 
-    public void OnPlayedCard(Card card) {
-      card.CardHeapType = card.Consumable ? CardHeapType.CONSUME : CardHeapType.DISCARD;
+    public UniTask OnPlayedCard(Card card) {
       PlayCardCount++;
+      return card.SetCardHeapType(card.Consumable ? CardHeapType.CONSUME : CardHeapType.DISCARD);
     }
 
-    public List<Card> this[CardHeapType cardHeapType] => Cards.FindAll(card => card.CardHeapType == cardHeapType);
+    public void GetCardList(CardHeapType cardHeapType, List<Card> list) {
+      list.Clear();
+      foreach (var card in Cards) {
+        if (card.CardHeapType == cardHeapType) {
+          list.Add(card);
+        }
+      }
+    }
 
     public int GetCardCount(CardHeapType cardHeapType) {
       int count = 0;

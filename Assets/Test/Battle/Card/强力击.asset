@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e845e9e7e7611334a93e225f395585ee, type: 3}
-  m_Name: "\u6D4B\u8BD5\u5361\u724C"
+  m_Name: "\u5F3A\u529B\u51FB"
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -32,13 +32,16 @@ MonoBehaviour:
       Data: GameCore.LvCardItem, Assembly-CSharp
     - Name: Name
       Entry: 1
-      Data: "\u666E\u901A\u653B\u51FB\u5361\u724C\u6D4B\u8BD5"
+      Data: "\u5F3A\u529B\u51FB"
     - Name: Cost
       Entry: 3
       Data: 1
     - Name: Consumable
       Entry: 5
       Data: false
+    - Name: Desc
+      Entry: 1
+      Data: "\u5BF9\u654C\u65B9\u76EE\u6807\u9020\u621010\u70B9\u4F24\u5BB3"
     - Name: Skill
       Entry: 7
       Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
@@ -72,13 +75,16 @@ MonoBehaviour:
       Data: GameCore.LvCardItem, Assembly-CSharp
     - Name: Name
       Entry: 1
-      Data: "\u666E\u901A\u653B\u51FB\u5361\u724C\u6D4B\u8BD5"
+      Data: "\u5F3A\u529B\u51FB"
     - Name: Cost
       Entry: 3
       Data: 2
     - Name: Consumable
       Entry: 5
       Data: false
+    - Name: Desc
+      Entry: 1
+      Data: "\u5BF9\u654C\u65B9\u76EE\u6807\u9020\u621020\u70B9\u4F24\u5BB3"
     - Name: Skill
       Entry: 7
       Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
@@ -114,4 +120,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
   CardType: 0
+  Icon:
+    m_AssetGUID: da8a6e380799fdf49a6223eb8a6bd231
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   TargetCamp: 2

@@ -19,7 +19,7 @@ namespace GameCore {
       //Debug.Log($"[{Card.Owner.RuntimeId}:{Card.Owner.Name}]对[{MainTarget.RuntimeId}:{MainTarget.Name}]使用了卡牌{Card.CardTemplate.name} Lv:{Card.Lv}");
       Unit.Battle.UIBattleText.ShowText(Card.CardTemplate.name, Unit.UIUnit.BattleTextNode.position, Color.black, false);
       await Card.Cast(MainTarget);
-      Unit.BattleCardControl.OnPlayedCard(Card);
+      await Unit.BattleCardControl.OnPlayedCard(Card);
     }
 
     public override void Release() {

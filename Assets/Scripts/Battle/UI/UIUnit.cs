@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameCore {
   public class UIUnit : MonoBehaviour {
@@ -10,13 +11,17 @@ namespace GameCore {
     private int SelectedCount;
     [SerializeField]
     private ImageWithText UIHp;
+    [SerializeField]
+    private Text UIEnergy;
     public Transform NumNode;
     public Transform BattleTextNode;
 
     public UIUnit Init(Unit unit) {
       Unit = unit;
       Unit.AddAttribChangedCallback(AttribType.HP, OnHpChanged);
+      Unit.AddAttribChangedCallback(AttribType.ENERGY, OnEnergyChanged);
       SetUIHp();
+      SetUIEnergy();
       UpdateSelectedGo();
       return this;
     }
@@ -40,11 +45,20 @@ namespace GameCore {
 
     private void OnHpChanged(int beforeValue, int beforeMaxValue) => SetUIHp();
 
+    private void OnEnergyChanged(int beforeValue, int beforeMaxValue) => SetUIEnergy();
+
     private void SetUIHp() {
       if (UIHp) {
         Attrib hpAttrib = Unit.Attribs[(int)AttribType.HP];
         UIHp.fillAmount = (float)hpAttrib.Value / hpAttrib.MaxValue;
         UIHp.Text = $"{hpAttrib.Value}/{hpAttrib.MaxValue}";
+      }
+    }
+
+    private void SetUIEnergy() {
+      if (UIEnergy) {
+        Attrib energyAttrib = Unit.Attribs[(int)AttribType.ENERGY];
+        UIEnergy.text = $"{energyAttrib.Value}/{energyAttrib.MaxValue}";
       }
     }
   }

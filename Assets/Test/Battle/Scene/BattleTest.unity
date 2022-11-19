@@ -183,7 +183,7 @@ MonoBehaviour:
           m_SubObjectName: 
           m_SubObjectType: 
           m_EditorAssetChanged: 0
-        Lv: 0
+        Lv: 99
         CardData:
         - Template:
             m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
@@ -197,12 +197,6 @@ MonoBehaviour:
             m_SubObjectType: 
             m_EditorAssetChanged: 0
           Lv: 1
-        - Template:
-            m_AssetGUID: b75f4cffe6b48894488953fce9589c18
-            m_SubObjectName: 
-            m_SubObjectType: 
-            m_EditorAssetChanged: 0
-          Lv: 0
 --- !u!1 &907478201
 GameObject:
   m_ObjectHideFlags: 0

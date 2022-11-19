@@ -72,11 +72,9 @@ namespace GameCore {
     }
 
     private async UniTask InTurn() {
-      while (!EndTurnFlag) {
-        while (!HasOperation) {
-          await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
-          await UniTask.Yield();
-        }
+      while (!EndTurnFlag || HasOperation) {
+        await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
+        await UniTask.Yield();
         await DoOperation();
       }
     }

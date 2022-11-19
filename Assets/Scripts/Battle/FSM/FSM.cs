@@ -14,7 +14,9 @@ namespace GameCore {
 
     public virtual UniTask OnEnter(State<T> lastState, Context context = null) => UniTask.CompletedTask;
     public virtual UniTask OnExit(State<T> nextState, Context context = null) => UniTask.CompletedTask;
+    public virtual void OnTick() { }
     public virtual bool CheckLeave(State<T> nextState) => true;
+    public virtual bool CheckEnter(State<T> lastState) => true;
   }
 
   public abstract class StateMachine<T> where T : class {
@@ -23,6 +25,8 @@ namespace GameCore {
     public State<T> CurrentState { get; protected set; }
 
     public StateMachine(T owner) => Owner = owner;
+
+    public void OnTick() => CurrentState?.OnTick();
 
     public bool RegisterState(State<T> state) {
       if (state == null || States.ContainsKey(state.StateId)) {
@@ -33,7 +37,7 @@ namespace GameCore {
     }
 
     public async UniTask<bool> SwitchState(int nextStateId, Context context = null) {
-      if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextState)) {
+      if (States.TryGetValue(nextStateId, out var nextState) && CurrentState.CheckLeave(nextState) && nextState.CheckEnter(CurrentState)) {
         // ×¢ÒâË³Ðò
         var lastState = CurrentState;
         CurrentState = nextState;

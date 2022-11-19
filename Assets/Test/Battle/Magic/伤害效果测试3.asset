@@ -17,4 +17,4 @@ MonoBehaviour:
     ParamKey:
       Type: 0
       Key: magic_damage
-    Value: 15
+    Value: 30

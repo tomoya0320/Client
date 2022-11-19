@@ -18,11 +18,14 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null || sourceUnit == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      var handCardList = sourceUnit.BattleCardControl[CardHeapType.HAND];
-      if(cardIndex < 0 || cardIndex >= handCardList.Count) {
+      var handCardList = TempList<Card>.Get();
+      sourceUnit.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
+      var card = cardIndex >= 0 && cardIndex < handCardList.Count ? handCardList[cardIndex] : null;
+      TempList<Card>.Release(handCardList);
+      if (card == null) {
         return UniTask.FromResult(NodeResult.False);
       }
-      return UniTask.FromResult(BoolToNodeResult(sourceUnit.BattleCardControl.PlayCard(handCardList[cardIndex], targetUnit)));
+      return UniTask.FromResult(BoolToNodeResult(sourceUnit.BattleCardControl.PlayCard(card, targetUnit)));
     }
   }
 }
