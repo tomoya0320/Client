@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace GameCore {
   public class Card : BattleBase {
@@ -15,6 +16,7 @@ namespace GameCore {
     public bool Consumable => CardTemplate.LvCardItems[Lv].Consumable;
     private CardPrePlayer CardPlayer => CardTemplate.LvCardItems[Lv].CardPlayer;
     public CardHeapType CardHeapType = CardHeapType.DRAW;
+    public UICard UICard { get; private set; }
 
     public Card(Battle battle, int runtimeId, Unit owner, CardData cardData) : base(battle) {
       RuntimeId = runtimeId;
@@ -27,6 +29,12 @@ namespace GameCore {
       for (int i = 0; i < Skills.Length; i++) {
         Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].Skill?.AssetGUID);
       }
+    }
+
+    public void InitUI() {
+      var prefab = GameResManager.LoadAsset<GameObject>("UICard");
+      UICard = Object.Instantiate(prefab, Battle.UIBattle.DrawNode).GetComponent<UICard>();
+      UICard.Init(this);
     }
 
     public bool CheckTargetCamp(Unit mainTarget) {

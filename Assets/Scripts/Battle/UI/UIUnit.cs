@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace GameCore {
   public class UIUnit : MonoBehaviour {
+    private Unit Unit;
     [SerializeField]
     private Animator Animator;
     [SerializeField]
@@ -9,17 +10,23 @@ namespace GameCore {
     private int SelectedCount;
     [SerializeField]
     private ImageWithText UIHp;
-    private Unit Unit;
+    public Transform NumNode;
+    public Transform BattleTextNode;
 
     public UIUnit Init(Unit unit) {
       Unit = unit;
       Unit.AddAttribChangedCallback(AttribType.HP, OnHpChanged);
       SetUIHp();
+      UpdateSelectedGo();
       return this;
     }
 
     public void SetSelected(bool selected) {
       SelectedCount += selected ? 1 : -1;
+      UpdateSelectedGo();
+    }
+
+    private void UpdateSelectedGo() {
       if (SelectedGo) {
         SelectedGo.SetActive(SelectedCount > 0);
       }

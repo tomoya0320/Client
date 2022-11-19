@@ -17,18 +17,24 @@ namespace GameCore.BehaviorFuncs {
 
   [Serializable]
   public struct NodeIntParam {
+    [LabelText("字典值?")]
     public bool IsDict;
-    [ShowIf(nameof(IsDict)), HideLabel]
+    [HideLabel]
+    [ShowIf(nameof(IsDict))]
     public NodeParamKey ParamKey;
+    [LabelText("固定值")]
     [HideIf(nameof(IsDict))]
     public int Value;
   }
 
   [Serializable]
   public struct NodeFloatParam {
+    [LabelText("字典值?")]
     public bool IsDict;
-    [ShowIf(nameof(IsDict)), HideLabel]
+    [HideLabel]
+    [ShowIf(nameof(IsDict))]
     public NodeParamKey ParamKey;
+    [LabelText("固定值")]
     [HideIf(nameof(IsDict))]
     public float Value;
   }

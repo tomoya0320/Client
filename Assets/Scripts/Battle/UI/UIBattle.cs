@@ -7,12 +7,14 @@ namespace GameCore {
     private Battle Battle;
     [SerializeField]
     private Text TurnText;
-    public Transform DrawNode;
-    public Transform DiscardNode;
     [SerializeField]
     private Transform[] AllyNodes;
     [SerializeField]
     private Transform[] EnemyNodes;
+    public Transform DrawNode;
+    public Transform DiscardNode;
+    public Transform ConsumeNode;
+    public Transform TextNode;
 
     public void Init(Battle battle) {
       Battle = battle;

@@ -125,6 +125,14 @@ MonoBehaviour:
     m_Address: enemy_001_test
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e2d29c726c80bc64a8df5047f49e33be
+    m_Address: UICard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 220aff5c143eebe41971a5b8aee89784
+    m_Address: BattleTextPrefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

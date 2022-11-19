@@ -4,7 +4,7 @@ namespace GameCore {
   public class BattleCardControl {
     public Unit Owner { get; private set; }
     public int PlayCardCount { get; private set; }
-    private List<Card> Cards = new List<Card>();
+    public List<Card> Cards = new List<Card>();
 
     public BattleCardControl(Unit owner, CardData[] cardData) {
       Owner = owner;

@@ -62,6 +62,12 @@ namespace GameCore {
           UIUnit.Init(this);
         }
       }
+
+      if (Player.IsSelf) {
+        foreach (var card in BattleCardControl.Cards) {
+          card.InitUI();
+        }
+      }
     }
 
     public void AddAttribChangedCallback(AttribType type, Action<int, int> callback) => AttribChangedCallbacks[(int)type] += callback;
