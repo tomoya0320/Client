@@ -193,14 +193,14 @@ namespace GameCore {
     }
 
     public async void OnPointerDown(PointerEventData eventData) {
-      if (UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
-        EventData = eventData;
+      EventData = eventData;
+      if (Battle.BattleState == BattleState.Run && UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
         await UICardStateMachine.SwitchState((int)UICardState.DRAGGING);
       }
     }
 
     public async void OnPointerUp(PointerEventData eventData) {
-      if (UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
+      if (Battle.BattleState == BattleState.Run && UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
         if (Card.Owner.BattleCardControl.PlayCard(Card, MainTarget)) {
           await UICardStateMachine.SwitchState((int)UICardState.PLAYING);
         } else {
