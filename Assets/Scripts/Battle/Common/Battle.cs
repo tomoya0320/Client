@@ -2,10 +2,10 @@ using Cysharp.Threading.Tasks;
 using GameCore.MagicFuncs;
 using GameCore.UI;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using Object = UnityEngine.Object;
 
 namespace GameCore {
   public enum BattleState {
@@ -16,7 +16,8 @@ namespace GameCore {
   }
 
   public class Battle {
-    public CancellationToken CancellationToken { get; private set; }
+    private CancellationTokenSource CancellationTokenSource =new CancellationTokenSource();
+    public CancellationToken CancellationToken => CancellationTokenSource.Token;
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public LevelTemplate LevelTemplate { get; private set; }
@@ -50,22 +51,22 @@ namespace GameCore {
     public static Battle Instance { get; private set; }
     #endregion
 
-    public static bool Enter(BattleData battleData, CancellationToken token) {
+    public static bool Enter(BattleData battleData) {
       if (Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
       }
       // 战斗实例初始化
-      Instance = new Battle(battleData, token);
+      Instance = new Battle(battleData);
       // 首先是加载资源
       Instance.BattleState = BattleState.Load;
       Instance.Update();
       return true;
     }
 
-    private Battle(BattleData battleData, CancellationToken token) {
+    private Battle(BattleData battleData) {
       BattleData = battleData;
-      CancellationToken = token;
+
       UnitManager = new UnitManager(this);
       BuffManager = new BuffManager(this);
       MagicManager = new MagicManager(this);
@@ -207,9 +208,13 @@ namespace GameCore {
       }
     }
 
-    public UniTask Settle(bool isWin) {
+    public void Settle(bool isWin) {
       Debug.Log(isWin ? "Battle win" : "Battle lose");
-      return UniTask.FromCanceled(CancellationToken);
+      Cancel();
+    }
+
+    public void Cancel() {
+      CancellationTokenSource.Cancel();
     }
 
     private UniTask Clear() {

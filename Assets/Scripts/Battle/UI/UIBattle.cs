@@ -24,26 +24,27 @@ namespace GameCore.UI {
       Text textComponent;
       if (TextStack.Count > 0) {
         textComponent = TextStack.Pop();
-        textComponent.gameObject.SetActive(true);
       } else {
-        textComponent = Object.Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
+        textComponent = Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
       }
+      textComponent.gameObject.SetActive(true);
 
       textComponent.text = text;
       color.a = 0;
       textComponent.color = color;
       textComponent.transform.position = pos;
-      var rectTransform = textComponent.GetComponent<RectTransform>();
-      var width = rectTransform.rect.width;
-      var height = rectTransform.rect.height;
+      float width = textComponent.rectTransform.rect.width;
+      float height = textComponent.rectTransform.rect.height;
       if (random) {
-        rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
+        textComponent.rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
       }
-      float targetAnchoredPositionY = rectTransform.anchoredPosition.y + height;
-      await UniTask.WhenAll(rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME).AwaitForComplete(), textComponent.DOFade(1.0f, ANIM_TIME).AwaitForComplete());
+      float targetAnchoredPositionY = textComponent.rectTransform.anchoredPosition.y + height;
+
+      await UniTask.WhenAll(textComponent.rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken), 
+                            textComponent.DOFade(1.0f, ANIM_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken));
       // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
       if (textComponent) {
-        await textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME).AwaitForComplete();
+        await textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken);
         if (textComponent) {
           TextStack.Push(textComponent);
           textComponent.gameObject.SetActive(false);

@@ -11,7 +11,7 @@ namespace GameCore.UI {
     private Func<bool> WaitAnimFunc;
 
     public virtual UIBase Init(params object[] args) {
-      WaitAnimFunc = () => Animation.isPlaying;
+      WaitAnimFunc = () => Animation && Animation.isPlaying;
       return this;
     }
 
@@ -25,7 +25,7 @@ namespace GameCore.UI {
 
     private async UniTask PlayAnim(string name) {
       if (Animation && Animation.GetClip(name) && Animation.Play(name)) {
-        await UniTask.WaitWhile(WaitAnimFunc);
+        await UniTask.WaitWhile(WaitAnimFunc, cancellationToken: Game.Instance.CancellationToken);
       }
     }
   }

@@ -30,8 +30,8 @@ namespace GameCore {
         return;
       }
 
-      await UniTask.WhenAll(Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME).AwaitForComplete(),
-                            Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME).AwaitForComplete());
+      await UniTask.WhenAll(Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME).AwaitForComplete(cancellationToken: Owner.Battle.CancellationToken),
+                            Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME).AwaitForComplete(cancellationToken: Owner.Battle.CancellationToken));
       Owner.gameObject.SetActive(false);
     }
 

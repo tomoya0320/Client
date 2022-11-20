@@ -6,8 +6,8 @@ namespace GameCore.Test {
     [SerializeField]
     private AVGGraph AVGGraph;
 
-    private async void Start() {
-      await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", AVGGraph);
+    private void Start() {
+      AVG.Enter(AVGGraph);
     }
   }
 }

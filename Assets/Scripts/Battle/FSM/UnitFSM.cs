@@ -39,7 +39,7 @@ namespace GameCore {
         MathUtil.FisherYatesShuffle(drawCardList);
         for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
           await drawCardList[i].SetCardHeapType(CardHeapType.HAND);
-          await UniTask.Delay(200);
+          await UniTask.Delay(200, cancellationToken: Owner.Battle.CancellationToken);
         }
         TempList<Card>.Release(drawCardList);
       }
@@ -72,7 +72,7 @@ namespace GameCore {
     
     public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
       Owner.UIUnit.PlayAnimation("Die");
-      await UniTask.Delay((int)(Owner.DieAnimTime * BattleConstant.THOUSAND));
+      await UniTask.Delay((int)(Owner.DieAnimTime * BattleConstant.THOUSAND), cancellationToken: Owner.Battle.CancellationToken);
       Owner.Player.DeadUnitCount++;
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_DEAD, Owner, context);
       Owner.Battle.UnitManager.OnUnitDie(Owner);
