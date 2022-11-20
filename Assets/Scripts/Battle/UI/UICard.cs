@@ -25,13 +25,15 @@ namespace GameCore {
     public async override UniTask OnEnter(State<UICard> lastState, Context context = null) {
       if (lastState == null) {
         Owner.transform.position = CardHeapNode.position;
-        Owner.transform.localScale = Vector3.one * UICardStateMachine.OUT_HAND_SCALE;
+        Owner.transform.localScale = UICardStateMachine.OUT_HAND_SCALE * Vector3.one;
         Owner.gameObject.SetActive(false);
         return;
       }
 
-      await UniTask.WhenAll(Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME).AwaitForComplete(cancellationToken: Owner.Battle.CancellationToken),
-                            Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME).AwaitForComplete(cancellationToken: Owner.Battle.CancellationToken));
+      Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME);
+      Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME);
+      await UniTask.Delay((int)(BattleConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME)));
+
       Owner.gameObject.SetActive(false);
     }
 

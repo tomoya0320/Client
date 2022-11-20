@@ -17,39 +17,43 @@ namespace GameCore.UI {
     /// 显示文本(伤害、治疗等数值)
     /// </summary>
     public async void ShowText(string text, Vector3 pos, Color color, bool random) {
-      if (!TextPrefab) {
-        return;
-      }
-
-      Text textComponent;
-      if (TextStack.Count > 0) {
-        textComponent = TextStack.Pop();
-      } else {
-        textComponent = Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
-      }
-      textComponent.gameObject.SetActive(true);
-
-      textComponent.text = text;
-      color.a = 0;
-      textComponent.color = color;
-      textComponent.transform.position = pos;
-      float width = textComponent.rectTransform.rect.width;
-      float height = textComponent.rectTransform.rect.height;
-      if (random) {
-        textComponent.rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
-      }
-      float targetAnchoredPositionY = textComponent.rectTransform.anchoredPosition.y + height;
-
-      await UniTask.WhenAll(textComponent.rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken), 
-                            textComponent.DOFade(1.0f, ANIM_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken));
-      // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
-      if (textComponent) {
-        await textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME).AwaitForComplete(cancellationToken: Battle.CancellationToken);
-        if (textComponent) {
-          TextStack.Push(textComponent);
-          textComponent.gameObject.SetActive(false);
+      try {
+        if (!TextPrefab) {
+          return;
         }
-      }
+
+        Text textComponent;
+        if (TextStack.Count > 0) {
+          textComponent = TextStack.Pop();
+        } else {
+          textComponent = Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
+        }
+        textComponent.gameObject.SetActive(true);
+
+        textComponent.text = text;
+        color.a = 0;
+        textComponent.color = color;
+        textComponent.DOFade(1.0f, ANIM_TIME);
+
+        textComponent.transform.position = pos;
+        float width = textComponent.rectTransform.rect.width;
+        float height = textComponent.rectTransform.rect.height;
+        if (random) {
+          textComponent.rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
+        }
+        float targetAnchoredPositionY = textComponent.rectTransform.anchoredPosition.y + height;
+        textComponent.rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME);
+        await UniTask.Delay((int)(BattleConstant.THOUSAND * ANIM_TIME), cancellationToken: Battle.CancellationToken);
+        // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
+        if (textComponent) {
+          textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME);
+          await UniTask.Delay((int)(BattleConstant.THOUSAND * (ANIM_TIME + TEXT_SHOW_TIME)), cancellationToken: Battle.CancellationToken);
+          if (textComponent) {
+            TextStack.Push(textComponent);
+            textComponent.gameObject.SetActive(false);
+          }
+        }
+      } catch (System.OperationCanceledException) { }
     }
     #endregion
 
