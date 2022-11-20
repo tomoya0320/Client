@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameCore {
+namespace GameCore.UI {
   [ExecuteInEditMode]
   public class ImageWithText : Image {
     [SerializeField]

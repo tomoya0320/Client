@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
@@ -5,42 +6,52 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameCore.UI {
-  public class UIAVGTest : MonoBehaviour, IUIAVG {
+  public class UIAVG : UIBase, IUIAVG {
     private struct Option {
       public GameObject Root;
       public Text Content;
       public Button Ok;
     }
 
-    public AVGGraph AVGGraph;
-    public Transform OptionTransform;
-    public Text Name;
-    public Text Dialogue;
-    public Button Next;
+    [SerializeField]
+    private Transform OptionNode;
+    [SerializeField]
+    private Text NameText;
+    [SerializeField]
+    private Text DialogueText;
+    [SerializeField]
+    private Button NextBtn;
     private AVG AVG;
     private List<Option> Options = new List<Option>();
 
-    private void Awake() {
-      AVG = new AVG();
-      AVG.Init(this, AVGGraph);
+    public override UIBase Init(params object[] args) {
+      AVG = new AVG(this, args[0] as AVGGraph);
 
-      Name.text = string.Empty;
-      Dialogue.text = string.Empty;
-      Next.onClick.AddListener(() => AVG.Run());
-      foreach (Transform op in OptionTransform) {
+      NameText.text = string.Empty;
+      DialogueText.text = string.Empty;
+      NextBtn.onClick.AddListener(() => AVG.Run());
+      foreach (Transform op in OptionNode) {
         Options.Add(new Option {
           Root = op.gameObject,
           Content = op.GetComponentInChildren<Text>(true),
           Ok = op.GetComponentInChildren<Button>(true)
         });
       }
-      OptionTransform.gameObject.SetActive(false);
+      OptionNode.gameObject.SetActive(false);
+
+      return this;
+    }
+
+    public async override UniTask Close() {
+      AVG?.Clear();
+      AVG = null;
+      await base.Close();
     }
 
     public Tween SetDialogue(string name, string dialogue, float fadeTime, bool setSpeedBased) {
-      Name.text = name;
-      Dialogue.text = string.Empty;
-      var tween = Dialogue.DOText(dialogue, fadeTime);
+      NameText.text = name;
+      DialogueText.text = string.Empty;
+      var tween = DialogueText.DOText(dialogue, fadeTime);
       if (setSpeedBased) {
         tween.SetSpeedBased();
       }
@@ -57,14 +68,14 @@ namespace GameCore.UI {
           int index = i; // ±Õ°ü
           op.Content.text = options[i];
           op.Ok.onClick.AddListener(() => {
-            OptionTransform.gameObject.SetActive(false);
+            OptionNode.gameObject.SetActive(false);
             callback?.Invoke(index);
           });
           op.Root.SetActive(true);
         }
       }
 
-      OptionTransform.gameObject.SetActive(true);
+      OptionNode.gameObject.SetActive(true);
     }
   }
 }

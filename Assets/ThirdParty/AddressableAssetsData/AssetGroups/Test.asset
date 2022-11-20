@@ -485,6 +485,10 @@ MonoBehaviour:
     m_Address: cards_87
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4a1f2ec2c02ff1542897f4a13a76a2de
+    m_Address: UIAVG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

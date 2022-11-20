@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using GameCore.MagicFuncs;
+using GameCore.UI;
 using System;
 using System.Threading;
 using UnityEngine;
@@ -137,11 +138,7 @@ namespace GameCore {
       }
 
       // step4:加载战斗UI
-      // ---------------------------------Test-------------------------------------------
-      UIBattle = Object.Instantiate(await Addressables.LoadAssetAsync<GameObject>("UIBattle"),
-        GameObject.Find("UIRoot").transform).GetComponent<UIBattle>();
-      UIBattle.Init(this);
-      // --------------------------------------------------------------------------------
+      UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", this);
       // 依赖UIBattle初始化
       UIBattleText = new UIBattleText(this);
       await UIBattleText.InitUI();
@@ -218,7 +215,7 @@ namespace GameCore {
       return UniTask.FromCanceled(CancellationToken);
     }
 
-    private async UniTask Clear() {
+    private UniTask Clear() {
       Instance = null;
       BattleData = null;
       BattleState = BattleState.None;
@@ -266,10 +263,10 @@ namespace GameCore {
       SelfPlayer = null;
       LevelTemplate = null;
 
-      await UniTask.Yield();
-
       GC.Collect();
       Debug.Log("清理战斗");
+
+      return UniTask.CompletedTask;
     }
 
     private async UniTask Run() {

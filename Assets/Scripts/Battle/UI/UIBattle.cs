@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameCore {
-  public class UIBattle : MonoBehaviour {
+namespace GameCore.UI {
+  public class UIBattle : UIBase {
     private Battle Battle;
     [SerializeField]
     private Transform[] AllyNodes;
@@ -17,9 +17,10 @@ namespace GameCore {
     public Transform TextNode;
     public Transform CardNode;
 
-    public void Init(Battle battle) {
-      Battle = battle;
+    public override UIBase Init(params object[] args) {
+      Battle = args[0] as Battle;
       Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
+      return this;
     }
 
     public Transform GetUnitNode(PlayerCamp playerCamp, int index) {

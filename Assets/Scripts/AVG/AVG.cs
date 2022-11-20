@@ -4,14 +4,14 @@ using GameCore.UI;
 using System.Collections.Generic;
 
 namespace GameCore {
-  public class AVG : IPoolObject {
+  public class AVG {
     public int Block;
     public AVGNode AVGNode;
     public List<Tween> Tweens = new List<Tween>();
     public IUIAVG UI { get; private set; }
     public AVGGraph AVGGraph { get; private set; }
 
-    public void Init(IUIAVG ui, AVGGraph avgGraph) {
+    public AVG(IUIAVG ui, AVGGraph avgGraph) {
       UI = ui;
       AVGGraph = avgGraph;
       AVGNode = AVGGraph.GetEnterNode();
@@ -19,7 +19,7 @@ namespace GameCore {
 
     public void Run() => AVGGraph.Run(this);
 
-    public void Release() {
+    public void Clear() {
       if (Tweens.Count > 0) {
         foreach (var tween in Tweens) {
           tween?.Kill();
