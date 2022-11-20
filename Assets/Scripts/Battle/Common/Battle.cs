@@ -44,7 +44,6 @@ namespace GameCore {
 
     #region UI
     public UIBattle UIBattle { get; private set; }
-    public UIBattleText UIBattleText { get; private set; }
     #endregion
 
     #region Static
@@ -140,8 +139,6 @@ namespace GameCore {
       // step4:加载战斗UI
       UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", this);
       // 依赖UIBattle初始化
-      UIBattleText = new UIBattleText(this);
-      await UIBattleText.InitUI();
       foreach (var player in PlayerManager.PlayerList) {
         for (int i = 0; i < player.Units.Length; i++) {
           await player.Units[i].InitUI(i);

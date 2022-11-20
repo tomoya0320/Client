@@ -14,7 +14,7 @@ namespace GameCore {
         return false;
       }
       if (cost > owner.Attribs[(int)AttribType.ENERGY].Value) {
-        owner.Battle.UIBattleText.ShowText("能量不足!", owner.UIUnit.BattleTextNode.position, Color.red, false);
+        owner.Battle.UIBattle.ShowText("能量不足!", owner.UIUnit.BattleTextNode.position, Color.red, false);
         return false;
       }
       owner.AddAttrib(AttribType.ENERGY, -cost);

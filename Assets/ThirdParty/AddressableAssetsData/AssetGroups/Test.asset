@@ -129,10 +129,6 @@ MonoBehaviour:
     m_Address: UICard
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 220aff5c143eebe41971a5b8aee89784
-    m_Address: BattleTextPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: e87cf6e118820ec448cec72fb608fe6d
     m_Address: cards_4
     m_ReadOnly: 0
