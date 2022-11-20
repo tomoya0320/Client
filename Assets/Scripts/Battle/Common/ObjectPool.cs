@@ -29,5 +29,12 @@ namespace GameCore {
       obj.Release();
       stack.Push(obj);
     }
+
+    public void Release() {
+      foreach (var stack in PoolObjects.Values) {
+        stack.Clear();
+      }
+      PoolObjects.Clear();
+    }
   }
 }

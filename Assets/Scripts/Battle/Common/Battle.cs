@@ -219,15 +219,8 @@ namespace GameCore {
     }
 
     private async UniTask Clear() {
-      // ---------------------------------Test-------------------------------------------
-      if (UIBattle) {
-        Object.Destroy(UIBattle);
-      }
-      // --------------------------------------------------------------------------------
-
       Instance = null;
       BattleData = null;
-      CancellationToken = default;
       BattleState = BattleState.None;
 
       UnitManager.Release();
@@ -263,8 +256,12 @@ namespace GameCore {
       PlayerManager = null;
       DamageManager = null;
 
+      Blackboard.Release();
       Blackboard = null;
+
+      ObjectPool.Release();
       ObjectPool = null;
+
       CurPlayer = null;
       SelfPlayer = null;
       LevelTemplate = null;

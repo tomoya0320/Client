@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Threading;
 
 namespace GameCore {
 
@@ -46,9 +47,10 @@ namespace GameCore {
     public UICardInDraw(StateMachine<UICard> stateMachine) : base((int)UICardState.IN_DRAW, stateMachine) { }
   }
 
-  public class UICardInHand : State<UICard> {
+  public class UICardInHand : StateWithUpdate<UICard> {
     private int InHandIndex;
     private Vector2 Pos;
+    protected override CancellationToken CancellationToken => Owner.Battle.CancellationToken;
 
     public UICardInHand(StateMachine<UICard> stateMachine) : base((int)UICardState.IN_HAND, stateMachine) { }
 
@@ -57,7 +59,7 @@ namespace GameCore {
       return base.OnEnter(lastState, context);
     }
 
-    public override void OnTick() {
+    protected override void UpdateInternal() {
       if (InHandIndex != Owner.InHandIndex) {
         InHandIndex = Owner.InHandIndex;
         Owner.transform.SetSiblingIndex(InHandIndex);
@@ -82,7 +84,9 @@ namespace GameCore {
     public UICardInConsume(StateMachine<UICard> stateMachine) : base((int)UICardState.IN_CONSUME, stateMachine) { }
   }
 
-  public class UICardDragging : State<UICard> {
+  public class UICardDragging : StateWithUpdate<UICard> {
+    protected override CancellationToken CancellationToken => Owner.Battle.CancellationToken;
+
     public UICardDragging(StateMachine<UICard> stateMachine) : base((int)UICardState.DRAGGING, stateMachine) { }
 
     public override bool CheckEnter(State<UICard> lastState) => lastState != null && lastState.StateId == (int)UICardState.IN_HAND;
@@ -92,19 +96,19 @@ namespace GameCore {
       return base.OnEnter(lastState, context);
     }
 
-    public override void OnTick() {
-      // ´óÐ¡Ëõ·Å
+    protected override void UpdateInternal() {
+      // å¤§å°ç¼©æ”¾
       Owner.transform.localScale = Vector3.Lerp(Owner.transform.localScale, Vector3.one * UICardStateMachine.DRAGGING_SCALE, UICardStateMachine.DRAGGING_SCALE_SPEED * Time.deltaTime);
-      // Î»ÖÃÒÆ¶¯
+      // ä½ç½®ç§»åŠ¨
       Owner.RectTransform.anchoredPosition = Owner.EventData.position - 0.5f * new Vector2(Screen.width, Screen.height);
-      // Ä¿±êÑ¡ÖÐµÄÂß¼­²ã
+      // ç›®æ ‡é€‰ä¸­çš„é€»è¾‘å±‚
       Unit beforeMainTarget = Owner.MainTarget;
-      if (Owner.transform.position.y > 0) {
+      if (Owner.transform.position.y > 0 && Owner.Battle.BattleState == BattleState.Run) {
         Owner.MainTarget = Owner.Card.Battle.UnitManager.GetNearestUnit(Owner.EventData.position, Owner.Card.TargetCamp, Owner.Card.Owner);
       } else {
         Owner.MainTarget = null;
       }
-      // Ä¿±êÑ¡ÖÐµÄ±íÏÖ²ã
+      // ç›®æ ‡é€‰ä¸­çš„è¡¨çŽ°å±‚
       if (beforeMainTarget != Owner.MainTarget) {
         beforeMainTarget?.UIUnit.SetSelected(false);
         Owner.MainTarget?.UIUnit.SetSelected(true);
@@ -161,23 +165,21 @@ namespace GameCore {
     private Image IconImage;
     public int InHandIndex;
     public Card Card { get; private set; }
-    public Transform DrawNode => Card.Battle.UIBattle.DrawNode;
-    public Transform DiscardNode => Card.Battle.UIBattle.DiscardNode;
-    public Transform ConsumeNode => Card.Battle.UIBattle.ConsumeNode;
-    public RectTransform InHandNode => Card.Battle.UIBattle.InHandNode;
+    public Battle Battle => Card.Battle;
+    public Transform DrawNode => Battle.UIBattle.DrawNode;
+    public Transform DiscardNode => Battle.UIBattle.DiscardNode;
+    public Transform ConsumeNode => Battle.UIBattle.ConsumeNode;
+    public RectTransform InHandNode => Battle.UIBattle.InHandNode;
     public UICardStateMachine UICardStateMachine { get; private set; }
     public PointerEventData EventData { get; private set; }
-    public RectTransform RectTransform { get; private set; }
+    private RectTransform _RectTransform;
+    public RectTransform RectTransform => _RectTransform ?? (_RectTransform = GetComponent<RectTransform>());
     public Unit MainTarget;
-
-    private void Awake() {
-      RectTransform = GetComponent<RectTransform>();
-    }
 
     public void Init(Card card) {
       Card = card;
       UICardStateMachine = new UICardStateMachine(this);
-      // ³õÊ¼»¯UI
+      // åˆå§‹åŒ–UI
       LvText.text = $"{Card.Lv + 1}";
       CostText.text = Card.Cost >= 0 ? Card.Cost.ToString() : "X";
       DescText.text = Card.Desc;
@@ -188,38 +190,22 @@ namespace GameCore {
       }
     }
 
-    private void Update() {
-      if (Card.Battle.BattleState != BattleState.Run) {
-        return;
-      }
-
-      UICardStateMachine.OnTick();
-    }
-
-    public void OnPointerDown(PointerEventData eventData) {
-      if (Card.Battle.BattleState != BattleState.Run) {
-        return;
-      }
-
+    public async void OnPointerDown(PointerEventData eventData) {
       if (UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
         EventData = eventData;
-        UICardStateMachine.SwitchState((int)UICardState.DRAGGING).Forget();
+        await UICardStateMachine.SwitchState((int)UICardState.DRAGGING);
       }
     }
 
-    public void OnPointerUp(PointerEventData eventData) {
-      if (Card.Battle.BattleState != BattleState.Run) {
-        return;
-      }
-
+    public async void OnPointerUp(PointerEventData eventData) {
       if (UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
         if (Card.Owner.BattleCardControl.PlayCard(Card, MainTarget)) {
-          UICardStateMachine.SwitchState((int)UICardState.PLAYING).Forget();
+          await UICardStateMachine.SwitchState((int)UICardState.PLAYING);
         } else {
-          UICardStateMachine.SwitchState((int)UICardState.IN_HAND).Forget();
+          await UICardStateMachine.SwitchState((int)UICardState.IN_HAND);
         }
       }
-
+      EventData = null;
     }
   }
 }

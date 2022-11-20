@@ -41,7 +41,11 @@ namespace GameCore {
       return nodes[index];
     }
 
-    public void EndTurn() => Battle.SelfPlayer.EndTurnFlag = true;
+    public void EndTurn() {
+      if (Battle.BattleState == BattleState.Run) {
+        Battle.SelfPlayer.EndTurnFlag = true;
+      }
+    }
 
     public void OnSelfStartTurn() {
       if (TurnText) {

@@ -74,7 +74,7 @@ namespace GameCore {
     private async UniTask InTurn() {
       while (!EndTurnFlag || HasOperation) {
         await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
-        await UniTask.Yield();
+        await UniTask.Yield(Battle.CancellationToken);
         await DoOperation();
       }
     }
