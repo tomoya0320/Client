@@ -34,7 +34,6 @@ namespace GameCore {
 
     private async void Update() {
       while (Updating) {
-        // 注意顺序
         UpdateInternal();
         try {
           await UniTask.Yield(CancellationToken);

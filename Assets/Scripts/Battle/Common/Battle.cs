@@ -87,21 +87,19 @@ namespace GameCore {
 
     public async void Update() {
       while (BattleState != BattleState.None) {
-        switch (BattleState) {
-          case BattleState.Load:
-            await Load();
-            break;
-          case BattleState.Run:
-            try {
+        try {
+          switch (BattleState) {
+            case BattleState.Load:
+              await Load();
+              break;
+            case BattleState.Run:
               await Run();
-            } catch (OperationCanceledException) {
-              BattleState = BattleState.Exit;
-            }
-            break;
-          case BattleState.Exit:
-            await Clear();
-            break;
-        }
+              break;
+            case BattleState.Exit:
+              await Clear();
+              break;
+          }
+        } catch (OperationCanceledException) { }
       }
     }
 
@@ -213,8 +211,9 @@ namespace GameCore {
       Cancel();
     }
 
-    public void Cancel() {
+    public void Cancel(bool force = false) {
       CancellationTokenSource.Cancel();
+      BattleState = force ? BattleState.None : BattleState.Exit;
     }
 
     private UniTask Clear() {
@@ -274,7 +273,7 @@ namespace GameCore {
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
-      Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
+      // Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
       // 回合中的逻辑
       await CurPlayer.OnTurn();
     }

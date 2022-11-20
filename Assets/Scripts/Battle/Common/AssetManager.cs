@@ -17,7 +17,11 @@ namespace GameCore {
       if (Templates.TryGetValue(assetRef.AssetGUID, out var template)) {
         return template;
       }
-      template = await assetRef.LoadAssetAsync();
+      var handle = assetRef.LoadAssetAsync();
+      while (!handle.IsDone) {
+        await UniTask.Yield(Battle.CancellationToken);
+      }
+      template = handle.Result;
       if (template) {
         Templates.Add(assetRef.AssetGUID, template);
         return template;

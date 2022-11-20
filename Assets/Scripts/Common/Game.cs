@@ -11,7 +11,7 @@ namespace GameCore {
 
     private void OnApplicationQuit() {
       if (Battle.Instance != null) {
-        Battle.Instance.Cancel();
+        Battle.Instance.Cancel(true);
       }
       Cancel();
     }
