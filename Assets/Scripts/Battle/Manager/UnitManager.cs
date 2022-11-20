@@ -44,13 +44,14 @@ namespace GameCore {
       }
     }
 
-    public Unit GetNearestUnit(Vector3 pos, PlayerCamp playerCamp, Unit owner) {
+    public Unit GetNearestUnit(Vector2 screenPos, PlayerCamp playerCamp, Unit owner) {
       Unit result = null;
       float minDist = float.MaxValue;
       var unitList = TempList<Unit>.Get();
       GetUnitList(playerCamp, owner, unitList);
       foreach (var unit in unitList) {
-        float dist = Vector3.Distance(pos, unit.UIUnit.transform.position);
+        Vector2 unitScreenPos = Camera.main.WorldToScreenPoint(unit.UIUnit.transform.position);
+        float dist = Vector2.Distance(screenPos, unitScreenPos);
         if (dist < minDist) {
           minDist = dist;
           result = unit;

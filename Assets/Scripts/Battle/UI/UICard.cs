@@ -100,7 +100,7 @@ namespace GameCore {
       // 目标选中的逻辑层
       Unit beforeMainTarget = Owner.MainTarget;
       if (Owner.transform.position.y > 0) {
-        Owner.MainTarget = Owner.Card.Battle.UnitManager.GetNearestUnit(Owner.transform.position, Owner.Card.TargetCamp, Owner.Card.Owner);
+        Owner.MainTarget = Owner.Card.Battle.UnitManager.GetNearestUnit(Owner.RectTransform.anchoredPosition, Owner.Card.TargetCamp, Owner.Card.Owner);
       } else {
         Owner.MainTarget = null;
       }
