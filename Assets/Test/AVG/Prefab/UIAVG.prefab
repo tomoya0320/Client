@@ -891,6 +891,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2029371256415927851}
   - component: {fileID: 2029371256415927852}
+  - component: {fileID: 7280558047524424230}
+  - component: {fileID: 6172766503334257188}
   m_Layer: 5
   m_Name: UIAVG
   m_TagString: Untagged
@@ -934,13 +936,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6df3b0248761de45b36523145bee8a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OpenAnim: {fileID: 0}
-  CloseAnim: {fileID: 0}
-  CanvasGroup: {fileID: 0}
+  Animation: {fileID: 7280558047524424230}
+  CanvasGroup: {fileID: 6172766503334257188}
   OptionNode: {fileID: 2029371256654271582}
   NameText: {fileID: 2029371254977766229}
   DialogueText: {fileID: 2029371255874384222}
   NextBtn: {fileID: 2029371254971690191}
+--- !u!111 &7280558047524424230
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029371256415927850}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 4aba78e067b7e314d8b4d492eee2fb37, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
+--- !u!225 &6172766503334257188
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029371256415927850}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2029371256493232887
 GameObject:
   m_ObjectHideFlags: 0

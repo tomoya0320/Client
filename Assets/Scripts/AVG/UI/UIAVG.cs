@@ -39,13 +39,13 @@ namespace GameCore.UI {
       }
       OptionNode.gameObject.SetActive(false);
 
-      return this;
+      return base.Init(args);
     }
 
     public async override UniTask Close() {
+      await base.Close();
       AVG?.Clear();
       AVG = null;
-      await base.Close();
     }
 
     public Tween SetDialogue(string name, string dialogue, float fadeTime, bool setSpeedBased) {

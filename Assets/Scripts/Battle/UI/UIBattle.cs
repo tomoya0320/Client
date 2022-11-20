@@ -20,7 +20,8 @@ namespace GameCore.UI {
     public override UIBase Init(params object[] args) {
       Battle = args[0] as Battle;
       Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
-      return this;
+
+      return base.Init(args);
     }
 
     public Transform GetUnitNode(PlayerCamp playerCamp, int index) {
