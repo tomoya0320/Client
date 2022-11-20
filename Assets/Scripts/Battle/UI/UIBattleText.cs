@@ -7,8 +7,8 @@ using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public class UIBattleText : BattleBase {
-    private const float TEXT_SHOW_TIME = 0.4f;
-    private const float ANIM_DURATION = 0.3f;
+    private const float TEXT_SHOW_TIME = 0.5f;
+    private const float ANIM_TIME = 0.2f;
     private GameObject TextPrefab;
     private Stack<Text> TextStack = new Stack<Text>();
 
@@ -45,10 +45,10 @@ namespace GameCore {
         rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
       }
       float targetAnchoredPositionY = rectTransform.anchoredPosition.y + height;
-      await UniTask.WhenAll(rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_DURATION).AwaitForComplete(), textComponent.DOFade(1.0f, ANIM_DURATION).AwaitForComplete());
+      await UniTask.WhenAll(rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME).AwaitForComplete(), textComponent.DOFade(1.0f, ANIM_TIME).AwaitForComplete());
       // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
       if (textComponent) {
-        await textComponent.DOFade(0, ANIM_DURATION).SetDelay(TEXT_SHOW_TIME).AwaitForComplete();
+        await textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME).AwaitForComplete();
         if (textComponent) {
           TextStack.Push(textComponent);
           textComponent.gameObject.SetActive(false);
