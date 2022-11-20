@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 
 namespace GameCore.AVGFuncs {
   [CreateNodeMenu("节点/控制/开始")]

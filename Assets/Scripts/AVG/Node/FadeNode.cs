@@ -3,13 +3,13 @@ using Sirenix.OdinInspector;
 
 namespace GameCore.AVGFuncs {
   public abstract class FadeNode : EffectNode {
-    [LabelText("是否阻塞")]
+    [LabelText("鏄惁闃诲")]
     public bool Block = true;
-    [LabelText("设置为速度")]
+    [LabelText("璁剧疆涓洪�熷害")]
     public bool SetSpeedBased;
-    [LabelText("过渡时间")]
+    [LabelText("杩囨浮鏃堕棿")]
     public float FadeTime;
-    [LabelText("过渡结束回调")]
+    [LabelText("杩囨浮缁撴潫鍥炶皟")]
     [Output]
     public NodePort OnFadeCompleted;
 

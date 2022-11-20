@@ -117,9 +117,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\u7CBE\u7075"
-  SetSpeedBased: 1
   Dialogue: "\u4F60\u53D7\u4F24\u4E86"
 --- !u!114 &-5903874006916371908
 MonoBehaviour:
@@ -172,9 +172,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\uFF1F\uFF1F\uFF1F"
-  SetSpeedBased: 1
   Dialogue: "\u9192\u9192......"
 --- !u!114 &-3937806847058110294
 MonoBehaviour:
@@ -309,6 +309,7 @@ MonoBehaviour:
   - {fileID: 6409616280466771561}
   - {fileID: -7526378272264883806}
   - {fileID: 4991901097340767179}
+  - {fileID: 1757733034035569795}
 --- !u!114 &351645849852296021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +538,46 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+--- !u!114 &1757733034035569795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f771ce3cedf1984ba609f205f9f6fbb, type: 3}
+  m_Name: Exit
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: 1858.4161, y: 310.78372}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 1757733034035569795}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: OnFadeCompleted
+        node: {fileID: 7493350850733563840}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
 --- !u!114 &2812664149457064864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,9 +629,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\u7CBE\u7075"
-  SetSpeedBased: 1
   Dialogue: "\u4F60\u8FD8\u597D\u5417\uFF1F"
 --- !u!114 &4991901097340767179
 MonoBehaviour:
@@ -643,9 +684,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\u7CBE\u7075"
-  SetSpeedBased: 1
   Dialogue: "\u4F60\u5728\u68EE\u6797\u7684\u6DF1\u5904"
 --- !u!114 &6409616280466771561
 MonoBehaviour:
@@ -698,9 +739,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\u7CBE\u7075"
-  SetSpeedBased: 1
   Dialogue: "\u6211\u662F\u4E00\u4F4D\u5192\u9669\u5BB6"
 --- !u!114 &7075589521818763462
 MonoBehaviour:
@@ -801,7 +842,10 @@ MonoBehaviour:
       _node: {fileID: 7493350850733563840}
       _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-      connections: []
+      connections:
+      - fieldName: In
+        node: {fileID: 1757733034035569795}
+        reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
@@ -819,9 +863,9 @@ MonoBehaviour:
       _typeConstraint: 0
       _dynamic: 0
   Block: 0
+  SetSpeedBased: 1
   FadeTime: 16
   Name: "\u7CBE\u7075"
-  SetSpeedBased: 1
   Dialogue: "\u73B0\u5728\u6CA1\u4E8B\u4E86"
 --- !u!114 &8170129122632571643
 MonoBehaviour:

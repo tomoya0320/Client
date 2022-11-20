@@ -8,10 +8,10 @@ namespace GameCore {
     public int Block;
     public AVGNode AVGNode;
     public List<Tween> Tweens = new List<Tween>();
-    public IUIAVG UI { get; private set; }
+    public UIAVG UI { get; private set; }
     public AVGGraph AVGGraph { get; private set; }
 
-    public AVG(IUIAVG ui, AVGGraph avgGraph) {
+    public AVG(UIAVG ui, AVGGraph avgGraph) {
       UI = ui;
       AVGGraph = avgGraph;
       AVGNode = AVGGraph.GetEnterNode();

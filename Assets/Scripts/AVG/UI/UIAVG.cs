@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameCore.UI {
-  public class UIAVG : UIBase, IUIAVG {
+  public class UIAVG : UIBase {
     private struct Option {
       public GameObject Root;
       public Text Content;

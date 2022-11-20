@@ -3,11 +3,11 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GameCore.AVGFuncs {
-  [CreateNodeMenu("节点/效果/设置对话")]
+  [CreateNodeMenu("鑺傜偣/鏁堟灉/璁剧疆瀵硅瘽")]
   public class SetDialogue : FadeNode {
-    [LabelText("名字")]
+    [LabelText("鍚嶅瓧")]
     public string Name;
-    [LabelText("对话内容")]
+    [LabelText("瀵硅瘽鍐呭")]
     [TextArea]
     public string Dialogue;
 

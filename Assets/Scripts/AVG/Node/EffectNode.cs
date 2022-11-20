@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameCore.AVGFuncs {
   public abstract class EffectNode : AVGNode {
-    [LabelText("Èë")]
+    [LabelText("å…¥")]
     [Input(connectionType = ConnectionType.Override)]
     public NodePort In;
   }
