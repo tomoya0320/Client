@@ -119,12 +119,12 @@ public interface IUIRedDot {
 }
 
 public static class RedDotSystem {
-  private static Dictionary<RedDotTreeType, HashSet<IUIRedDot>> UiRedDots = new Dictionary<RedDotTreeType, HashSet<IUIRedDot>>();
+  private static Dictionary<RedDotTreeType, HashSet<IUIRedDot>> UIRedDots = new Dictionary<RedDotTreeType, HashSet<IUIRedDot>>();
   private static Dictionary<RedDotTreeType, RedDotTree> RedDotTrees = new Dictionary<RedDotTreeType, RedDotTree>();
 
   public static void Init() {
     foreach (RedDotTreeType redDotTreeType in Enum.GetValues(typeof(RedDotTreeType))) {
-      UiRedDots.Add(redDotTreeType, new HashSet<IUIRedDot>());
+      UIRedDots.Add(redDotTreeType, new HashSet<IUIRedDot>());
       RedDotTrees.Add(redDotTreeType, AssemblyUtil.CreateInstance<RedDotTree>(redDotTreeType.GetDescription()));
     }
   }
@@ -161,15 +161,15 @@ public static class RedDotSystem {
   }
 
   public static void AddUIRedDot(IUIRedDot uiRedDot) {
-    UiRedDots[uiRedDot.RedDotTreeType].Add(uiRedDot);
+    UIRedDots[uiRedDot.RedDotTreeType].Add(uiRedDot);
   }
 
   public static void RemoveUIRedDot(IUIRedDot uiRedDot) {
-    UiRedDots[uiRedDot.RedDotTreeType].Remove(uiRedDot);
+    UIRedDots[uiRedDot.RedDotTreeType].Remove(uiRedDot);
   }
 
   public static void OnRedDotChanged(RedDotTreeType redDotTreeType, string name, string parent) {
-    foreach (var uiRedDot in UiRedDots[redDotTreeType]) {
+    foreach (var uiRedDot in UIRedDots[redDotTreeType]) {
       if(uiRedDot.Name == name && uiRedDot.Parent == parent) {
         uiRedDot.OnRedDotChanged();
       }

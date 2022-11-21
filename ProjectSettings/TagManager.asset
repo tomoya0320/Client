@@ -53,3 +53,6 @@ TagManager:
   - name: Text
     uniqueID: 2956474437
     locked: 0
+  - name: Mask
+    uniqueID: 2459133165
+    locked: 0
