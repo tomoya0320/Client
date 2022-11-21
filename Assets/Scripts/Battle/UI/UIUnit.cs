@@ -34,7 +34,7 @@ namespace GameCore {
 
     private void UpdateSelectedGo() {
       if (SelectedGo) {
-        SelectedGo.SetActive(SelectedCount > 0);
+        SelectedGo.SetActiveEx(SelectedCount > 0);
       }
     }
 

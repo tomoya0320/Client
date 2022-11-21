@@ -28,7 +28,7 @@ namespace GameCore.UI {
         } else {
           textComponent = Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
         }
-        textComponent.gameObject.SetActive(true);
+        textComponent.gameObject.SetActiveEx(true);
 
         textComponent.text = text;
         color.a = 0;
@@ -50,7 +50,7 @@ namespace GameCore.UI {
           await UniTask.Delay((int)(BattleConstant.THOUSAND * (ANIM_TIME + TEXT_SHOW_TIME)), cancellationToken: Battle.CancellationToken);
           if (textComponent) {
             TextStack.Push(textComponent);
-            textComponent.gameObject.SetActive(false);
+            textComponent.gameObject.SetActiveEx(false);
           }
         }
       } catch (System.OperationCanceledException) { }

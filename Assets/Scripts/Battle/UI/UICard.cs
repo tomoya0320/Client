@@ -26,7 +26,7 @@ namespace GameCore {
       if (lastState == null) {
         Owner.transform.position = CardHeapNode.position;
         Owner.transform.localScale = UICardStateMachine.OUT_HAND_SCALE * Vector3.one;
-        Owner.gameObject.SetActive(false);
+        Owner.gameObject.SetActiveEx(false);
         return;
       }
 
@@ -34,11 +34,11 @@ namespace GameCore {
       Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME);
       await UniTask.Delay((int)(BattleConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME)));
 
-      Owner.gameObject.SetActive(false);
+      Owner.gameObject.SetActiveEx(false);
     }
 
     public override UniTask OnExit(State<UICard> nextState, Context context = null) {
-      Owner.gameObject.SetActive(true);
+      Owner.gameObject.SetActiveEx(true);
       return base.OnExit(nextState, context);
     }
   }

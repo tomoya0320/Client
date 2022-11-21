@@ -37,7 +37,7 @@ namespace GameCore.UI {
           Ok = op.GetComponentInChildren<Button>(true)
         });
       }
-      OptionNode.gameObject.SetActive(false);
+      OptionNode.gameObject.SetActiveEx(false);
 
       return base.Init(args);
     }
@@ -63,19 +63,19 @@ namespace GameCore.UI {
         var op = Options[i];
         op.Content.text = string.Empty;
         op.Ok.onClick.RemoveAllListeners();
-        op.Root.SetActive(false);
+        op.Root.SetActiveEx(false);
         if (i < options.Length) {
           int index = i; // ±Õ°ü
           op.Content.text = options[i];
           op.Ok.onClick.AddListener(() => {
-            OptionNode.gameObject.SetActive(false);
+            OptionNode.gameObject.SetActiveEx(false);
             callback?.Invoke(index);
           });
-          op.Root.SetActive(true);
+          op.Root.SetActiveEx(true);
         }
       }
 
-      OptionNode.gameObject.SetActive(true);
+      OptionNode.gameObject.SetActiveEx(true);
     }
   }
 }

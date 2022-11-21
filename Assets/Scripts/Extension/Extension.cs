@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using UnityEngine;
 
 public static class Extension {
+  #region Enum
   /// <summary>
   /// 获取当前枚举描述
   /// </summary>
@@ -18,4 +20,15 @@ public static class Extension {
     }
     return enumValue.ToString();
   }
+  #endregion
+
+  #region GameObject
+  public static bool SetActiveEx(this GameObject gameObject, bool value) {
+    if (gameObject.activeSelf == value) {
+      return false;
+    }
+    gameObject.SetActive(value);
+    return true;
+  }
+  #endregion
 }
