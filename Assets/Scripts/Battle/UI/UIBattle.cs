@@ -103,7 +103,19 @@ namespace GameCore.UI {
       }
     }
 
-    public void OnSelfStartTurn() {
+    public async void OpenDrawCardHeapUI() => await OpenCardHeapUI(CardHeapType.DRAW);
+
+    public async void OpenDiscardCardHeapUI() => await OpenCardHeapUI(CardHeapType.DISCARD);
+
+    public async void OpenConsumeCardHeapUI() => await OpenCardHeapUI(CardHeapType.CONSUME);
+
+    private UniTask OpenCardHeapUI(CardHeapType cardHeapType) {
+      var cardList = TempList<Card>.Get();
+      Battle.SelfPlayer.Master.BattleCardControl.GetCardList(cardHeapType, cardList);
+      return UIManager.Instance.OpenChild<UICardHeap>("UICardHeap", cardList);
+    }
+
+    private void OnSelfStartTurn() {
       if (TurnText) {
         TurnText.text = $"{Battle.Turn}";
       }

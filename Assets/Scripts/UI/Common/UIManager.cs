@@ -63,20 +63,26 @@ namespace GameCore.UI {
       return true;
     }
 
-    public async UniTask<T> OpenChild<T>(T parentUI, string name, params object[] args) where T : UIBase {
-      if (!UIStack.TryPeek(out var topUI) || topUI != parentUI) {
+    public async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
+      if (!UIStack.TryPeek(out var topUI)) {
         return null;
       }
-
-      return await parentUI.OpenChild<T>(name, args);
+      Mask.gameObject.SetActiveEx(true);
+      Mask.color = Color.clear;
+      var childUI = await topUI.OpenChild<T>(name, args);
+      Mask.gameObject.SetActiveEx(false);
+      return childUI;
     }
 
     public async UniTask<bool> CloseChild<T>(T ui) where T : UIBase {
       if (!UIStack.TryPeek(out var topUI)) {
         return false;
       }
-
-      return await topUI.CloseChild(ui);
+      Mask.gameObject.SetActiveEx(true);
+      Mask.color = Color.clear;
+      bool closed = await topUI.CloseChild(ui);
+      Mask.gameObject.SetActiveEx(false);
+      return closed;
     }
 
     private Transform GetUIRoot(UIType type) {

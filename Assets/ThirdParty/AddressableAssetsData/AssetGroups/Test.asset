@@ -485,6 +485,10 @@ MonoBehaviour:
     m_Address: UIAVG
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0a76a557e67bf8e4587aaa593c465ac7
+    m_Address: UICardHeap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:
