@@ -32,35 +32,51 @@ namespace GameCore.UI {
       if (UIStack.TryPeek(out var topUI)) {
         Mask.color = Color.clear;
         Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.Close(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.OnClose(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(false);
       }
       Mask.color = Color.black;
       Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), GetUIRoot(type)).GetComponent<T>();
       UIStack.Push(ui.Init(args));
-      ui.gameObject.SetActiveEx(true);
-      await UniTask.WhenAll(ui.Open(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(ui.OnOpen(), WaitMaskTransitionTime());
       Mask.gameObject.SetActiveEx(false);
       return ui;
     }
 
-    public async UniTask Close<T>(T ui) where T : UIBase {
+    public async UniTask<bool> Close<T>(T ui) where T : UIBase {
       if (!UIStack.TryPeek(out var topUI) || topUI != ui) {
-        return;
+        return false;
       }
       Mask.gameObject.SetActiveEx(true);
       Mask.color = Color.clear;
       Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-      await UniTask.WhenAll(UIStack.Pop().Close(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(UIStack.Pop().OnClose(), WaitMaskTransitionTime());
       Destroy(ui.gameObject); // TODO:”≈ªØ
       if (UIStack.TryPeek(out topUI)) {
         Mask.color = Color.black;
         Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.Open(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.OnOpen(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(true);
       }
       Mask.gameObject.SetActiveEx(false);
+      return true;
+    }
+
+    public async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
+      if (!UIStack.TryPeek(out var topUI)) {
+        return null;
+      }
+
+      return await topUI.OpenChild<T>(name, args);
+    }
+
+    public async UniTask<bool> CloseChild<T>(T ui) where T : UIBase {
+      if (!UIStack.TryPeek(out var topUI)) {
+        return false;
+      }
+
+      return await topUI.CloseChild(ui);
     }
 
     private Transform GetUIRoot(UIType type) {
