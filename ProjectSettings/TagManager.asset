@@ -44,15 +44,6 @@ TagManager:
   - name: Normal
     uniqueID: 3886114093
     locked: 0
-  - name: Unit
-    uniqueID: 1924040973
-    locked: 0
-  - name: Card
-    uniqueID: 193901321
-    locked: 0
-  - name: Text
-    uniqueID: 2956474437
-    locked: 0
   - name: Mask
     uniqueID: 2459133165
     locked: 0

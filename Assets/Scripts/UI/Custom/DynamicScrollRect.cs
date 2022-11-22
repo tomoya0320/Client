@@ -73,7 +73,7 @@ namespace GameCore.UI {
         for (int j = 0; j < GridCountPerColumn; j++) {
           var grid = Instantiate(GridTemplate, content).GetComponent<TGrid>();
           grid.RectTransform.sizeDelta = new Vector2(GridSize.x, GridSize.y);
-          grid.RectTransform.anchoredPosition = new Vector2(i * (GridSize.y + Spacing.y), j * (GridSize.x + Spacing.x));
+          grid.RectTransform.anchoredPosition = new Vector2(j * (GridSize.x + Spacing.x), i * (GridSize.y + Spacing.y));
           initGridFunc(grid);
           grid.Refresh(StartIndex + Grids.Count);
           Grids.Add(grid);
