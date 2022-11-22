@@ -96,7 +96,7 @@ namespace GameCore {
               await Run();
               break;
             case BattleState.Exit:
-              await Clear();
+              await Exit();
               break;
           }
         } catch (OperationCanceledException) { }
@@ -215,7 +215,7 @@ namespace GameCore {
       BattleState = force ? BattleState.None : BattleState.Exit;
     }
 
-    private UniTask Clear() {
+    private async UniTask Exit() {
       Instance = null;
       BattleData = null;
       BattleState = BattleState.None;
@@ -263,9 +263,9 @@ namespace GameCore {
       SelfPlayer = null;
       LevelTemplate = null;
 
-      GC.Collect();
+      await UniTask.Yield();
 
-      return UniTask.CompletedTask;
+      GC.Collect();
     }
 
     private async UniTask Run() {
