@@ -1,10 +1,8 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.UI;
 
 namespace GameCore.UI {
   public abstract class UIBase : MonoBehaviour {

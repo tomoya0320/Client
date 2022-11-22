@@ -63,12 +63,12 @@ namespace GameCore.UI {
       return true;
     }
 
-    public async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
-      if (!UIStack.TryPeek(out var topUI)) {
+    public async UniTask<T> OpenChild<T>(T parentUI, string name, params object[] args) where T : UIBase {
+      if (!UIStack.TryPeek(out var topUI) || topUI != parentUI) {
         return null;
       }
 
-      return await topUI.OpenChild<T>(name, args);
+      return await parentUI.OpenChild<T>(name, args);
     }
 
     public async UniTask<bool> CloseChild<T>(T ui) where T : UIBase {
