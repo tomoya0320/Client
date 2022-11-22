@@ -47,7 +47,6 @@ namespace GameCore {
         foreach (var checkBuff in Buffs.Values) {
           var checkBuffImmuneKinds = checkBuff.BuffTemplate.ImmuneKinds;
           if (checkBuffImmuneKinds != null && checkBuffImmuneKinds.Contains(buffKind)) {
-            Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加的buff[{runtimeId}:{buffId}]被buff[{checkBuff.RuntimeId}:{checkBuff.BuffTemplate.name}]免疫");
             return null;
           }
         }
@@ -59,7 +58,6 @@ namespace GameCore {
         foreach (var checkBuff in tempBuffList) {
           string checkBuffKind = checkBuff.BuffTemplate.BuffKind;
           if (!string.IsNullOrEmpty(checkBuffKind) && immuneKinds.Contains(checkBuffKind)) {
-            Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加的buff[{runtimeId}:{buffId}]免疫了buff[{checkBuff.RuntimeId}:{checkBuff.BuffTemplate.name}]");
             await Remove(checkBuff.RuntimeId);
           }
         }
@@ -76,8 +74,6 @@ namespace GameCore {
           await Remove(runtimeId);
         }
       }
-
-      Debug.Log($"[{source.RuntimeId}:{source.Name}]对[{Unit.RuntimeId}:{Unit.Name}]添加buff[{runtimeId}:{buffId}]");
 
       return Buffs.ContainsKey(runtimeId) ? buff : null;
     }

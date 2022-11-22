@@ -32,13 +32,16 @@ MonoBehaviour:
       Data: GameCore.LvCardItem, Assembly-CSharp
     - Name: Name
       Entry: 1
-      Data: "\u514D\u75AB\u51FA\u8840\u6548\u679C\u5361\u724C1"
+      Data: "\u514D\u75AB\u51FA\u8840\u6548\u679C\u5361\u724C"
     - Name: Cost
       Entry: 3
       Data: 2
     - Name: Consumable
       Entry: 5
       Data: true
+    - Name: Desc
+      Entry: 1
+      Data: "\u514D\u75AB\u51FA\u8840\uFF0C\u6548\u679C\u6301\u7EED3\u56DE\u5408"
     - Name: Skill
       Entry: 7
       Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
@@ -74,4 +77,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
   CardType: 1
+  Icon:
+    m_AssetGUID: 3fdea0773e1550447a2803fe56c61668
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   TargetCamp: 1

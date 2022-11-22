@@ -39,7 +39,6 @@ namespace GameCore {
         _EndTurnFlag = value;
         if (_EndTurnFlag) {
           AddOperation(null);
-          Debug.Log("结束回合");
         }
       }
     }

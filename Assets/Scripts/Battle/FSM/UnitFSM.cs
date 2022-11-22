@@ -35,13 +35,21 @@ namespace GameCore {
           TempList<UniTask>.Release(uniTaskList);
         }
         var drawCardList = TempList<Card>.Get();
+        var resultCardList = TempList<Card>.Get();
         Owner.BattleCardControl.GetCardList(CardHeapType.DRAW, drawCardList);
         MathUtil.FisherYatesShuffle(drawCardList);
         for (int i = 0; i < drawCardList.Count && i < drawCardCount; i++) {
-          await drawCardList[i].SetCardHeapType(CardHeapType.HAND);
-          await UniTask.Delay(200, cancellationToken: Owner.Battle.CancellationToken);
+          resultCardList.Add(drawCardList[i]);
+        }
+        Owner.BattleCardControl.GetCardList(CardHeapType.DRAW, drawCardList);
+        foreach (var card in drawCardList) {
+          if (resultCardList.Contains(card)) {
+            await card.SetCardHeapType(CardHeapType.HAND);
+            await UniTask.Delay(200, cancellationToken: Owner.Battle.CancellationToken);
+          }
         }
         TempList<Card>.Release(drawCardList);
+        TempList<Card>.Release(resultCardList);
       }
     }
   }

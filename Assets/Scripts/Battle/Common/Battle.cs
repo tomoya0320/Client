@@ -145,7 +145,6 @@ namespace GameCore {
       }
 
       BattleState = BattleState.Run;
-      Debug.Log("战斗加载完毕");
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
@@ -265,7 +264,6 @@ namespace GameCore {
       LevelTemplate = null;
 
       GC.Collect();
-      Debug.Log("清理战斗");
 
       return UniTask.CompletedTask;
     }
@@ -273,7 +271,6 @@ namespace GameCore {
     private async UniTask Run() {
       // 更新当前回合的玩家
       CurPlayer = PlayerManager.MoveNext();
-      // Debug.Log($"当前玩家回合 id:{CurPlayer.RuntimeId} name:{CurPlayer.PlayerId}");
       // 回合中的逻辑
       await CurPlayer.OnTurn();
     }
