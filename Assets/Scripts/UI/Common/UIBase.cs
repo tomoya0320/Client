@@ -30,7 +30,7 @@ namespace GameCore.UI {
       await PlayAnim($"{GetType().Name}Close");
     }
 
-    public virtual void OnDestroy() { } // TODO:优化
+    public virtual void OnDestroy() { } // TODO:优化 可能改成OnRecycle
 
     public virtual async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
       var handle = Addressables.LoadAssetAsync<GameObject>(name);

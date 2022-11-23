@@ -14,11 +14,17 @@ namespace GameCore.UI {
     }
 
     public async void Close() {
-      bool closed = IsChildUI ? await UIManager.Instance.CloseChild(ParentUI, this) : await UIManager.Instance.Close(this);
-      if (closed) {
-        TempList<Card>.Release(CardList);
-        CardList = null;
+      if (IsChildUI) {
+        await UIManager.Instance.CloseChild(ParentUI, this);
+      } else {
+        await UIManager.Instance.Close(this);
       }
+    }
+
+    public override void OnDestroy() {
+      base.OnDestroy();
+      TempList<Card>.Release(CardList);
+      CardList = null;
     }
   }
 }
