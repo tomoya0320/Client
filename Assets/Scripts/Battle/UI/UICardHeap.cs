@@ -14,7 +14,7 @@ namespace GameCore.UI {
     }
 
     public async void Close() {
-      bool closed = await UIManager.Instance.CloseChild(ParentUI, this);
+      bool closed = IsChildUI ? await UIManager.Instance.CloseChild(ParentUI, this) : await UIManager.Instance.Close(this);
       if (closed) {
         TempList<Card>.Release(CardList);
         CardList = null;

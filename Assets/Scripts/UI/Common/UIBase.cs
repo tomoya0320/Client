@@ -15,17 +15,18 @@ namespace GameCore.UI {
     public Func<bool> WaitAnimFunc { get; private set; }
     protected UIBase ParentUI;
     protected List<UIBase> ChildUIList = new List<UIBase>();
+    public bool IsChildUI => ParentUI != null;
 
     public virtual UIBase Init(params object[] args) {
       WaitAnimFunc = () => Animation && Animation.isPlaying;
       return this;
     }
 
-    public virtual async UniTask OnOpen() {
+    public virtual async UniTask Open() {
       await PlayAnim($"{GetType().Name}Open");
     }
 
-    public virtual async UniTask OnClose() {
+    public virtual async UniTask Close() {
       await PlayAnim($"{GetType().Name}Close");
     }
 
@@ -33,7 +34,7 @@ namespace GameCore.UI {
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), ChildNode).GetComponent<T>();
       ui.ParentUI = this;
       ChildUIList.Add(ui.Init(args));
-      await ui.OnOpen();
+      await ui.Open();
       return ui;
     }
 
@@ -42,7 +43,7 @@ namespace GameCore.UI {
         return false;
       }
       ui.ParentUI = null;
-      await ui.OnClose();
+      await ui.Close();
       Destroy(ui.gameObject); // TODO:”≈ªØ
       return true;
     }

@@ -42,8 +42,8 @@ namespace GameCore.UI {
       return base.Init(args);
     }
 
-    public async override UniTask OnClose() {
-      await base.OnClose();
+    public async override UniTask Close() {
+      await base.Close();
       AVG?.Clear();
       AVG = null;
     }

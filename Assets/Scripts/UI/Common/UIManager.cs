@@ -9,7 +9,7 @@ namespace GameCore.UI {
   public enum UIType {
     NORMAL,
   }
-
+  // TODO:优化整个UI管理逻辑
   public class UIManager : MonoBehaviour {
     #region Canvas
     [SerializeField]
@@ -32,14 +32,14 @@ namespace GameCore.UI {
       if (UIStack.TryPeek(out var topUI)) {
         Mask.color = Color.clear;
         Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.OnClose(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.Close(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(false);
       }
       Mask.color = Color.black;
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), GetUIRoot(type)).GetComponent<T>();
       UIStack.Push(ui.Init(args));
       Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
-      await UniTask.WhenAll(ui.OnOpen(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(ui.Open(), WaitMaskTransitionTime());
       Mask.gameObject.SetActiveEx(false);
       return ui;
     }
@@ -51,12 +51,12 @@ namespace GameCore.UI {
       Mask.gameObject.SetActiveEx(true);
       Mask.color = Color.clear;
       Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-      await UniTask.WhenAll(UIStack.Pop().OnClose(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(UIStack.Pop().Close(), WaitMaskTransitionTime());
       Destroy(ui.gameObject); // TODO:优化
       if (UIStack.TryPeek(out topUI)) {
         Mask.color = Color.black;
         Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.OnOpen(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.Open(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(true);
       }
       Mask.gameObject.SetActiveEx(false);
