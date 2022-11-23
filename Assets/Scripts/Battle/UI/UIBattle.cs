@@ -90,7 +90,7 @@ namespace GameCore.UI {
     }
 
     private Transform GetNode(Transform[] nodes, int index) {
-      if(index < 0 || index >= nodes.Length) {
+      if (index < 0 || index >= nodes.Length) {
         return null;
       }
 
@@ -103,11 +103,23 @@ namespace GameCore.UI {
       }
     }
 
-    public async void OpenDrawCardHeapUI() => await OpenCardHeapUI(CardHeapType.DRAW);
+    public async void OpenDrawCardHeapUI() {
+      if (Battle.BattleState == BattleState.Run) {
+        await OpenCardHeapUI(CardHeapType.DRAW);
+      }
+    }
 
-    public async void OpenDiscardCardHeapUI() => await OpenCardHeapUI(CardHeapType.DISCARD);
+    public async void OpenDiscardCardHeapUI() {
+      if (Battle.BattleState == BattleState.Run) {
+        await OpenCardHeapUI(CardHeapType.DISCARD);
+      }
+    }
 
-    public async void OpenConsumeCardHeapUI() => await OpenCardHeapUI(CardHeapType.CONSUME);
+    public async void OpenConsumeCardHeapUI() {
+      if (Battle.BattleState == BattleState.Run) {
+        await OpenCardHeapUI(CardHeapType.CONSUME);
+      }
+    }
 
     private UniTask OpenCardHeapUI(CardHeapType cardHeapType) {
       var cardList = TempList<Card>.Get();
