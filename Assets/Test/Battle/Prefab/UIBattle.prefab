@@ -766,7 +766,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animation: {fileID: 0}
-  CanvasGroup: {fileID: 0}
   ChildNode: {fileID: 3146718242871881485}
   TextPrefab: {fileID: 173964910664490271}
   AllyNodes:

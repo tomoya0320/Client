@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animation: {fileID: 5118212240124682626}
-  CanvasGroup: {fileID: 296805455795218322}
   ChildNode: {fileID: 3146718242871881485}
   DynamicScrollRect: {fileID: 2677041854491973825}
 --- !u!1 &436016980987399901
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1881317740348802025}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.92699885
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

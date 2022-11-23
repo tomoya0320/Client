@@ -9,8 +9,6 @@ namespace GameCore.UI {
     [SerializeField]
     private Animation Animation;
     [SerializeField]
-    private CanvasGroup CanvasGroup;
-    [SerializeField]
     private RectTransform ChildNode;
     public Func<bool> WaitAnimFunc { get; private set; }
     protected UIBase ParentUI;

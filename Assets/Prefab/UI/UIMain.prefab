@@ -316,7 +316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animation: {fileID: 3015031121406143447}
-  CanvasGroup: {fileID: 5078566508922396585}
   ChildNode: {fileID: 7624493261801854774}
   ContinueGameBtn: {fileID: 6758311838105310079}
 --- !u!1 &6334158030471244120
