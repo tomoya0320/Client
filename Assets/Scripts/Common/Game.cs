@@ -1,3 +1,4 @@
+using GameCore.UI;
 using System.Threading;
 using UnityEngine;
 
@@ -11,6 +12,10 @@ namespace GameCore {
     private void Awake() {
       Instance = this;
       User = User.LoadFromLocal();
+    }
+
+    private async void Start() {
+      await UIManager.Instance.Open<UIMain>(UIType.NORMAL, "UIMain");
     }
 
     private void OnApplicationQuit() {
