@@ -5,9 +5,13 @@ namespace GameCore {
   public class Game : MonoBehaviour {
     private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
+    public User User { get; private set; }
     public static Game Instance { get; private set; }
 
-    private void Awake() => Instance = this;
+    private void Awake() {
+      Instance = this;
+      User = User.LoadFromLocal();
+    }
 
     private void OnApplicationQuit() {
       if (Battle.Instance != null) {
