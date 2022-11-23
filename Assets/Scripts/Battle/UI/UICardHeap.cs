@@ -7,10 +7,10 @@ namespace GameCore.UI {
     private DynamicScrollRect DynamicScrollRect;
     private List<Card> CardList;
 
-    public override UIBase Init(params object[] args) {
+    public override UIBase Init(UIType type, params object[] args) {
       CardList = args[0] as List<Card>;
       DynamicScrollRect.Init<UICardGrid, Card>(CardList);
-      return base.Init(args);
+      return base.Init(type, args);
     }
 
     public async void Close() {

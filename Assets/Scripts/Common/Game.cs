@@ -10,8 +10,9 @@ namespace GameCore {
     public static Game Instance { get; private set; }
 
     private void Awake() {
-      Instance = this;
+      Application.targetFrameRate = 120;
       User = User.LoadFromLocal();
+      Instance = this;
     }
 
     private async void Start() {

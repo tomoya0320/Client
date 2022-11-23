@@ -45,7 +45,7 @@ namespace GameCore {
         foreach (var card in drawCardList) {
           if (resultCardList.Contains(card)) {
             await card.SetCardHeapType(CardHeapType.HAND);
-            await UniTask.Delay(200, cancellationToken: Owner.Battle.CancellationToken);
+            await UniTask.Delay(100, cancellationToken: Owner.Battle.CancellationToken);
           }
         }
         TempList<Card>.Release(drawCardList);

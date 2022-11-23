@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: UIMain
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e4fa30d620de9fa418d28ebaf0740edd
+    m_Address: UILoading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

@@ -65,7 +65,8 @@ namespace GameCore {
       if (InHandIndex != Owner.InHandIndex) {
         InHandIndex = Owner.InHandIndex;
         Owner.transform.SetSiblingIndex(InHandIndex);
-        Pos = Owner.InHandNode.anchoredPosition + InHandIndex * 0.5f * new Vector2(Owner.RectTransform.rect.width, 0);
+        Pos = Owner.InHandNode.anchoredPosition;
+        Pos += InHandIndex * 0.5f * new Vector2(Owner.RectTransform.rect.width, 0) - 0.5f * new Vector2(Screen.width, Screen.height);
       }
 
       Owner.transform.localScale = Vector3.Lerp(Owner.transform.localScale, Vector3.one, UICardStateMachine.IN_HAND_SPEED);

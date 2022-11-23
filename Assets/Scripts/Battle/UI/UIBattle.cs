@@ -71,11 +71,11 @@ namespace GameCore.UI {
     public Transform TextNode;
     public Transform CardNode;
 
-    public override UIBase Init(params object[] args) {
+    public override UIBase Init(UIType type, params object[] args) {
       Battle = args[0] as Battle;
       Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
 
-      return base.Init(args);
+      return base.Init(type, args);
     }
 
     public Transform GetUnitNode(PlayerCamp playerCamp, int index) {

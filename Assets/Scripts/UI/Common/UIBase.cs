@@ -10,12 +10,14 @@ namespace GameCore.UI {
     private Animation Animation;
     [SerializeField]
     private RectTransform ChildNode;
+    public UIType UIType { get; private set; }
     public Func<bool> WaitAnimFunc { get; private set; }
     protected UIBase ParentUI;
     protected List<UIBase> ChildUIList = new List<UIBase>();
     public bool IsChildUI => ParentUI != null;
 
-    public virtual UIBase Init(params object[] args) {
+    public virtual UIBase Init(UIType type, params object[] args) {
+      UIType = type;
       WaitAnimFunc = () => Animation && Animation.isPlaying;
       return this;
     }
@@ -36,9 +38,10 @@ namespace GameCore.UI {
         await UniTask.Yield(Game.Instance.CancellationToken);
       }
       var ui = Instantiate(handle.Result, ChildNode).GetComponent<T>();
+      Addressables.Release(handle);
       ui.name = name;
       ui.ParentUI = this;
-      ChildUIList.Add(ui.Init(args));
+      ChildUIList.Add(ui.Init(UIType, args));
       await ui.OnOpen();
       return ui;
     }

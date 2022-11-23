@@ -23,7 +23,7 @@ namespace GameCore.UI {
     private AVG AVG;
     private List<Option> Options = new List<Option>();
 
-    public override UIBase Init(params object[] args) {
+    public override UIBase Init(UIType type, params object[] args) {
       AVG = new AVG(this, args[0] as AVGGraph);
 
       NameText.text = string.Empty;
@@ -38,7 +38,7 @@ namespace GameCore.UI {
       }
       OptionNode.gameObject.SetActiveEx(false);
 
-      return base.Init(args);
+      return base.Init(type, args);
     }
 
     public override void OnDestroy() {

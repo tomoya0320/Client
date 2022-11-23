@@ -18,6 +18,7 @@ namespace GameCore {
   public class Battle {
     private CancellationTokenSource CancellationTokenSource =new CancellationTokenSource();
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
+    public event Action OnLoaded;
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public LevelTemplate LevelTemplate { get; private set; }
@@ -51,7 +52,7 @@ namespace GameCore {
     public static Battle Instance { get; private set; }
     #endregion
 
-    public static bool Enter(BattleData battleData) {
+    public static bool Enter(BattleData battleData, Action onLoaded) {
       if (Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
@@ -60,6 +61,7 @@ namespace GameCore {
       Instance = new Battle(battleData);
       // 首先是加载资源
       Instance.BattleState = BattleState.Load;
+      Instance.OnLoaded += onLoaded;
       Instance.Update();
       return true;
     }
@@ -136,7 +138,7 @@ namespace GameCore {
       }
 
       // step4:加载战斗UI
-      UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", this); // TODO:优化
+      UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", false, this); // TODO:优化
       // 依赖UIBattle初始化
       foreach (var player in PlayerManager.PlayerList) {
         for (int i = 0; i < player.Units.Length; i++) {
@@ -145,6 +147,8 @@ namespace GameCore {
       }
 
       BattleState = BattleState.Run;
+
+      OnLoaded?.Invoke();
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
@@ -266,6 +270,9 @@ namespace GameCore {
       await UniTask.Yield();
 
       GC.Collect();
+
+      await UIManager.Instance.Close(UIBattle);
+      UIBattle = null;
     }
 
     private async UniTask Run() {

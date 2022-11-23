@@ -6,8 +6,6 @@ namespace GameCore.Test {
     [SerializeField]
     private AVGGraph AVGGraph;
 
-    private void Start() {
-      AVG.Enter(AVGGraph);
-    }
+    private void Awake() => UIMain.OnStart += () => AVG.Enter(AVGGraph);
   }
 }
