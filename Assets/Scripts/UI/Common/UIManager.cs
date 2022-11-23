@@ -63,24 +63,18 @@ namespace GameCore.UI {
       return true;
     }
 
-    public async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
-      if (!UIStack.TryPeek(out var topUI)) {
-        return null;
-      }
+    public async UniTask<T> OpenChild<T>(UIBase parentUI, string name, params object[] args) where T : UIBase {
       Mask.gameObject.SetActiveEx(true);
       Mask.color = Color.clear;
-      var childUI = await topUI.OpenChild<T>(name, args);
+      var childUI = await parentUI.OpenChild<T>(name, args);
       Mask.gameObject.SetActiveEx(false);
       return childUI;
     }
 
-    public async UniTask<bool> CloseChild<T>(T ui) where T : UIBase {
-      if (!UIStack.TryPeek(out var topUI)) {
-        return false;
-      }
+    public async UniTask<bool> CloseChild<T>(UIBase parentUI, T ui) where T : UIBase {
       Mask.gameObject.SetActiveEx(true);
       Mask.color = Color.clear;
-      bool closed = await topUI.CloseChild(ui);
+      bool closed = await parentUI.CloseChild(ui);
       Mask.gameObject.SetActiveEx(false);
       return closed;
     }

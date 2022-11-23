@@ -9,6 +9,35 @@ namespace GameCore.UI {
     void Refresh(int index);
   }
 
+  public abstract class ScrollGrid<T> : MonoBehaviour, IScrollGrid {
+    private RectTransform _RectTransform;
+    public RectTransform RectTransform => _RectTransform ? _RectTransform : (_RectTransform = GetComponent<RectTransform>());
+    protected int DataIndex;
+    protected List<T> DataList = new List<T>();
+
+    public virtual ScrollGrid<T> Init(List<T> dataList) {
+      DataIndex = -1;
+      DataList = dataList;
+      return this;
+    }
+
+    public void Refresh(int index) {
+      if (DataIndex == index) {
+        return;
+      }
+      if (index < 0 || index >= DataList.Count) {
+        DataIndex = -1;
+        gameObject.SetActiveEx(false);
+        return;
+      }
+      DataIndex = index;
+      RefreshInternal(DataList[DataIndex]);
+      gameObject.SetActiveEx(true);
+    }
+
+    protected abstract void RefreshInternal(T data);
+  }
+
   public enum LayoutDirection {
     [InspectorName("ˮƽ")]
     HORIZONTAL = 0,
@@ -17,23 +46,19 @@ namespace GameCore.UI {
   }
 
   public class DynamicScrollRect : ScrollRect {
-    [SerializeField]
-    private GameObject GridTemplate;
-    [SerializeField]
-    private Vector2 GridSize;
-    [SerializeField]
-    private Vector2 Spacing;
-    [SerializeField]
-    private LayoutDirection LayoutDirection;
+    public GameObject GridTemplate;
+    public Vector2 GridSize;
+    public Vector2 Spacing;
+    public LayoutDirection LayoutDirection;
     private int TotalCount;
     private int StartIndex;
     private int GridCountPerRow;
     private int GridCountPerColumn;
     private List<IScrollGrid> Grids = new List<IScrollGrid>();
 
-    public void Init<TGrid>(int totalCount, Action<TGrid> initGridFunc) where TGrid : Component, IScrollGrid {
-      TotalCount = totalCount;
+    public void Init<TGrid, TData>(List<TData> dataList) where TGrid : ScrollGrid<TData> {
       StartIndex = 0;
+      TotalCount = dataList.Count;
       var viewSize = viewport.rect.size;
       switch (LayoutDirection) {
         case LayoutDirection.HORIZONTAL: {
@@ -59,18 +84,15 @@ namespace GameCore.UI {
             break;
           }
       }
-      GridTemplate.GetComponent<RectTransform>().sizeDelta = GridSize;
+      GridTemplate.SetActiveEx(false);
       for (int i = 0; i < GridCountPerColumn; i++) {
         for (int j = 0; j < GridCountPerRow; j++) {
           var grid = Instantiate(GridTemplate, content).GetComponent<TGrid>();
-          grid.RectTransform.sizeDelta = new Vector2(GridSize.x, GridSize.y);
-          initGridFunc(grid);
-          Grids.Add(grid);
+          Grids.Add(grid.Init(dataList));
         }
       }
       RefreshGrids();
       RefreshScrollBar();
-      GridTemplate.SetActiveEx(false);
       onValueChanged.AddListener(OnValueChanged);
     }
 

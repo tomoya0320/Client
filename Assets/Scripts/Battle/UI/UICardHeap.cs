@@ -9,12 +9,12 @@ namespace GameCore.UI {
 
     public override UIBase Init(params object[] args) {
       CardList = args[0] as List<Card>;
-      DynamicScrollRect.Init<UICardGrid>(CardList.Count, grid => grid.Init(CardList));
+      DynamicScrollRect.Init<UICardGrid, Card>(CardList);
       return base.Init(args);
     }
 
     public async void Close() {
-      bool closed = await UIManager.Instance.CloseChild(this);
+      bool closed = await UIManager.Instance.CloseChild(ParentUI, this);
       if (closed) {
         TempList<Card>.Release(CardList);
         CardList = null;

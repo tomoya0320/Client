@@ -87,6 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 296805455795218317}
   - component: {fileID: 296805455795218322}
+  - component: {fileID: 5118212240124682626}
   - component: {fileID: 2193921811054744191}
   m_Layer: 5
   m_Name: UICardHeap
@@ -131,6 +132,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!111 &5118212240124682626
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296805455795218323}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 12074646d07efd548b49a6ec288eaa1d, type: 2}
+  - {fileID: 7400000, guid: c12bd3af4c8310b45bd21c37a43e7a4d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &2193921811054744191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95175c637f31c8540a7317704e536028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animation: {fileID: 0}
+  Animation: {fileID: 5118212240124682626}
   CanvasGroup: {fileID: 296805455795218322}
   ChildNode: {fileID: 3146718242871881485}
   DynamicScrollRect: {fileID: 2677041854491973825}

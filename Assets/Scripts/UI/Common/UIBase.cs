@@ -13,7 +13,8 @@ namespace GameCore.UI {
     [SerializeField]
     private RectTransform ChildNode;
     public Func<bool> WaitAnimFunc { get; private set; }
-    private List<UIBase> ChildUIList = new List<UIBase>();
+    protected UIBase ParentUI;
+    protected List<UIBase> ChildUIList = new List<UIBase>();
 
     public virtual UIBase Init(params object[] args) {
       WaitAnimFunc = () => Animation && Animation.isPlaying;
@@ -30,6 +31,7 @@ namespace GameCore.UI {
 
     public virtual async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), ChildNode).GetComponent<T>();
+      ui.ParentUI = this;
       ChildUIList.Add(ui.Init(args));
       await ui.OnOpen();
       return ui;
@@ -39,6 +41,7 @@ namespace GameCore.UI {
       if (!ChildUIList.Remove(ui)) {
         return false;
       }
+      ui.ParentUI = null;
       await ui.OnClose();
       Destroy(ui.gameObject); // TODO:”≈ªØ
       return true;

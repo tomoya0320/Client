@@ -112,7 +112,7 @@ namespace GameCore.UI {
     private UniTask OpenCardHeapUI(CardHeapType cardHeapType) {
       var cardList = TempList<Card>.Get();
       Battle.SelfPlayer.Master.BattleCardControl.GetCardList(cardHeapType, cardList);
-      return UIManager.Instance.OpenChild<UICardHeap>("UICardHeap", cardList);
+      return UIManager.Instance.OpenChild<UICardHeap>(this, "UICardHeap", cardList);
     }
 
     private void OnSelfStartTurn() {

@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameCore.UI {
-  public class UICardGrid : MonoBehaviour, IScrollGrid {
+  public class UICardGrid : ScrollGrid<Card> {
     [SerializeField]
     private Text LvText;
     [SerializeField]
@@ -16,19 +15,8 @@ namespace GameCore.UI {
     private Text TypeText;
     [SerializeField]
     private Image IconImage;
-    private RectTransform _RectTransform;
-    public RectTransform RectTransform => _RectTransform ?? (_RectTransform = GetComponent<RectTransform>());
-    private List<Card> CardList;
 
-    public void Init(List<Card> cardList) => CardList = cardList;
-
-    public void Refresh(int index) {
-      if (index < 0 || index >= CardList.Count) {
-        gameObject.SetActiveEx(false);
-        return;
-      }
-
-      var card = CardList[index];
+    protected override void RefreshInternal(Card card) {
       LvText.text = $"{card.Lv + 1}";
       CostText.text = card.Cost >= 0 ? card.Cost.ToString() : "X";
       DescText.text = card.Desc;
@@ -37,7 +25,6 @@ namespace GameCore.UI {
       if (card.Battle.SpriteManager.TryGetAsset(card.IconId, out var sprite)) {
         IconImage.sprite = sprite;
       }
-      gameObject.SetActiveEx(true);
     }
   }
 }

@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEditor.UI;
+using UnityEngine;
 
 namespace GameCore.UI.Editor {
   //指定我们要自定义编辑器的脚本
@@ -26,10 +27,29 @@ namespace GameCore.UI.Editor {
       base.OnInspectorGUI();
       serializedObject.Update();
       //显示我们创建的属性
+      EditorGUILayout.Space();
       EditorGUILayout.PropertyField(GridTemplate);
       EditorGUILayout.PropertyField(GridSize);
       EditorGUILayout.PropertyField(Spacing);
       EditorGUILayout.PropertyField(LayoutDirection);
+      var dynamicScrollRect = target as DynamicScrollRect;
+      if (dynamicScrollRect) {
+        if (dynamicScrollRect.GridTemplate) {
+          var gridTemplateRectTransform = dynamicScrollRect.GridTemplate.GetComponent<RectTransform>();
+          gridTemplateRectTransform.sizeDelta = dynamicScrollRect.GridSize;
+          gridTemplateRectTransform.anchoredPosition = Vector2.zero;
+        }
+        switch (dynamicScrollRect.LayoutDirection) {
+          case UI.LayoutDirection.HORIZONTAL:
+            dynamicScrollRect.horizontal = true;
+            dynamicScrollRect.vertical = false;
+            break;
+          case UI.LayoutDirection.VERTICAL:
+            dynamicScrollRect.horizontal = false;
+            dynamicScrollRect.vertical = true;
+            break;
+        }
+      }
       serializedObject.ApplyModifiedProperties();
     }
   }
