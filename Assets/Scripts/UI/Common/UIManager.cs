@@ -32,14 +32,15 @@ namespace GameCore.UI {
       if (UIStack.TryPeek(out var topUI)) {
         Mask.color = Color.clear;
         Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.Close(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.OnClose(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(false);
       }
       Mask.color = Color.black;
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), GetUIRoot(type)).GetComponent<T>();
+      ui.name = name;
       UIStack.Push(ui.Init(args));
       Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
-      await UniTask.WhenAll(ui.Open(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(ui.OnOpen(), WaitMaskTransitionTime());
       Mask.gameObject.SetActiveEx(false);
       return ui;
     }
@@ -51,12 +52,12 @@ namespace GameCore.UI {
       Mask.gameObject.SetActiveEx(true);
       Mask.color = Color.clear;
       Mask.DOColor(Color.black, MASK_TRANSITION_TIME);
-      await UniTask.WhenAll(UIStack.Pop().Close(), WaitMaskTransitionTime());
+      await UniTask.WhenAll(UIStack.Pop().OnClose(), WaitMaskTransitionTime());
       Destroy(ui.gameObject); // TODO:”≈ªØ
       if (UIStack.TryPeek(out topUI)) {
         Mask.color = Color.black;
         Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);
-        await UniTask.WhenAll(topUI.Open(), WaitMaskTransitionTime());
+        await UniTask.WhenAll(topUI.OnOpen(), WaitMaskTransitionTime());
         topUI.gameObject.SetActiveEx(true);
       }
       Mask.gameObject.SetActiveEx(false);

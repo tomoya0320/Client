@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
@@ -42,8 +41,8 @@ namespace GameCore.UI {
       return base.Init(args);
     }
 
-    public async override UniTask Close() {
-      await base.Close();
+    public override void OnDestroy() {
+      base.OnDestroy();
       AVG?.Clear();
       AVG = null;
     }

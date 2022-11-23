@@ -22,19 +22,22 @@ namespace GameCore.UI {
       return this;
     }
 
-    public virtual async UniTask Open() {
+    public virtual async UniTask OnOpen() {
       await PlayAnim($"{GetType().Name}Open");
     }
 
-    public virtual async UniTask Close() {
+    public virtual async UniTask OnClose() {
       await PlayAnim($"{GetType().Name}Close");
     }
 
+    public virtual void OnDestroy() { } // TODO:优化
+
     public virtual async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
       var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), ChildNode).GetComponent<T>();
+      ui.name = name;
       ui.ParentUI = this;
       ChildUIList.Add(ui.Init(args));
-      await ui.Open();
+      await ui.OnOpen();
       return ui;
     }
 
@@ -43,7 +46,7 @@ namespace GameCore.UI {
         return false;
       }
       ui.ParentUI = null;
-      await ui.Close();
+      await ui.OnClose();
       Destroy(ui.gameObject); // TODO:优化
       return true;
     }
