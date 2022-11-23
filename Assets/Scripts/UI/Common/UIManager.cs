@@ -36,7 +36,11 @@ namespace GameCore.UI {
         topUI.gameObject.SetActiveEx(false);
       }
       Mask.color = Color.black;
-      var ui = Instantiate(await Addressables.LoadAssetAsync<GameObject>(name), GetUIRoot(type)).GetComponent<T>();
+      var handle = Addressables.LoadAssetAsync<GameObject>(name);
+      while (!handle.IsDone) {
+        await UniTask.Yield(Game.Instance.CancellationToken);
+      }
+      var ui = Instantiate(handle.Result, GetUIRoot(type)).GetComponent<T>();
       ui.name = name;
       UIStack.Push(ui.Init(args));
       Mask.DOColor(Color.clear, MASK_TRANSITION_TIME);

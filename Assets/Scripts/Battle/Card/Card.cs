@@ -69,8 +69,11 @@ namespace GameCore {
     }
 
     public async UniTask InitUI() {
-      var prefab = await Addressables.LoadAssetAsync<GameObject>("UICard");
-      UICard = Object.Instantiate(prefab, Battle.UIBattle.CardNode).GetComponent<UICard>();
+      var handle = Addressables.LoadAssetAsync<GameObject>("UICard");
+      while (!handle.IsDone) {
+        await UniTask.Yield(Battle.CancellationToken);
+      }
+      UICard = Object.Instantiate(handle.Result, Battle.UIBattle.CardNode).GetComponent<UICard>();
       UICard.Init(this);
     }
 
