@@ -21,10 +21,10 @@ namespace GameCore.UI {
       }
     }
 
-    public override void OnDestroy() {
-      base.OnDestroy();
+    public override void OnRemove() {
       TempList<Card>.Release(CardList);
       CardList = null;
+      base.OnRemove();
     }
   }
 }

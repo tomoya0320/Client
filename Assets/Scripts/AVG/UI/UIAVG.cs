@@ -41,10 +41,10 @@ namespace GameCore.UI {
       return base.Init(type, args);
     }
 
-    public override void OnDestroy() {
-      base.OnDestroy();
+    public override void OnRemove() {
       AVG?.Clear();
       AVG = null;
+      base.OnRemove();
     }
 
     public Tween SetDialogue(string name, string dialogue, float fadeTime, bool setSpeedBased) {
