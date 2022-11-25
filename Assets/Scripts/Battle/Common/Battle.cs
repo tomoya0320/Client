@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using GameCore.MagicFuncs;
 using GameCore.UI;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -209,14 +208,19 @@ namespace GameCore {
       }
     }
 
-    public void Settle(bool isWin) {
+    public async UniTask Settle(bool isWin) {
       Debug.Log(isWin ? "Battle win" : "Battle lose");
-      Cancel();
+      await Cancel();
     }
 
-    public void Cancel(bool force = false) {
-      CancellationTokenSource.Cancel();
-      BattleState = force ? BattleState.None : BattleState.Exit;
+    public async UniTask Cancel(bool force = false) {
+      if (force) {
+        BattleState = BattleState.None;
+        CancellationTokenSource.Cancel();
+      } else {
+        BattleState = BattleState.Exit;
+        await UniTask.FromCanceled(CancellationTokenSource.Token);
+      }
     }
 
     private async UniTask Exit() {

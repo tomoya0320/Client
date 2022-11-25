@@ -77,9 +77,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
   CardType: 1
+  TargetCamp: 2
   Icon:
     m_AssetGUID: 54ba574f0f864e44d86c09edc2e9f11a
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  TargetCamp: 2
