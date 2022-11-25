@@ -19,8 +19,11 @@ namespace GameCore.UI {
     #endregion
 
     [SerializeField]
-    private GameObject MaskGo;
-    private int MaskEnableCount;
+    private GameObject UIMask;
+    [SerializeField]
+    private GameObject LoadingMask;
+    private int UIMaskCount;
+    private int LoadingMaskCount;
     public Camera UICamera;
     private Dictionary<UIType, Stack<UIBase>> UIStackDict = new Dictionary<UIType, Stack<UIBase>>();
     public static UIManager Instance;
@@ -29,24 +32,29 @@ namespace GameCore.UI {
       foreach (UIType type in Enum.GetValues(typeof(UIType))) {
         UIStackDict.Add(type, new Stack<UIBase>());
       }
+      UIMask.SetActiveEx(false);
+      LoadingMask.SetActiveEx(false);
       Instance = this;
     }
 
-    public async UniTask<T> Open<T>(UIType type, string name, params object[] args) where T : UIBase {
-      SetMaskEnable(true);
+    public async UniTask<T> Open<T>(UIType type, string name, bool removeLastUI = false, params object[] args) where T : UIBase {
+      SetUIMaskEnable(true);
       var handle = Addressables.LoadAssetAsync<GameObject>(name);
       while (!handle.IsDone) {
         await UniTask.Yield(Game.Instance.CancellationToken);
       }
       if (UIStackDict[type].TryPeek(out var topUI)) {
         await topUI.OnClose();
+        if (removeLastUI) {
+          UIStackDict[type].Pop().OnRemove();
+        }
       }
       var ui = Instantiate(handle.Result, GetUIRoot(type)).GetComponent<T>();
       Addressables.Release(handle);
       ui.name = name;
       UIStackDict[type].Push(ui.Init(type, args));
       await ui.OnOpen();
-      SetMaskEnable(false);
+      SetUIMaskEnable(false);
       return ui;
     }
 
@@ -54,33 +62,38 @@ namespace GameCore.UI {
       if (!UIStackDict[ui.UIType].TryPeek(out var topUI) || topUI != ui) {
         return false;
       }
-      SetMaskEnable(true);
+      SetUIMaskEnable(true);
       await UIStackDict[ui.UIType].Pop().OnClose();
       ui.OnRemove(); // TODO:”≈ªØ
       if (UIStackDict[ui.UIType].TryPeek(out topUI)) {
         await topUI.OnOpen();
       }
-      SetMaskEnable(false);
+      SetUIMaskEnable(false);
       return true;
     }
 
     public async UniTask<T> OpenChild<T>(UIBase parentUI, string name, params object[] args) where T : UIBase {
-      SetMaskEnable(true);
+      SetUIMaskEnable(true);
       var childUI = await parentUI.OpenChild<T>(name, args);
-      SetMaskEnable(false);
+      SetUIMaskEnable(false);
       return childUI;
     }
 
     public async UniTask<bool> CloseChild<T>(UIBase parentUI, T ui) where T : UIBase {
-      SetMaskEnable(true);
+      SetUIMaskEnable(true);
       bool closed = await parentUI.CloseChild(ui);
-      SetMaskEnable(false);
+      SetUIMaskEnable(false);
       return closed;
     }
 
-    public void SetMaskEnable(bool enable) {
-      MaskEnableCount += enable ? 1 : -1;
-      MaskGo.SetActiveEx(MaskEnableCount > 0);
+    public void SetUIMaskEnable(bool enable) {
+      UIMaskCount += enable ? 1 : -1;
+      UIMask.SetActiveEx(UIMaskCount > 0);
+    }
+
+    public void SetLoadingMaskEnable(bool enable) {
+      LoadingMaskCount += enable ? 1 : -1;
+      LoadingMask.SetActiveEx(LoadingMaskCount > 0);
     }
 
     private Transform GetUIRoot(UIType type) {

@@ -6,6 +6,8 @@ namespace GameCore {
   public class Game : MonoBehaviour {
     private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
+    public UnitDatabase UnitDatabase; // TODO:hot update
+    public CardDatabase CardDatabase; // TODO:hot update
     public User User { get; private set; }
     public static Game Instance { get; private set; }
 
@@ -16,8 +18,16 @@ namespace GameCore {
     }
 
     private async void Start() {
+#if TEST
+      var battleTest = GetComponent<Test.BattleTest>();
+      if (battleTest) {
+        battleTest.Test();
+        return;
+      }
+#endif
       await UIManager.Instance.Open<UIMain>(UIType.NORMAL, "UIMain");
     }
+
 
     private void OnApplicationQuit() {
       if (Battle.Instance != null) {
@@ -28,6 +38,11 @@ namespace GameCore {
 
     private void Cancel() {
       CancellationTokenSource.Cancel();
+    }
+
+    public void CreateNewUser() {
+      User = new User();
+      User.SaveData();
     }
   }
 }

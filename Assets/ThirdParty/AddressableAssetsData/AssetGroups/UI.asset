@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  m_GroupName: UI
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 55366d2b3f08af646b5d659ba79a88c8
+  m_SerializeEntries:
+  - m_GUID: 4bd04d1f5bd48d149996e51cc074ba20
+    m_Address: UIMain
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e4fa30d620de9fa418d28ebaf0740edd
+    m_Address: UILoading
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de70f2fa851611d4da3d786a81efc288
+    m_Address: UIMap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4efe531774fc1e140ad8bdae0837daf8
+    m_Address: UIBattle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 41ec2ee5f8b9f0240b23c154541acfd9
+    m_Address: UICard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0a76a557e67bf8e4587aaa593c465ac7
+    m_Address: UICardHeap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4a1f2ec2c02ff1542897f4a13a76a2de
+    m_Address: UIAVG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 24d8f24ad42a9b048af4ec4615b2013b, type: 2}
+    - {fileID: 11400000, guid: 7bc2bae316ddb4548a068818d371420c, type: 2}

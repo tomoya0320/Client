@@ -1,6 +1,8 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GameCore.AVGFuncs;
 using GameCore.UI;
+using System;
 using System.Collections.Generic;
 
 namespace GameCore {
@@ -10,8 +12,9 @@ namespace GameCore {
     public List<Tween> Tweens = new List<Tween>();
     public UIAVG UI { get; private set; }
     public AVGGraph AVGGraph { get; private set; }
+    public Action OnExit;
 
-    public static async void Enter(AVGGraph avgGraph) => await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", avgGraph);
+    public static async UniTask<UIAVG> Enter(AVGGraph avgGraph) => await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", args: avgGraph);
 
     public AVG(UIAVG ui, AVGGraph avgGraph) {
       UI = ui;

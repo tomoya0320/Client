@@ -20,7 +20,7 @@ namespace GameCore.UI {
     private Text DialogueText;
     [SerializeField]
     private Button NextBtn;
-    private AVG AVG;
+    public AVG AVG { get; private set; }
     private List<Option> Options = new List<Option>();
 
     public override UIBase Init(UIType type, params object[] args) {

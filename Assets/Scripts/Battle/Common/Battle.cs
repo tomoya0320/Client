@@ -138,7 +138,7 @@ namespace GameCore {
       }
 
       // step4:加载战斗UI
-      UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", this); // TODO:优化
+      UIBattle = await UIManager.Instance.Open<UIBattle>(UIType.NORMAL, "UIBattle", args: this); // TODO:优化
       // 依赖UIBattle初始化
       foreach (var player in PlayerManager.PlayerList) {
         for (int i = 0; i < player.Units.Length; i++) {
