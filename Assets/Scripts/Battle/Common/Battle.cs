@@ -15,10 +15,10 @@ namespace GameCore {
   }
 
   public class Battle {
-    private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+    private CancellationTokenSource CancellationTokenSource;
     public CancellationToken CancellationToken => CancellationTokenSource?.Token ?? CancellationToken.None;
     public event Action OnLoaded;
-    public event Action<bool> OnSettle;
+    public event Action<bool> OnSettled;
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public LevelTemplate LevelTemplate { get; private set; }
@@ -52,7 +52,7 @@ namespace GameCore {
     public static Battle Instance { get; private set; }
     #endregion
 
-    public static bool Enter(BattleData battleData, Action onLoaded = null, Action<bool> onSettle = null) {
+    public static bool Enter(BattleData battleData, Action onLoaded = null, Action<bool> onSettled = null) {
       if (Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
@@ -62,12 +62,14 @@ namespace GameCore {
       // 首先是加载资源
       Instance.BattleState = BattleState.LOAD;
       Instance.OnLoaded += onLoaded;
-      Instance.OnSettle += onSettle;
+      Instance.OnSettled += onSettled;
       Instance.Update();
       return true;
     }
 
     private Battle(BattleData battleData) {
+      CancellationTokenSource = new CancellationTokenSource();
+
       BattleData = battleData;
 
       UnitManager = new UnitManager(this);
@@ -214,19 +216,13 @@ namespace GameCore {
       foreach (var unit in UnitManager.AllUnits) {
         await unit.OnSettle();
       }
-      OnSettle?.Invoke(isWin);
-      await Cancel();
+      OnSettled?.Invoke(isWin);
+      Cancel();
     }
 
-    public async UniTask Cancel() {
-      BattleState = BattleState.EXIT;
-      await UniTask.FromCanceled(CancellationToken);
-    }
-
-    public void ForceCancel() {
+    public void Cancel() {
       BattleState = BattleState.EXIT;
       CancellationTokenSource.Cancel();
-      CancellationTokenSource.Dispose();
     }
 
     private async UniTask Exit() {
@@ -281,6 +277,9 @@ namespace GameCore {
         await UIManager.Instance.Close(UIBattle);
         UIBattle = null;
       }
+
+      CancellationTokenSource.Dispose();
+      CancellationTokenSource = null;
 
       GC.Collect();
     }

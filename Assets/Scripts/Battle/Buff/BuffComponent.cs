@@ -3,26 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
-  public class BuffComponent : IPoolObject {
+  public class BuffComponent {
     public Unit Unit { get; private set; }
     private Battle Battle => Unit.Battle;
     private BuffManager BuffManager => Battle.BuffManager;
     private Dictionary<int, Buff> Buffs = new Dictionary<int, Buff>();
     public Dictionary<int, Buff>.ValueCollection AllBuffs => Buffs.Values;
 
-    public BuffComponent Init(Unit unit) {
-      Unit = unit;
-      return this;
-    }
-
-    public void Release() {
-      foreach (var buff in Buffs.Values) {
-        Battle.ObjectPool.Release(buff);
-      }
-      Buffs.Clear();
-
-      Unit = null;
-    }
+    public BuffComponent(Unit unit) => Unit = unit;
 
     public async UniTask Update(TickTime updateTime) {
       var buffList = TempList<Buff>.Get();

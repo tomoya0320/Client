@@ -34,17 +34,8 @@ namespace GameCore {
         Debug.LogError($"BuffComponent repeat add. id:{unit.RuntimeId}");
         return;
       }
-      var buffComponent = Battle.ObjectPool.Get<BuffComponent>();
-      BuffComponents.Add(unit.RuntimeId, buffComponent.Init(unit));
-    }
 
-    public void RemoveComponent(int runtimeId) {
-      if (!BuffComponents.TryGetValue(runtimeId, out var buffComponent)) {
-        Debug.LogError($"BuffComponent is not exist. id:{runtimeId}");
-        return;
-      }
-      Battle.ObjectPool.Release(buffComponent);
-      BuffComponents.Remove(runtimeId);
+      BuffComponents.Add(unit.RuntimeId, new BuffComponent(unit));
     }
 
     public async UniTask<Buff> AddBuff(string buffId, Unit source, Unit target) {

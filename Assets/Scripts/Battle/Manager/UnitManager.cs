@@ -68,12 +68,5 @@ namespace GameCore {
       }
       return null;
     }
-
-    public void OnUnitDie(Unit unit) {
-      if(!Units.ContainsKey(unit.RuntimeId)){
-        return;
-      }
-      Battle.BuffManager.RemoveComponent(unit.RuntimeId);
-    }
   }
 }

@@ -36,7 +36,7 @@ namespace GameCore {
     }
 
     private void OnApplicationQuit() {
-      Battle.Instance?.ForceCancel();
+      Battle.Instance?.Cancel();
       CancellationTokenSource.Cancel();
       CancellationTokenSource.Dispose();
     }

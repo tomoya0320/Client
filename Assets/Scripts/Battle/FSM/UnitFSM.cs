@@ -83,7 +83,6 @@ namespace GameCore {
       await UniTask.Delay((int)(Owner.DieAnimTime * BattleConstant.THOUSAND), cancellationToken: Owner.Battle.CancellationToken);
       Owner.Player.DeadUnitCount++;
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_DEAD, Owner, context);
-      Owner.Battle.UnitManager.OnUnitDie(Owner);
     }
 
     public override bool CheckLeave(State<Unit> nextState) => false;
