@@ -215,12 +215,18 @@ namespace GameCore {
         await unit.OnSettle();
       }
       OnSettle?.Invoke(isWin);
-      Cancel();
+      await Cancel();
     }
 
-    public void Cancel() {
+    public async UniTask Cancel() {
+      BattleState = BattleState.EXIT;
+      await UniTask.FromCanceled(CancellationToken);
+    }
+
+    public void ForceCancel() {
       BattleState = BattleState.EXIT;
       CancellationTokenSource.Cancel();
+      CancellationTokenSource.Dispose();
     }
 
     private async UniTask Exit() {
@@ -275,9 +281,6 @@ namespace GameCore {
         await UIManager.Instance.Close(UIBattle);
         UIBattle = null;
       }
-
-      CancellationTokenSource.Dispose();
-      CancellationTokenSource = null;
 
       GC.Collect();
     }

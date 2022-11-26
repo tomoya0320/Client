@@ -36,14 +36,9 @@ namespace GameCore {
     }
 
     private void OnApplicationQuit() {
-      Battle.Instance?.Cancel();
-      Cancel();
-    }
-
-    private void Cancel() {
+      Battle.Instance?.ForceCancel();
       CancellationTokenSource.Cancel();
       CancellationTokenSource.Dispose();
-      CancellationTokenSource = null;
     }
 
     public void CreateNewUser() => User = User.CreateNew();
