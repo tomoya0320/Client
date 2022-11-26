@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
 namespace GameCore {
-  public class CardManager : AssetManager<CardTemplate> {
+  public class CardManager : BattleResManager<CardTemplate> {
     private int IncId;
     private Dictionary<int, Card> Cards = new Dictionary<int, Card>();
 

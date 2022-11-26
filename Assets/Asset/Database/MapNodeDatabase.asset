@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a2c03bf7e8a8c4c9bf53ca793bc17b, type: 3}
-  m_Name: LevelDatabase
+  m_Script: {fileID: 11500000, guid: d5b62fa8af49c7249b166dbb425b3982, type: 3}
+  m_Name: MapNodeDatabase
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,9 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: LevelDatabaseItems
+    - Name: MapNodeDatabaseItems
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.LevelDatabase+LevelDatabaseItem,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.MapNodeDatabase+MapNodeDatabaseItem,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -43,14 +43,14 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 2|GameCore.LevelDatabase+LevelDatabaseItem, Assembly-CSharp
-    - Name: Template
+      Data: 2|GameCore.MapNodeDatabase+MapNodeDatabaseItem, Assembly-CSharp
+    - Name: MapNode
       Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.LevelTemplate,
+      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.MapNodeBase,
         Assembly-CSharp]], Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
-      Data: 61d32442c679c4c488ad279dbbfb152f
+      Data: 26e6cda3162d47b418a6917887aa927e
     - Name: m_SubObjectName
       Entry: 1
       Data: 
@@ -63,9 +63,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: Unlocked
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 

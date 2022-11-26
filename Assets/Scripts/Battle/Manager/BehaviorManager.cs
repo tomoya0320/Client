@@ -28,7 +28,7 @@ namespace GameCore {
     ON_UNIT_DEAD,
   }
 
-  public class BehaviorManager : AssetManager<BehaviorGraph> {
+  public class BehaviorManager : BattleResManager<BehaviorGraph> {
     private int IncId;
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
     private Dictionary<TickTime, List<Behavior>> BehaviorTimes = new Dictionary<TickTime, List<Behavior>>();

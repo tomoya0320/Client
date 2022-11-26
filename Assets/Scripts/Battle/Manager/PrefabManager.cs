@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace GameCore {
-  public class PrefabManager : AssetManager<GameObject> {
+  public class PrefabManager : BattleResManager<GameObject> {
     public PrefabManager(Battle battle) : base(battle) { }
   }
 }

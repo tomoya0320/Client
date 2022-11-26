@@ -8,7 +8,7 @@ namespace GameCore {
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
     public UnitDatabase UnitDatabase; // TODO:hot update
     public CardDatabase CardDatabase; // TODO:hot update
-    public LevelDatabase LevelDatabase; // TODO:hot update
+    public MapNodeDatabase MapNodeDatabase; // TODO:hot update
     public User User { get; private set; }
     public static Game Instance { get; private set; }
 
@@ -41,9 +41,6 @@ namespace GameCore {
       CancellationTokenSource.Cancel();
     }
 
-    public void CreateNewUser() {
-      User = new User();
-      User.SaveData();
-    }
+    public void CreateNewUser() => User = User.CreateNew();
   }
 }

@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitDatabase: {fileID: 11400000, guid: 49932a9c80183ee46aef7d8cae86be1c, type: 2}
   CardDatabase: {fileID: 11400000, guid: 80f0c16c704efa04b8834d3ece34cd9d, type: 2}
-  LevelDatabase: {fileID: 11400000, guid: 17cf7d27dac5568459d267fb231beaa5, type: 2}
+  MapNodeDatabase: {fileID: 11400000, guid: 11eacdc1b1435014aad418dcc38097f5, type: 2}

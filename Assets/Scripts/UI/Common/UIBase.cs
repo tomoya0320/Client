@@ -1,11 +1,12 @@
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace GameCore.UI {
-  public abstract class UIBase : MonoBehaviour {
+  public abstract class UIBase : SerializedMonoBehaviour {
     [SerializeField]
     private Animation Animation;
     [SerializeField]
@@ -16,10 +17,10 @@ namespace GameCore.UI {
     protected List<UIBase> ChildUIList = new List<UIBase>();
     public bool IsChildUI => ParentUI != null;
 
-    public virtual UIBase Init(UIType type, params object[] args) {
+    public virtual UniTask Init(UIType type, params object[] args) {
       UIType = type;
       WaitAnimFunc = () => Animation && Animation.isPlaying;
-      return this;
+      return UniTask.CompletedTask;
     }
 
     public virtual async UniTask OnOpen() {
@@ -50,7 +51,8 @@ namespace GameCore.UI {
       Addressables.Release(handle);
       ui.name = name;
       ui.ParentUI = this;
-      ChildUIList.Add(ui.Init(UIType, args));
+      await ui.Init(UIType, args);
+      ChildUIList.Add(ui);
       await ui.OnOpen();
       return ui;
     }

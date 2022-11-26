@@ -71,7 +71,7 @@ namespace GameCore.UI {
     public Transform TextNode;
     public Transform CardNode;
 
-    public override UIBase Init(UIType type, params object[] args) {
+    public override UniTask Init(UIType type, params object[] args) {
       Battle = args[0] as Battle;
       Battle.SelfPlayer.OnStartTurn += OnSelfStartTurn;
 

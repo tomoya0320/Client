@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace GameCore.UI {
     public AVG AVG { get; private set; }
     private List<Option> Options = new List<Option>();
 
-    public override UIBase Init(UIType type, params object[] args) {
+    public override UniTask Init(UIType type, params object[] args) {
       AVG = new AVG(this, args[0] as AVGGraph);
 
       NameText.text = string.Empty;

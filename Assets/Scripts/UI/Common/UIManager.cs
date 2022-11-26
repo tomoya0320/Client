@@ -43,16 +43,20 @@ namespace GameCore.UI {
       while (!handle.IsDone) {
         await UniTask.Yield(Game.Instance.CancellationToken);
       }
+      var ui = Instantiate(handle.Result, GetUIRoot(type)).GetComponent<T>();
+      ui.gameObject.SetActiveEx(false);
+      Addressables.Release(handle);
+      ui.name = name;
+      await ui.Init(type, args);
+
       if (UIStackDict[type].TryPeek(out var topUI)) {
         await topUI.OnClose();
         if (removeLastUI) {
           UIStackDict[type].Pop().OnRemove();
         }
       }
-      var ui = Instantiate(handle.Result, GetUIRoot(type)).GetComponent<T>();
-      Addressables.Release(handle);
-      ui.name = name;
-      UIStackDict[type].Push(ui.Init(type, args));
+
+      UIStackDict[type].Push(ui);
       await ui.OnOpen();
       SetUIMaskEnable(false);
       return ui;

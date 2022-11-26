@@ -7,7 +7,7 @@ namespace GameCore.UI {
     [SerializeField]
     private GameObject ContinueGameBtn;
 
-    public override UIBase Init(UIType type, params object[] args) {
+    public override UniTask Init(UIType type, params object[] args) {
       ContinueGameBtn.SetActiveEx(Game.Instance.User != null);
       return base.Init(type, args);
     }

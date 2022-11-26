@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace GameCore.UI {
     private DynamicScrollRect DynamicScrollRect;
     private List<Card> CardList;
 
-    public override UIBase Init(UIType type, params object[] args) {
+    public override UniTask Init(UIType type, params object[] args) {
       CardList = args[0] as List<Card>;
       DynamicScrollRect.Init<UICardGrid, Card>(CardList);
       return base.Init(type, args);

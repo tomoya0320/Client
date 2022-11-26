@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace GameCore {
-  public class AttribManager : AssetManager<AttribTemplate> {
+  public class AttribManager : BattleResManager<AttribTemplate> {
     public AttribManager(Battle battleManager) : base(battleManager) { }
 
     public Attrib[] GetAttribs(string attribId, int level, int maxLevel) {

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace GameCore {
-  public class SpriteManager : AssetManager<Sprite> {
+  public class SpriteManager : BattleResManager<Sprite> {
     public SpriteManager(Battle battle) : base(battle) { }
   }
 }

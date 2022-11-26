@@ -4,10 +4,10 @@ using UnityEngine.AddressableAssets;
 using Cysharp.Threading.Tasks;
 
 namespace GameCore {
-  public abstract class AssetManager<T> : BattleBase where T : Object {
+  public abstract class BattleResManager<T> : BattleBase where T : Object {
     protected Dictionary<string, T> Templates = new Dictionary<string, T>();
 
-    protected AssetManager(Battle battle) : base(battle) { }
+    protected BattleResManager(Battle battle) : base(battle) { }
 
     public async UniTask<T> Preload(AssetReferenceT<T> assetRef) {
       if (string.IsNullOrEmpty(assetRef?.AssetGUID)) {
@@ -17,15 +17,8 @@ namespace GameCore {
       if (Templates.TryGetValue(assetRef.AssetGUID, out var template)) {
         return template;
       }
-      if (assetRef.Asset) {
-        template = assetRef.Asset as T;
-      } else {
-        var handle = assetRef.LoadAssetAsync();
-        while (!handle.IsDone) {
-          await UniTask.Yield(Battle.CancellationToken);
-        }
-        template = handle.Result;
-      }
+
+      template = await ResourceManager.LoadAssetAsync(assetRef);
 
       if (template) {
         Templates.Add(assetRef.AssetGUID, template);
