@@ -8,6 +8,7 @@ namespace GameCore {
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
     public UnitDatabase UnitDatabase; // TODO:hot update
     public CardDatabase CardDatabase; // TODO:hot update
+    public LevelDatabase LevelDatabase; // TODO:hot update
     public User User { get; private set; }
     public static Game Instance { get; private set; }
 

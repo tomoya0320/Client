@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1169880248a419c4b869fec4eb360396, type: 3}
-  m_Name: UnitDatabase
+  m_Script: {fileID: 11500000, guid: 13a2c03bf7e8a8c4c9bf53ca793bc17b, type: 3}
+  m_Name: LevelDatabase
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,9 +21,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: UnitDatabaseItems
+    - Name: LevelDatabaseItems
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.UnitDatabase+UnitDatabaseItem,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.LevelDatabase+LevelDatabaseItem,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 7
       Data: 
@@ -43,51 +43,14 @@ MonoBehaviour:
       Data: 0
     - Name: $v
       Entry: 7
-      Data: 2|GameCore.UnitDatabase+UnitDatabaseItem, Assembly-CSharp
+      Data: 2|GameCore.LevelDatabase+LevelDatabaseItem, Assembly-CSharp
     - Name: Template
       Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.UnitTemplate,
+      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.LevelTemplate,
         Assembly-CSharp]], Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
-      Data: b756ee77718b47c45b273833658993f8
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Unlocked
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 4|GameCore.UnitDatabase+UnitDatabaseItem, Assembly-CSharp
-    - Name: Template
-      Entry: 7
-      Data: 5|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.UnitTemplate,
-        Assembly-CSharp]], Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: a42fefc6b8f6f4c4c8c6048462f58cad
+      Data: 61d32442c679c4c488ad279dbbfb152f
     - Name: m_SubObjectName
       Entry: 1
       Data: 

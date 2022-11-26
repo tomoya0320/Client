@@ -12,25 +12,143 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12db8a69ce619d74db1f79f7b97c9cbb, type: 3}
   m_Name: CardDatabase
   m_EditorClassIdentifier: 
-  CardDatabaseItems:
-  - Template:
-      m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    No: 0
-    Unlocked: 0
-  - Template:
-      m_AssetGUID: 8e81780d2dff328438aad1e6222b26f9
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    No: 1
-    Unlocked: 0
-  - Template:
-      m_AssetGUID: b75f4cffe6b48894488953fce9589c18
-      m_SubObjectName: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    No: 2
-    Unlocked: 0
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CardDatabaseItems
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.CardDatabase+CardDatabaseItem,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|GameCore.CardDatabase+CardDatabaseItem, Assembly-CSharp
+    - Name: Template
+      Entry: 7
+      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.CardTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 4fd46d3418614e14698fb22cbaf24bce
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Unlocked
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 4|GameCore.CardDatabase+CardDatabaseItem, Assembly-CSharp
+    - Name: Template
+      Entry: 7
+      Data: 5|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.CardTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 8e81780d2dff328438aad1e6222b26f9
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Unlocked
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 6|GameCore.CardDatabase+CardDatabaseItem, Assembly-CSharp
+    - Name: Template
+      Entry: 7
+      Data: 7|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.CardTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: b75f4cffe6b48894488953fce9589c18
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Unlocked
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
