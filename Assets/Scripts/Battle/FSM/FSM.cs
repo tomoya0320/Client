@@ -21,32 +21,17 @@ namespace GameCore {
   }
 
   public abstract class StateWithUpdate<T> : State<T> where T : class {
-    private bool Updating;
-    protected virtual CancellationToken CancellationToken => CancellationToken.None;
-
     protected StateWithUpdate(int stateId, StateMachine<T> stateMachine) : base(stateId, stateMachine) { }
 
     public override UniTask OnEnter(State<T> lastState, Context context = null) {
-      Updating = true;
-      Update();
+      Game.Instance.OnUpdate += Update;
       return base.OnEnter(lastState, context);
     }
 
-    private async void Update() {
-      while (Updating) {
-        UpdateInternal();
-        try {
-          await UniTask.Yield(CancellationToken);
-        } catch (OperationCanceledException) {
-          break;
-        }
-      }
-    }
-
-    protected abstract void UpdateInternal();
+    protected abstract void Update();
 
     public override UniTask OnExit(State<T> nextState, Context context = null) {
-      Updating = false;
+      Game.Instance.OnUpdate -= Update;
       return base.OnExit(nextState, context);
     }
   }

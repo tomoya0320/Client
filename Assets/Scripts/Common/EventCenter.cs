@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameCore.Broadcast {
+namespace GameCore {
   public enum EventType {
     ON_MAP_CUR_POS_UPDATE,
   }

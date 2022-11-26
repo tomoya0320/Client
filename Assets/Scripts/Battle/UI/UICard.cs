@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using System.Threading;
 
 namespace GameCore {
 
@@ -15,6 +14,7 @@ namespace GameCore {
     IN_CONSUME,
     DRAGGING,
     PLAYING,
+    SETTLE,
   }
 
   public abstract class UICardOutHand : State<UICard> {
@@ -52,7 +52,6 @@ namespace GameCore {
   public class UICardInHand : StateWithUpdate<UICard> {
     private int InHandIndex;
     private Vector2 Pos;
-    protected override CancellationToken CancellationToken => Owner.Battle.CancellationToken;
 
     public UICardInHand(StateMachine<UICard> stateMachine) : base((int)UICardState.IN_HAND, stateMachine) { }
 
@@ -61,7 +60,7 @@ namespace GameCore {
       return base.OnEnter(lastState, context);
     }
 
-    protected override void UpdateInternal() {
+    protected override void Update() {
       if (InHandIndex != Owner.InHandIndex) {
         InHandIndex = Owner.InHandIndex;
         Owner.transform.SetSiblingIndex(InHandIndex);
@@ -88,7 +87,6 @@ namespace GameCore {
   }
 
   public class UICardDragging : StateWithUpdate<UICard> {
-    protected override CancellationToken CancellationToken => Owner.Battle.CancellationToken;
 
     public UICardDragging(StateMachine<UICard> stateMachine) : base((int)UICardState.DRAGGING, stateMachine) { }
 
@@ -99,7 +97,7 @@ namespace GameCore {
       return base.OnEnter(lastState, context);
     }
 
-    protected override void UpdateInternal() {
+    protected override void Update() {
       // 大小缩放
       Owner.transform.localScale = Vector3.Lerp(Owner.transform.localScale, Vector3.one * UICardStateMachine.DRAGGING_SCALE, UICardStateMachine.DRAGGING_SCALE_SPEED * Time.deltaTime);
       // 位置移动
@@ -131,6 +129,10 @@ namespace GameCore {
     public override bool CheckEnter(State<UICard> lastState) => lastState != null && lastState.StateId == (int)UICardState.DRAGGING;
   }
 
+  public class UICardSettle : State<UICard> {
+    public UICardSettle(StateMachine<UICard> stateMachine) : base((int)UICardState.SETTLE, stateMachine) { }
+  }
+
   public class UICardStateMachine : StateMachine<UICard> {
     public const float OUT_HAND_SCALE = 0.1f;
     public const float OUT_HAND_SCALE_TIME = 0.1f;
@@ -146,6 +148,7 @@ namespace GameCore {
       RegisterState(new UICardInConsume(this));
       RegisterState(new UICardDragging(this));
       RegisterState(new UICardPlaying(this));
+      RegisterState(new UICardSettle(this));
 
       CurrentState = States[(int)UICardState.IN_DRAW];
       CurrentState.OnEnter(null);

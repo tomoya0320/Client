@@ -77,6 +77,12 @@ namespace GameCore {
       UICard.Init(this);
     }
 
+    public async UniTask OnSettle() {
+      if (UICard) {
+        await UICard.UICardStateMachine.SwitchState((int)UICardState.SETTLE);
+      }
+    }
+
     public async UniTask Cast(Unit mainTarget) => await Skill.Cast(mainTarget);
 
     public bool PrePlay(Unit mainTarget) => CardPlayer.PrePlay(this, mainTarget);

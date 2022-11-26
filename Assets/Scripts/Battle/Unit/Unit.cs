@@ -70,6 +70,12 @@ namespace GameCore {
       }
     }
 
+    public async UniTask OnSettle() {
+      foreach (var card in BattleCardControl.Cards) {
+        await card.OnSettle();
+      }
+    }
+
     public void AddAttribChangedCallback(AttribType type, Action<int, int> callback) => AttribChangedCallbacks[(int)type] += callback;
 
     public async UniTask InitBehavior() {

@@ -16,7 +16,7 @@ namespace GameCore {
 
   public class Battle {
     private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
-    public CancellationToken CancellationToken => CancellationTokenSource.Token;
+    public CancellationToken CancellationToken => CancellationTokenSource?.Token ?? CancellationToken.None;
     public event Action OnLoaded;
     public event Action<bool> OnSettle;
     public BattleState BattleState { get; private set; }
@@ -210,14 +210,17 @@ namespace GameCore {
       }
     }
 
-    public void Settle(bool isWin) {
+    public async UniTask Settle(bool isWin) {
+      foreach (var unit in UnitManager.AllUnits) {
+        await unit.OnSettle();
+      }
       OnSettle?.Invoke(isWin);
       Cancel();
     }
 
-    public void Cancel(bool force = false) {
-      BattleState = force ? BattleState.NONE : BattleState.EXIT;
-      CancellationTokenSource.Cancel(true);
+    public void Cancel() {
+      BattleState = BattleState.EXIT;
+      CancellationTokenSource.Cancel();
     }
 
     private async UniTask Exit() {
@@ -268,12 +271,15 @@ namespace GameCore {
       SelfPlayer = null;
       LevelTemplate = null;
 
-      await UniTask.Yield();
+      if (UIBattle) {
+        await UIManager.Instance.Close(UIBattle);
+        UIBattle = null;
+      }
+
+      CancellationTokenSource.Dispose();
+      CancellationTokenSource = null;
 
       GC.Collect();
-
-      await UIManager.Instance.Close(UIBattle);
-      UIBattle = null;
     }
 
     private async UniTask Run() {
