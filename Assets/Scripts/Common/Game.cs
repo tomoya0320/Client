@@ -30,9 +30,9 @@ namespace GameCore {
     }
 
 
-    private async void OnApplicationQuit() {
+    private void OnApplicationQuit() {
       if (Battle.Instance != null) {
-        await Battle.Instance.Cancel(true);
+        Battle.Instance.Cancel(true);
       }
       Cancel();
     }

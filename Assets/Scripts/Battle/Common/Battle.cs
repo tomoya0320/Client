@@ -8,16 +8,17 @@ using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   public enum BattleState {
-    None,
-    Load,
-    Run,
-    Exit,
+    NONE,
+    LOAD,
+    RUN,
+    EXIT,
   }
 
   public class Battle {
-    private CancellationTokenSource CancellationTokenSource =new CancellationTokenSource();
+    private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
     public CancellationToken CancellationToken => CancellationTokenSource.Token;
     public event Action OnLoaded;
+    public event Action<bool> OnSettle;
     public BattleState BattleState { get; private set; }
     public BattleData BattleData { get; private set; }
     public LevelTemplate LevelTemplate { get; private set; }
@@ -51,7 +52,7 @@ namespace GameCore {
     public static Battle Instance { get; private set; }
     #endregion
 
-    public static bool Enter(BattleData battleData, Action onLoaded) {
+    public static bool Enter(BattleData battleData, Action onLoaded = null, Action<bool> onSettle = null) {
       if (Instance != null) {
         Debug.LogError("上一场战斗未结束!");
         return false;
@@ -59,8 +60,9 @@ namespace GameCore {
       // 战斗实例初始化
       Instance = new Battle(battleData);
       // 首先是加载资源
-      Instance.BattleState = BattleState.Load;
+      Instance.BattleState = BattleState.LOAD;
       Instance.OnLoaded += onLoaded;
+      Instance.OnSettle += onSettle;
       Instance.Update();
       return true;
     }
@@ -87,16 +89,16 @@ namespace GameCore {
     }
 
     public async void Update() {
-      while (BattleState != BattleState.None) {
+      while (BattleState != BattleState.NONE) {
         try {
           switch (BattleState) {
-            case BattleState.Load:
+            case BattleState.LOAD:
               await Load();
               break;
-            case BattleState.Run:
+            case BattleState.RUN:
               await Run();
               break;
-            case BattleState.Exit:
+            case BattleState.EXIT:
               await Exit();
               break;
           }
@@ -145,7 +147,7 @@ namespace GameCore {
         }
       }
 
-      BattleState = BattleState.Run;
+      BattleState = BattleState.RUN;
 
       OnLoaded?.Invoke();
     }
@@ -208,25 +210,20 @@ namespace GameCore {
       }
     }
 
-    public async UniTask Settle(bool isWin) {
-      Debug.Log(isWin ? "Battle win" : "Battle lose");
-      await Cancel();
+    public void Settle(bool isWin) {
+      OnSettle?.Invoke(isWin);
+      Cancel();
     }
 
-    public async UniTask Cancel(bool force = false) {
-      if (force) {
-        BattleState = BattleState.None;
-        CancellationTokenSource.Cancel();
-      } else {
-        BattleState = BattleState.Exit;
-        await UniTask.FromCanceled(CancellationTokenSource.Token);
-      }
+    public void Cancel(bool force = false) {
+      BattleState = force ? BattleState.NONE : BattleState.EXIT;
+      CancellationTokenSource.Cancel(true);
     }
 
     private async UniTask Exit() {
       Instance = null;
       BattleData = null;
-      BattleState = BattleState.None;
+      BattleState = BattleState.NONE;
 
       UnitManager.Release();
       UnitManager = null;

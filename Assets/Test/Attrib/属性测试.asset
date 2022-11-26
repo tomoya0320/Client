@@ -142,7 +142,7 @@ MonoBehaviour:
       Data: 
     - Name: MinValue
       Entry: 3
-      Data: 30
+      Data: 20
     - Name: MaxValue
       Entry: 3
       Data: 100

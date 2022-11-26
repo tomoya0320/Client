@@ -9,9 +9,15 @@ namespace GameCore {
     [LabelText("¹Ø¿¨")]
     public AssetReferenceT<LevelTemplate> Level;
 
-    public async override void Run() {
+    public async override void Run(int pos) {
       var ui = await UIManager.Instance.Open<UILoading>(UIType.TOP, "UILoading");
-      Battle.Enter(CreateBattleData(), async () => await UIManager.Instance.Close(ui));
+      Battle.Enter(CreateBattleData(),
+        async () => await UIManager.Instance.Close(ui),
+        isWin => {
+          if (isWin) {
+            Game.Instance.User.UpdateMapCurPos(pos);
+          }
+        });
     }
 
     private BattleData CreateBattleData() => new BattleData {

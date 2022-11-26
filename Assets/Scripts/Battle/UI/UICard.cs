@@ -106,7 +106,7 @@ namespace GameCore {
       Owner.RectTransform.anchoredPosition = Owner.EventData.position - 0.5f * new Vector2(Screen.width, Screen.height);
       // 目标选中的逻辑层
       Unit beforeMainTarget = Owner.MainTarget;
-      if (Owner.transform.position.y > 0 && Owner.Battle.BattleState == BattleState.Run) {
+      if (Owner.transform.position.y > 0 && Owner.Battle.BattleState == BattleState.RUN) {
         Owner.MainTarget = Owner.Card.Battle.UnitManager.GetNearestUnit(Owner.EventData.position, Owner.Card.TargetCamp, Owner.Card.Owner);
       } else {
         Owner.MainTarget = null;
@@ -195,13 +195,13 @@ namespace GameCore {
 
     public async void OnPointerDown(PointerEventData eventData) {
       EventData = eventData;
-      if (Battle.BattleState == BattleState.Run && UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
+      if (Battle.BattleState == BattleState.RUN && UICardStateMachine.CurrentState.StateId == (int)UICardState.IN_HAND) {
         await UICardStateMachine.SwitchState((int)UICardState.DRAGGING);
       }
     }
 
     public async void OnPointerUp(PointerEventData eventData) {
-      if (Battle.BattleState == BattleState.Run && UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
+      if (Battle.BattleState == BattleState.RUN && UICardStateMachine.CurrentState.StateId == (int)UICardState.DRAGGING) {
         if (Card.Owner.BattleCardControl.PlayCard(Card, MainTarget)) {
           await UICardStateMachine.SwitchState((int)UICardState.PLAYING);
         } else {

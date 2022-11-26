@@ -98,25 +98,25 @@ namespace GameCore.UI {
     }
 
     public void EndTurn() {
-      if (Battle.BattleState == BattleState.Run) {
+      if (Battle.BattleState == BattleState.RUN) {
         Battle.SelfPlayer.EndTurnFlag = true;
       }
     }
 
     public async void OpenDrawCardHeapUI() {
-      if (Battle.BattleState == BattleState.Run) {
+      if (Battle.BattleState == BattleState.RUN) {
         await OpenCardHeapUI(CardHeapType.DRAW);
       }
     }
 
     public async void OpenDiscardCardHeapUI() {
-      if (Battle.BattleState == BattleState.Run) {
+      if (Battle.BattleState == BattleState.RUN) {
         await OpenCardHeapUI(CardHeapType.DISCARD);
       }
     }
 
     public async void OpenConsumeCardHeapUI() {
-      if (Battle.BattleState == BattleState.Run) {
+      if (Battle.BattleState == BattleState.RUN) {
         await OpenCardHeapUI(CardHeapType.CONSUME);
       }
     }

@@ -2,6 +2,6 @@ using UnityEngine;
 
 namespace GameCore {
   public abstract class MapNodeBase : ScriptableObject {
-    public abstract void Run();
+    public abstract void Run(int pos);
   }
 }

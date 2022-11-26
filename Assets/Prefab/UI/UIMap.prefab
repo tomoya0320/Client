@@ -121,19 +121,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3941461848712523271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2614318115651411296}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2614318115651411296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +148,7 @@ GameObject:
   - component: {fileID: 7223584175342369483}
   - component: {fileID: 7316876454729417238}
   m_Layer: 5
-  m_Name: node
+  m_Name: dest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -207,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -267,19 +255,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4366841178353191216}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7316876454729417238}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &7316876454729417238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -578,19 +554,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3681584548480320042}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5760115608900304038}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5760115608900304038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,19 +892,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3807258270896977245}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6615862730070856611}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6615862730070856611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,19 +1026,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6103688460132567122}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8638709932570280607}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &8638709932570280607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,19 +1160,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2271886354860906741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 793544705560629265}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &793544705560629265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1513,19 +1441,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 355134555523767975}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5685522923439023972}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5685522923439023972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,19 +1575,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5894065601472815247}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4068510234496350190}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4068510234496350190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1842,19 +1746,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5964547560960116236}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4964458070291034617}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &4964458070291034617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,19 +2014,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7367366114203814631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2980807699303864945}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2980807699303864945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2268,19 +2148,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7715513867161981382}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1426635625973766741}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1426635625973766741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2414,19 +2282,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4212382126440831546}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2475535691157648611}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2475535691157648611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2560,19 +2416,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1681238618657175614}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5745237790378034645}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMapNode, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &5745237790378034645
 MonoBehaviour:
   m_ObjectHideFlags: 0

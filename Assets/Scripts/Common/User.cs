@@ -41,6 +41,11 @@ namespace GameCore {
       return cardData;
     }
 
+    public void UpdateMapCurPos(int pos) {
+      Map.UpdateCurPos(pos);
+      SaveData();
+    }
+
     public static User LoadFromLocal() {
       if (PlayerPrefs.HasKey(nameof(User))) {
         try {

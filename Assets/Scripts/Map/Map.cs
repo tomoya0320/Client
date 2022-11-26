@@ -1,3 +1,4 @@
+using GameCore.Broadcast;
 using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
@@ -7,11 +8,37 @@ namespace GameCore {
   public class Map {
     public const int WIDTH = 4;
     public const int HEIGHT = 3;
+    public const int DEST_POS = WIDTH * HEIGHT;
 
     public int[] Nodes;
     public int DestNode;
     public int CurPos;
     public Dictionary<int, List<int>> Paths;
+
+    public void UpdateCurPos(int pos) {
+      CurPos = pos;
+      EventCenter.Broadcast(EventType.ON_MAP_CUR_POS_UPDATE);
+    }
+
+    public bool CheckNodeEnable(int pos) {
+      int x = pos / HEIGHT;
+
+      if (CurPos < 0) {
+        return x == 0;
+      }
+
+      int curX = CurPos / HEIGHT;
+
+      if (pos == WIDTH * HEIGHT) { // destination
+        return curX == WIDTH - 1;
+      }
+
+      if (curX >= x || curX + 1 < x) {
+        return false;
+      }
+
+      return Paths[CurPos].Contains(pos);
+    }
 
     public static Map Generate() {
       List<int> tempList = new List<int>();
