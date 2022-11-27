@@ -21,36 +21,39 @@ namespace GameCore {
     public string IconId => CardTemplate.Icon?.AssetGUID;
     private CardPrePlayer CardPlayer => CardTemplate.LvCardItems[Lv].CardPlayer;
     public CardHeapType CardHeapType { get; private set; } = CardHeapType.DRAW;
-    public UniTask SetCardHeapType(CardHeapType cardHeapType) {
+    public async UniTask SetCardHeapType(CardHeapType cardHeapType) {
       if (CardHeapType == cardHeapType) {
-        return UniTask.CompletedTask;
+        return;
       }
 
       var beforeType = CardHeapType;
       CardHeapType = cardHeapType;
 
-      if (Owner.Player.IsSelf) {
-        if ((beforeType == CardHeapType.HAND || CardHeapType == CardHeapType.HAND)) {
+      if (UICard) {
+        if (beforeType == CardHeapType.HAND || CardHeapType == CardHeapType.HAND) {
           var handCardList = TempList<Card>.Get();
           Owner.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
           for (int i = 0; i < handCardList.Count; i++) {
             handCardList[i].UICard.InHandIndex = i;
+            handCardList[i].UICard.HandCardCount = handCardList.Count;
           }
         }
 
         switch (CardHeapType) {
           case CardHeapType.DRAW:
-            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DRAW);
+            await UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DRAW);
+            break;
           case CardHeapType.DISCARD:
-            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DISCARD);
+            await UICard.UICardStateMachine.SwitchState((int)UICardState.IN_DISCARD);
+            break;
           case CardHeapType.CONSUME:
-            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_CONSUME);
+            await UICard.UICardStateMachine.SwitchState((int)UICardState.IN_CONSUME);
+            break;
           case CardHeapType.HAND:
-            return UICard.UICardStateMachine.SwitchState((int)UICardState.IN_HAND);
+            await UICard.UICardStateMachine.SwitchState((int)UICardState.IN_HAND);
+            break;
         }
       }
-
-      return UniTask.CompletedTask;
     }
 
     public UICard UICard { get; private set; }

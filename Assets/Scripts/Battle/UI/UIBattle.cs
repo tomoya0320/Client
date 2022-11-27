@@ -64,10 +64,10 @@ namespace GameCore.UI {
     private Transform[] EnemyNodes;
     [SerializeField]
     private Text TurnText;
+    public RectTransform HandCardPosRefNode;
     public Transform DrawNode;
     public Transform DiscardNode;
     public Transform ConsumeNode;
-    public RectTransform InHandNode;
     public Transform TextNode;
     public Transform CardNode;
 

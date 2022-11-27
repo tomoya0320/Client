@@ -30,9 +30,9 @@ namespace GameCore {
       return true;
     }
 
-    public UniTask OnPlayedCard(Card card) {
+    public async UniTask OnPlayedCard(Card card) {
       PlayCardCount++;
-      return card.SetCardHeapType(card.Consumable ? CardHeapType.CONSUME : CardHeapType.DISCARD);
+      await card.SetCardHeapType(card.Consumable ? CardHeapType.CONSUME : CardHeapType.DISCARD);
     }
 
     public void GetCardList(CardHeapType cardHeapType, List<Card> list) {

@@ -32,7 +32,8 @@ namespace GameCore {
 
       Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME);
       Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME);
-      await UniTask.Delay((int)(BattleConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME)));
+      int delay = (int)(BattleConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME));
+      await UniTask.Delay(delay, cancellationToken: Owner.Battle.CancellationToken);
 
       Owner.gameObject.SetActiveEx(false);
     }
@@ -51,26 +52,33 @@ namespace GameCore {
 
   public class UICardInHand : StateWithUpdate<UICard> {
     private int InHandIndex;
+    private int HandCardCount;
     private Vector2 Pos;
 
     public UICardInHand(StateMachine<UICard> stateMachine) : base((int)UICardState.IN_HAND, stateMachine) { }
 
     public override UniTask OnEnter(State<UICard> lastState, Context context = null) {
       InHandIndex = -1;
+      HandCardCount = 0;
       return base.OnEnter(lastState, context);
     }
 
     protected override void Update() {
-      if (InHandIndex != Owner.InHandIndex) {
+      if (InHandIndex != Owner.InHandIndex || HandCardCount != Owner.HandCardCount) {
         InHandIndex = Owner.InHandIndex;
+        HandCardCount = Owner.HandCardCount;
         Owner.transform.SetSiblingIndex(InHandIndex);
-        Pos = Owner.InHandNode.anchoredPosition;
-        Pos += InHandIndex * 0.5f * new Vector2(Owner.RectTransform.rect.width, 0) - 0.5f * new Vector2(Screen.width, Screen.height);
+        var originPos = Owner.HandCardPosRef - new Vector2(0.25f * (HandCardCount - 1) * Owner.Width, 0);
+        Pos = originPos + InHandIndex * 0.5f * new Vector2(Owner.Width, 0);
       }
 
       Owner.transform.localScale = Vector3.Lerp(Owner.transform.localScale, Vector3.one, UICardStateMachine.IN_HAND_SPEED);
       Owner.RectTransform.anchoredPosition = Vector2.Lerp(Owner.RectTransform.anchoredPosition, Pos, UICardStateMachine.IN_HAND_SPEED);
       Owner.transform.eulerAngles = Vector3.Slerp(Owner.transform.eulerAngles, Vector3.zero, UICardStateMachine.IN_HAND_SPEED);
+    }
+
+    public override UniTask OnExit(State<UICard> nextState, Context context = null) {
+      return base.OnExit(nextState, context);
     }
   }
 
@@ -131,6 +139,8 @@ namespace GameCore {
 
   public class UICardSettle : State<UICard> {
     public UICardSettle(StateMachine<UICard> stateMachine) : base((int)UICardState.SETTLE, stateMachine) { }
+
+    public override bool CheckLeave(State<UICard> nextState) => false;
   }
 
   public class UICardStateMachine : StateMachine<UICard> {
@@ -170,16 +180,18 @@ namespace GameCore {
     [SerializeField]
     private Image IconImage;
     public int InHandIndex;
+    public int HandCardCount;
     public Card Card { get; private set; }
     public Battle Battle => Card.Battle;
     public Transform DrawNode => Battle.UIBattle.DrawNode;
     public Transform DiscardNode => Battle.UIBattle.DiscardNode;
     public Transform ConsumeNode => Battle.UIBattle.ConsumeNode;
-    public RectTransform InHandNode => Battle.UIBattle.InHandNode;
+    public Vector2 HandCardPosRef => Battle.UIBattle.HandCardPosRefNode.anchoredPosition - 0.5f * new Vector2(0, Screen.height);
     public UICardStateMachine UICardStateMachine { get; private set; }
     public PointerEventData EventData { get; private set; }
     private RectTransform _RectTransform;
     public RectTransform RectTransform => _RectTransform ?? (_RectTransform = GetComponent<RectTransform>());
+    public float Width => RectTransform.rect.width;
     public Unit MainTarget;
 
     public void Init(Card card) {
