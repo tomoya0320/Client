@@ -14,9 +14,7 @@ namespace GameCore {
     public AVGGraph AVGGraph { get; private set; }
     public Func<UniTask> OnExit;
 
-    public static async UniTask<UIAVG> Enter(object avg) {
-      return await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", args: avg);
-    }
+    public static async UniTask<UIAVG> Enter(object avg) => await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", args: avg);
 
     public AVG(UIAVG ui, AVGGraph avgGraph) {
       UI = ui;
