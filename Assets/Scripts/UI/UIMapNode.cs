@@ -17,9 +17,9 @@ namespace GameCore.UI {
       });
     }
 
-    public async UniTask Init(bool enable, int no, int pos) {
+    public async UniTask Init(bool enable, int index, int pos) {
       Button.interactable = enable;
-      MapNode = await ResourceManager.LoadAssetAsync(Game.Instance.MapNodeDatabase.GetMapNode(no));
+      MapNode = await ResourceManager.LoadAssetAsync(Game.Instance.MapNodeDatabase.GetMapNode(index));
       Pos = pos;
     }
   }

@@ -20,58 +20,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: MapNodeDatabaseItems
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.MapNodeDatabase+MapNodeDatabaseItem,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 2|GameCore.MapNodeDatabase+MapNodeDatabaseItem, Assembly-CSharp
-    - Name: MapNode
-      Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.MapNodeBase,
-        Assembly-CSharp]], Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: 26e6cda3162d47b418a6917887aa927e
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  MapNodeDatabaseItems:
+  - MapNode:
+      m_AssetGUID: 26e6cda3162d47b418a6917887aa927e
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - MapNode:
+      m_AssetGUID: c97dc29cc7f8d7e4c98c65719a3f237a
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

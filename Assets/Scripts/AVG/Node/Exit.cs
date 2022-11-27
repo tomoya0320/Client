@@ -7,7 +7,7 @@ namespace GameCore.AVGFuncs {
       if (avg.OnExit == null) {
         await UIManager.Instance.Close(avg.UI);
       } else {
-        avg.OnExit();
+        await avg.OnExit();
       }
     }
   }

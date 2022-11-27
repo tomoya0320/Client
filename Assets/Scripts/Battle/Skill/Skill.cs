@@ -15,7 +15,7 @@ namespace GameCore {
       float startTime = Time.realtimeSinceStartup;
       Owner.UIUnit.PlayAnimation(SkillTemplate.Anim);
       foreach (var skillEvent in SkillTemplate.SKillEvents) {
-        await UniTask.Delay((int)(skillEvent.WaitTime * BattleConstant.THOUSAND), cancellationToken: Battle.CancellationToken);
+        await UniTask.Delay((int)(skillEvent.WaitTime * GameConstant.THOUSAND), cancellationToken: Battle.CancellationToken);
         var magicId = skillEvent.Magic?.AssetGUID;
         var targets = TempList<Unit>.Get();
         skillEvent.TargetSelector.Select(Battle, Owner, mainTarget, targets);
@@ -26,7 +26,7 @@ namespace GameCore {
       }
       float leftTime = SkillTemplate.AnimTime - (Time.realtimeSinceStartup - startTime);
       if (leftTime > 0) {
-        await UniTask.Delay((int)(leftTime * BattleConstant.THOUSAND), cancellationToken: Battle.CancellationToken);
+        await UniTask.Delay((int)(leftTime * GameConstant.THOUSAND), cancellationToken: Battle.CancellationToken);
       }
     }
   }

@@ -32,7 +32,7 @@ namespace GameCore {
 
     public int GetValue(Unit unit) {
       Attrib attrib = unit.Attribs[(int)Type];
-      return (attrib.Value * RateOnValue + attrib.MaxValue * RateOnValue) / BattleConstant.THOUSAND;
+      return (attrib.Value * RateOnValue + attrib.MaxValue * RateOnValue) / GameConstant.THOUSAND;
     }
   }
 

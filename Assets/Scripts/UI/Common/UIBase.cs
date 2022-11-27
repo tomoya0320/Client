@@ -43,12 +43,7 @@ namespace GameCore.UI {
     }
 
     public virtual async UniTask<T> OpenChild<T>(string name, params object[] args) where T : UIBase {
-      var handle = Addressables.LoadAssetAsync<GameObject>(name);
-      while (!handle.IsDone) {
-        await UniTask.Yield(Game.Instance.CancellationToken);
-      }
-      var ui = Instantiate(handle.Result, ChildNode).GetComponent<T>();
-      Addressables.Release(handle);
+      var ui = Instantiate(await ResourceManager.LoadAssetAsync<GameObject>(name), ChildNode).GetComponent<T>();
       ui.name = name;
       ui.ParentUI = this;
       await ui.Init(UIType, args);

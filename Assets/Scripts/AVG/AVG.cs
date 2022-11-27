@@ -12,9 +12,11 @@ namespace GameCore {
     public List<Tween> Tweens = new List<Tween>();
     public UIAVG UI { get; private set; }
     public AVGGraph AVGGraph { get; private set; }
-    public Action OnExit;
+    public Func<UniTask> OnExit;
 
-    public static async UniTask<UIAVG> Enter(AVGGraph avgGraph) => await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", args: avgGraph);
+    public static async UniTask<UIAVG> Enter(object avg) {
+      return await UIManager.Instance.Open<UIAVG>(UIType.NORMAL, "UIAVG", args: avg);
+    }
 
     public AVG(UIAVG ui, AVGGraph avgGraph) {
       UI = ui;

@@ -80,7 +80,7 @@ namespace GameCore {
     
     public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
       Owner.UIUnit.PlayAnimation("Die");
-      await UniTask.Delay((int)(Owner.DieAnimTime * BattleConstant.THOUSAND), cancellationToken: Owner.Battle.CancellationToken);
+      await UniTask.Delay((int)(Owner.DieAnimTime * GameConstant.THOUSAND), cancellationToken: Owner.Battle.CancellationToken);
       Owner.Player.DeadUnitCount++;
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_DEAD, Owner, context);
     }

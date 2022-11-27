@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 namespace GameCore {
   [Serializable]
   public class User {
-    public List<(int no, int lv)> Cards = new List<(int, int)>();
-    public List<(int no, int lv)> Units = new List<(int, int)>();
+    public List<(int index, int lv)> Cards = new List<(int, int)>();
+    public List<(int index, int lv)> Units = new List<(int, int)>();
     public Map Map;
 
     // TODO:”≈ªØ TEST
@@ -23,7 +23,7 @@ namespace GameCore {
       for (int i = 0; i < unitData.Length; i++) {
         unitData[i] = new UnitData {
           Lv = Units[i].lv,
-          Template = Game.Instance.UnitDatabase.GetUnitTemplate(Units[i].no),
+          Template = Game.Instance.UnitDatabase.GetUnitTemplate(Units[i].index),
           CardData = GetCardData(),
         };
       }
@@ -35,7 +35,7 @@ namespace GameCore {
       for (int i = 0; i < cardData.Length; i++) {
         cardData[i] = new CardData {
           Lv = Cards[i].lv,
-          Template = Game.Instance.CardDatabase.GetCardTemplate(Cards[i].no),
+          Template = Game.Instance.CardDatabase.GetCardTemplate(Cards[i].index),
         };
       }
       return cardData;

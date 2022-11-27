@@ -3,6 +3,7 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace GameCore.UI {
@@ -24,8 +25,15 @@ namespace GameCore.UI {
     public AVG AVG { get; private set; }
     private List<Option> Options = new List<Option>();
 
-    public override UniTask Init(UIType type, params object[] args) {
-      AVG = new AVG(this, args[0] as AVGGraph);
+    public async override UniTask Init(UIType type, params object[] args) {
+      switch (args[0]) {
+        case string name:
+          AVG = new AVG(this, await ResourceManager.LoadAssetAsync<AVGGraph>(name));
+          break;
+        case AssetReferenceT<AVGGraph> assetRef:
+          AVG = new AVG(this, await ResourceManager.LoadAssetAsync(assetRef));
+          break;
+      }
 
       NameText.text = string.Empty;
       DialogueText.text = string.Empty;
@@ -39,7 +47,7 @@ namespace GameCore.UI {
       }
       OptionNode.gameObject.SetActiveEx(false);
 
-      return base.Init(type, args);
+      await base.Init(type, args);
     }
 
     public override void OnRemove() {

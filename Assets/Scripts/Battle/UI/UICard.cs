@@ -32,7 +32,7 @@ namespace GameCore {
 
       Owner.transform.DOMove(CardHeapNode.position, UICardStateMachine.OUT_HAND_MOVE_TIME);
       Owner.transform.DOScale(UICardStateMachine.OUT_HAND_SCALE, UICardStateMachine.OUT_HAND_SCALE_TIME);
-      int delay = (int)(BattleConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME));
+      int delay = (int)(GameConstant.THOUSAND * Mathf.Max(UICardStateMachine.OUT_HAND_MOVE_TIME, UICardStateMachine.OUT_HAND_SCALE_TIME));
       await UniTask.Delay(delay, cancellationToken: Owner.Battle.CancellationToken);
 
       Owner.gameObject.SetActiveEx(false);

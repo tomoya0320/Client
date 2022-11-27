@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: StartAVG
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2a9194a0be6eb1d40846c9ffbbbec683
+    m_Address: MapNodeAVG_001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

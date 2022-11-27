@@ -20,98 +20,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: UnitDatabaseItems
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[GameCore.UnitDatabase+UnitDatabaseItem,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 2|GameCore.UnitDatabase+UnitDatabaseItem, Assembly-CSharp
-    - Name: Template
-      Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.UnitTemplate,
-        Assembly-CSharp]], Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: b756ee77718b47c45b273833658993f8
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Unlocked
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 4|GameCore.UnitDatabase+UnitDatabaseItem, Assembly-CSharp
-    - Name: Template
-      Entry: 7
-      Data: 5|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.UnitTemplate,
-        Assembly-CSharp]], Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: a42fefc6b8f6f4c4c8c6048462f58cad
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: Unlocked
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  UnitDatabaseItems:
+  - Template:
+      m_AssetGUID: b756ee77718b47c45b273833658993f8
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - Template:
+      m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

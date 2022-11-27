@@ -18,7 +18,11 @@ MonoBehaviour:
   m_GUID: bcac21d9573b6784f881d21131a71163
   m_SerializeEntries:
   - m_GUID: 26e6cda3162d47b418a6917887aa927e
-    m_Address: LevelNode_001
+    m_Address: LevelMapNode_001
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c97dc29cc7f8d7e4c98c65719a3f237a
+    m_Address: AVGMapNode_001
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

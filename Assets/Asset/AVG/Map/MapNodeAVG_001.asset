@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5710069013607382153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc38c1295d3b4f45a292ebd8430df3a, type: 3}
+  m_Name: Set Dialogue
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: -248, y: 88}
+  ports:
+    keys:
+    - OnFadeCompleted
+    - In
+    values:
+    - _fieldName: OnFadeCompleted
+      _node: {fileID: -5710069013607382153}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: In
+      _node: {fileID: -5710069013607382153}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Effect
+        node: {fileID: 5282771587302141698}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  Block: 0
+  SetSpeedBased: 1
+  FadeTime: 16
+  Name: "\u795E\u79D8\u4EBA"
+  Dialogue: "\u63A2\u7D22\u5427......"
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598bd27e5e9f8a94fbfa32bdc5d3dd7f, type: 3}
+  m_Name: MapNodeAVG_001
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 8318931006348391341}
+  - {fileID: 5282771587302141698}
+  - {fileID: -5710069013607382153}
+  - {fileID: 3059961846246888692}
+--- !u!114 &3059961846246888692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f771ce3cedf1984ba609f205f9f6fbb, type: 3}
+  m_Name: Exit
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: 264, y: -72}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 3059961846246888692}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: 5282771587302141698}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &5282771587302141698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbc2c31104f0f9438c0db601c62aed7, type: 3}
+  m_Name: Main
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: -312, y: -104}
+  ports:
+    keys:
+    - In
+    - Out
+    - Effect
+    values:
+    - _fieldName: In
+      _node: {fileID: 5282771587302141698}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: 8318931006348391341}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Out
+      _node: {fileID: 5282771587302141698}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: 3059961846246888692}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Effect
+      _node: {fileID: 5282771587302141698}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: -5710069013607382153}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &8318931006348391341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ff80ee74d7b194986e027c1d83f339, type: 3}
+  m_Name: Enter
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: -1
+  graph: {fileID: 11400000}
+  position: {x: -696, y: -120}
+  ports:
+    keys:
+    - Out
+    values:
+    - _fieldName: Out
+      _node: {fileID: 8318931006348391341}
+      _typeQualifiedName: GameCore.AVGFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: 5282771587302141698}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0

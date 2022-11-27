@@ -43,11 +43,11 @@ namespace GameCore.UI {
         }
         float targetAnchoredPositionY = textComponent.rectTransform.anchoredPosition.y + height;
         textComponent.rectTransform.DOAnchorPosY(targetAnchoredPositionY, ANIM_TIME);
-        await UniTask.Delay((int)(BattleConstant.THOUSAND * ANIM_TIME), cancellationToken: Battle.CancellationToken);
+        await UniTask.Delay((int)(GameConstant.THOUSAND * ANIM_TIME), cancellationToken: Battle.CancellationToken);
         // 这里这样判断是因为动画播放过程中战斗结束了数字会被销毁 下同
         if (textComponent) {
           textComponent.DOFade(0, ANIM_TIME).SetDelay(TEXT_SHOW_TIME);
-          await UniTask.Delay((int)(BattleConstant.THOUSAND * (ANIM_TIME + TEXT_SHOW_TIME)), cancellationToken: Battle.CancellationToken);
+          await UniTask.Delay((int)(GameConstant.THOUSAND * (ANIM_TIME + TEXT_SHOW_TIME)), cancellationToken: Battle.CancellationToken);
           if (textComponent) {
             TextStack.Push(textComponent);
             textComponent.gameObject.SetActiveEx(false);

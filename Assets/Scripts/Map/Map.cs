@@ -46,7 +46,7 @@ namespace GameCore {
       Dictionary<int, List<int>> paths = new Dictionary<int, List<int>>();
       for (int i = 0; i < WIDTH; i++) {
         for (int j = 0; j < HEIGHT; j++) {
-          nodes[i * HEIGHT + j] = 0; // TEST
+          nodes[i * HEIGHT + j] = Random.Range(0, Game.Instance.MapNodeDatabase.MapNodeDatabaseItems.Count); // TEST
         }
       }
       for (int i = 0; i < WIDTH; i++) {

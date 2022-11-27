@@ -6,19 +6,22 @@ using UnityEngine.AddressableAssets;
 
 namespace GameCore {
   [CreateAssetMenu(fileName = "UnitDatabase", menuName = "数据库/创建单位数据库")]
-  public class UnitDatabase : SerializedScriptableObject {
+  public class UnitDatabase : ScriptableObject {
     [Serializable]
     [DrawWithUnity]
     public class UnitDatabaseItem {
       public AssetReferenceT<UnitTemplate> Template;
     }
 
-    [LabelText("单位数据库"), DictionaryDrawerSettings(KeyLabel = "编号", ValueLabel = "数据")]
-    public Dictionary<int, UnitDatabaseItem> UnitDatabaseItems;
+    [LabelText("单位数据库")]
+    [ListDrawerSettings(ShowIndexLabels = true)]
+    public List<UnitDatabaseItem> UnitDatabaseItems;
 
-    public AssetReferenceT<UnitTemplate> GetUnitTemplate(int no) {
-      UnitDatabaseItems.TryGetValue(no, out var item);
-      return item?.Template;
+    public AssetReferenceT<UnitTemplate> GetUnitTemplate(int index) {
+      if (index < 0 || index >= UnitDatabaseItems.Count) {
+        return null;
+      }
+      return UnitDatabaseItems[index]?.Template;
     }
   }
 }

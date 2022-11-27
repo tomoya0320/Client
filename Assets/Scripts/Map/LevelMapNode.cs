@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace GameCore {
-  [CreateAssetMenu(fileName = "LevelNode", menuName = "地图节点/关卡")]
-  public class LevelNode : MapNodeBase {
+  [CreateAssetMenu(fileName = "LevelMapNode", menuName = "地图节点/关卡")]
+  public class LevelMapNode : MapNodeBase {
     [LabelText("关卡")]
     public AssetReferenceT<LevelTemplate> Level;
 

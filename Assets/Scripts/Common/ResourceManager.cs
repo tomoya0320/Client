@@ -5,17 +5,23 @@ using UnityEngine.AddressableAssets;
 namespace GameCore {
   public static class ResourceManager {
     public static async UniTask<T> LoadAssetAsync<T>(AssetReferenceT<T> assetRef) where T : Object {
-      T asset;
       if (assetRef.Asset) {
-        asset = assetRef.Asset as T;
+        return assetRef.Asset as T;
       } else {
         var handle = assetRef.LoadAssetAsync();
         while (!handle.IsDone) {
           await UniTask.Yield(Game.Instance.CancellationToken);
         }
-        asset = handle.Result;
+        return handle.Result;
       }
-      return asset;
+    }
+
+    public static async UniTask<T> LoadAssetAsync<T>(string name) where T : Object {
+      var handle = Addressables.LoadAssetAsync<T>(name);
+      while (!handle.IsDone) {
+        await UniTask.Yield(Game.Instance.CancellationToken);
+      }
+      return handle.Result;
     }
   }
 }
