@@ -76,10 +76,6 @@ namespace GameCore {
       Owner.RectTransform.anchoredPosition = Vector2.Lerp(Owner.RectTransform.anchoredPosition, Pos, UICardStateMachine.IN_HAND_SPEED);
       Owner.transform.eulerAngles = Vector3.Slerp(Owner.transform.eulerAngles, Vector3.zero, UICardStateMachine.IN_HAND_SPEED);
     }
-
-    public override UniTask OnExit(State<UICard> nextState, Context context = null) {
-      return base.OnExit(nextState, context);
-    }
   }
 
   public class UICardInDiscard : UICardOutHand {
