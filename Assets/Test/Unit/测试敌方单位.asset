@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   Name: "\u6D4B\u8BD5\u654C\u65B9\u5355\u4F4D"
   Prefab:
-    m_AssetGUID: 5e6807f41d9957740a56b5a5fa200aac
+    m_AssetGUID: 4b3238fda205e4d438722f9009740dc2
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0

@@ -93,7 +93,7 @@ MonoBehaviour:
     m_Address: char_017_huang
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 5e6807f41d9957740a56b5a5fa200aac
+  - m_GUID: 4b3238fda205e4d438722f9009740dc2
     m_Address: enemy_001_test
     m_ReadOnly: 0
     m_SerializedLabels: []
