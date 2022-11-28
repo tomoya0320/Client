@@ -15,6 +15,7 @@ namespace GameCore.UI {
       Game.Instance.CreateNewUser();
       var ui = await AVG.Enter("StartAVG");
       ui.AVG.OnExit = async () => await UIManager.Instance.Open<UIMap>(UIType.NORMAL, "UIMap", true);
+      ContinueGameBtn.SetActiveEx(true);
     }
 
     public async void ContinueGame() {
