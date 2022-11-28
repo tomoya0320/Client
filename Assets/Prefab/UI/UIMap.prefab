@@ -1319,6 +1319,7 @@ MonoBehaviour:
       Data: 
   Animation: {fileID: 4523930612789439751}
   ChildNode: {fileID: 9137825640206193126}
+  CloseBtn: {fileID: 6507284363776865401}
   DestNode: {fileID: 7316876454729417238}
 --- !u!1 &6420831622087456997
 GameObject:
@@ -1772,7 +1773,7 @@ GameObject:
   - component: {fileID: 1538566513927557918}
   - component: {fileID: 6507284363776865401}
   m_Layer: 5
-  m_Name: back
+  m_Name: close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1880,19 +1881,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1538566513927557918}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1099871843020775536}
-        m_TargetAssemblyTypeName: GameCore.UI.UIMap, Assembly-CSharp
-        m_MethodName: Close
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8009321606005638042
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,9 +33,5 @@ namespace GameCore.UI {
       }
       DestNode.Button.interactable = map.CheckNodeEnable(Map.DEST_POS);
     }
-
-    public async void Close() {
-      await UIManager.Instance.Close(this);
-    }
   }
 }

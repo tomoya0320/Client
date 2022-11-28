@@ -10,14 +10,40 @@ namespace GameCore.UI {
   }
 
   public abstract class ScrollGrid<T> : MonoBehaviour, IScrollGrid {
+    [SerializeField]
+    private GameObject SelectGo;
     private RectTransform _RectTransform;
     public RectTransform RectTransform => _RectTransform ? _RectTransform : (_RectTransform = GetComponent<RectTransform>());
+    private bool _Selected;
+    protected bool Selected {
+      get => _Selected;
+      set {
+        _Selected = value;
+        if (SelectGo) {
+          SelectGo.SetActiveEx(value);
+        }
+      }
+    }
     protected int DataIndex;
     protected List<T> DataList = new List<T>();
 
-    public virtual ScrollGrid<T> Init(List<T> dataList) {
+    public virtual ScrollGrid<T> Init(List<T> dataList, Func<T, bool> onSelected = null, Func<T, bool> onUnselected = null) {
       DataIndex = -1;
       DataList = dataList;
+      var button = GetComponent<Button>();
+      if (button) {
+        button.onClick.AddListener(() => {
+          if (Selected) {
+            if (onUnselected != null && onUnselected(DataList[DataIndex])) {
+              Selected = false;
+            }
+          } else {
+            if (onSelected != null && onSelected(DataList[DataIndex])) {
+              Selected = true;
+            }
+          }
+        });
+      }
       return this;
     }
 
@@ -56,7 +82,7 @@ namespace GameCore.UI {
     private int GridCountPerColumn;
     private List<IScrollGrid> Grids = new List<IScrollGrid>();
 
-    public void Init<TGrid, TData>(List<TData> dataList) where TGrid : ScrollGrid<TData> {
+    public void Init<TGrid, TData>(List<TData> dataList, Func<TData, bool> onSelected = null, Func<TData, bool> onUnselected = null) where TGrid : ScrollGrid<TData> {
       StartIndex = 0;
       TotalCount = dataList.Count;
       var viewSize = viewport.rect.size;
@@ -88,7 +114,7 @@ namespace GameCore.UI {
       for (int i = 0; i < GridCountPerColumn; i++) {
         for (int j = 0; j < GridCountPerRow; j++) {
           var grid = Instantiate(GridTemplate, content).GetComponent<TGrid>();
-          Grids.Add(grid.Init(dataList));
+          Grids.Add(grid.Init(dataList, onSelected, onUnselected));
         }
       }
       RefreshGrids();

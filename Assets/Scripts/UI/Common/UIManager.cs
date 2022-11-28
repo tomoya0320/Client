@@ -73,9 +73,9 @@ namespace GameCore.UI {
       return childUI;
     }
 
-    public async UniTask<bool> CloseChild<T>(UIBase parentUI, T ui) where T : UIBase {
+    public async UniTask<bool> CloseChild<T>(T ui) where T : UIBase {
       SetBlock(true);
-      bool closed = await parentUI.CloseChild(ui);
+      bool closed = await ui.ParentUI.CloseChild(ui);
       SetBlock(false);
       return closed;
     }

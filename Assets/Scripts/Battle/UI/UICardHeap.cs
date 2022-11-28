@@ -14,14 +14,6 @@ namespace GameCore.UI {
       return base.Init(type, args);
     }
 
-    public async void Close() {
-      if (IsChildUI) {
-        await UIManager.Instance.CloseChild(ParentUI, this);
-      } else {
-        await UIManager.Instance.Close(this);
-      }
-    }
-
     public override void OnRemove() {
       TempList<Card>.Release(CardList);
       CardList = null;
