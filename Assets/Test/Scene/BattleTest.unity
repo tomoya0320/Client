@@ -216,11 +216,11 @@ MonoBehaviour:
         Lv: 99
         CardData:
         - Template:
-            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_AssetGUID: d736ce7866ce3e548b04b7ab67875324
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
-          Lv: 1
+          Lv: 0
         - Template:
             m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
             m_SubObjectName: 
@@ -246,7 +246,7 @@ MonoBehaviour:
             m_EditorAssetChanged: 0
           Lv: 1
         - Template:
-            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_AssetGUID: d736ce7866ce3e548b04b7ab67875324
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0

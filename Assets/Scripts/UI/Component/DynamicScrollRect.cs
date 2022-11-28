@@ -1,3 +1,4 @@
+using GameCore.BehaviorFuncs;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace GameCore.UI {
     protected List<T> DataList = new List<T>();
 
     public virtual ScrollGrid<T> Init(List<T> dataList, Func<T, bool> onSelected = null, Func<T, bool> onUnselected = null) {
+      Selected = false;
       DataIndex = -1;
       DataList = dataList;
       var button = GetComponent<Button>();

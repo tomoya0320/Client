@@ -9,9 +9,8 @@ namespace GameCore {
     public override bool PrePlay(Card card, Unit mainTarget) {
       int cost = card.Cost;
       Unit owner = card.Owner;
-      if (cost < 0) {
-        Debug.LogError("cost < 0");
-        return false;
+      if (cost <= 0) {
+        return true;
       }
       if (cost > owner.Attribs[(int)AttribType.ENERGY].Value) {
         owner.Battle.UIBattle.ShowText("ÄÜÁ¿²»×ã!", owner.UIUnit.BattleTextNode.position, Color.red, false);

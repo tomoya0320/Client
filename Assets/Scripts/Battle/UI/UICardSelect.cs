@@ -30,7 +30,7 @@ namespace GameCore.UI {
         await Close();
         Completed = true;
       });
-      OkBtn.interactable = false;
+      UpdateOkBtn();
 
       if (Cancellable) {
         CancelBtn.onClick.AddListener(async () => {
@@ -51,11 +51,21 @@ namespace GameCore.UI {
         return false;
       }
       SelectedCardList.Add(card);
-      OkBtn.interactable = SelectedCardList.Count >= SelectCountRange.x;
+      UpdateOkBtn();
       return true;
     }
 
-    public bool OnCardUnselected(Card card) => SelectedCardList.Remove(card);
+    public bool OnCardUnselected(Card card) {
+      if (SelectedCardList.Remove(card)) {
+        UpdateOkBtn();
+        return true;
+      }
+      return false;
+    }
+
+    private void UpdateOkBtn() {
+      OkBtn.interactable = SelectedCardList.Count >= SelectCountRange.x;
+    }
 
     public async UniTask<List<Card>> WaitForSelectingCards() {
       await UniTask.WaitUntil(() => Completed, cancellationToken: Battle.CancellationToken);

@@ -1,9 +1,11 @@
 using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 namespace GameCore {
-  public class Card : BattleBase {
+  public class Card : BattleBase, IComparable<Card> {
+    public int Order;
     public CardTemplate CardTemplate;
     public int RuntimeId { get; private set; }
     public PlayerCamp TargetCamp => CardTemplate.TargetCamp;
@@ -28,6 +30,9 @@ namespace GameCore {
 
       var beforeType = CardHeapType;
       CardHeapType = cardHeapType;
+      if (CardHeapType == CardHeapType.HAND) {
+        Owner.BattleCardControl.RefreshCardOrder(this);
+      }
 
       if (UICard) {
         if (beforeType == CardHeapType.HAND || CardHeapType == CardHeapType.HAND) {
@@ -89,5 +94,7 @@ namespace GameCore {
     public override string ToString() {
       return $"{RuntimeId}:{CardTemplate.LvCardItems[Lv].Name}\nLv:{Lv}\nCost:{CardTemplate.LvCardItems[Lv].Cost}"; // Test
     }
+
+    public int CompareTo(Card other) => Order.CompareTo(other.Order);
   }
 }

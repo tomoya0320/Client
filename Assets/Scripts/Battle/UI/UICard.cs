@@ -67,9 +67,12 @@ namespace GameCore {
       if (InHandIndex != Owner.InHandIndex || HandCardCount != Owner.HandCardCount) {
         InHandIndex = Owner.InHandIndex;
         HandCardCount = Owner.HandCardCount;
-        Owner.transform.SetSiblingIndex(InHandIndex);
         var originPos = Owner.HandCardPosRef - new Vector2(0.25f * (HandCardCount - 1) * Owner.Width, 0);
         Pos = originPos + InHandIndex * 0.5f * new Vector2(Owner.Width, 0);
+      }
+
+      if (Owner.transform.GetSiblingIndex() != InHandIndex) {
+        Owner.transform.SetSiblingIndex(InHandIndex);
       }
 
       Owner.transform.localScale = Vector3.Lerp(Owner.transform.localScale, Vector3.one, UICardStateMachine.IN_HAND_SPEED);
@@ -95,11 +98,6 @@ namespace GameCore {
     public UICardDragging(StateMachine<UICard> stateMachine) : base((int)UICardState.DRAGGING, stateMachine) { }
 
     public override bool CheckEnter(State<UICard> lastState) => lastState != null && lastState.StateId == (int)UICardState.IN_HAND;
-
-    public override UniTask OnEnter(State<UICard> lastState, Context context = null) {
-      Owner.transform.SetAsLastSibling();
-      return base.OnEnter(lastState, context);
-    }
 
     protected override void Update() {
       // 大小缩放

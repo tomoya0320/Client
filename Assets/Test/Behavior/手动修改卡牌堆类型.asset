@@ -1,0 +1,532 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9148159400458357723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 095628252caed1240ab6d0d557c074fd, type: 3}
+  m_Name: Add Unit Attrib
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 3
+  graph: {fileID: 11400000}
+  position: {x: 472, y: 712}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: -9148159400458357723}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -1685486569832580565}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  UnitKey:
+    Type: 0
+    Key: behavior_unit
+  AttribType: 3
+  AttribField: 0
+  AttribValueKey:
+    IsDict: 1
+    ParamKey:
+      Type: 0
+      Key: cost
+    Value: 0
+--- !u!114 &-8819169517580995023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1926c5a75160a744f8dd0db0549506c8, type: 3}
+  m_Name: Get Unit Attrib
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: 472, y: -264}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: -8819169517580995023}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -1685486569832580565}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  UnitKey:
+    Type: 0
+    Key: behavior_unit
+  AttribType: 3
+  AttribField: 0
+  AttribValueKey:
+    Type: 0
+    Key: energy
+--- !u!114 &-5385925864568882180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3c33d74763426f43aa142d03b189aad, type: 3}
+  m_Name: Init
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: -1
+  graph: {fileID: 11400000}
+  position: {x: -840, y: -72}
+  ports:
+    keys:
+    - Out
+    values:
+    - _fieldName: Out
+      _node: {fileID: -5385925864568882180}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: -515734239985242171}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &-3951591374572416189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0bcc4ca62fec0d4292ba4aa6bf33fc6, type: 3}
+  m_Name: Parallel
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 1
+  graph: {fileID: 11400000}
+  position: {x: -216, y: 88}
+  ports:
+    keys:
+    - In
+    - Out
+    values:
+    - _fieldName: In
+      _node: {fileID: -3951591374572416189}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -515734239985242171}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Out
+      _node: {fileID: -3951591374572416189}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: -1685486569832580565}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: 3585732195615977379}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &-1685486569832580565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c392ecf336299344daf0732bf79f3265, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: 88, y: 56}
+  ports:
+    keys:
+    - In
+    - Out
+    values:
+    - _fieldName: In
+      _node: {fileID: -1685486569832580565}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -3951591374572416189}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Out
+      _node: {fileID: -1685486569832580565}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: -8819169517580995023}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: 562340821260581309}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: 1084202955140003832}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: -9148159400458357723}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &-515734239985242171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c392ecf336299344daf0732bf79f3265, type: 3}
+  m_Name: Sequence
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: -504, y: -72}
+  ports:
+    keys:
+    - In
+    - Out
+    values:
+    - _fieldName: In
+      _node: {fileID: -515734239985242171}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -5385925864568882180}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: Out
+      _node: {fileID: -515734239985242171}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: In
+        node: {fileID: 5535319680453741337}
+        reroutePoints: []
+      - fieldName: In
+        node: {fileID: -3951591374572416189}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46347c610395c7f4681ec7bbe1ed6038, type: 3}
+  m_Name: "\u624B\u52A8\u4FEE\u6539\u5361\u724C\u5806\u7C7B\u578B"
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 5535319680453741337}
+  - {fileID: -1685486569832580565}
+  - {fileID: 562340821260581309}
+  - {fileID: 1084202955140003832}
+  - {fileID: -9148159400458357723}
+  - {fileID: -3951591374572416189}
+  - {fileID: 3585732195615977379}
+  - {fileID: -5385925864568882180}
+  - {fileID: -515734239985242171}
+  - {fileID: -8819169517580995023}
+  BehaviorTime: 0
+  Priority: 0
+--- !u!114 &562340821260581309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a09fd64f56f879479c8a284ae246397, type: 3}
+  m_Name: Manually Change Card Heap Type
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 1
+  graph: {fileID: 11400000}
+  position: {x: 472, y: -8}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 562340821260581309}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -1685486569832580565}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TargetUnit:
+    Type: 0
+    Key: behavior_unit
+  SourceCardHeapTypeType: 1
+  TargetCardHeapTypeType: 3
+  ChangeMaxCountKey:
+    IsDict: 1
+    ParamKey:
+      Type: 0
+      Key: energy
+    Value: 0
+  ChangeCountKey:
+    Type: 0
+    Key: change_card_heap_type_count
+--- !u!114 &1084202955140003832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd125474e0448c742931c6533dcd5fa2, type: 3}
+  m_Name: Multiply Int
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 2
+  graph: {fileID: 11400000}
+  position: {x: 456, y: 344}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 1084202955140003832}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -1685486569832580565}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  LeftInt:
+    IsDict: 1
+    ParamKey:
+      Type: 0
+      Key: change_card_heap_type_count
+    Value: 0
+  RightInt:
+    IsDict: 0
+    ParamKey:
+      Type: 0
+      Key: 
+    Value: -1
+  TargetKey:
+    Type: 0
+    Key: cost
+--- !u!114 &3585732195615977379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d2df835d2a8a4348864eeaf1dce6d24, type: 3}
+  m_Name: Remove Behavior
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 1
+  graph: {fileID: 11400000}
+  position: {x: 104, y: 264}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 3585732195615977379}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -3951591374572416189}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &5535319680453741337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae045308db582f442978565a447edc8a, type: 3}
+  m_Name: Get Behavior Unit
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 0
+  graph: {fileID: 11400000}
+  position: {x: -56, y: -216}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: 5535319680453741337}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -515734239985242171}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  TargetKey:
+    Type: 0
+    Key: behavior_unit

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace GameCore {
   public class BattleCardControl {
+    private int IncCardOrder;
     public Unit Owner { get; private set; }
     public int PlayCardCount { get; private set; }
     public List<Card> Cards = new List<Card>();
@@ -13,6 +14,11 @@ namespace GameCore {
       foreach (var data in cardData) {
         Cards.Add(Owner.Battle.CardManager.Create(Owner, data));
       }
+    }
+
+    public void RefreshCardOrder(Card card) {
+      card.Order = ++IncCardOrder;
+      Cards.Sort();
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {
