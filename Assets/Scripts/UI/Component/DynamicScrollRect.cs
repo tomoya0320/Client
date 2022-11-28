@@ -25,6 +25,7 @@ namespace GameCore.UI {
       }
     }
     protected int DataIndex;
+    protected T Data => DataIndex >= 0 && DataIndex < DataList.Count ? DataList[DataIndex] : default;
     protected List<T> DataList = new List<T>();
 
     public virtual ScrollGrid<T> Init(List<T> dataList, Func<T, bool> onSelected = null, Func<T, bool> onUnselected = null) {
@@ -34,11 +35,11 @@ namespace GameCore.UI {
       if (button) {
         button.onClick.AddListener(() => {
           if (Selected) {
-            if (onUnselected != null && onUnselected(DataList[DataIndex])) {
+            if (onUnselected != null && onUnselected(Data)) {
               Selected = false;
             }
           } else {
-            if (onSelected != null && onSelected(DataList[DataIndex])) {
+            if (onSelected != null && onSelected(Data)) {
               Selected = true;
             }
           }
@@ -57,7 +58,7 @@ namespace GameCore.UI {
         return;
       }
       DataIndex = index;
-      RefreshInternal(DataList[DataIndex]);
+      RefreshInternal(Data);
       gameObject.SetActiveEx(true);
     }
 
