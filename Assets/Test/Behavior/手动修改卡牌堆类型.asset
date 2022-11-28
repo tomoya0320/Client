@@ -381,17 +381,17 @@ MonoBehaviour:
   TargetUnit:
     Type: 0
     Key: behavior_unit
-  SourceCardHeapTypeType: 1
-  TargetCardHeapTypeType: 3
-  ChangeMaxCountKey:
+  SourceType: 1
+  TargetType: 3
+  MaxCountKey:
     IsDict: 1
     ParamKey:
       Type: 0
       Key: energy
     Value: 0
-  ChangeCountKey:
+  RealCountKey:
     Type: 0
-    Key: change_card_heap_type_count
+    Key: real_count
 --- !u!114 &1084202955140003832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,7 +436,7 @@ MonoBehaviour:
     IsDict: 1
     ParamKey:
       Type: 0
-      Key: change_card_heap_type_count
+      Key: real_count
     Value: 0
   RightInt:
     IsDict: 0
