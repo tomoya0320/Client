@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e845e9e7e7611334a93e225f395585ee, type: 3}
+  m_Name: "\u653E\u7535"
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: LvCardItems
+      Entry: 7
+      Data: 0|GameCore.LvCardItem[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: GameCore.LvCardItem, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: "\u653E\u7535"
+    - Name: Cost
+      Entry: 3
+      Data: 2
+    - Name: Consumable
+      Entry: 5
+      Data: false
+    - Name: Desc
+      Entry: 1
+      Data: "\u6BCF\u53D7\u5230\u4E00\u6B21\u654C\u4EBA\u7684\u653B\u51FB\u65F6\u90FD\u4F1A\u5BF9\u5176\u9020\u6210\u6240\u53D7\u4F24\u5BB350%\u7684\u4F24\u5BB3\uFF0C\u6548\u679C\u6301\u7EED3\u56DE\u5408"
+    - Name: Skill
+      Entry: 7
+      Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: c8736b2cabdae1147bdb8e05923dd072
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CardPlayer
+      Entry: 7
+      Data: 2|GameCore.DefaultCardPrePlayer, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  CardType: 1
+  TargetCamp: 1
+  Icon:
+    m_AssetGUID: cec95b229b42f2e41aa67dd5aa8f72b4
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

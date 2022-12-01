@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 namespace GameCore {
   [CreateAssetMenu(menuName = "模板/单位")]
   public class UnitTemplate : SerializedScriptableObject {
+    [LabelText("名字")]
     public string Name;
     [LabelText("预制体")]
     public AssetReferenceT<GameObject> Prefab;

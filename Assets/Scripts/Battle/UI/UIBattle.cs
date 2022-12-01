@@ -98,28 +98,16 @@ namespace GameCore.UI {
     }
 
     public void EndTurn() {
-      if (Battle.BattleState == BattleState.RUN) {
-        Battle.SelfPlayer.EndTurnFlag = true;
+      if (Battle.SelfPlayer.EndTurnFlag == EndTurnFlag.NONE) {
+        Battle.SelfPlayer.EndTurnFlag = EndTurnFlag.NORMAL_END;
       }
     }
 
-    public async void OpenDrawCardHeapUI() {
-      if (Battle.BattleState == BattleState.RUN) {
-        await OpenCardHeapUI(CardHeapType.DRAW);
-      }
-    }
+    public async void OpenDrawCardHeapUI() => await OpenCardHeapUI(CardHeapType.DRAW);
 
-    public async void OpenDiscardCardHeapUI() {
-      if (Battle.BattleState == BattleState.RUN) {
-        await OpenCardHeapUI(CardHeapType.DISCARD);
-      }
-    }
+    public async void OpenDiscardCardHeapUI() => await OpenCardHeapUI(CardHeapType.DISCARD);
 
-    public async void OpenConsumeCardHeapUI() {
-      if (Battle.BattleState == BattleState.RUN) {
-        await OpenCardHeapUI(CardHeapType.CONSUME);
-      }
-    }
+    public async void OpenConsumeCardHeapUI() => await OpenCardHeapUI(CardHeapType.CONSUME);
 
     private UniTask OpenCardHeapUI(CardHeapType cardHeapType) {
       var cardList = TempList<Card>.Get();

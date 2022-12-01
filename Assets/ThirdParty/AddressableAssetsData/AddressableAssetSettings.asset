@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: 58c142910b6b5f34eb4e5ee1330d3cd7
+  m_DefaultGroup: 52074ae7b720ddc408d5192d3b5b6010
   m_CachedHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
@@ -42,7 +42,6 @@ MonoBehaviour:
   m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: cbb4251dfe215b94888d040536f7d154, type: 2}
-  - {fileID: 11400000, guid: 8cdfaeccedf5cc24bb3290f6468303ea, type: 2}
   - {fileID: 11400000, guid: 423f943b554868941bae382954ce713a, type: 2}
   - {fileID: 11400000, guid: 8eab7f68129d96a4497ccbbeadc1b015, type: 2}
   - {fileID: 11400000, guid: 32f4856e33c769645a204c41004d5c47, type: 2}

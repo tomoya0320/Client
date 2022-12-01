@@ -16,6 +16,12 @@ namespace GameCore {
     ALL = ALLY | ENEMY,
   }
 
+  public enum EndTurnFlag {
+    NONE,
+    NORMAL_END,
+    FORCE_END,
+  }
+
   public class Player : BattleBase {
     public int RuntimeId { get; private set; }
     public string PlayerId => PlayerData.PlayerId;
@@ -28,20 +34,7 @@ namespace GameCore {
     public int TotalUnitCount { get; }
     public bool Available => DeadUnitCount < TotalUnitCount;
     public bool IsSelf => Battle.SelfPlayer == this;
-    private bool _EndTurnFlag;
-    public bool EndTurnFlag {
-      get => _EndTurnFlag;
-      set {
-        if (_EndTurnFlag == value) {
-          return;
-        }
-
-        _EndTurnFlag = value;
-        if (_EndTurnFlag) {
-          AddOperation(null);
-        }
-      }
-    }
+    public EndTurnFlag EndTurnFlag;
     private Queue<BattleOperation> Operations = new Queue<BattleOperation>();
     public bool HasOperation => Operations.Count > 0;
     public event Action OnStartTurn;
@@ -65,16 +58,20 @@ namespace GameCore {
     }
 
     private async UniTask EndTurn() {
+      Operations.Clear();
       foreach (var unit in Units) {
         await unit.UnitStateMachine.SwitchState((int)UnitState.OUT_TURN);
       }
     }
 
     private async UniTask InTurn() {
-      while (!EndTurnFlag || HasOperation) {
+      while (EndTurnFlag == EndTurnFlag.NONE || HasOperation) {
         await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
         await UniTask.Yield(Battle.CancellationToken);
         await DoOperation();
+        if (EndTurnFlag == EndTurnFlag.FORCE_END) {
+          break;
+        }
       }
     }
 
@@ -90,7 +87,7 @@ namespace GameCore {
     }
 
     private async UniTask DoOperation() {
-      if (Operations.TryDequeue(out var operation) && operation != null) {
+      if (Operations.TryDequeue(out var operation)) {
         await operation.DoOperation();
         Battle.ObjectPool.Release(operation);
       }

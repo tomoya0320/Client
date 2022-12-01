@@ -39,7 +39,9 @@ namespace GameCore {
     }
 
     public override UniTask OnExit(State<UICard> nextState, Context context = null) {
-      Owner.gameObject.SetActiveEx(true);
+      if (nextState.StateId != (int)UICardState.SETTLE) {
+        Owner.gameObject.SetActiveEx(true);
+      }
       return base.OnExit(nextState, context);
     }
   }

@@ -14,7 +14,7 @@ namespace GameCore {
         LoopIndex = (LoopIndex + 1) % PlayerList.Count;
       } while (!PlayerList[LoopIndex].Available);
       var nextPlayer = PlayerList[LoopIndex];
-      nextPlayer.EndTurnFlag = false;
+      nextPlayer.EndTurnFlag = EndTurnFlag.NONE;
       return nextPlayer;
     }
 

@@ -270,7 +270,7 @@ MonoBehaviour:
             m_EditorAssetChanged: 0
           Lv: 1
         - Template:
-            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_AssetGUID: f452d53db3a3d8c49b78c30c6889ab9d
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
             m_EditorAssetChanged: 0
           Lv: 0
         - Template:
-            m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+            m_AssetGUID: 826dbf7d756b18a47a4bd21d2005285b
             m_SubObjectName: 
             m_SubObjectType: 
             m_EditorAssetChanged: 0

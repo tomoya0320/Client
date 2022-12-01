@@ -116,18 +116,11 @@ namespace GameCore {
       return AddAttrib(type, addValue, attribField);
     }
 
-    public async UniTask TryDie(Unit source, int damageValue) {
-      DamageContext damageContext = Battle.ObjectPool.Get<DamageContext>();
-      damageContext.Source = source;
-      damageContext.Target = this;
-      damageContext.DamageValue = damageValue;
-
+    public async UniTask TryDie(DamageContext damageContext) {
       await Battle.BehaviorManager.RunRoot(TickTime.ON_UNIT_WILL_DIE, this, damageContext);
       if (Attribs[(int)AttribType.HP].Value <= 0) {
         await UnitStateMachine.SwitchState((int)UnitState.DEAD, damageContext);
       }
-
-      Battle.ObjectPool.Release(damageContext);
     }
 
     public int GetAttribField(AttribType type, AttribField attribField) {

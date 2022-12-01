@@ -22,7 +22,7 @@ namespace GameCore {
     }
 
     public bool PlayCard(Card card, Unit mainTarget) {
-      if (Owner.Player.EndTurnFlag || !UnitManager.CheckTargetCamp(card.TargetCamp, card.Owner, mainTarget) || !card.PrePlay(mainTarget)) {
+      if (Owner.Player.EndTurnFlag != EndTurnFlag.NONE || !UnitManager.CheckTargetCamp(card.TargetCamp, card.Owner, mainTarget) || !card.PrePlay(mainTarget)) {
         return false;
       }
 

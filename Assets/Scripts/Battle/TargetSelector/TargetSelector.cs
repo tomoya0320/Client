@@ -8,4 +8,8 @@ namespace GameCore {
   public class DefaultSelector : TargetSelector {
     public override void Select(Battle battle, Unit source, Unit mainTarget, List<Unit> result) => result.Add(mainTarget);
   }
+
+  public class SourceSelector : TargetSelector {
+    public override void Select(Battle battle, Unit source, Unit mainTarget, List<Unit> result) => result.Add(source);
+  }
 }
