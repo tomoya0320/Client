@@ -13,26 +13,26 @@ namespace GameCore.UI {
   public abstract class ScrollGrid<T> : MonoBehaviour, IScrollGrid {
     [SerializeField]
     private GameObject SelectGo;
-    private RectTransform _RectTransform;
-    public RectTransform RectTransform => _RectTransform ? _RectTransform : (_RectTransform = GetComponent<RectTransform>());
-    private bool _Selected;
-    protected bool Selected {
-      get => _Selected;
-      set {
-        _Selected = value;
+    public RectTransform RectTransform { get; private set; }
+    public bool Selected {
+      get => SelectGo ? SelectGo.activeSelf : false;
+      protected set {
         if (SelectGo) {
           SelectGo.SetActiveEx(value);
         }
       }
     }
+    protected Func<T, bool> CheckSelected;
     protected int DataIndex;
     protected T Data => DataIndex >= 0 && DataIndex < DataList.Count ? DataList[DataIndex] : default;
-    protected List<T> DataList = new List<T>();
+    protected List<T> DataList;
 
-    public virtual ScrollGrid<T> Init(List<T> dataList, Func<T, bool> onSelected = null, Func<T, bool> onUnselected = null) {
-      Selected = false;
+    public virtual ScrollGrid<T> Init(List<T> dataList, Func<T, bool> onSelected = null, Func<T, bool> onUnselected = null, Func<T, bool> checkSelected = null) {
       DataIndex = -1;
+      Selected = false;
       DataList = dataList;
+      CheckSelected = checkSelected;
+      RectTransform = GetComponent<RectTransform>();
       var button = GetComponent<Button>();
       if (button) {
         button.onClick.AddListener(() => {
@@ -56,10 +56,12 @@ namespace GameCore.UI {
       }
       if (index < 0 || index >= DataList.Count) {
         DataIndex = -1;
+        Selected = false;
         gameObject.SetActiveEx(false);
         return;
       }
       DataIndex = index;
+      Selected = CheckSelected?.Invoke(Data) ?? false;
       RefreshInternal(Data);
       gameObject.SetActiveEx(true);
     }
@@ -85,7 +87,7 @@ namespace GameCore.UI {
     private int GridCountPerColumn;
     private List<IScrollGrid> Grids = new List<IScrollGrid>();
 
-    public void Init<TGrid, TData>(List<TData> dataList, Func<TData, bool> onSelected = null, Func<TData, bool> onUnselected = null) where TGrid : ScrollGrid<TData> {
+    public void Init<TGrid, TData>(List<TData> dataList, Func<TData, bool> onSelected = null, Func<TData, bool> onUnselected = null, Func<TData, bool> checkSelected = null) where TGrid : ScrollGrid<TData> {
       StartIndex = 0;
       TotalCount = dataList.Count;
       var viewSize = viewport.rect.size;
@@ -117,7 +119,7 @@ namespace GameCore.UI {
       for (int i = 0; i < GridCountPerColumn; i++) {
         for (int j = 0; j < GridCountPerRow; j++) {
           var grid = Instantiate(GridTemplate, content).GetComponent<TGrid>();
-          Grids.Add(grid.Init(dataList, onSelected, onUnselected));
+          Grids.Add(grid.Init(dataList, onSelected, onUnselected, checkSelected));
         }
       }
       RefreshGrids();

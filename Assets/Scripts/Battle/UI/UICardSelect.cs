@@ -24,7 +24,7 @@ namespace GameCore.UI {
       Cancellable = (bool)args[2];
       SelectCountRange = (Vector2Int)args[3];
 
-      DynamicScrollRect.Init<UICardGrid, Card>(CardList, OnCardSelected, OnCardUnselected);
+      DynamicScrollRect.Init<UICardGrid, Card>(CardList, OnCardSelected, OnCardUnselected, CheckCardSelected);
 
       OkBtn.onClick.AddListener(async () => {
         await Close();
@@ -46,7 +46,7 @@ namespace GameCore.UI {
       return base.Init(type, args);
     }
 
-    public bool OnCardSelected(Card card) {
+    private bool OnCardSelected(Card card) {
       if (SelectedCardList.Count >= SelectCountRange.y) {
         return false;
       }
@@ -55,13 +55,15 @@ namespace GameCore.UI {
       return true;
     }
 
-    public bool OnCardUnselected(Card card) {
+    private bool OnCardUnselected(Card card) {
       if (SelectedCardList.Remove(card)) {
         UpdateOkBtn();
         return true;
       }
       return false;
     }
+
+    private bool CheckCardSelected(Card card) => SelectedCardList.Contains(card);
 
     private void UpdateOkBtn() {
       OkBtn.interactable = SelectedCardList.Count >= SelectCountRange.x;
