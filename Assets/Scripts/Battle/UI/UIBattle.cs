@@ -97,11 +97,7 @@ namespace GameCore.UI {
       return nodes[index];
     }
 
-    public void EndTurn() {
-      if (Battle.SelfPlayer.EndTurnFlag == EndTurnFlag.NONE) {
-        Battle.SelfPlayer.EndTurnFlag = EndTurnFlag.NORMAL_END;
-      }
-    }
+    public void EndTurn() => Battle.SelfPlayer.EndTurnFlag |= EndTurnFlag.NORMAL_END;
 
     public async void OpenDrawCardHeapUI() => await OpenCardHeapUI(CardHeapType.DRAW);
 

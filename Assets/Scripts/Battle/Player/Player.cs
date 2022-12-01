@@ -16,10 +16,11 @@ namespace GameCore {
     ALL = ALLY | ENEMY,
   }
 
+  [Flags]
   public enum EndTurnFlag {
-    NONE,
-    NORMAL_END,
-    FORCE_END,
+    NONE = 0,
+    NORMAL_END = 1 << 0,
+    FORCE_END = 1 << 1,
   }
 
   public class Player : BattleBase {
@@ -69,7 +70,7 @@ namespace GameCore {
         await Battle.BehaviorManager.RunRoot(TickTime.ON_TURN_WAIT_OP, Master);
         await UniTask.Yield(Battle.CancellationToken);
         await DoOperation();
-        if (EndTurnFlag == EndTurnFlag.FORCE_END) {
+        if ((EndTurnFlag & EndTurnFlag.FORCE_END) != 0) {
           break;
         }
       }
