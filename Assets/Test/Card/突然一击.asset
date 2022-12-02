@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e845e9e7e7611334a93e225f395585ee, type: 3}
+  m_Name: "\u7A81\u7136\u4E00\u51FB"
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: LvCardItems
+      Entry: 7
+      Data: 0|GameCore.LvCardItem[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: GameCore.LvCardItem, Assembly-CSharp
+    - Name: Name
+      Entry: 1
+      Data: "\u7A81\u7136\u4E00\u51FB"
+    - Name: Cost
+      Entry: 3
+      Data: 1
+    - Name: Consumable
+      Entry: 5
+      Data: false
+    - Name: Desc
+      Entry: 1
+      Data: "\u5BF9\u654C\u65B9\u9020\u621010\u70B9\u4F24\u5BB3\u5E76\u62BD\u53D6\u4E00\u5F20\u724C"
+    - Name: Skill
+      Entry: 7
+      Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,
+        Assembly-CSharp]], Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 9251a570a68d3db4ca899738325d672f
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: CardPlayer
+      Entry: 7
+      Data: 2|GameCore.DefaultCardPrePlayer, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  CardType: 0
+  TargetCamp: 2
+  Icon:
+    m_AssetGUID: a1e948cafe563d048878539a24f43401
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
