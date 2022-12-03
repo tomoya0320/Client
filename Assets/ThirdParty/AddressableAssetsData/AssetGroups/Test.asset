@@ -601,6 +601,22 @@ MonoBehaviour:
     m_Address: magic
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7924fe7e4c941db4e996236d47b0292e
+    m_Address: "\u8FDE\u65A9"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7a970274a3c85714abc70793531eb2f1
+    m_Address: "\u8FDE\u65A9\u6280\u80FD"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8bf9bf86302e64e42b0b81744f996fcb
+    m_Address: "\u52A0\u8FDE\u65A9\u884C\u4E3A\u6811\u6548\u679C"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 18c4449d70305ee47b877cdc692b50fe
+    m_Address: "\u8FDE\u65A9\u884C\u4E3A\u6811"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:
