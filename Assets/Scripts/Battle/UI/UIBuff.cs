@@ -1,10 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameCore.UI {
   public class UIBuff : MonoBehaviour {
     [SerializeField]
     private ImageWithText ImageWithText;
     private Buff Buff;
+
+    private void Awake() {
+      GetComponent<Button>().onClick.AddListener(() => {
+        if (Buff != null) {
+          Buff.Target.Battle.UIBattle.ShowPermanentText(Buff.BuffTemplate.Desc);
+        }
+      });
+    }
 
     public UIBuff Init(Buff buff) {
       Buff = buff;

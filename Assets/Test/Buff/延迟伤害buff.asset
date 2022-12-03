@@ -37,6 +37,7 @@ MonoBehaviour:
     m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
     m_EditorAssetChanged: 0
+  Desc: "\u5F53\u6B64buff\u79FB\u9664\u65F6\u81EA\u8EAB\u5931\u53BB30\u70B9\u8840"
   BuffKind: 
   ImmuneKinds: []
   Delay: 1

@@ -41,7 +41,7 @@ MonoBehaviour:
       Data: false
     - Name: Desc
       Entry: 1
-      Data: "\u6BCF\u53D7\u5230\u4E00\u6B21\u654C\u4EBA\u7684\u653B\u51FB\u65F6\u90FD\u4F1A\u5BF9\u5176\u9020\u6210\u6240\u53D7\u4F24\u5BB350%\u7684\u4F24\u5BB3\uFF0C\u6548\u679C\u6301\u7EED3\u56DE\u5408"
+      Data: "\u6BCF\u53D7\u5230\u4E00\u6B21\u653B\u51FB\u65F6\u90FD\u4F1A\u5BF9\u5176\u9020\u6210\u6240\u53D7\u4F24\u5BB350%\u7684\u4F24\u5BB3\uFF0C\u6548\u679C\u6301\u7EED3\u56DE\u5408"
     - Name: Skill
       Entry: 7
       Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,

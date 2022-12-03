@@ -13,6 +13,9 @@ namespace GameCore {
     public AssetReferenceT<MagicFuncBase> IntervalMagic;
     [LabelText("图标")]
     public AssetReferenceT<Sprite> Icon;
+    [LabelText("描述")]
+    [TextArea]
+    public string Desc;
     [LabelText("Buff类型")]
     public string BuffKind;
     [LabelText("免疫类型")]
