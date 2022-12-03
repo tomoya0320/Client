@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050030f581b6d7a48bfe858af379bef1, type: 3}
   m_Name: "\u51FA\u8840Buff\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   Magic:
     m_AssetGUID: 
     m_SubObjectName: 
@@ -21,6 +30,12 @@ MonoBehaviour:
     m_AssetGUID: 909e76674a029524683fc7cf1dfa726a
     m_SubObjectName: 
     m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Icon:
+    m_AssetGUID: c1cfdb83244b3d043bd761b4b2c83f10
+    m_SubObjectName: buffVFX2
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     m_EditorAssetChanged: 0
   BuffKind: "\u51FA\u8840"
   ImmuneKinds: []

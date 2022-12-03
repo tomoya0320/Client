@@ -1,5 +1,8 @@
 using Cysharp.Threading.Tasks;
+using GameCore.MagicFuncs;
+using GameCore.UI;
 using System;
+using UnityEngine;
 
 namespace GameCore {
   public class Buff : IPoolObject {
@@ -7,10 +10,11 @@ namespace GameCore {
     public BuffComponent BuffComponent { get; private set; }
     public BuffTemplate BuffTemplate { get; private set; }
     public BuffContext BuffContext { get; private set; }
-    public string MagicId => BuffTemplate.Magic?.AssetGUID;
+    public MagicFuncBase Magic => BuffTemplate.Magic?.Asset as MagicFuncBase;
     public Unit Source { get; private set; }
     public Unit Target { get; private set; }
     public int Turn { get; private set; }
+    public UIBuff UIBuff { get; private set; }
 
     public void Init(int runtimeId, BuffComponent buffComponent, BuffTemplate buffTemplate, Unit source, Unit target) {
       RuntimeId = runtimeId;
@@ -21,18 +25,28 @@ namespace GameCore {
       Turn = 0;
       BuffContext = Target.Battle.ObjectPool.Get<BuffContext>();
       BuffContext.Buff = this;
+      UIBuff = Target.UIUnit.OnAddBuff(this);
     }
 
     public async UniTask<bool> Update(TickTime updateTime) {
       if (updateTime == BuffTemplate.UpdateTime) {
-        string magicId = ++Turn == BuffTemplate.Delay ? BuffTemplate.Magic?.AssetGUID : BuffTemplate.IntervalMagic?.AssetGUID;
-        await Target.Battle.MagicManager.DoMagic(magicId, Source, Target, BuffContext);
+        var magic = ++Turn == BuffTemplate.Delay ? BuffTemplate.Magic?.Asset : BuffTemplate.IntervalMagic?.Asset;
+        await Target.Battle.MagicManager.DoMagic(magic as MagicFuncBase, Source, Target, BuffContext);
+        UIBuff.OnUpdate();
       }
 
       return BuffTemplate.Duration < 0 || Turn < BuffTemplate.TotalDuration;
     }
 
+    public string GetLeftTurnText() {
+      int delayLeftTurn = Mathf.Max(BuffTemplate.Delay - Turn, 0);
+      int leftTurn = BuffTemplate.Duration < 0 ? -1 : (delayLeftTurn > 0 ? BuffTemplate.Duration : BuffTemplate.TotalDuration - Turn);
+      return $"{(leftTurn < 0 ? "¡Þ" : leftTurn)}{(delayLeftTurn > 0 ? $"({delayLeftTurn})" : string.Empty)}";
+    }
+
     public void Release() {
+      Target.UIUnit.OnRemoveBuff(UIBuff);
+      UIBuff = null;
       Target.Battle.ObjectPool.Release(BuffContext);
       BuffContext = null;
       BuffComponent = null;

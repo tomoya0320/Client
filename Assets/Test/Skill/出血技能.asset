@@ -67,3 +67,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  Anim: 
+  AnimTime: 0

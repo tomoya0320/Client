@@ -12,8 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050030f581b6d7a48bfe858af379bef1, type: 3}
   m_Name: "\u5EF6\u8FDF\u4F24\u5BB3buff"
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   Magic:
-    m_AssetGUID: 756793f857c157240bcc93c86bb3bc9a
+    m_AssetGUID: 1d9e07e8d46dea344a59db283e95b90c
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
@@ -21,6 +30,12 @@ MonoBehaviour:
     m_AssetGUID: 
     m_SubObjectName: 
     m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Icon:
+    m_AssetGUID: b0a0b01d3fed6d7418ac26166bdc98f7
+    m_SubObjectName: buffVFX3
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
     m_EditorAssetChanged: 0
   BuffKind: 
   ImmuneKinds: []

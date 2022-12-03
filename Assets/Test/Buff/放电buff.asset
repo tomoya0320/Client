@@ -31,6 +31,12 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  Icon:
+    m_AssetGUID: 202d02d71d5f4e747b9be1d9a0f67a88
+    m_SubObjectName: magic
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 0
   BuffKind: 
   ImmuneKinds: []
   Delay: 0

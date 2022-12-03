@@ -1,14 +1,15 @@
 using Cysharp.Threading.Tasks;
+using GameCore.MagicFuncs;
 using UnityEngine;
 
 namespace GameCore {
   public class Skill : BattleBase {
-    public SkillTemplate SkillTemplate;
+    public SkillTemplate SkillTemplate { get; private set; }
     public Unit Owner { get; private set; }
 
-    public Skill(Battle battle, Unit owner, string skillId) : base(battle) {
+    public Skill(Battle battle, Unit owner, SkillTemplate skillTemplate) : base(battle) {
       Owner = owner;
-      Battle.SkillManager.TryGetAsset(skillId, out SkillTemplate);
+      SkillTemplate = skillTemplate;
     }
 
     public async UniTask Cast(Unit mainTarget) {
@@ -16,11 +17,11 @@ namespace GameCore {
       Owner.UIUnit.PlayAnimation(SkillTemplate.Anim);
       foreach (var skillEvent in SkillTemplate.SKillEvents) {
         await UniTask.Delay((int)(skillEvent.WaitTime * GameConstant.THOUSAND), cancellationToken: Battle.CancellationToken);
-        var magicId = skillEvent.Magic?.AssetGUID;
+        var magic = skillEvent.Magic?.Asset as MagicFuncBase;
         var targets = TempList<Unit>.Get();
         skillEvent.TargetSelector.Select(Battle, Owner, mainTarget, targets);
         foreach (var target in targets) {
-          await Battle.MagicManager.DoMagic(magicId, Owner, target);
+          await Battle.MagicManager.DoMagic(magic, Owner, target);
         }
         TempList<Unit>.Release(targets);
       }

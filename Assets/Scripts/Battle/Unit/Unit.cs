@@ -16,12 +16,11 @@ namespace GameCore {
   }
 
   public class Unit : BattleBase {
-    private UnitTemplate UnitTemplate;
+    public UnitTemplate UnitTemplate { get; private set; }
     public bool IsAlive => UnitStateMachine.IsAlive;
     public Player Player { get; private set; }
     public PlayerCamp PlayerCamp => Player.PlayerCamp;
     public int RuntimeId { get; private set; }
-    public string TemplateId => UnitData.Template?.AssetGUID;
     public int Lv => UnitData.Lv;
     public int MaxLv => UnitTemplate.MaxLevel;
     public UnitData UnitData { get; private set; }
@@ -43,9 +42,8 @@ namespace GameCore {
       UnitData = unitData;
       UnitStateMachine = new UnitStateMachine(this);
       BattleCardControl = new BattleCardControl(this, UnitData.CardData);
-
-      Battle.UnitManager.TryGetAsset(TemplateId, out UnitTemplate);
-      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.Attrib?.AssetGUID, Lv, MaxLv);
+      UnitTemplate = UnitData.Template?.Asset as UnitTemplate;
+      Attribs = Battle.AttribManager.GetAttribs(UnitTemplate.Attrib?.Asset as AttribTemplate, Lv, MaxLv);
       for (int i = 0; i < Attribs.Length; i++) {
         Attribs[i].AllowExceedMax = false;
         Attribs[i].AllowNegative = false;
@@ -56,7 +54,8 @@ namespace GameCore {
     }
 
     public async UniTask InitUI(int index) {
-      if (Battle.PrefabManager.TryGetAsset(UnitTemplate.Prefab?.AssetGUID, out var prefab)) {
+      var prefab = UnitTemplate.Prefab?.Asset as GameObject;
+      if (prefab) {
         UIUnit = Object.Instantiate(prefab, Battle.UIBattle.GetUnitNode(Player.PlayerCamp, index)).GetComponent<UIUnit>();
         if (UIUnit) {
           UIUnit.Init(this);
@@ -85,7 +84,7 @@ namespace GameCore {
       }
       // 行为树相关
       foreach (var behavior in UnitTemplate.Behaviors) {
-        await Battle.BehaviorManager.Add(behavior?.AssetGUID, this, this);
+        await Battle.BehaviorManager.Add(behavior?.Asset as BehaviorGraph, this, this);
       }
       BehaviorInited = true;
     }

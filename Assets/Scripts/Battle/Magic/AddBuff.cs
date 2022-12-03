@@ -9,7 +9,7 @@ namespace GameCore.MagicFuncs {
     public AssetReferenceT<BuffTemplate> Buff;
 
     public async override UniTask Run(Battle battle, Context context, MagicArgs args) {
-      await battle.BuffManager.AddBuff(Buff?.AssetGUID, args.Source, args.Target);
+      await battle.BuffManager.AddBuff(Buff?.Asset as BuffTemplate, args.Source, args.Target);
     }
   }
 }

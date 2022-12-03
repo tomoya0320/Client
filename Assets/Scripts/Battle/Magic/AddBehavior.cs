@@ -16,7 +16,7 @@ namespace GameCore.MagicFuncs {
           }
         }
       } else {
-        var behavior = await battle.BehaviorManager.Add(Behavior?.AssetGUID, args.Source, args.Target);
+        var behavior = await battle.BehaviorManager.Add(Behavior?.Asset as BehaviorGraph, args.Source, args.Target);
         if (behavior != null && context is BuffContext buffContext) {
           buffContext.Behavior = behavior;
         }

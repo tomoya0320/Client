@@ -545,6 +545,62 @@ MonoBehaviour:
     m_Address: "\u62BD\u724C"
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 267dc48900e905543b4a3453bb2255d8
+    m_Address: attackBuff
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf6fee92862f7494db5fce8c30ea1b70
+    m_Address: buff1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5b3f19c2bd00ade47a27cbc0d8f55707
+    m_Address: buffVFX1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c1cfdb83244b3d043bd761b4b2c83f10
+    m_Address: buffVFX2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b0a0b01d3fed6d7418ac26166bdc98f7
+    m_Address: buffVFX3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 31735864cd3d2da489be93f925262c8f
+    m_Address: zaisheng
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9d9673143c2743045b8891cb13261faa
+    m_Address: "\u529B\u91CF\u5F3A\u5316"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 01871641997bb004bb2eea056697504a
+    m_Address: "\u5B89\u53EF"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: db76e3a05f63b804d80441ed96bc4a01
+    m_Address: "\u6280\u80FD_\u8089\u65A9\u9AA8\u65AD"
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bfb5bee264383904393d71a1daa03d7a
+    m_Address: chongsheng
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c50908835b314424a9dd549591ffd50e
+    m_Address: defendBuffL
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 21af6fcc9caf56049af2f9a9a4804ab6
+    m_Address: dianran
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 683d7ba895c227043b02a2c13614f8bb
+    m_Address: guhuo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 202d02d71d5f4e747b9be1d9a0f67a88
+    m_Address: magic
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 059567ba07815ba4083dc51666c79f7a, type: 2}
   m_SchemaSet:

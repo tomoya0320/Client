@@ -23,9 +23,9 @@ namespace GameCore {
       TempList<Buff>.Release(buffList);
     }
 
-    public async UniTask<Buff> Add(Unit source, string buffId, int runtimeId) {
-      if (!BuffManager.TryGetAsset(buffId, out var buffTemplate)) {
-        Debug.LogError($"BuffTemplate is null. id:{buffId}");
+    public async UniTask<Buff> Add(Unit source, BuffTemplate buffTemplate, int runtimeId) {
+      if (!buffTemplate) {
+        Debug.LogError($"BuffTemplate is null!");
         return null;
       }
 
@@ -57,7 +57,7 @@ namespace GameCore {
       Buffs.Add(runtimeId, buff);
 
       if (buffTemplate.Delay <= 0) {
-        await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext);
+        await Battle.MagicManager.DoMagic(buff.Magic, buff.Source, buff.Target, buff.BuffContext);
         if (buffTemplate.Duration == 0) {
           await Remove(runtimeId);
         }
@@ -72,7 +72,7 @@ namespace GameCore {
         return false;
       }
 
-      await Battle.MagicManager.DoMagic(buff.MagicId, buff.Source, buff.Target, buff.BuffContext, true);
+      await Battle.MagicManager.DoMagic(buff.Magic, buff.Source, buff.Target, buff.BuffContext, true);
       Buffs.Remove(runtimeId);
       Battle.ObjectPool.Release(buff);
 

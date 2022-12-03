@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
-  public class BuffManager : BattleResManager<BuffTemplate> {
+  public class BuffManager : BattleBase {
     private int IncId;
     private Dictionary<int, BuffComponent> BuffComponents = new Dictionary<int, BuffComponent>();
 
@@ -38,12 +38,12 @@ namespace GameCore {
       BuffComponents.Add(unit.RuntimeId, new BuffComponent(unit));
     }
 
-    public async UniTask<Buff> AddBuff(string buffId, Unit source, Unit target) {
+    public async UniTask<Buff> AddBuff(BuffTemplate buffTemplate, Unit source, Unit target) {
       if(!BuffComponents.TryGetValue(target.RuntimeId, out var buffComponent)) {
         Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
         return null;
       }
-      return await buffComponent.Add(source, buffId, ++IncId);
+      return await buffComponent.Add(source, buffTemplate, ++IncId);
     }
 
     public async UniTask<bool> RemoveBuff(Unit unit, int runtimeId) {

@@ -20,5 +20,10 @@ namespace GameCore.UI {
 
       TextComponent = GetComponentInChildren<Text>(true);
     }
+
+    public void Clear() {
+      sprite = null;
+      Text = null;
+    }
   }
 }

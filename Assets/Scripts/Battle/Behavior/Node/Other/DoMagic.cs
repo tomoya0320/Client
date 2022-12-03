@@ -15,7 +15,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return NodeResult.False;
       }
-      await behavior.Battle.MagicManager.DoMagic(Magic?.AssetGUID, behavior.Unit, targetUnit, context);
+      await behavior.Battle.MagicManager.DoMagic(Magic?.Asset as MagicFuncBase, behavior.Unit, targetUnit, context);
       return NodeResult.True;
     }
   }

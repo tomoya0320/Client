@@ -22,9 +22,7 @@ namespace GameCore.UI {
       DescText.text = card.Desc;
       NameText.text = card.Name;
       TypeText.text = card.CardType.GetDescription();
-      if (card.Battle.SpriteManager.TryGetAsset(card.IconId, out var sprite)) {
-        IconImage.sprite = sprite;
-      }
+      IconImage.sprite = card.CardTemplate.Icon?.Asset as Sprite;
     }
   }
 }

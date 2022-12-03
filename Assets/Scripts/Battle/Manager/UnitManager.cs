@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameCore {
-  public class UnitManager : BattleResManager<UnitTemplate> {
+  public class UnitManager : BattleBase {
     private int IncId;
     private Dictionary<int, Unit> Units = new Dictionary<int, Unit>();
     public Dictionary<int, Unit>.ValueCollection AllUnits => Units.Values;

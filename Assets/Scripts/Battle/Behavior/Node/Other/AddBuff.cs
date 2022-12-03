@@ -15,7 +15,7 @@ namespace GameCore.BehaviorFuncs {
       if (targetUnit == null) {
         return NodeResult.False;
       }
-      Buff buff = await behavior.Battle.BuffManager.AddBuff(Buff?.AssetGUID, behavior.Unit, targetUnit);
+      Buff buff = await behavior.Battle.BuffManager.AddBuff(Buff?.Asset as BuffTemplate, behavior.Unit, targetUnit);
       return BoolToNodeResult(buff != null);
     }
   }

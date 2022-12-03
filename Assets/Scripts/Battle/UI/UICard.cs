@@ -199,9 +199,7 @@ namespace GameCore {
       DescText.text = Card.Desc;
       NameText.text = Card.Name;
       TypeText.text = Card.CardType.GetDescription();
-      if (Card.Battle.SpriteManager.TryGetAsset(Card.IconId, out var sprite)) {
-        IconImage.sprite = sprite;
-      }
+      IconImage.sprite = Card.CardTemplate.Icon?.Asset as Sprite;
     }
 
     public async void OnPointerDown(PointerEventData eventData) {

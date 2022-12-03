@@ -12,10 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 050030f581b6d7a48bfe858af379bef1, type: 3}
   m_Name: "\u514D\u75AB\u51FA\u8840buff\u6D4B\u8BD5"
   m_EditorClassIdentifier: 
-  MagicId: 
-  IntervalMagicId: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Magic:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  IntervalMagic:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Icon:
+    m_AssetGUID: 267dc48900e905543b4a3453bb2255d8
+    m_SubObjectName: attackBuff
+    m_SubObjectType: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    m_EditorAssetChanged: 0
   BuffKind: "\u514D\u75AB\u51FA\u8840"
   ImmuneKinds:
   - "\u51FA\u8840"
+  Delay: 0
   Duration: 3
   UpdateTime: 1

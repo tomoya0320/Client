@@ -35,10 +35,6 @@ namespace GameCore {
     public BehaviorManager BehaviorManager { get; private set; }
     public AttribManager AttribManager { get; private set; }
     public CardManager CardManager { get; private set; }
-    public LevelManager LevelManager { get; private set; }
-    public SkillManager SkillManager { get; private set; }
-    public PrefabManager PrefabManager { get; private set; }
-    public SpriteManager SpriteManager { get; private set; }
 
     public PlayerManager PlayerManager { get; private set; }
     public DamageManager DamageManager { get; private set; }
@@ -78,10 +74,6 @@ namespace GameCore {
       BehaviorManager = new BehaviorManager(this);
       AttribManager = new AttribManager(this);
       CardManager = new CardManager(this);
-      LevelManager = new LevelManager(this);
-      SkillManager = new SkillManager(this);
-      PrefabManager = new PrefabManager(this);
-      SpriteManager = new SpriteManager(this);
 
       PlayerManager = new PlayerManager(this);
       DamageManager = new DamageManager(this);
@@ -110,7 +102,7 @@ namespace GameCore {
 
     private async UniTask Load() {
       // step1:加载关卡和单位的相关资源
-      LevelTemplate = await LevelManager.Preload(BattleData.Level);
+      LevelTemplate = await BattleResPreload.Preload(BattleData.Level);
       foreach (var behaviorId in LevelTemplate.Behaviors) {
         await PreloadBehavior(behaviorId);
       }
@@ -134,7 +126,7 @@ namespace GameCore {
 
       // step3:初始化关卡和单位的行为树
       foreach (var behavior in LevelTemplate.Behaviors) {
-        await BehaviorManager.Add(behavior?.AssetGUID);
+        await BehaviorManager.Add(behavior?.Asset as BehaviorGraph);
       }
       foreach (var unit in UnitManager.AllUnits) {
         await unit.InitBehavior();
@@ -155,18 +147,18 @@ namespace GameCore {
     }
 
     private async UniTask PreloadUnit(UnitData unitData) {
-      var unitTemplate = await UnitManager.Preload(unitData.Template);
-      await PrefabManager.Preload(unitTemplate.Prefab);
-      await AttribManager.Preload(unitTemplate.Attrib);
+      var unitTemplate = await BattleResPreload.Preload(unitData.Template);
+      await BattleResPreload.Preload(unitTemplate.Prefab);
+      await BattleResPreload.Preload(unitTemplate.Attrib);
       foreach (var behavior in unitTemplate.Behaviors) {
         await PreloadBehavior(behavior);
       }
       // 预加载卡牌
       foreach (var cardData in unitData.CardData) {
-        var cardTemplate = await CardManager.Preload(cardData.Template);
-        await SpriteManager.Preload(cardTemplate.Icon);
+        var cardTemplate = await BattleResPreload.Preload(cardData.Template);
+        await BattleResPreload.Preload(cardTemplate.Icon);
         foreach (var item in cardTemplate.LvCardItems) {
-          var skillTemplate = await SkillManager.Preload(item.Skill);
+          var skillTemplate = await BattleResPreload.Preload(item.Skill);
           foreach (var skillEvent in skillTemplate.SKillEvents) {
             await PreloadMagic(skillEvent.Magic);
           }
@@ -175,7 +167,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBehavior(AssetReferenceT<BehaviorGraph> behaviorRef) {
-      var behavior = await BehaviorManager.Preload(behaviorRef);
+      var behavior = await BattleResPreload.Preload(behaviorRef);
       if (behavior) {
         foreach (var behaviorNode in behavior.nodes) {
           switch (behaviorNode) {
@@ -191,7 +183,7 @@ namespace GameCore {
     }
 
     private async UniTask PreloadMagic(AssetReferenceT<MagicFuncBase> magicRef) {
-      var magic = await MagicManager.Preload(magicRef);
+      var magic = await BattleResPreload.Preload(magicRef);
       if (magic) {
         switch (magic) {
           case AddBehavior addBehavior:
@@ -205,10 +197,11 @@ namespace GameCore {
     }
 
     private async UniTask PreloadBuff(AssetReferenceT<BuffTemplate> buffRef) {
-      var buff = await BuffManager.Preload(buffRef);
+      var buff = await BattleResPreload.Preload(buffRef);
       if (buff) {
         await PreloadMagic(buff.Magic);
         await PreloadMagic(buff.IntervalMagic);
+        await BattleResPreload.Preload(buff.Icon);
       }
     }
 
@@ -230,36 +223,12 @@ namespace GameCore {
       BattleData = null;
       BattleState = BattleState.NONE;
 
-      UnitManager.Release();
       UnitManager = null;
-
-      BuffManager.Release();
       BuffManager = null;
-
-      MagicManager.Release();
       MagicManager = null;
-
-      BehaviorManager.Release();
       BehaviorManager = null;
-
-      AttribManager.Release();
       AttribManager = null;
-
-      CardManager.Release();
       CardManager = null;
-
-      LevelManager.Release();
-      LevelManager = null;
-
-      SkillManager.Release();
-      SkillManager = null;
-
-      PrefabManager.Release();
-      PrefabManager = null;
-
-      SpriteManager.Release();
-      SpriteManager = null;
-
       PlayerManager = null;
       DamageManager = null;
 

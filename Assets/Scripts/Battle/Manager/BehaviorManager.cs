@@ -28,7 +28,7 @@ namespace GameCore {
     ON_UNIT_DEAD,
   }
 
-  public class BehaviorManager : BattleResManager<BehaviorGraph> {
+  public class BehaviorManager : BattleBase {
     private int IncId;
     private Dictionary<int, Behavior> Behaviors = new Dictionary<int, Behavior>();
     private Dictionary<TickTime, List<Behavior>> BehaviorTimes = new Dictionary<TickTime, List<Behavior>>();
@@ -53,14 +53,14 @@ namespace GameCore {
       TempList<Behavior>.Release(behaviorList);
     }
 
-    public async UniTask<Behavior> Add(string behaviorId, Unit source = null, Unit target = null) {
-      if (!Templates.TryGetValue(behaviorId, out var behaviorGraph)) {
-        Debug.LogError($"BehaviorManager.Add error, behaviorGraph is not preload. Id:{behaviorId}");
+    public async UniTask<Behavior> Add(BehaviorGraph behaviorGraph, Unit source = null, Unit target = null) {
+      if (!behaviorGraph) {
+        Debug.LogError($"BehaviorManager.Add error, behaviorGraph is not preload!");
         return null;
       }
 
       if(!BehaviorTimes.TryGetValue(behaviorGraph.BehaviorTime, out var behaviorList)) {
-        Debug.LogError($"BehaviorManager.Add error, BehaviorTime:[{behaviorGraph.BehaviorTime}] is undefined. Id:{behaviorId} ");
+        Debug.LogError($"BehaviorManager.Add error, BehaviorTime:[{behaviorGraph.BehaviorTime}] is undefined. name:{behaviorGraph.name}");
         return null;
       }
 

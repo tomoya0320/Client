@@ -1,4 +1,5 @@
 using GameCore.UI;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,9 @@ namespace GameCore {
     private Text UIEnergy;
     public Transform NumNode;
     public Transform BattleTextNode;
+    [SerializeField]
+    private GameObject UIBuffTemplate;
+    private Stack<UIBuff> UIBuffCache = new Stack<UIBuff>();
 
     public UIUnit Init(Unit unit) {
       Unit = unit;
@@ -26,6 +30,15 @@ namespace GameCore {
       UpdateSelectedGo();
       return this;
     }
+
+    public UIBuff OnAddBuff(Buff buff) {
+      if (!UIBuffCache.TryPop(out var uiBuff)) {
+        uiBuff = Instantiate(UIBuffTemplate, UIBuffTemplate.transform.parent).GetComponent<UIBuff>();
+      }
+      return uiBuff.Init(buff);
+    }
+
+    public void OnRemoveBuff(UIBuff uiBuff) => UIBuffCache.Push(uiBuff.OnRemove());
 
     public void SetSelected(bool selected) {
       SelectedCount += selected ? 1 : -1;

@@ -1,12 +1,12 @@
 using UnityEngine;
 
 namespace GameCore {
-  public class AttribManager : BattleResManager<AttribTemplate> {
+  public class AttribManager : BattleBase {
     public AttribManager(Battle battleManager) : base(battleManager) { }
 
-    public Attrib[] GetAttribs(string attribId, int level, int maxLevel) {
-      if (!Templates.TryGetValue(attribId, out var attribTemplate)) {
-        Debug.LogError($"AttribTemplate is null. id:{attribId}");
+    public Attrib[] GetAttribs(AttribTemplate attribTemplate, int level, int maxLevel) {
+      if (!attribTemplate) {
+        Debug.LogError($"AttribTemplate is null!");
         return null;
       }
 

@@ -6,11 +6,10 @@ using Object = UnityEngine.Object;
 namespace GameCore {
   public class Card : BattleBase, IComparable<Card> {
     public int Order;
-    public CardTemplate CardTemplate;
+    public CardTemplate CardTemplate { get; private set; }
     public int RuntimeId { get; private set; }
     public PlayerCamp TargetCamp => CardTemplate.TargetCamp;
     public CardData CardData { get; private set; }
-    public string TemplateId => CardData.Template?.AssetGUID;
     public int Lv => CardData.Lv;
     public Unit Owner { get; private set; }
     public Skill[] Skills { get; private set; }
@@ -20,7 +19,6 @@ namespace GameCore {
     public string Desc => CardTemplate.LvCardItems[Lv].Desc;
     public string Name => CardTemplate.LvCardItems[Lv].Name;
     public CardType CardType => CardTemplate.CardType;
-    public string IconId => CardTemplate.Icon?.AssetGUID;
     private CardPrePlayer CardPlayer => CardTemplate.LvCardItems[Lv].CardPlayer;
     public CardHeapType CardHeapType { get; private set; } = CardHeapType.DRAW;
     public async UniTask SetCardHeapType(CardHeapType cardHeapType) {
@@ -67,12 +65,11 @@ namespace GameCore {
       RuntimeId = runtimeId;
       Owner = owner;
       CardData = cardData;
-
-      Battle.CardManager.TryGetAsset(TemplateId, out CardTemplate);
+      CardTemplate = CardData.Template?.Asset as CardTemplate;
 
       Skills = new Skill[CardTemplate.LvCardItems.Length];
       for (int i = 0; i < Skills.Length; i++) {
-        Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].Skill?.AssetGUID);
+        Skills[i] = new Skill(Battle, Owner, CardTemplate.LvCardItems[i].Skill?.Asset as SkillTemplate);
       }
     }
 
