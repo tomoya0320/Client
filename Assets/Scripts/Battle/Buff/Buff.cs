@@ -33,9 +33,10 @@ namespace GameCore {
         var magic = ++Turn == BuffTemplate.Delay ? BuffTemplate.Magic?.Asset : BuffTemplate.IntervalMagic?.Asset;
         await Target.Battle.MagicManager.DoMagic(magic as MagicFuncBase, Source, Target, BuffContext);
         UIBuff.OnUpdate();
+        return BuffTemplate.Duration < 0 || Turn < BuffTemplate.TotalDuration;
       }
 
-      return BuffTemplate.Duration < 0 || Turn < BuffTemplate.TotalDuration;
+      return true; // 只有符合更新时机才会去判断条件否则统一返回true避免magic里又触发一次buff更新逻辑导致只剩一回合的buff被提前回收
     }
 
     public string GetLeftTurnText() {
