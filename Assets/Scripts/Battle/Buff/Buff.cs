@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using GameCore.MagicFuncs;
 using GameCore.UI;
-using System;
 using UnityEngine;
 
 namespace GameCore {
