@@ -14,10 +14,16 @@ namespace GameCore {
   }
 
   public struct LvCardItem {
+    [LabelText("名称")]
     public string Name;
+    [LabelText("耗能")]
     public int Cost;
+    [LabelText("是否消耗")]
     public bool Consumable;
+    [LabelText("是否保留")]
+    public bool Retainable;
     [TextArea]
+    [LabelText("描述")]
     public string Desc;
     [DrawWithUnity]
     public AssetReferenceT<SkillTemplate> Skill;

@@ -16,6 +16,7 @@ namespace GameCore {
     private Skill Skill => Skills[Lv];
     public int Cost => CardTemplate.LvCardItems[Lv].Cost;
     public bool Consumable => CardTemplate.LvCardItems[Lv].Consumable;
+    public bool Retainable => CardTemplate.LvCardItems[Lv].Retainable;
     public string Desc => CardTemplate.LvCardItems[Lv].Desc;
     public string Name => CardTemplate.LvCardItems[Lv].Name;
     public CardType CardType => CardTemplate.CardType;

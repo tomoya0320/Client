@@ -39,9 +39,12 @@ MonoBehaviour:
     - Name: Consumable
       Entry: 5
       Data: true
+    - Name: Retainable
+      Entry: 5
+      Data: true
     - Name: Desc
       Entry: 1
-      Data: "\u3010\u6D88\u8017\u3011\u5C06\u81F3\u591AX\u5F20\u5361\u724C\u4ECE\u5F03\u724C\u5806\u4E2D\u79FB\u81F3\u624B\u724C\u5806"
+      Data: "\u3010\u4FDD\u7559\u3011\u3010\u6D88\u8017\u3011\u5C06\u81F3\u591AX\u5F20\u5361\u724C\u4ECE\u5F03\u724C\u5806\u4E2D\u79FB\u81F3\u624B\u724C\u5806"
     - Name: Skill
       Entry: 7
       Data: 1|UnityEngine.AddressableAssets.AssetReferenceT`1[[GameCore.SkillTemplate,

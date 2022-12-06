@@ -58,6 +58,9 @@ namespace GameCore {
       var uniTaskList = TempList<UniTask>.Get();
       Owner.BattleCardControl.GetCardList(CardHeapType.HAND, handCardList);
       foreach (var card in handCardList) {
+        if (card.Retainable) {
+          continue;
+        }
         uniTaskList.Add(card.SetCardHeapType(CardHeapType.DISCARD));
       }
       await UniTask.WhenAll(uniTaskList);
