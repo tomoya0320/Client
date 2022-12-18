@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameCore.UI {
-  public abstract class UIBase : SerializedMonoBehaviour {
+  public abstract class UIBase : MonoBehaviour {
     [SerializeField]
     private Animation Animation;
     [SerializeField]

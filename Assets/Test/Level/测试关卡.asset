@@ -37,7 +37,7 @@ MonoBehaviour:
         m_SubObjectName: 
         m_SubObjectType: 
         m_EditorAssetChanged: 0
-      Lv: 99
+      Lv: 0
       CardData:
       - Template:
           m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce

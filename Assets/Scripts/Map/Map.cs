@@ -5,12 +5,12 @@ using Random = UnityEngine.Random;
 namespace GameCore {
   [Serializable]
   public class Map {
-    public const int WIDTH = 4;
+    public const int WIDTH = 7;
     public const int HEIGHT = 3;
     public const int DEST_POS = WIDTH * HEIGHT;
+    public const int NODE_COUNT = WIDTH * HEIGHT + 1;
 
     public int[] Nodes;
-    public int DestNode;
     public int CurPos;
     public Dictionary<int, List<int>> Paths;
 
@@ -41,8 +41,7 @@ namespace GameCore {
 
     public static Map Generate() {
       List<int> tempList = new List<int>();
-      int[] nodes = new int[WIDTH * HEIGHT];
-      int destNode = 0; // TEST
+      int[] nodes = new int[NODE_COUNT];
       Dictionary<int, List<int>> paths = new Dictionary<int, List<int>>();
       for (int i = 0; i < WIDTH; i++) {
         for (int j = 0; j < HEIGHT; j++) {
@@ -69,11 +68,12 @@ namespace GameCore {
             }
             tempList.Clear();
           } else {
-            next.Add(nodes.Length);
+            next.Add(DEST_POS);
           }
         }
       }
-      return new Map { Nodes = nodes, DestNode = destNode, Paths = paths, CurPos = -1 };
+      nodes[DEST_POS] = 0; // TEST жу╣Ц
+      return new Map { Nodes = nodes, Paths = paths, CurPos = -1 };
     }
   }
 }

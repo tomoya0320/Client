@@ -1,20 +1,22 @@
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace GameCore.UI {
   public class UIMap : UIBase {
-    public UIMapNode[,] MapNodes = new UIMapNode[Map.WIDTH, Map.HEIGHT];
-    public UIMapNode DestNode;
+    [SerializeField]
+    private Transform MapNodeRoot;
+    private UIMapNode[] MapNodes;
+
+    private void Awake() {
+      MapNodes = MapNodeRoot.GetComponentsInChildren<UIMapNode>(true);
+    }
 
     public async override UniTask Init(UIType type, params object[] args) {
       EventCenter.AddListener(EventType.ON_MAP_CUR_POS_UPDATE, OnMapCurPosUpdate);
       var map = Game.Instance.User.Map;
-      for (int i = 0; i < Map.WIDTH; i++) {
-        for (int j = 0; j < Map.HEIGHT; j++) {
-          int pos = i * Map.HEIGHT + j;
-          await MapNodes[i, j].Init(map.CheckNodeEnable(pos), map.Nodes[pos], pos);
-        }
+      for (int i = 0; i < MapNodes.Length; i++) {
+        await MapNodes[i].Init(map.CheckNodeEnable(i), map.Nodes[i], i);
       }
-      await DestNode.Init(map.CheckNodeEnable(Map.DEST_POS), map.DestNode, Map.DEST_POS);
       await base.Init(type, args);
     }
 
@@ -25,13 +27,9 @@ namespace GameCore.UI {
 
     public void OnMapCurPosUpdate() {
       var map = Game.Instance.User.Map;
-      for (int i = 0; i < Map.WIDTH; i++) {
-        for (int j = 0; j < Map.HEIGHT; j++) {
-          int pos = i * Map.HEIGHT + j;
-          MapNodes[i, j].Button.interactable = map.CheckNodeEnable(pos);
-        }
+      for (int i = 0; i < MapNodes.Length; i++) {
+        MapNodes[i].Button.interactable = map.CheckNodeEnable(i);
       }
-      DestNode.Button.interactable = map.CheckNodeEnable(Map.DEST_POS);
     }
   }
 }
