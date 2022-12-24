@@ -56,7 +56,7 @@ namespace GameCore {
     public async UniTask InitUI(int index) {
       var prefab = UnitTemplate.Prefab?.Asset as GameObject;
       if (prefab) {
-        UIUnit = Object.Instantiate(prefab, Battle.UIBattle.GetUnitNode(Player.PlayerCamp, index)).GetComponent<UIUnit>();
+        UIUnit = Object.Instantiate(prefab, Battle.UIBattle.GetUnitNode(index)).GetComponent<UIUnit>();
         if (UIUnit) {
           UIUnit.Init(this);
         }

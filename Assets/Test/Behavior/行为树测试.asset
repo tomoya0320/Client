@@ -53,55 +53,6 @@ MonoBehaviour:
       Key: enemy_count
     Value: 0
   CompareMethod: 0
---- !u!114 &-7260463603952257348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0717ca0d80e3bf0459b184548732af78, type: 3}
-  m_Name: Set Int
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  Index: 1
-  graph: {fileID: 11400000}
-  position: {x: 24, y: -120}
-  ports:
-    keys:
-    - In
-    values:
-    - _fieldName: In
-      _node: {fileID: -7260463603952257348}
-      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-      connections:
-      - fieldName: Out
-        node: {fileID: -1149953120244385279}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 1
-      _typeConstraint: 0
-      _dynamic: 0
-  Source:
-    IsDict: 0
-    ParamKey:
-      Type: 0
-      Key: 
-    Value: 1
-  TargetKey:
-    Type: 0
-    Key: enemy_count
 --- !u!114 &-5202230786887711784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,12 +344,56 @@ MonoBehaviour:
         node: {fileID: 4127657612674777731}
         reroutePoints: []
       - fieldName: In
-        node: {fileID: -7260463603952257348}
+        node: {fileID: -183496086672946372}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
+--- !u!114 &-183496086672946372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615756d24c8feb14f9a806d40fb511fe, type: 3}
+  m_Name: Get Unit Count By Camp
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Index: 1
+  graph: {fileID: 11400000}
+  position: {x: 8, y: -88}
+  ports:
+    keys:
+    - In
+    values:
+    - _fieldName: In
+      _node: {fileID: -183496086672946372}
+      _typeQualifiedName: GameCore.BehaviorFuncs.NodePort, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Out
+        node: {fileID: -1149953120244385279}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  PlayerCamp: 2
+  TargetKey:
+    Type: 0
+    Key: enemy_count
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,10 +420,10 @@ MonoBehaviour:
   - {fileID: 1432385851769687740}
   - {fileID: 4127657612674777731}
   - {fileID: -1149953120244385279}
-  - {fileID: -7260463603952257348}
   - {fileID: -1819261658935549525}
   - {fileID: -7401090845266803394}
   - {fileID: 1063794495936679056}
+  - {fileID: -183496086672946372}
   BehaviorTime: 9
   Priority: 0
 --- !u!114 &474068457118245049
@@ -692,7 +687,7 @@ MonoBehaviour:
     SerializationNodes: []
   Index: 0
   graph: {fileID: 11400000}
-  position: {x: -88, y: -344}
+  position: {x: -56, y: -392}
   ports:
     keys:
     - In

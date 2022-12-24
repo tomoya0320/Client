@@ -68,9 +68,7 @@ namespace GameCore.UI {
 
     private Battle Battle;
     [SerializeField]
-    private Transform[] AllyNodes;
-    [SerializeField]
-    private Transform[] EnemyNodes;
+    private Transform[] UnitNodes;
     [SerializeField]
     private Text TurnText;
     public RectTransform HandCardPosRefNode;
@@ -87,23 +85,12 @@ namespace GameCore.UI {
       return base.Init(type, args);
     }
 
-    public Transform GetUnitNode(PlayerCamp playerCamp, int index) {
-      switch (playerCamp) {
-        case PlayerCamp.ALLY:
-          return GetNode(AllyNodes, index);
-        case PlayerCamp.ENEMY:
-          return GetNode(EnemyNodes, index);
-        default:
-          return null;
-      }
-    }
-
-    private Transform GetNode(Transform[] nodes, int index) {
-      if (index < 0 || index >= nodes.Length) {
+    public Transform GetUnitNode(int index) {
+      if (index < 0 || index >= UnitNodes.Length) {
         return null;
       }
 
-      return nodes[index];
+      return UnitNodes[index];
     }
 
     public void EndTurn() => Battle.SelfPlayer.EndTurnFlag |= EndTurnFlag.NORMAL_END;

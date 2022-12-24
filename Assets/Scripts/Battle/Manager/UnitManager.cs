@@ -51,6 +51,10 @@ namespace GameCore {
       var unitList = TempList<Unit>.Get();
       GetUnitList(playerCamp, owner, unitList);
       foreach (var unit in unitList) {
+        if (!unit.IsAlive) {
+          continue;
+        }
+
         Vector2 unitScreenPos = UIManager.Instance.UICamera.WorldToScreenPoint(unit.UIUnit.transform.position);
         float dist = Vector2.Distance(screenPos, unitScreenPos);
         if (dist < minDist) {

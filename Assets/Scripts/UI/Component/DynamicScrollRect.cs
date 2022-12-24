@@ -1,4 +1,3 @@
-using GameCore.BehaviorFuncs;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

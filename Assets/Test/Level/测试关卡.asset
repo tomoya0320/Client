@@ -45,3 +45,37 @@ MonoBehaviour:
           m_SubObjectType: 
           m_EditorAssetChanged: 0
         Lv: 0
+  - PlayerId: "\u654C\u65B92"
+    PlayerCamp: 2
+    FirstIndex: 0
+    UnitData:
+    - Template:
+        m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Lv: 0
+      CardData:
+      - Template:
+          m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        Lv: 0
+  - PlayerId: "\u654C\u65B93"
+    PlayerCamp: 2
+    FirstIndex: 0
+    UnitData:
+    - Template:
+        m_AssetGUID: a42fefc6b8f6f4c4c8c6048462f58cad
+        m_SubObjectName: 
+        m_SubObjectType: 
+        m_EditorAssetChanged: 0
+      Lv: 0
+      CardData:
+      - Template:
+          m_AssetGUID: 4fd46d3418614e14698fb22cbaf24bce
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_EditorAssetChanged: 0
+        Lv: 0
