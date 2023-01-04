@@ -189,7 +189,7 @@ namespace GameCore.UI {
       if (verticalScrollbar) {
         verticalScrollbar.value = normalizedPosition.y;
       }
-      if (horizontalScrollbar != null) {
+      if (horizontalScrollbar) {
         horizontalScrollbar.value = normalizedPosition.x;
       }
     }
