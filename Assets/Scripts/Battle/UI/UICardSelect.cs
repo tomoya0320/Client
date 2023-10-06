@@ -56,11 +56,9 @@ namespace GameCore.UI {
     }
 
     private bool OnCardUnselected(Card card) {
-      if (SelectedCardList.Remove(card)) {
-        UpdateOkBtn();
-        return true;
-      }
-      return false;
+      if (!SelectedCardList.Remove(card)) return false;
+      UpdateOkBtn();
+      return true;
     }
 
     private bool CheckCardSelected(Card card) => SelectedCardList.Contains(card);

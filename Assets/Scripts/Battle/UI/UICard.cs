@@ -22,10 +22,11 @@ namespace GameCore {
 
     protected UICardOutHand(int stateId, StateMachine<UICard> stateMachine) : base(stateId, stateMachine) { }
 
-    public async override UniTask OnEnter(State<UICard> lastState, Context context = null) {
+    public override async UniTask OnEnter(State<UICard> lastState, Context context = null) {
       if (lastState == null) {
-        Owner.transform.position = CardHeapNode.position;
-        Owner.transform.localScale = UICardStateMachine.OUT_HAND_SCALE * Vector3.one;
+        var transform = Owner.transform;
+        transform.position = CardHeapNode.position;
+        transform.localScale = UICardStateMachine.OUT_HAND_SCALE * Vector3.one;
         Owner.gameObject.SetActiveEx(false);
         return;
       }
@@ -186,7 +187,7 @@ namespace GameCore {
     public UICardStateMachine UICardStateMachine { get; private set; }
     public PointerEventData EventData { get; private set; }
     private RectTransform _RectTransform;
-    public RectTransform RectTransform => _RectTransform ?? (_RectTransform = GetComponent<RectTransform>());
+    public RectTransform RectTransform => _RectTransform ? _RectTransform : _RectTransform = GetComponent<RectTransform>();
     public float Width => RectTransform.rect.width;
     public Unit MainTarget;
 

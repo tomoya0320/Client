@@ -7,7 +7,7 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("延迟时间")]
     public NodeFloatParam DelayTimeKey;
 
-    public async override UniTask<NodeResult> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       float delayTime = behavior.GetFloat(DelayTimeKey);
       await UniTask.Delay((int)(GameConstant.THOUSAND * delayTime), cancellationToken: behavior.Battle.CancellationToken);
       return NodeResult.True;

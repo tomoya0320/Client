@@ -17,7 +17,7 @@ namespace GameCore {
     public UnitInTurnState(StateMachine<Unit> stateMachine) : base((int)UnitState.IN_TURN, stateMachine) {
     }
 
-    public async override UniTask OnEnter(State<Unit> lastState, Context context = null) {
+    public override async UniTask OnEnter(State<Unit> lastState, Context context = null) {
       // 执行回合开始前的行为树
       await Owner.Battle.BehaviorManager.RunRoot(TickTime.ON_START_TURN, Owner, context);
       // Test

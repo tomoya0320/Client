@@ -9,7 +9,7 @@ namespace GameCore {
     [LabelText("¾çÇé")]
     public AssetReferenceT<AVGGraph> AVGGraph;
 
-    public async override void Run(int pos) {
+    public override async void Run(int pos) {
       var ui = await AVG.Enter(AVGGraph);
       ui.AVG.OnExit = async () => {
         Game.Instance.User.UpdateMapCurPos(pos);

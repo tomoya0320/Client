@@ -11,7 +11,7 @@ namespace GameCore.UI {
       MapNodes = MapNodeRoot.GetComponentsInChildren<UIMapNode>(true);
     }
 
-    public async override UniTask Init(UIType type, params object[] args) {
+    public override async UniTask Init(UIType type, params object[] args) {
       EventCenter.AddListener(EventType.ON_MAP_CUR_POS_UPDATE, OnMapCurPosUpdate);
       var map = Game.Instance.User.Map;
       for (int i = 0; i < MapNodes.Length; i++) {

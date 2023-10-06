@@ -10,7 +10,7 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("目标单位")]
     public NodeParamKey TargetUnit;
 
-    public async override UniTask<NodeResult> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       Unit targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
         return NodeResult.False;

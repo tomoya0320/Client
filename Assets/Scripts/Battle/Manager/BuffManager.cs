@@ -39,11 +39,10 @@ namespace GameCore {
     }
 
     public async UniTask<Buff> AddBuff(BuffTemplate buffTemplate, Unit source, Unit target) {
-      if(!BuffComponents.TryGetValue(target.RuntimeId, out var buffComponent)) {
-        Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
-        return null;
-      }
-      return await buffComponent.Add(source, buffTemplate, ++IncId);
+      if (BuffComponents.TryGetValue(target.RuntimeId, out var buffComponent))
+        return await buffComponent.Add(source, buffTemplate, ++IncId);
+      Debug.LogError($"BuffComponent is not exist. id:{target.RuntimeId}");
+      return null;
     }
 
     public async UniTask<bool> RemoveBuff(Unit unit, int runtimeId) {

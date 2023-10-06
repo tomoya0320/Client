@@ -8,7 +8,7 @@ namespace GameCore.MagicFuncs {
     public override bool IgnoreOnEnd => true;
     public AssetReferenceT<BuffTemplate> Buff;
 
-    public async override UniTask Run(Battle battle, Context context, MagicArgs args) {
+    public override async UniTask Run(Battle battle, Context context, MagicArgs args) {
       await battle.BuffManager.AddBuff(Buff?.Asset as BuffTemplate, args.Source, args.Target);
     }
   }

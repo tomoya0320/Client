@@ -11,11 +11,9 @@ namespace GameCore.BehaviorFuncs {
     public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var connection = GetOutputPort(nameof(Out)).Connection;
       BehaviorNode behaviorNode = connection.node as BehaviorNode;
-      if (behaviorNode == null) {
-        Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
-        return NodeResult.False;
-      }
-      return await behaviorNode.Run(behavior, context);
+      if (behaviorNode != null) return await behaviorNode.Run(behavior, context);
+      Debug.LogError($"节点基类不匹配！类型:{connection.node.GetType().Name}");
+      return NodeResult.False;
     }
   }
 }

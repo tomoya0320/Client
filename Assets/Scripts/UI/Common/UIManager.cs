@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using System;
 
 namespace GameCore.UI {

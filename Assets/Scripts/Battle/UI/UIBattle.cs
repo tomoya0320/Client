@@ -26,12 +26,7 @@ namespace GameCore.UI {
           return;
         }
 
-        Text textComponent;
-        if (TextStack.Count > 0) {
-          textComponent = TextStack.Pop();
-        } else {
-          textComponent = Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
-        }
+        var textComponent = TextStack.Count > 0 ? TextStack.Pop() : Instantiate(TextPrefab, Battle.UIBattle.TextNode).GetComponent<Text>();
         textComponent.gameObject.SetActiveEx(true);
 
         textComponent.text = text;
@@ -40,8 +35,9 @@ namespace GameCore.UI {
         textComponent.DOFade(1.0f, animTime);
 
         textComponent.transform.position = pos;
-        float width = textComponent.rectTransform.rect.width;
-        float height = textComponent.rectTransform.rect.height;
+        var rect = textComponent.rectTransform.rect;
+        float width = rect.width;
+        float height = rect.height;
         if (random) {
           textComponent.rectTransform.anchoredPosition += 0.5f * new Vector2(Random.Range(-width, width), Random.Range(-height, height));
         }

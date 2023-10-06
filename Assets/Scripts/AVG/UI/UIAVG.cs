@@ -25,7 +25,7 @@ namespace GameCore.UI {
     public AVG AVG { get; private set; }
     private List<Option> Options = new List<Option>();
 
-    public async override UniTask Init(UIType type, params object[] args) {
+    public override async UniTask Init(UIType type, params object[] args) {
       switch (args[0]) {
         case string name:
           AVG = new AVG(this, await ResourceManager.LoadAssetAsync<AVGGraph>(name));

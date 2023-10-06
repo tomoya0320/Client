@@ -7,13 +7,13 @@ namespace GameCore {
     public static async UniTask<T> LoadAssetAsync<T>(AssetReferenceT<T> assetRef) where T : Object {
       if (assetRef.Asset) {
         return assetRef.Asset as T;
-      } else {
-        var handle = assetRef.LoadAssetAsync();
-        while (!handle.IsDone) {
-          await UniTask.Yield(Game.Instance.CancellationToken);
-        }
-        return handle.Result;
       }
+
+      var handle = assetRef.LoadAssetAsync();
+      while (!handle.IsDone) {
+        await UniTask.Yield(Game.Instance.CancellationToken);
+      }
+      return handle.Result;
     }
 
     public static async UniTask<T> LoadAssetAsync<T>(string name) where T : Object {

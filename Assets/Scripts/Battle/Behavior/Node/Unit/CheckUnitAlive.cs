@@ -9,10 +9,7 @@ namespace GameCore.BehaviorFuncs {
 
     public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var unit = behavior.GetUnit(UnitKey);
-      if (unit == null) {
-        return UniTask.FromResult(NodeResult.False);
-      }
-      return UniTask.FromResult(BoolToNodeResult(unit.IsAlive));
+      return UniTask.FromResult(unit == null ? NodeResult.False : BoolToNodeResult(unit.IsAlive));
     }
   }
 }

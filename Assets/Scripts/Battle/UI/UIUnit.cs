@@ -62,18 +62,16 @@ namespace GameCore {
     private void OnEnergyChanged(int beforeValue, int beforeMaxValue) => SetUIEnergy();
 
     private void SetUIHp() {
-      if (UIHp) {
-        Attrib hpAttrib = Unit.Attribs[(int)AttribType.HP];
-        UIHp.fillAmount = (float)hpAttrib.Value / hpAttrib.MaxValue;
-        UIHp.Text = $"{hpAttrib.Value}/{hpAttrib.MaxValue}";
-      }
+      if (!UIHp) return;
+      Attrib hpAttrib = Unit.Attribs[(int)AttribType.HP];
+      UIHp.fillAmount = (float)hpAttrib.Value / hpAttrib.MaxValue;
+      UIHp.Text = $"{hpAttrib.Value}/{hpAttrib.MaxValue}";
     }
 
     private void SetUIEnergy() {
-      if (UIEnergy) {
-        Attrib energyAttrib = Unit.Attribs[(int)AttribType.ENERGY];
-        UIEnergy.text = $"{energyAttrib.Value}/{energyAttrib.MaxValue}";
-      }
+      if (!UIEnergy) return;
+      Attrib energyAttrib = Unit.Attribs[(int)AttribType.ENERGY];
+      UIEnergy.text = $"{energyAttrib.Value}/{energyAttrib.MaxValue}";
     }
   }
 }

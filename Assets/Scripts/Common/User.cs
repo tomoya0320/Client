@@ -59,8 +59,9 @@ namespace GameCore {
     }
 
     public static User CreateNew() {
-      User user = new User();
-      user.Map = Map.Generate();
+      User user = new User {
+        Map = Map.Generate()
+      };
       // ----------------TEST-----------------
       user.Cards.Add((0, 0));
       user.Cards.Add((0, 0));

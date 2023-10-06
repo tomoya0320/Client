@@ -14,7 +14,7 @@ namespace GameCore.UI {
     private GameObject SelectGo;
     public RectTransform RectTransform { get; private set; }
     public bool Selected {
-      get => SelectGo ? SelectGo.activeSelf : false;
+      get => SelectGo && SelectGo.activeSelf;
       protected set {
         if (SelectGo) {
           SelectGo.SetActiveEx(value);

@@ -13,12 +13,9 @@ public static class Extension {
   public static string GetDescription(this Enum enumValue) {
     Type type = enumValue.GetType();
     MemberInfo[] memInfo = type.GetMember(enumValue.ToString());
-    if (memInfo != null && memInfo.Length > 0) {
-      object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-      if (attrs != null && attrs.Length > 0)
-        return ((DescriptionAttribute)attrs[0]).Description;
-    }
-    return enumValue.ToString();
+    if (memInfo.Length <= 0) return enumValue.ToString();
+    object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
+    return attrs.Length > 0 ? ((DescriptionAttribute)attrs[0]).Description : enumValue.ToString();
   }
   #endregion
 

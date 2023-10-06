@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace GameCore {
-  [CreateAssetMenu(fileName = "LevelMapNode", menuName = "地图节点/关卡")]
+  [CreateAssetMenu(fileName = "LevelMapNode", menuName = "鍦板浘鑺傜偣/鍏冲崱")]
   public class LevelMapNode : MapNodeBase {
-    [LabelText("关卡")]
+    [LabelText("鍏冲崱")]
     public AssetReferenceT<LevelTemplate> Level;
 
-    public async override void Run(int pos) {
+    public override async void Run(int pos) {
       var ui = await UIManager.Instance.Open<UILoading>(UIType.TOP, "UILoading");
       Battle.Enter(CreateBattleData(),
         async () => await UIManager.Instance.Close(ui),

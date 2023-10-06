@@ -8,7 +8,7 @@ namespace GameCore.MagicFuncs {
     public override bool IgnoreOnEnd => false;
     public AssetReferenceT<BehaviorGraph> Behavior;
 
-    public async override UniTask Run(Battle battle, Context context, MagicArgs args) {
+    public override async UniTask Run(Battle battle, Context context, MagicArgs args) {
       if (args.IsEnd) {
         if (context is BuffContext buffContext && buffContext.Behavior != null) {
           if (await battle.BehaviorManager.Remove(buffContext.Behavior.RuntimeId)) {

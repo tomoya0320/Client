@@ -11,10 +11,7 @@ namespace GameCore {
 
       var template = await ResourceManager.LoadAssetAsync(assetRef);
 
-      if (template) {
-        return template;
-      }
-      return null;
+      return template ? template : null;
     }
   }
 }

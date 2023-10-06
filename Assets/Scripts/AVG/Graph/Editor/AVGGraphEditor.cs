@@ -7,7 +7,7 @@ using XNodeEditor;
 namespace GameCore {
   [CustomNodeGraphEditor(typeof(AVGGraph))]
   public class AVGGraphEditor : NodeGraphEditor {
-    private static HashSet<Type> UniqueTypes = new HashSet<Type> {
+    private static readonly HashSet<Type> UniqueTypes = new HashSet<Type> {
       typeof(Enter),
     };
 
@@ -16,9 +16,11 @@ namespace GameCore {
     /// In this example we are sorting out all node types that are not in the XNode.Examples namespace.
     /// </summary>
     public override string GetNodeMenuName(Type type) {
-      if (type.Namespace.StartsWith("GameCore.AVGFuncs")) {
+      if (type.Namespace != null && type.Namespace.StartsWith("GameCore.AVGFuncs")) {
         return base.GetNodeMenuName(type);
-      } else return null;
+      }
+
+      return null;
     }
 
     protected override bool CheckAddNode(Type type) {

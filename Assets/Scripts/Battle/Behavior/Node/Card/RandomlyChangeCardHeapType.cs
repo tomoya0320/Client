@@ -13,7 +13,7 @@ namespace GameCore.BehaviorFuncs {
     [LabelText("ÐÞ¸ÄÊýÁ¿")]
     public NodeIntParam CountKey;
 
-    public async override UniTask<NodeResult> Run(Behavior behavior, Context context) {
+    public override async UniTask<NodeResult> Run(Behavior behavior, Context context) {
       var targetUnit = behavior.GetUnit(TargetUnit);
       if (targetUnit == null) {
         return NodeResult.False;
