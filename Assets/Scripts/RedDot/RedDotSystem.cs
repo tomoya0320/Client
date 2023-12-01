@@ -111,8 +111,8 @@ public abstract class RedDotTree {
 }
 
 public interface IUIRedDot {
-  public string Name { get; protected set; } // 配合动态列表需要能够多次设置
-  public string Parent { get; protected set; } // 配合动态列表需要能够多次设置
+  public string Name { get; set; } // 配合动态列表需要能够多次设置
+  public string Parent { get; set; } // 配合动态列表需要能够多次设置
   public RedDotTreeType RedDotTreeType { get; }
 
   void OnRedDotChanged();

@@ -17,7 +17,7 @@ namespace GameCore.MagicFuncs {
 
     public override UniTask Run(Battle battle, Context context, MagicArgs args) {
       if (args.IsEnd) {
-        if (context is not BuffContext buffContext || buffContext.AttribValue == 0) return UniTask.CompletedTask;
+        if (!(context is BuffContext buffContext) || buffContext.AttribValue == 0) return UniTask.CompletedTask;
         args.Target.AddAttrib(Type, buffContext.AttribValue, AttribField);
         buffContext.AttribValue = 0;
       } else {

@@ -12,7 +12,7 @@ namespace GameCore.BehaviorFuncs {
     public NodeParamKey DamageValueKey;
 
     public override UniTask<NodeResult> Run(Behavior behavior, Context context) {
-      if (context is not DamageContext damageContext) return UniTask.FromResult(NodeResult.False);
+      if (!(context is DamageContext damageContext)) return UniTask.FromResult(NodeResult.False);
       behavior.SetInt(SourceKey, damageContext.Source.RuntimeId);
       behavior.SetInt(TargetKey, damageContext.Target.RuntimeId);
       behavior.SetInt(DamageValueKey, damageContext.DamageValue);

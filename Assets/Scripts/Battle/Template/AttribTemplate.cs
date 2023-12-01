@@ -22,7 +22,9 @@ namespace GameCore {
     public Attrib[] GetAttribs(int level, int maxLevel) {
       float p = Mathf.Clamp01((float)level / maxLevel);
       Attrib[] attribs = new Attrib[BattleConstant.ATTRIB_COUNT];
-      foreach (var (type, item) in Attribs) {
+      foreach (var kv in Attribs) {
+        var type = kv.Key;
+        var item = kv.Value;
         int value = (int)(item.Curve.Evaluate(p) * (item.MaxValue - item.MinValue) + item.MinValue);
         attribs[(int)type].Value = value;
         attribs[(int)type].MaxValue = value;

@@ -1,9 +1,39 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
 using UnityEngine;
 
 public static class Extension {
+  #region CSharp
+  public static bool TryPop<T>(this Stack<T> stack, out T item) {
+    if (stack.Count > 0) {
+      item = stack.Pop();
+      return true;
+    }
+    item = default;
+    return false;
+  }
+  
+  public static bool TryPeek<T>(this Stack<T> stack, out T item) {
+    if (stack.Count > 0) {
+      item = stack.Peek();
+      return true;
+    }
+    item = default;
+    return false;
+  }
+  
+  public static bool TryDequeue<T>(this Queue<T> queue, out T item) {
+    if (queue.Count > 0) {
+      item = queue.Dequeue();
+      return true;
+    }
+    item = default;
+    return false;
+  }
+  #endregion
+  
   #region Enum
   /// <summary>
   /// 获取当前枚举描述

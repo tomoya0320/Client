@@ -40,8 +40,8 @@ namespace GameCore {
 
     public string GetLeftTurnText() {
       int delayLeftTurn = Mathf.Max(BuffTemplate.Delay - Turn, 0);
-      int leftTurn = BuffTemplate.Duration < 0 ? -1 : (delayLeftTurn > 0 ? BuffTemplate.Duration : BuffTemplate.TotalDuration - Turn);
-      return $"{(leftTurn < 0 ? "¡Þ" : leftTurn)}{(delayLeftTurn > 0 ? $"({delayLeftTurn})" : string.Empty)}";
+      int leftTurn = BuffTemplate.Duration < 0 ? -1 : delayLeftTurn > 0 ? BuffTemplate.Duration : BuffTemplate.TotalDuration - Turn;
+      return $"{(leftTurn < 0 ? "¡Þ" : leftTurn.ToString())}{(delayLeftTurn > 0 ? $"({delayLeftTurn})" : string.Empty)}";
     }
 
     public void Release() {
